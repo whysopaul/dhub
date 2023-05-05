@@ -1,5 +1,5 @@
 const path = require('path');
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     entry: "./index.tsx",
     output: {
@@ -27,7 +27,7 @@ module.exports = {
                 use: 'url-loader?name=[name].[ext]',
             },
             {
-                test: /\.(png|jpe?g|gif)$/i,
+                test: /\.(png|webp|jpe?g|gif)$/i,
                 use: [
                     {
                         loader: 'file-loader',
@@ -40,9 +40,9 @@ module.exports = {
     resolve: {
         extensions: [".ts", ".tsx", ".js"]
     },
-    // plugins: [
-    //     new HtmlWebpackPlugin()
-    // ],
+    plugins: [
+        new HtmlWebpackPlugin({ template: "./index.html", })
+    ],
 
     devServer: {
         historyApiFallback: true,

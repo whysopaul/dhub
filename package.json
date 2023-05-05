@@ -5,13 +5,13 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
-    "dev": "webpack serve",
+    "dev": "webpack serve --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "whysopaul",
   "license": "ISC",
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.0",
+    "@fortawesome/fontawesome-free": "^5.15.4",
     "axios": "^1.4.0",
     "css-loader": "^6.7.3",
     "file-loader": "^6.2.0",
@@ -39,6 +39,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "@webpack-cli/serve": "^2.0.2",
+    "html-webpack-plugin": "^5.5.1",
     "redux-devtools-extension": "^2.13.9"
   }
 }
