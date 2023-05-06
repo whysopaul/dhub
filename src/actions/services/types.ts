@@ -1,3 +1,9 @@
+export const GET_SERVICES_DATA = 'GET_SERVICES_DATA'
+
+interface IGetServicesData {
+    type: typeof GET_SERVICES_DATA
+}
+
 export type TServicesData = {
     id: number,
     name: string,
@@ -19,3 +25,5 @@ export type TServicesData = {
     },
     isNew?: boolean
 }
+
+export type servicesDispatchTypes = IGetServicesData

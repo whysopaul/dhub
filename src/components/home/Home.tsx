@@ -1,25 +1,34 @@
 import * as React from 'react';
 import Logo from '../../static/images/logo.svg';
 import Welcome from '../../static/images/welcome.webp'
-import '../../static/css/home.css'
-import { TServicesData } from '../../actions/services/types';
-import ServicesHomeComponent from '../services/ServicesHomeComponent';
+import '../../static/css/home.css';
 import { Link } from 'react-router-dom';
+import CategoryTag from '../categories/CategoryTag';
+import HomeServicesComponent from './HomeServicesComponent';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStore } from '../../store';
+import { useEffect } from 'react';
+import { getServicesData } from '../../actions/services/services';
 
 interface IHomeProps {
 }
 
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
-    // const mockdata: TServicesData[] = new Array(6).fill('').map((e, i) => { return { id: i, name: 'Boost Like ' + i + 1, description: { text: 'hehe' } } })
+    const dispatch = useDispatch()
+    const serviceState = useSelector((state: RootStore) => state.services.services)
 
-    const mockdata: TServicesData[] = [
-        { id: 1, name: 'Boost Like', description: { text: 'hehe' } },
-        { id: 2, name: 'Boost Like 2', description: { text: 'hehehe' } },
-        { id: 3, name: 'Boost Like 3', description: { text: 'hehehehe' } },
-        { id: 4, name: 'Boost Like 4', description: { text: 'hehehehe hehe' } },
-        { id: 5, name: 'Boost Like 5', description: { text: 'hehehehe hehehe' } },
-        { id: 6, name: 'Boost Like 6', description: { text: 'hehehehe hehehehe' } },
+    useEffect(() => {
+        dispatch(getServicesData())
+    }, [])
+
+    const mockcatdata: { name: string, qty: number }[] = [
+        { name: 'CRM-СИСТЕМЫ', qty: 43 },
+        { name: 'ОНЛАЙН-ЗАПИСЬ', qty: 2 },
+        { name: 'ВИРТУАЛЬНАЯ АТС', qty: 13 },
+        { name: 'ТЕНДЕРЫ', qty: 30 },
+        { name: 'ИНТЕРНЕТ-ЭКВАЙРИНГ', qty: 30 },
+        { name: 'МОНИТОРИНГ ЦЕН', qty: 30 },
     ]
 
     return <>
@@ -35,7 +44,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             </div>
             <div className='home-welcome-container'>
                 <div className='home-welcome-left-block'>
-                    <h1>Агрегатор сервисов <br /> для вашей продуктивности</h1>
+                    <h1>Агрегатор сервисов <br /> для <span>вашей продуктивности</span></h1>
                     <p>Рейтинги, обзоры, отзывы, минусы и плюсы <br /> сервисов для бизнеса в одном месте. <br /> Сравнивайте и внедряйте. И конечно, <br /> используйте промокоды на скидку.</p>
                     <button>Подобрать сервис</button>
                     <button>Добавить сервис</button>
@@ -44,24 +53,24 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <img src={Welcome} alt='' />
                 </div>
             </div>
-            <div>
-                <div>
+            <div className='home-categories-container'>
+                <div className='home-categories-left-block'>
                     <p>Выберите категории:</p>
                     <ul>
-                        <li>CRM-СИСТЕМЫ</li>
-                        <li>ОНЛАЙН-ЗАПИСЬ</li>
-                        <li>ВИРТУАЛЬНАЯ АТС</li>
-                        <li>ТЕНДЕРЫ</li>
-                        <li>ИНТЕРНЕТ-ЭКВАЙРИНГ</li>
-                        <li>МОНИТОРИНГ ЦЕН</li>
+                        {mockcatdata.map(i => {
+                            return <CategoryTag name={i.name} qty={i.qty} />
+                        })}
                     </ul>
                 </div>
-                <div>
-                    <input type='text' placeholder='Поиск' />
+                <div className='home-categories-right-block'>
+                    <div className='home-categories-search-field'>
+                        <input type='text' placeholder='Поиск' />
+                        <i className='fas fa-search' />
+                    </div>
                 </div>
             </div>
 
-            <ServicesHomeComponent title='Новые сервисы' data={mockdata} />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={5} />
 
             <div>
                 <div>
@@ -76,7 +85,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <ServicesHomeComponent title='Бесплатные сервисы' data={mockdata} />
+            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState} qty={5} />
         </div>
     </>;
 };

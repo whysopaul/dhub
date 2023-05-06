@@ -23,8 +23,13 @@ module.exports = {
 
             // images and fonts
             {
-                test: /\.(gif|ttf|eot|svg|woff2?)$/,
+                test: /\.(gif|ttf|eot|svg?)$/,
                 use: 'url-loader?name=[name].[ext]',
+            },
+            {
+                test: /\.woff2?$/i,
+                type: 'asset/resource',
+                dependency: { not: ['url'] },
             },
             {
                 test: /\.(png|webp|jpe?g|gif)$/i,
