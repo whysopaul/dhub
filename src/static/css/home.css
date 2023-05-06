@@ -149,7 +149,7 @@ ul {
     color: #386BEE;
 }
 
-.home-services-container {
+.home-section-common-container {
     padding: 0 80px;
     overflow: hidden;
 }
@@ -192,4 +192,27 @@ ul {
     flex-wrap: nowrap;
     gap: 16px;
     /* -webkit-mask-image: linear-gradient(to right, black, transparent); */
+}
+
+.home-giftbox-container {
+    padding: 0 80px;
+    display: flex;
+}
+
+.home-giftbox-image>img {
+    width: 183px;
+    height: 211px;
+    filter: drop-shadow(8px 20px 32px rgba(61, 104, 184, 0.4));
+}
+
+.home-taskboard-image>img {
+    width: 301.01px;
+    height: 386.92px;
+    filter: drop-shadow(8px 20px 32px rgba(61, 104, 184, 0.4));
+    transform: rotate(4.84deg);
+}
+
+.home-feedback-header img {
+    width: 730px;
+    height: 344px;
 }

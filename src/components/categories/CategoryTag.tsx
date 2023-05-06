@@ -1,5 +1,6 @@
 import * as React from 'react';
-import '../../static/css/categories.css'
+// import '../../static/css/categories.css'
+import '../../static/css/categories.less'
 
 interface ICategoryTagProps {
     name: string,

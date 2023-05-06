@@ -14,7 +14,7 @@ export const config = {
 }
 
 const middleware = [thunk];
-const persisted = persistReducer(config, RootReducer)
+const persisted = persistReducer<RootStore>(config, RootReducer)
 export type RootStore = ReturnType<typeof RootReducer>
 
 const store = createStore(

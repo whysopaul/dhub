@@ -1,14 +1,19 @@
 import * as React from 'react';
-import Logo from '../../static/images/logo.svg';
-import Welcome from '../../static/images/welcome.webp'
-import '../../static/css/home.css';
 import { Link } from 'react-router-dom';
 import CategoryTag from '../categories/CategoryTag';
-import HomeServicesComponent from './HomeServicesComponent';
+import HomeSectionComponent from './HomeSectionComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useEffect } from 'react';
 import { getServicesData } from '../../actions/services/services';
+
+import Logo from '../../static/images/logo.svg';
+import Welcome from '../../static/images/welcome.webp';
+import Giftbox from '../../static/images/c0e0b231072cd62fc15e0b39bed8cdfa.webp';
+import Taskboard from '../../static/images/1e6dc89870c0d6dd10b08d4db931cb5c.webp';
+import Stars from '../../static/images/5afe3ba186f624a3212d20ed15861221.webp'
+import '../../static/css/home.css';
+import { mockartdata } from '../../actions/articles/articles';
 
 interface IHomeProps {
 }
@@ -70,22 +75,46 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={5} />
+            <HomeSectionComponent title='Новые сервисы' data={serviceState} qty={5} type='Services' />
 
-            <div>
-                <div>
+            <div className='home-giftbox-container'>
+                <div className='home-giftbox-text-block'>
                     <p>Получите чек-лист по правильному подбору сервисов для работы</p>
                     <button>Получить подарок</button>
                 </div>
-                <div>
-
+                <div className='home-giftbox-image'>
+                    <img src={Giftbox} alt="" />
                 </div>
-                <div>
+                <div className='home-taskboard-image'>
+                    <img src={Taskboard} alt="" />
+                </div>
+            </div>
+
+            <HomeSectionComponent title='Бесплатные сервисы' data={serviceState} qty={5} type='Services' />
+
+            <div className='home-feedback-container'>
+                <div className='home-feedback-header'>
+                    <div>
+                        <h2>Отзывы клиентов</h2>
+                        <Link to='/'>
+                            <span>Все отзывы</span>
+                            <i className='fas fa-long-arrow-alt-right' />
+                        </Link>
+                    </div>
+                    <div>
+                        <img src={Stars} alt="" />
+                    </div>
+                </div>
+                <div className='home-feedback-cards'>
 
                 </div>
             </div>
 
-            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState} qty={5} />
+            <HomeSectionComponent title='Топ-сервисов' data={serviceState} qty={5} type='Services' />
+
+            <hr />
+
+            <HomeSectionComponent title='Статьи и обзоры' data={mockartdata} qty={5} type='Articles' />
         </div>
     </>;
 };
