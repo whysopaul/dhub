@@ -1,19 +1,21 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import CategoryTag from '../categories/CategoryTag';
-import HomeSectionComponent from './HomeSectionComponent';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useEffect } from 'react';
 import { getServicesData } from '../../actions/services/services';
+import CategoryTag from '../categories/CategoryTag';
+import HomeServicesComponent from './HomeServicesComponent';
+import HomeArticlesComponent from './HomeArticlesComponent';
 
+import '../../static/css/home.css';
 import Logo from '../../static/images/logo.svg';
 import Welcome from '../../static/images/welcome.webp';
-import Giftbox from '../../static/images/c0e0b231072cd62fc15e0b39bed8cdfa.webp';
-import Taskboard from '../../static/images/1e6dc89870c0d6dd10b08d4db931cb5c.webp';
-import Stars from '../../static/images/5afe3ba186f624a3212d20ed15861221.webp'
-import '../../static/css/home.css';
+import Giftbox from '../../static/images/giftbox.webp';
+import Taskboard from '../../static/images/taskboard.webp';
+import Stars from '../../static/images/stars.webp'
 import { mockartdata } from '../../actions/articles/articles';
+import Footer from '../global/Footer';
 
 interface IHomeProps {
 }
@@ -51,8 +53,14 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-welcome-left-block'>
                     <h1>Агрегатор сервисов <br /> для <span>вашей продуктивности</span></h1>
                     <p>Рейтинги, обзоры, отзывы, минусы и плюсы <br /> сервисов для бизнеса в одном месте. <br /> Сравнивайте и внедряйте. И конечно, <br /> используйте промокоды на скидку.</p>
-                    <button>Подобрать сервис</button>
-                    <button>Добавить сервис</button>
+                    <button>
+                        <span>Подобрать сервис</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </button>
+                    <button>
+                        <i className='fas fa-plus' />
+                        <span>Добавить сервис</span>
+                    </button>
                 </div>
                 <div className='home-welcome-right-block'>
                     <img src={Welcome} alt='' />
@@ -75,7 +83,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeSectionComponent title='Новые сервисы' data={serviceState} qty={5} type='Services' />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={5} />
 
             <div className='home-giftbox-container'>
                 <div className='home-giftbox-text-block'>
@@ -90,7 +98,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeSectionComponent title='Бесплатные сервисы' data={serviceState} qty={5} type='Services' />
+            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState} qty={5} />
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
@@ -110,11 +118,29 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeSectionComponent title='Топ-сервисов' data={serviceState} qty={5} type='Services' />
+            <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={5} />
 
             <hr />
 
-            <HomeSectionComponent title='Статьи и обзоры' data={mockartdata} qty={5} type='Articles' />
+            <HomeArticlesComponent data={mockartdata} />
+
+            <hr />
+
+            <HomeServicesComponent title='Все сервисы' data={serviceState} qty={8} extended />
+
+            <div>
+                <div>
+                    <h2>Только полезная информация и не чаще чем раз в неделю</h2>
+                    <p>Подписывайтесь на нашу рассылку</p>
+                    <button><i className='fab fa-vk' /><span>Вконтакте</span></button>
+                    <button><i className='fas fa-envelope' /><span>Email</span></button>
+                </div>
+                <div>
+
+                </div>
+            </div>
+
+            <Footer />
         </div>
     </>;
 };

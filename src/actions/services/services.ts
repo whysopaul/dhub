@@ -16,4 +16,6 @@ export const mockdata: TServicesData[] = [
     { id: 4, name: 'Boost Like 4', description: { text: 'hehehehe hehe' } },
     { id: 5, name: 'Boost Like 5', description: { text: 'hehehehe hehehe' } },
     { id: 6, name: 'Boost Like 6', description: { text: 'hehehehe hehehehe' } },
+    { id: 7, name: 'Boost Like 7', description: { text: 'hehehehe hehehehe hehe' } },
+    { id: 8, name: 'Boost Like 8', description: { text: 'hehehehe hehehehe hehehe' } },
 ]
