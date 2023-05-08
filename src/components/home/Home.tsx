@@ -16,6 +16,8 @@ import Taskboard from '../../static/images/taskboard.webp';
 import Stars from '../../static/images/stars.webp'
 import { mockartdata } from '../../actions/articles/articles';
 import Footer from '../global/Footer';
+import { mockFeedbackData } from '../../actions/feedback/feedback';
+import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 
 interface IHomeProps {
 }
@@ -114,7 +116,9 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     </div>
                 </div>
                 <div className='home-feedback-cards'>
-
+                    {mockFeedbackData.map(i => {
+                        return <FeedbackCardComponent comment={i} />
+                    })}
                 </div>
             </div>
 

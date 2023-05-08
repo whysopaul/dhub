@@ -10,7 +10,7 @@ const ArticleCardComponent: React.FunctionComponent<IArticleCardComponentProps> 
     return <>
         <div>
             <div>
-                <img src={props.article.image} alt="" width='402px' height='250px' />
+                <img src={props.article.previewImage} alt="" width='402px' height='250px' />
                 <span>{props.article.category}</span>
             </div>
             <h3>{props.article.title}</h3>

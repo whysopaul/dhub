@@ -2,15 +2,19 @@ type TFeedbackPoints = 1 | 2 | 3 | 4 | 5
 
 export type TFeedbackComment = {
     id: number,
-    author: string,
-    authorsId: number,
-    serviceId: number,
+    author: {
+        id?: number,
+        firstName: string,
+        lastName: string,
+        profilePhoto?: string
+    },
+    serviceId?: number,
     text: string,
     points: {
         functionality: TFeedbackPoints,
         usability: TFeedbackPoints,
         customerService: TFeedbackPoints
     },
-    totalRating: number,
+    totalRating?: number,
     likes: number
 }

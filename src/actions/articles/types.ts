@@ -3,5 +3,5 @@ export type TArticlesData = {
     title: string,
     category: string,
     description: string,
-    image?: string
+    previewImage?: string
 }
