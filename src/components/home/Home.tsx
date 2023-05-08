@@ -7,6 +7,8 @@ import { getServicesData } from '../../actions/services/services';
 import CategoryTag from '../categories/CategoryTag';
 import HomeServicesComponent from './HomeServicesComponent';
 import HomeArticlesComponent from './HomeArticlesComponent';
+import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
+import Footer from '../global/Footer';
 
 import '../../static/css/home.css';
 import Logo from '../../static/images/logo.svg';
@@ -15,9 +17,9 @@ import Giftbox from '../../static/images/giftbox.webp';
 import Taskboard from '../../static/images/taskboard.webp';
 import Stars from '../../static/images/stars.webp'
 import { mockartdata } from '../../actions/articles/articles';
-import Footer from '../global/Footer';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
-import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
+import { mockCatData } from '../../actions/categories/categories';
+import Navigation from '../global/Navigation';
 
 interface IHomeProps {
 }
@@ -31,23 +33,12 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         dispatch(getServicesData())
     }, [])
 
-    const mockcatdata: { name: string, qty: number }[] = [
-        { name: 'CRM-СИСТЕМЫ', qty: 43 },
-        { name: 'ОНЛАЙН-ЗАПИСЬ', qty: 2 },
-        { name: 'ВИРТУАЛЬНАЯ АТС', qty: 13 },
-        { name: 'ТЕНДЕРЫ', qty: 30 },
-        { name: 'ИНТЕРНЕТ-ЭКВАЙРИНГ', qty: 30 },
-        { name: 'МОНИТОРИНГ ЦЕН', qty: 30 },
-    ]
-
     return <>
         <div className='home-main-container'>
             <div className='home-header'>
                 <img src={Logo} alt='digital.hub' />
                 <div className='home-header-navigation'>
-                    <Link to='/'>Сервисы</Link>
-                    <Link to='/'>Отзывы</Link>
-                    <Link to='/'>Статьи и обзоры</Link>
+                    <Navigation />
                 </div>
                 <button>Войти в аккаунт</button>
             </div>
@@ -72,7 +63,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-categories-left-block'>
                     <p>Выберите категории:</p>
                     <ul>
-                        {mockcatdata.map(i => {
+                        {mockCatData.map(i => {
                             return <CategoryTag name={i.name} qty={i.qty} />
                         })}
                     </ul>

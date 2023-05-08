@@ -1,0 +1,83 @@
+footer {
+    padding: 40px 80px 64px 80px;
+    background-color: #0D253C;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.footerTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.navigation {
+    margin-left: calc(137px - 24px);
+    margin-right: auto;
+    display: flex;
+    gap: 80px;
+}
+
+.navigation>a {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration: none;
+    color: #636E8D;
+}
+
+.navigation>a:hover {
+    text-decoration-line: underline;
+    color: #386BEE;
+}
+
+.footerTop>button {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    color: #0D253C;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
+footer p {
+    color: rgba(244, 247, 255, 0.5);
+}
+
+footer h3 {
+    font-weight: 700;
+    font-size: 22px;
+    line-height: 22px;
+    color: #FFFFFF;
+    margin-top: 16px;
+}
+
+.footerTop+div {
+    margin: 48px 0;
+}
+
+.footerBottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.footerBottom a {
+    text-decoration-line: underline;
+    color: #386BEE;
+}
+
+.docs {
+    display: flex;
+    gap: 40px;
+}
