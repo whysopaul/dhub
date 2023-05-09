@@ -116,9 +116,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                             <i className='fas fa-long-arrow-alt-right' />
                         </Link>
                     </div>
-                    <div>
-                        <img src={Stars} alt="" />
-                    </div>
+                    <img src={Stars} alt="" />
                 </div>
                 <div className='home-feedback-cards'>
                     {mockFeedbackData.map(i => {

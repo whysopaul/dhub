@@ -35,9 +35,9 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                     <span>{starCount(comment.points.customerService)}</span>
                 </div>
             </div>
-            <div>
-                <p>{comment.text}</p>
-            </div>
+            <hr />
+            <p>{comment.text}</p>
+            <hr />
             <div>
                 <div>
                     <i className='fas fa-icons' />

@@ -2,7 +2,6 @@ import * as React from 'react';
 import { TServicesData } from '../../actions/services/types';
 import ServiceCardComponent from '../services/ServiceCardComponent';
 import { Link } from 'react-router-dom';
-import '../../static/css/home.css';
 
 interface IHomeServicesComponentProps {
     title: string,
@@ -13,7 +12,7 @@ interface IHomeServicesComponentProps {
 
 const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps> = (props) => {
     return <>
-        <div className={props.extended ? 'home-section-common-container extended' : 'home-section-common-container'}>
+        <div className='home-section-common-container'>
             <div className='home-section-header'>
                 <h2>{props.title}</h2>
                 <Link to='/'>

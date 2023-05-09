@@ -177,12 +177,17 @@
 }
 
 .home-section-common-container {
+    margin: 64px 0;
     padding: 0 80px;
     overflow: hidden;
 }
 
-.home-section-common-container.extended {
+/* .home-section-common-container.extended {
     overflow: visible;
+} */
+
+.home-articles-section {
+    padding: 48px 0;
 }
 
 .home-section-header {
@@ -275,11 +280,23 @@
     background: linear-gradient(99.72deg, #6AB8FF 17.77%, #4586F5 79.02%);
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
+    padding: 40px 80px;
+    position: relative;
 }
 
 .home-feedback-header img {
-    width: 730px;
-    height: 344px;
+    width: 627px;
+    height: 298px;
+    position: absolute;
+    top: -50px;
+    right: 30px;
+}
+
+.home-feedback-cards {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 16px;
+    position: relative;
 }
 
 .filled-blue-bg {
