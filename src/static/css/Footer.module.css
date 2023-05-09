@@ -1,5 +1,4 @@
 footer {
-    padding: 40px 80px 64px 80px;
     background-color: #0D253C;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
@@ -8,6 +7,14 @@ footer {
     font-weight: 400;
     font-size: 18px;
     line-height: 18px;
+    min-width: 1440px;
+}
+
+footer>div {
+    padding: 40px 80px 64px 80px;
+    margin: 0 auto;
+    width: 1440px;
+    box-sizing: border-box;
 }
 
 .footerTop {

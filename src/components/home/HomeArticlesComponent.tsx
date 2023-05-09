@@ -9,6 +9,7 @@ interface IHomeArticlesComponentProps {
 const HomeArticlesComponent: React.FunctionComponent<IHomeArticlesComponentProps> = (props) => {
     return <>
         <div className='home-section-common-container'>
+            <hr />
             <div className='home-section-header'>
                 <h2>Статьи и обзоры</h2>
                 <div>
@@ -21,6 +22,7 @@ const HomeArticlesComponent: React.FunctionComponent<IHomeArticlesComponentProps
                     return <ArticleCardComponent article={i} />
                 })}
             </div>
+            <hr />
         </div>
     </>;
 };

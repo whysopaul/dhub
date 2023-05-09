@@ -9,6 +9,7 @@ import HomeServicesComponent from './HomeServicesComponent';
 import HomeArticlesComponent from './HomeArticlesComponent';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import Footer from '../global/Footer';
+import Navigation from '../global/Navigation';
 
 import '../../static/css/home.css';
 import Logo from '../../static/images/logo.svg';
@@ -19,7 +20,6 @@ import Stars from '../../static/images/stars.webp'
 import { mockartdata } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { mockCatData } from '../../actions/categories/categories';
-import Navigation from '../global/Navigation';
 
 interface IHomeProps {
 }
@@ -40,25 +40,34 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-header-navigation'>
                     <Navigation />
                 </div>
-                <button>Войти в аккаунт</button>
+                <button>
+                    <i className='fas fa-user' />
+                    <span>Войти в аккаунт</span>
+                </button>
             </div>
+
             <div className='home-welcome-container'>
                 <div className='home-welcome-left-block'>
                     <h1>Агрегатор сервисов <br /> для <span>вашей продуктивности</span></h1>
-                    <p>Рейтинги, обзоры, отзывы, минусы и плюсы <br /> сервисов для бизнеса в одном месте. <br /> Сравнивайте и внедряйте. И конечно, <br /> используйте промокоды на скидку.</p>
-                    <button>
-                        <span>Подобрать сервис</span>
-                        <i className='fas fa-long-arrow-alt-right' />
-                    </button>
-                    <button>
-                        <i className='fas fa-plus' />
-                        <span>Добавить сервис</span>
-                    </button>
+                    <p>Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.</p>
+                    <div>
+                        <button className='filled-blue-bg'>
+                            <span>Подобрать сервис</span>
+                            <i className='fas fa-long-arrow-alt-right' />
+                        </button>
+                        <button className='transparent-bg'>
+                            <div className='plus-button'>
+                                <i className='fas fa-plus' />
+                            </div>
+                            <span>Добавить сервис</span>
+                        </button>
+                    </div>
                 </div>
                 <div className='home-welcome-right-block'>
                     <img src={Welcome} alt='' />
                 </div>
             </div>
+
             <div className='home-categories-container'>
                 <div className='home-categories-left-block'>
                     <p>Выберите категории:</p>
@@ -80,8 +89,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
             <div className='home-giftbox-container'>
                 <div className='home-giftbox-text-block'>
-                    <p>Получите чек-лист по правильному подбору сервисов для работы</p>
-                    <button>Получить подарок</button>
+                    <p>Получите чек-лист <br /> по правильному подбору <br /> сервисов для работы</p>
+                    <button className='filled-blue-bg'>
+                        <span>Получить подарок</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </button>
                 </div>
                 <div className='home-giftbox-image'>
                     <img src={Giftbox} alt="" />
@@ -115,11 +127,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
             <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={5} />
 
-            <hr />
-
             <HomeArticlesComponent data={mockartdata} />
-
-            <hr />
 
             <HomeServicesComponent title='Все сервисы' data={serviceState} qty={8} extended />
 
@@ -134,9 +142,9 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
                 </div>
             </div>
-
-            <Footer />
         </div>
+
+        <Footer />
     </>;
 };
 
