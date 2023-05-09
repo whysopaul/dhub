@@ -20,6 +20,7 @@ import Stars from '../../static/images/stars.webp'
 import { mockartdata } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { mockCatData } from '../../actions/categories/categories';
+import Login from '../global/Login';
 
 interface IHomeProps {
 }
@@ -40,10 +41,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-header-navigation'>
                     <Navigation />
                 </div>
-                <button>
-                    <i className='fas fa-user' />
-                    <span>Войти в аккаунт</span>
-                </button>
+                <Login />
             </div>
 
             <div className='home-welcome-container'>
@@ -69,18 +67,22 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             </div>
 
             <div className='home-categories-container'>
-                <div className='home-categories-left-block'>
-                    <p>Выберите категории:</p>
-                    <ul>
-                        {mockCatData.map(i => {
-                            return <CategoryTag name={i.name} qty={i.qty} />
-                        })}
-                    </ul>
-                </div>
-                <div className='home-categories-right-block'>
-                    <div className='home-categories-search-field'>
-                        <input type='text' placeholder='Поиск' />
-                        <i className='fas fa-search' />
+                <p>Выберите категории:</p>
+                <div>
+                    <div className='home-categories-left-block'>
+                        <ul>
+                            {mockCatData.map(i => {
+                                return <CategoryTag name={i.name} qty={i.qty} />
+                            })}
+                        </ul>
+                    </div>
+                    <div className='home-categories-right-block'>
+                        <form>
+                            <div className='home-categories-search-field'>
+                                <input type='text' placeholder='Поиск' />
+                                <i className='fas fa-search' />
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
