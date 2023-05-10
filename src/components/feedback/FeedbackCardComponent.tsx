@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { TFeedbackComment } from '../../actions/feedback/types';
+import '../../static/css/feedback.css';
 
 interface IFeedbackCardComponentProps {
     comment: TFeedbackComment
@@ -17,39 +18,39 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
     }
 
     return <>
-        <div>
-            <div>
-                <div>
-                    <img src={comment.author.profilePhoto} alt="" width='76' height='76' />
-                </div>
-                <div>
+        <div className='feedback-card-container'>
+            <div className='feedback-card-header'>
+                <img src={comment.author.profilePhoto} alt="" />
+                <div className='feedback-card-username'>
                     <p>{comment.author.firstName}</p>
                     <p>{comment.author.lastName}</p>
                 </div>
-                <div>
+                <div className='feedback-card-rating'>
                     <span>Функциональность</span>
-                    <span>{starCount(comment.points.functionality)}</span>
+                    <div>{starCount(comment.points.functionality)}</div>
                     <span>Простота использования</span>
-                    <span>{starCount(comment.points.usability)}</span>
+                    <div>{starCount(comment.points.usability)}</div>
                     <span>Служба поддержки</span>
-                    <span>{starCount(comment.points.customerService)}</span>
+                    <div>{starCount(comment.points.customerService)}</div>
                 </div>
             </div>
             <hr />
             <p>{comment.text}</p>
             <hr />
-            <div>
-                <div>
+            <div className='feedback-card-footer'>
+                <div className='feedback-service-logo'>
                     <i className='fas fa-icons' />
                 </div>
-                <div>
-                    <span>BoostLike</span>
+                <div className='feedback-service-name'>
+                    <p>BoostLike</p>
                     <span>Накрутка в социальных сетях</span>
                 </div>
-                <div>
+                <button className='feedback-service-likes'>
                     <i className='fas fa-thumbs-up' />
-                    <span>{comment.likes}</span>
-                </div>
+                    <div>
+                        <span>{comment.likes}</span>
+                    </div>
+                </button>
             </div>
         </div>
     </>;

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { TServicesData } from '../../actions/services/types';
-import '../../static/css/services.css'
+import '../../static/css/services.css';
+import ServiceRatingTag from './ServiceRatingTag';
 
 interface IServiceCardComponentProps {
     service: TServicesData
@@ -13,10 +14,7 @@ const ServiceCardComponent: React.FunctionComponent<IServiceCardComponentProps> 
                 <div className='service-card-logo'>
                     <i className='fas fa-icons' />
                 </div>
-                <div>
-                    <i className='fas fa-star' />
-                    <span>75</span>
-                </div>
+                <ServiceRatingTag />
             </div>
             <p className='service-card-name'>{props.service.name}</p>
             <span>Накрутка в социальных сетях</span>

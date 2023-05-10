@@ -16,11 +16,13 @@ import Logo from '../../static/images/logo.svg';
 import Welcome from '../../static/images/welcome.webp';
 import Giftbox from '../../static/images/giftbox.webp';
 import Taskboard from '../../static/images/taskboard.webp';
-import Stars from '../../static/images/stars.webp'
+import Stars from '../../static/images/stars.webp';
+import Subscribe from '../../static/images/subscribe.webp'
 import { mockartdata } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { mockCatData } from '../../actions/categories/categories';
 import Login from '../global/Login';
+import AddServicePopup from './AddServicePopup';
 
 interface IHomeProps {
 }
@@ -53,12 +55,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                             <span>Подобрать сервис</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
-                        <button className='transparent-bg'>
-                            <div className='plus-button'>
-                                <i className='fas fa-plus' />
-                            </div>
-                            <span>Добавить сервис</span>
-                        </button>
+                        <AddServicePopup />
                     </div>
                 </div>
                 <div className='home-welcome-right-block'>
@@ -87,7 +84,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={5} />
+            <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={8} />
 
             <div className='home-giftbox-container'>
                 <div className='home-giftbox-text-block'>
@@ -105,14 +102,14 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState} qty={5} />
+            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState} qty={8} />
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
                     <div>
                         <h2>Отзывы клиентов</h2>
                         <Link to='/'>
-                            <span>Все отзывы</span>
+                            <span>Смотреть все</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </Link>
                     </div>
@@ -125,21 +122,25 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={5} />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={8} />
 
-            <HomeArticlesComponent data={mockartdata} />
+            {/* <HomeArticlesComponent data={mockartdata} /> */}
 
             <HomeServicesComponent title='Все сервисы' data={serviceState} qty={8} extended />
 
-            <div>
-                <div>
-                    <h2>Только полезная информация и не чаще чем раз в неделю</h2>
-                    <p>Подписывайтесь на нашу рассылку</p>
-                    <button><i className='fab fa-vk' /><span>Вконтакте</span></button>
-                    <button><i className='fas fa-envelope' /><span>Email</span></button>
-                </div>
-                <div>
-
+            <div className='home-subscription-wrapper'>
+                <div className='home-subscription-container'>
+                    <div>
+                        <h2>Только полезная информация и не чаще чем раз в неделю</h2>
+                        <p>Подписывайтесь на нашу рассылку</p>
+                        <div className='home-subscription-buttons'>
+                            <button id='vk'><i className='fab fa-vk' /><span>Вконтакте</span></button>
+                            <button id='email'><i className='fas fa-envelope' /><span>Email</span></button>
+                        </div>
+                    </div>
+                    <div>
+                        <img src={Subscribe} alt="" />
+                    </div>
                 </div>
             </div>
         </div>

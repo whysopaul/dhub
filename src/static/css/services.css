@@ -3,14 +3,16 @@
     height: 350px;
     background-color: rgba(244, 247, 255, 0.5);
     border-radius: 20px;
-    padding: 20px 20px 32px 20px;
+    padding: 20px 20px 32px;
     box-sizing: border-box;
+    flex-shrink: 0;
 }
 
 .service-card-header {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    margin-bottom: 16px;
 }
 
 .service-card-logo {
@@ -32,6 +34,7 @@
     font-size: 24px;
     line-height: 30px;
     color: #16181B;
+    margin-bottom: 4px;
 }
 
 .service-card-name+span {
@@ -50,4 +53,31 @@
     font-size: 16px;
     line-height: 24px;
     color: #2D4379;
+    margin-top: 16px;
+}
+
+/* RATING TAG */
+
+.service-rating-tag {
+    padding: 6px 14px;
+    background-color: #386BEE;
+    border-radius: 18px;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.service-rating-tag>i {
+    font-size: 14px;
+}
+
+.service-rating-tag>span {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 12px;
+    text-align: center;
+    text-transform: uppercase;
 }

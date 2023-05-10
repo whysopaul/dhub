@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Logo from '../../static/images/logo.svg'
+import Logo from '../../static/images/logo_footer.svg';
 import { Link } from 'react-router-dom';
 import styles from '../../static/css/Footer.module.css'
 import Navigation from './Navigation';
