@@ -10,8 +10,8 @@ footer {
     min-width: 1440px;
 }
 
-footer>div {
-    padding: 40px 80px 64px 80px;
+.wrapper {
+    padding: 40px 80px 64px;
     margin: 0 auto;
     width: 1440px;
     box-sizing: border-box;

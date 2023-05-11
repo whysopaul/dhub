@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Logo from '../../static/images/logo_footer.svg';
+import Logo from '../../static/images/logo_transparent.svg';
 import { Link } from 'react-router-dom';
 import styles from '../../static/css/Footer.module.css'
 import Navigation from './Navigation';
@@ -9,8 +9,8 @@ interface IFooterProps {
 
 const Footer: React.FunctionComponent<IFooterProps> = (props) => {
     return <>
-        <footer style={styles.footer}>
-            <div>
+        <footer style={styles}>
+            <div className={styles.wrapper}>
                 <div className={styles.footerTop}>
                     <img src={Logo} alt='digital.hub' />
                     <div className={styles.navigation}>

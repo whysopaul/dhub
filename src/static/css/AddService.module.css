@@ -35,13 +35,34 @@
     font-size: 16px;
     line-height: 24px;
     color: #2D4379;
+    margin-bottom: 40px;
 }
 
 .popup>form {
     display: grid;
 }
 
+.popup>form>input,
 .popup>form>textarea {
+    border: 1px solid rgba(45, 67, 121, calc(0.6 * 0.4));
+    border-radius: 32px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: rgba(45, 67, 121, 0.6);
+    padding: 19px 32px;
+    box-sizing: border-box;
+}
+
+.popup>form>input {
+    height: 54px;
+    margin-bottom: 16px;
+}
+
+.popup>form>textarea {
+    height: 86px;
     resize: none;
 }
 
