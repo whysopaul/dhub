@@ -17,10 +17,11 @@ import Welcome from '../../static/images/welcome.webp';
 import Giftbox from '../../static/images/giftbox.webp';
 import Taskboard from '../../static/images/taskboard.webp';
 import Stars from '../../static/images/stars.webp';
-import Subscribe from '../../static/images/subscribe.webp'
+import Subscribe from '../../static/images/subscribe.webp';
+import Wave from '../../static/images/wave.svg';
 import { mockartdata } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
-import { mockCatData } from '../../actions/categories/categories';
+import { getAllCategories, mockCatData } from '../../actions/categories/categories';
 import Login from '../global/Login';
 import AddServicePopup from './AddServicePopup';
 
@@ -34,10 +35,14 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     useEffect(() => {
         dispatch(getServicesData())
+        dispatch(getAllCategories())
     }, [])
 
     return <>
         <div className='home-main-container'>
+            <div className='home-wave-backdrop'>
+                <img src={Wave} alt="" />
+            </div>
             <div className='home-header'>
                 <img src={Logo} alt='digital.hub' />
                 <div className='home-header-navigation'>
@@ -86,19 +91,33 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
             <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={8} />
 
-            <div className='home-giftbox-container'>
-                <div className='home-giftbox-text-block'>
-                    <p>Получите чек-лист <br /> по правильному подбору <br /> сервисов для работы</p>
-                    <button className='filled-blue-bg'>
-                        <span>Получить подарок</span>
-                        <i className='fas fa-long-arrow-alt-right' />
-                    </button>
+            <div className='home-banners-wrapper'>
+                <div className='home-giftbox-container'>
+                    <div className='home-giftbox-text-block'>
+                        <p>Получите чек-лист <br /> по правильному подбору <br /> сервисов для работы</p>
+                        <button>
+                            <span>Получить подарок</span>
+                            <i className='fas fa-long-arrow-alt-right' />
+                        </button>
+                    </div>
+                    <div className='home-giftbox-image'>
+                        <img src={Giftbox} alt="" />
+                    </div>
+                    <div className='home-taskboard-image'>
+                        <img src={Taskboard} alt="" />
+                    </div>
                 </div>
-                <div className='home-giftbox-image'>
-                    <img src={Giftbox} alt="" />
-                </div>
-                <div className='home-taskboard-image'>
-                    <img src={Taskboard} alt="" />
+                <div>
+                    <div>
+                        <p>Специалист в каком-либо сервисе?</p>
+                        <button>
+                            <span>Регистрируйся</span>
+                            <i className='fas fa-long-arrow-alt-right' />
+                        </button>
+                    </div>
+                    <div>
+
+                    </div>
                 </div>
             </div>
 
@@ -126,7 +145,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
             {/* <HomeArticlesComponent data={mockartdata} /> */}
 
-            <HomeServicesComponent title='Все сервисы' data={serviceState} qty={8} extended />
+            <HomeServicesComponent title='Все сервисы' data={serviceState} qty={10} extended />
 
             <div className='home-subscription-wrapper'>
                 <div className='home-subscription-container'>

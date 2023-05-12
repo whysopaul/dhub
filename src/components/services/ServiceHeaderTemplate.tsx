@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import styles from '../../static/css/Header.module.css';
 
 interface IServiceHeaderTemplateProps {
     name: string
@@ -23,7 +24,7 @@ const ServiceHeaderTemplate: React.FunctionComponent<IServiceHeaderTemplateProps
     }
 
     return <>
-        <div>
+        <div className={styles.name}>
             <h1>{props.name}</h1>
             <Link to='/'>
                 <span>Перейти в сервис</span>

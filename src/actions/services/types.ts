@@ -1,8 +1,6 @@
 export const GET_SERVICES_DATA = 'GET_SERVICES_DATA'
 
-interface IGetServicesData {
-    type: typeof GET_SERVICES_DATA
-}
+
 
 export type TServicesData = {
     id: number,
@@ -12,18 +10,37 @@ export type TServicesData = {
         isFree?: boolean,
         hasTrial?: boolean,
         paymentMethod?: string,
-        minPrice?: number,
-        location?: string,
-        platforms?: string[],
+        price?: string,
+        locations?: {
+            id: number,
+            name: string
+        }[],
+        platforms?: {
+            id: number,
+            name: string
+        }[],
         hasPartnership?: boolean
     },
-    rating?: number,
-    categories?: string[],
-    images?: {
+    rating: number,
+    categories: {
+        id: number,
+        name: string
+    }[],
+    images: {
         logo?: string,
-        screenshots?: string[]
+        screenshots?: {
+            id: number,
+            name?: string,
+            service: number,
+            source: string
+        }[]
     },
     isNew?: boolean
+}
+
+interface IGetServicesData {
+    type: typeof GET_SERVICES_DATA,
+    payload: TServicesData[]
 }
 
 export type servicesDispatchTypes = IGetServicesData

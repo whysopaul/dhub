@@ -3,19 +3,25 @@
     width: 1440px;
     box-sizing: border-box;
     margin: 0 auto;
-    padding-top: 32px;
+}
+
+.home-wave-backdrop {
+    position: absolute;
 }
 
 .home-header {
     margin: 0 80px;
+    padding-top: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    position: relative;
 }
 
 .home-header-navigation {
-    margin-left: 137px;
-    margin-right: auto;
+    /* margin-left: 137px; */
+    /* margin-right: auto; */
+    margin: 0 auto;
     display: flex;
     gap: 80px;
 }
@@ -24,8 +30,8 @@
     font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 14px;
     text-decoration: none;
     color: #636E8D;
 }
@@ -36,10 +42,11 @@
 }
 
 .home-header>button {
-    padding: 0 24px;
-    height: 48px;
-    border: 1px solid #386BEE;
-    border-radius: 55px;
+    /* padding: 0 24px; */
+    /* height: 48px; */
+    /* border: 1px solid #386BEE; */
+    /* border-radius: 55px; */
+    border: none;
     background: none;
     font-family: 'Noto Sans';
     font-style: normal;
@@ -59,15 +66,15 @@
 }
 
 .home-header>button:hover {
-    background-color: #386BEE;
-    color: #FFFFFF;
+    /* background-color: #386BEE; */
+    /* color: #FFFFFF; */
+    text-decoration-line: underline;
 }
 
 .home-welcome-container {
-    margin: 110px 80px 16px;
+    margin: 117px 80px 87px;
     display: grid;
     grid-template-columns: repeat(2, 50%);
-    height: 406px;
     position: relative;
 }
 
@@ -82,7 +89,7 @@
     font-size: 40px;
     line-height: 48px;
     color: #000000;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .home-welcome-left-block>h1>span {
@@ -97,7 +104,7 @@
     font-size: 18px;
     line-height: 24px;
     color: #2D4379;
-    margin-bottom: 52px;
+    margin-bottom: 80px;
     max-width: 500px;
 }
 
@@ -109,30 +116,29 @@
 
 .home-welcome-right-block>img {
     position: absolute;
-    width: 723px;
-    height: 406px;
-    top: -40px;
-    right: -27px;
+    width: 678px;
+    height: 381px;
+    top: -39px;
+    right: 0;
 }
 
 .home-categories-container {
-    margin: 0 80px;
+    margin: 0 80px 77px;
 }
 
 .home-categories-container>p {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 14px;
     color: #2D4379;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
 }
 
 .home-categories-container>div {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 64px;
 }
 
 .home-categories-left-block {
@@ -177,7 +183,7 @@
 }
 
 .home-section-common-container {
-    margin: 64px 0;
+    margin: 48px 0;
     padding: 0 80px;
     overflow: visible;
     display: block;
@@ -201,9 +207,9 @@
 .home-section-header>h2 {
     font-family: 'Noto Sans';
     font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 36px;
+    font-weight: 500;
+    font-size: 32px;
+    line-height: 32px;
     color: #16181B;
 }
 
@@ -211,8 +217,8 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 16px;
+    line-height: 16px;
     color: #386BEE;
     text-decoration: none;
 }
@@ -225,10 +231,16 @@
     margin-right: 12px;
 }
 
+/* .home-section-header i {
+    font-size: 18px;
+} */
+
 .home-services-cards {
     display: flex;
     flex-wrap: nowrap;
-    gap: 16px;
+    column-gap: 13.7px;
+    /* ??? */
+    row-gap: 16px;
     /* -webkit-mask-image: linear-gradient(to right, black, transparent); */
     overflow-x: auto;
 }
@@ -238,8 +250,14 @@
     flex-wrap: wrap;
 }
 
+.home-banners-wrapper {
+    margin: 48px 80px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+}
+
 .home-giftbox-container {
-    margin: 83px 80px 64px;
     display: flex;
     background: linear-gradient(99.72deg, #6AB8FF 17.77%, #4586F5 79.02%);
     border-radius: 35px;
@@ -362,7 +380,8 @@
 
 .transparent-bg {
     height: 48px;
-    background-color: rgba(56, 107, 238, 0.05);
+    /* background-color: rgba(56, 107, 238, 0.05); */
+    background-color: #eff3ff;
     border: none;
     border-radius: 75px;
     position: relative;

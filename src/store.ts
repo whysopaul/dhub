@@ -14,6 +14,7 @@ export const config = {
 }
 
 const middleware = [thunk];
+// @ts-expect-error
 const persisted = persistReducer<RootStore>(config, RootReducer)
 export type RootStore = ReturnType<typeof RootReducer>
 

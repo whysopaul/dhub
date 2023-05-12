@@ -1,13 +1,22 @@
 import { Dispatch } from "react";
 import { GET_SERVICES_DATA, TServicesData, servicesDispatchTypes } from "./types";
+import axios from "axios";
+import { SERVER_URL } from "../../components/utils";
 
 export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
-    dispatch({
-        type: GET_SERVICES_DATA
+
+    axios.get(SERVER_URL + '/getServices').then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_SERVICES_DATA,
+            payload: res.data
+        })
     })
+
 }
 
-export const mockdata: TServicesData[] = new Array(8).fill('').map((e, i) => { return { id: i + 1, name: 'Boost Like ' + (i + 1), description: { text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis diam nisi, vel mattis mi rhoncus sed.' } } })
+// export const mockdata: TServicesData[] = new Array(10).fill('').map((e, i) => { return { id: i + 1, name: 'Boost Like ' + (i + 1), description: { text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis diam nisi, vel mattis mi rhoncus sed.' } } })
 
 // export const mockdata: TServicesData[] = [
 //     { id: 1, name: 'Boost Like', description: { text: 'hehe' } },

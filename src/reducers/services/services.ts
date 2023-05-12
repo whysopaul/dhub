@@ -1,4 +1,4 @@
-import { mockdata } from "../../actions/services/services"
+// import { mockdata } from "../../actions/services/services"
 import { GET_SERVICES_DATA, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
@@ -14,7 +14,7 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
         case GET_SERVICES_DATA:
             return {
                 ...state,
-                services: mockdata
+                services: action.payload
             }
         default:
             return state

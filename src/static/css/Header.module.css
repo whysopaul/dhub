@@ -27,8 +27,6 @@ header {
 }
 
 .navigation a {
-    font-family: 'Noto Sans', sans-serif;
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 18px;
@@ -48,7 +46,7 @@ header {
     border: 1px solid #FFFFFF;
     border-radius: 55px;
     background: none;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
@@ -70,4 +68,53 @@ header {
     /* background-color: #FFFFFFE5; */
     color: black;
     mix-blend-mode: screen;
+}
+
+.name {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.name>h1 {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 40px;
+    color: #FFFFFF;
+    margin: 24px 0;
+}
+
+.name>a {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.name>a:hover {
+    text-decoration-line: underline;
+}
+
+.name span {
+    margin-right: 12px;
+}
+
+.wrapper a {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.name+div {
+    display: flex;
+    gap: 16px;
 }

@@ -1,6 +1,9 @@
-import { CategoryName, TCategory } from "./types";
+import { Dispatch } from "react";
+import { CategoryName, GET_CATEGORIES, TMockCategory, categoriesDispatchTypes } from "./types";
+import axios from "axios";
+import { SERVER_URL } from "../../components/utils";
 
-export const mockCatData: TCategory[] = [
+export const mockCatData: TMockCategory[] = [
     { name: CategoryName.CRMSystems, qty: 43 },
     { name: CategoryName.OnlineAppt, qty: 2 },
     { name: CategoryName.VirtualATC, qty: 13 },
@@ -8,3 +11,14 @@ export const mockCatData: TCategory[] = [
     { name: CategoryName.InternetEq, qty: 30 },
     { name: CategoryName.PriceMonitoring, qty: 30 },
 ]
+
+export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getCategories').then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_CATEGORIES,
+            payload: res.data
+        })
+    })
+}
