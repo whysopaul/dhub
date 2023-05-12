@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CategoryName, GET_CATEGORIES, TMockCategory, categoriesDispatchTypes } from "./types";
+import { CategoryName, GET_ALL_CATEGORIES, TMockCategory, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -17,7 +17,7 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
         console.log(res.data)
 
         dispatch({
-            type: GET_CATEGORIES,
+            type: GET_ALL_CATEGORIES,
             payload: res.data
         })
     })

@@ -1,4 +1,4 @@
-import { GET_CATEGORIES, TCategory, categoriesDispatchTypes } from "../../actions/categories/types"
+import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../../actions/categories/types"
 
 interface IDefaultState {
     categories: TCategory[]
@@ -10,7 +10,7 @@ const defaultState: IDefaultState = {
 
 export const categoriesReducer = (state: IDefaultState = defaultState, action: categoriesDispatchTypes) => {
     switch (action.type) {
-        case GET_CATEGORIES:
+        case GET_ALL_CATEGORIES:
             return {
                 ...state,
                 categories: action.payload

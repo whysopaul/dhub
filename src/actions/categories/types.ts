@@ -1,4 +1,4 @@
-export const GET_CATEGORIES = 'GET_CATEGORIES'
+export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
 export enum CategoryName {
     CRMSystems = 'CRM-СИСТЕМЫ',
@@ -20,7 +20,7 @@ export type TCategory = {
 }
 
 interface IGetCategories {
-    type: typeof GET_CATEGORIES,
+    type: typeof GET_ALL_CATEGORIES,
     payload: TCategory[]
 }
 

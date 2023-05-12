@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { GET_SERVICES_DATA, TServicesData, servicesDispatchTypes } from "./types";
+import { GET_ALL_SERVICES, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -9,7 +9,7 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes>)
         console.log(res.data)
 
         dispatch({
-            type: GET_SERVICES_DATA,
+            type: GET_ALL_SERVICES,
             payload: res.data
         })
     })
