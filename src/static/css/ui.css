@@ -13,3 +13,21 @@
     justify-content: center;
     gap: 12px;
 }
+
+.link-arrow-right {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: #386BEE;
+    text-decoration: none;
+}
+
+.link-arrow-right:hover {
+    text-decoration-line: underline;
+}
+
+.link-arrow-right>span {
+    margin-right: 12px;
+}

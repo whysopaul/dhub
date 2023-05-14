@@ -9,19 +9,16 @@ import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
 import Banner from '../../static/images/service_banner.webp'
+import { createServiceLink } from '../utils';
 
 interface IServicePageProps {
 }
 
 const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
-    const convertServiceName = (name: string) => {
-        return name.split(' ').join('').toLocaleLowerCase()
-    }
-
     const { serviceName } = useParams()
     const serviceState = useSelector((state: RootStore) => state.services.services)
-    const [currentService, setCurrentService] = useState(serviceState.find(i => convertServiceName(i.name) === serviceName))
+    const [currentService, setCurrentService] = useState(serviceState.find(i => createServiceLink(i.name) === serviceName))
 
     // const categoriesState = useSelector((state: RootStore) => state.categories.categories)
 

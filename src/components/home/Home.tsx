@@ -20,7 +20,7 @@ import Taskboard from '../../static/images/taskboard.webp';
 import Subscribe from '../../static/images/subscribe.webp';
 import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
-import { mockartdata } from '../../actions/articles/articles';
+import { mockArtData } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { getAllCategories, mockCatData } from '../../actions/categories/categories';
 import Login from '../global/Login';
@@ -90,7 +90,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={8} />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={8} />
 
             <div className='home-banners-wrapper'>
                 <div className='home-giftbox-container'>
@@ -141,24 +141,22 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={8} />
+            <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={8} />
 
-            {/* <HomeArticlesComponent data={mockartdata} /> */}
+            <HomeArticlesComponent data={mockArtData} />
 
             <HomeServicesComponent title='Все сервисы' data={serviceState} qty={10} extended />
 
             <div className='home-subscription-wrapper'>
                 <div className='home-subscription-container'>
-                    <div>
-                        <h2>Только полезная информация и не чаще чем раз в неделю</h2>
-                        <p>Подписывайтесь на нашу рассылку</p>
-                        <div className='home-subscription-buttons'>
-                            <button id='vk'><i className='fab fa-vk' /><span>Вконтакте</span></button>
-                            <button id='email'><i className='fas fa-envelope' /><span>Email</span></button>
-                        </div>
-                    </div>
+                    <h2>Только полезная информация и не чаще чем раз в неделю</h2>
+                    {/* <p>Подписывайтесь на нашу рассылку</p> */}
                     <div>
                         <img src={Subscribe} alt="" />
+                    </div>
+                    <div className='home-subscription-buttons'>
+                        <button id='vk'><i className='fab fa-vk' /><span>Вконтакте</span></button>
+                        <button id='email'><i className='fas fa-envelope' /><span>Email</span></button>
                     </div>
                 </div>
             </div>

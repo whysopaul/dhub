@@ -9,22 +9,22 @@ interface IHomeArticlesComponentProps {
 const HomeArticlesComponent: React.FunctionComponent<IHomeArticlesComponentProps> = (props) => {
     return <>
         <div className='home-section-common-container'>
-            <hr />
-            <div className='home-articles-section'>
-                <div className='home-section-header'>
-                    <h2>Статьи и обзоры</h2>
-                    <div>
-                        <button><i className='fas fa-chevron-left' /></button>
-                        <button><i className='fas fa-chevron-right' /></button>
-                    </div>
-                </div>
-                <div>
-                    {props.data.map(i => {
-                        return <ArticleCardComponent article={i} />
-                    })}
+            {/* <hr /> */}
+            {/* <div className='home-articles-section'> */}
+            <div className='home-section-header'>
+                <h2>Статьи и обзоры</h2>
+                <div className='home-articles-buttons'>
+                    <button><i className='fas fa-chevron-left' /></button>
+                    <button><i className='fas fa-chevron-right' /></button>
                 </div>
             </div>
-            <hr />
+            <div className='home-articles-cards'>
+                {props.data.map(i => {
+                    return <ArticleCardComponent article={i} />
+                })}
+            </div>
+            {/* </div> */}
+            {/* <hr /> */}
         </div>
     </>;
 };

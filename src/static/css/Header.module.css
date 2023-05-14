@@ -17,6 +17,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin-bottom: 48px;
 }
 
 .navigation {
@@ -83,7 +84,7 @@ header {
     font-size: 40px;
     line-height: 40px;
     color: #FFFFFF;
-    margin: 24px 0;
+    margin-bottom: 32px;
 }
 
 .name>a {
@@ -104,17 +105,35 @@ header {
     margin-right: 12px;
 }
 
-.wrapper a {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 16px;
+.breadcrumbs>ul {
+    list-style-type: none;
+    display: flex;
+}
+
+.breadcrumbs li+li::before {
+    content: '•';
+    padding: 32px;
     color: #FFFFFF;
+}
+
+.breadcrumbs * {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 10px;
+}
+
+.breadcrumbs a {
+    color: #C8DEFD;
     text-decoration: none;
 }
 
-.name+div {
-    display: flex;
-    gap: 16px;
+.breadcrumbs a:hover {
+    color: #FFFFFF;
+    text-decoration-line: underline;
+}
+
+.breadcrumbs span {
+    color: #FFFFFF;
 }

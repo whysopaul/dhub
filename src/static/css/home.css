@@ -9,6 +9,8 @@
     position: absolute;
 }
 
+/* HOME HEADER */
+
 .home-header {
     margin: 0 80px;
     padding-top: 40px;
@@ -71,6 +73,8 @@
     text-decoration-line: underline;
 }
 
+/* HOME WELCOME */
+
 .home-welcome-container {
     margin: 117px 80px 87px;
     display: grid;
@@ -121,6 +125,8 @@
     top: -39px;
     right: 0;
 }
+
+/* HOME CATEGORIES */
 
 .home-categories-container {
     margin: 0 80px 77px;
@@ -182,6 +188,8 @@
     color: #386BEE;
 }
 
+/* HOME SECTION */
+
 .home-section-common-container {
     margin: 48px 0;
     padding: 0 80px;
@@ -193,9 +201,9 @@
     overflow: visible;
 } */
 
-.home-articles-section {
+/* .home-articles-section {
     padding: 48px 0;
-}
+} */
 
 .home-section-header {
     display: flex;
@@ -249,6 +257,28 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.home-articles-buttons {
+    display: flex;
+    gap: 12px;
+}
+
+.home-articles-buttons>button {
+    width: 32px;
+    height: 32px;
+    border: 1px solid #386BEE;
+    border-radius: 50%;
+    background: none;
+    color: #386BEE;
+    cursor: pointer;
+}
+
+.home-articles-cards {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* HOME BANNERS */
 
 .home-banners-wrapper {
     margin: 48px 80px;
@@ -327,8 +357,10 @@
     filter: drop-shadow(8px 72px 24px #0A3066);
 }
 
+/* HOME FEEDBACK */
+
 .home-feedback-container {
-    margin-top: 90px;
+    /* margin-top: 90px; */
     background: linear-gradient(99.72deg, #6AB8FF 17.77%, #4586F5 79.02%);
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
@@ -385,6 +417,8 @@
     position: relative;
 }
 
+/* HOME MISC */
+
 .filled-blue-bg {
     padding: 0 24px;
     height: 48px;
@@ -438,19 +472,21 @@
     margin: 0 24px 0 14px;
 }
 
+/* HOME SUBSCRIPTION BANNER */
+
 .home-subscription-wrapper {
-    margin: 64px 80px 120px;
+    margin: 48px 80px 100px;
     padding-top: 20px;
     overflow: hidden;
 }
 
 .home-subscription-container {
-    padding: 40px;
-    display: grid;
-    grid-template-columns: 560px auto;
+    padding: 32px 48px;
+    display: flex;
     align-items: center;
+    justify-content: space-between;
     background: linear-gradient(99.72deg, #AAD1FC 17.77%, #76ACE8 79.02%);
-    border-radius: 35px;
+    border-radius: 24px;
     position: relative;
 }
 
@@ -458,10 +494,10 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
-    font-size: 36px;
-    line-height: 40px;
+    font-size: 26px;
+    line-height: 32px;
     color: #FFFFFF;
-    margin-bottom: 32px;
+    width: 405px;
 }
 
 .home-subscription-container p {
@@ -475,11 +511,11 @@
 }
 
 .home-subscription-container img {
-    width: 512px;
-    height: 381px;
+    width: 304px;
+    height: 226px;
     position: absolute;
-    top: -15px;
-    right: 128px;
+    top: -20px;
+    right: 442px;
 }
 
 .home-subscription-buttons {

@@ -12,14 +12,14 @@ const ServiceHeaderTemplate: React.FunctionComponent<IServiceHeaderTemplateProps
     const location = useLocation()
     console.log(location.pathname.split('/'))
 
-    const createBreadCrumbs = (i: string) => {
+    const createBreadCrumbs = (i: string, name: string) => {
         switch (i) {
             case '':
-                return <Link to='/'>Главная</Link>
+                return <li><Link to='/'>Главная</Link></li>
             case 'service':
-                return <Link to='/'>Сервисы</Link>
+                return <li><Link to='/'>Сервисы</Link></li>
             default:
-                return <Link to={'/service/' + i}>{i}</Link>
+                return <li><span>{name}</span></li>
         }
     }
 
@@ -31,9 +31,10 @@ const ServiceHeaderTemplate: React.FunctionComponent<IServiceHeaderTemplateProps
                 <i className='fas fa-long-arrow-alt-right' />
             </Link>
         </div>
-        <div>
-            {/* <Link to='/'>Главная</Link>•<Link to='/'>Сервисы</Link>•<Link to='/'>{props.name}</Link> */}
-            {location.pathname.split('/').map(i => createBreadCrumbs(i))}
+        <div className={styles.breadcrumbs}>
+            <ul>
+                {location.pathname.split('/').map(i => createBreadCrumbs(i, props.name))}
+            </ul>
         </div>
     </>;
 };
