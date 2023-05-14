@@ -52,7 +52,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <div className='service-banner-container'>
                                 <div>
                                     <h3>Специалист в этом сервисе?</h3>
-                                    <button>
+                                    <button className='banner-button'>
                                         <span>Регистрируйся</span>
                                         <i className='fas fa-long-arrow-alt-right' />
                                     </button>

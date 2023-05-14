@@ -16,9 +16,10 @@ import Logo from '../../static/images/logo.svg';
 import Welcome from '../../static/images/welcome.webp';
 import Giftbox from '../../static/images/giftbox.webp';
 import Taskboard from '../../static/images/taskboard.webp';
-import Stars from '../../static/images/stars.webp';
+// import Stars from '../../static/images/stars.webp';
 import Subscribe from '../../static/images/subscribe.webp';
 import Wave from '../../static/images/wave.svg';
+import Service from '../../static/images/service_banner.webp';
 import { mockartdata } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { getAllCategories, mockCatData } from '../../actions/categories/categories';
@@ -93,30 +94,32 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
             <div className='home-banners-wrapper'>
                 <div className='home-giftbox-container'>
-                    <div className='home-giftbox-text-block'>
-                        <p>Получите чек-лист <br /> по правильному подбору <br /> сервисов для работы</p>
-                        <button>
+                    <div className='home-banner-text-block'>
+                        <p>Получите чек-лист по правильному подбору сервисов для работы</p>
+                        <button className='banner-button'>
                             <span>Получить подарок</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
                     </div>
-                    <div className='home-giftbox-image'>
-                        <img src={Giftbox} alt="" />
-                    </div>
-                    <div className='home-taskboard-image'>
-                        <img src={Taskboard} alt="" />
+                    <div>
+                        <div className='home-giftbox-image'>
+                            <img src={Giftbox} alt="" />
+                        </div>
+                        <div className='home-taskboard-image'>
+                            <img src={Taskboard} alt="" />
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <div>
+                <div className='home-specialist-banner-container'>
+                    <div className='home-banner-text-block'>
                         <p>Специалист в каком-либо сервисе?</p>
-                        <button>
+                        <button className='banner-button'>
                             <span>Регистрируйся</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
                     </div>
                     <div>
-
+                        <img src={Service} alt="" />
                     </div>
                 </div>
             </div>
@@ -125,14 +128,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
-                    <div>
-                        <h2>Отзывы клиентов</h2>
-                        <Link to='/'>
-                            <span>Смотреть все</span>
-                            <i className='fas fa-long-arrow-alt-right' />
-                        </Link>
-                    </div>
-                    <img src={Stars} alt="" />
+                    <h2>Отзывы клиентов</h2>
+                    <Link to='/'>
+                        <span>Смотреть все</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </Link>
                 </div>
                 <div className='home-feedback-cards'>
                     {mockFeedbackData.map(i => {

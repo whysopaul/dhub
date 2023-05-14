@@ -12,13 +12,15 @@ const ServiceCardComponent: React.FunctionComponent<IServiceCardComponentProps> 
     return <>
         <div className='service-card-container'>
             <div className='service-card-header'>
-                <div className='service-card-logo'>
-                    <img src={props.service.images?.logo} alt="" />
-                </div>
+                <Link to={'/service/' + props.service.name.split(' ').join('').toLocaleLowerCase()}>
+                    <div className='service-card-logo'>
+                        <img src={props.service.images?.logo} alt={props.service.name} />
+                    </div>
+                </Link>
                 <ServiceRatingTag rating={props.service.rating} />
             </div>
             <Link to={'/service/' + props.service.name.split(' ').join('').toLocaleLowerCase()}><p className='service-card-name'>{props.service.name}</p></Link>
-            <span>Накрутка в социальных сетях</span>
+            <span className='service-card-category'>{props.service.categories[0]?.name}</span>
             <p className='service-card-description'>{props.service.description?.text?.slice(0, 60) + '...'}</p>
         </div>
     </>;

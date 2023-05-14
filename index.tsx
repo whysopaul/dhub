@@ -8,6 +8,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './src/static/css/global.css';
+import './src/static/css/ui.css';
 
 const persistor = persistStore(store);
 
