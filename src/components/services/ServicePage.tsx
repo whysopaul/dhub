@@ -30,6 +30,9 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     }, [, serviceState])
 
     const [selectedImageSource, setSelectedImageSource] = useState(null)
+
+    // 1 - Отзывы
+    // 2 - Специалисты
     const [mode, setMode] = useState<number>(1)
 
     return <>
@@ -114,15 +117,26 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             </select>
                         </div>
                     </div>
-                    <div className='service-feedback-header'>
-                        <h2>Отзывы</h2>
-                        <button className='color-blue'><i className='far fa-edit' /><span>Оставить отзыв</span></button>
-                    </div>
-                    <div className='service-feedback-cards'>
-                        {mockFeedbackData.map(i => {
-                            return <FeedbackCardComponent comment={i} />
-                        })}
-                    </div>
+                    {mode === 1 && <>
+                        <div className='service-feedback-header'>
+                            <h2>Отзывы</h2>
+                            <button className='color-blue'><i className='far fa-edit' /><span>Оставить отзыв</span></button>
+                        </div>
+                        <div className='service-feedback-cards'>
+                            {mockFeedbackData.map(i => {
+                                return <FeedbackCardComponent comment={i} />
+                            })}
+                        </div>
+                    </>}
+
+                    {mode === 2 && <>
+                        <div className='service-feedback-header'>
+                            <h2>Специалисты по {currentService.name}</h2>
+                        </div>
+                        <div>
+
+                        </div>
+                    </>}
                 </section>
             </div>
         </>}

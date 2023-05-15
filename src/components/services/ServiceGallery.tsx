@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TServiceScreenshots, TServicesData } from '../../actions/services/types';
+import { TServiceScreenshot, TServicesData } from '../../actions/services/types';
 import { useEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 
@@ -21,21 +21,21 @@ const ServiceGallery: React.FunctionComponent<IServiceGalleryProps> = (props) =>
     const ref = useRef(null)
     useOnClickOutside(ref, () => props.onClose())
 
-    const listBack = (images: TServiceScreenshots[], index: number) => {
+    const listBack = (images: TServiceScreenshot[], index: number) => {
         if (index - 1 < 0) {
             return images.length - 1
         }
         return index - 1
     }
 
-    const listForward = (images: TServiceScreenshots[], index: number) => {
+    const listForward = (images: TServiceScreenshot[], index: number) => {
         if (index + 1 >= images.length) {
             return 0
         }
         return index + 1
     }
 
-    const screenshots: TServiceScreenshots[] = props.service.images.screenshots
+    const screenshots: TServiceScreenshot[] = props.service.images.screenshots
 
     return <>
         <div className='backdrop'></div>

@@ -1,18 +1,18 @@
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
-export enum CategoryName {
-    CRMSystems = 'CRM-СИСТЕМЫ',
-    OnlineAppt = 'ОНЛАЙН-ЗАПИСЬ',
-    VirtualATC = 'ВИРТУАЛЬНАЯ АТС',
-    Tenders = 'ТЕНДЕРЫ',
-    InternetEq = 'ИНТЕРНЕТ-ЭКВАЙРИНГ',
-    PriceMonitoring = 'МОНИТОРИНГ ЦЕН'
-}
+// export enum CategoryName {
+//     CRMSystems = 'CRM-СИСТЕМЫ',
+//     OnlineAppt = 'ОНЛАЙН-ЗАПИСЬ',
+//     VirtualATC = 'ВИРТУАЛЬНАЯ АТС',
+//     Tenders = 'ТЕНДЕРЫ',
+//     InternetEq = 'ИНТЕРНЕТ-ЭКВАЙРИНГ',
+//     PriceMonitoring = 'МОНИТОРИНГ ЦЕН'
+// }
 
-export type TMockCategory = {
-    name: CategoryName,
-    qty: number
-}
+// export type TMockCategory = {
+//     name: CategoryName,
+//     qty: number
+// }
 
 export type TCategory = {
     id: number,

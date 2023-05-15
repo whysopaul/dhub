@@ -22,7 +22,7 @@ import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
 import { mockArtData } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
-import { getAllCategories, mockCatData } from '../../actions/categories/categories';
+import { getAllCategories } from '../../actions/categories/categories';
 import Login from '../global/Login';
 import AddServicePopup from './AddServicePopup';
 
@@ -33,11 +33,20 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const dispatch = useDispatch()
     const serviceState = useSelector((state: RootStore) => state.services.services)
+    const categoriesState = useSelector((state: RootStore) => state.categories.categories)
 
     useEffect(() => {
         dispatch(getServicesData())
         dispatch(getAllCategories())
     }, [])
+
+    const randomCategories = (qty: number): number[] => {
+        let resultArr: number[] = []
+        for (let i = 0; i < qty; i++) {
+            resultArr.push(Math.round(Math.random() * categoriesState.length))
+        }
+        return resultArr
+    }
 
     return <>
         <div className='home-main-container'>
@@ -74,8 +83,12 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div>
                     <div className='home-categories-left-block'>
                         <ul>
-                            {mockCatData.map(i => {
-                                return <CategoryTag name={i.name} qty={i.qty} />
+                            {randomCategories(6).map(i => {
+
+                                const categoryObj = categoriesState.find(category => category.id === i)
+                                const servicesInCategory = serviceState.filter(service => service.categories.find(category => category.id === i)).length
+
+                                return <CategoryTag name={categoryObj.name} qty={servicesInCategory} />
                             })}
                         </ul>
                     </div>

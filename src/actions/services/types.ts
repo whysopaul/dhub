@@ -1,3 +1,5 @@
+import { TCategory } from "../categories/types"
+
 export const GET_ALL_SERVICES = 'GET_ALL_SERVICES'
 
 export type TServicesData = {
@@ -9,29 +11,30 @@ export type TServicesData = {
         hasTrial: boolean,
         paymentMethod: string,
         price: string,
-        locations: {
-            id: number,
-            name: string
-        }[],
-        platforms: {
-            id: number,
-            name: string
-        }[],
+        locations: TServiceLocation[],
+        platforms: TServicePlatform[],
         hasPartnership: boolean
     },
     rating: number,
-    categories: {
-        id: number,
-        name: string
-    }[],
+    categories: TCategory[],
     images: {
         logo: string,
-        screenshots?: TServiceScreenshots[]
+        screenshots?: TServiceScreenshot[]
     },
     isNew?: boolean
 }
 
-export type TServiceScreenshots = {
+export type TServiceLocation = {
+    id: number,
+    name: string
+}
+
+export type TServicePlatform = {
+    id: number,
+    name: string
+}
+
+export type TServiceScreenshot = {
     id: number,
     name?: string,
     service: number,
