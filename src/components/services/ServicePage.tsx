@@ -34,8 +34,15 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </ul>
                 </div>
                 <div className='service-main-container'>
-                    <div>
-                        <img src={currentService.images.logo} alt="" width='100px' />
+                    <div className='service-images'>
+                        {currentService.images.screenshots?.map(i => {
+                            return <>
+                                <div className='service-image-wrapper'>
+                                    <img src={i.source} alt="" />
+                                </div>
+                            </>
+                        })}
+                        {currentService.images.screenshots?.length === 0 && <p>Нет скриншотов для показа</p>}
                     </div>
                     <div className='service-info'>
                         <h1>{currentService.name}</h1>
