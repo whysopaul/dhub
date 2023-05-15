@@ -10,7 +10,7 @@ interface IServiceHeaderTemplateProps {
 const ServiceHeaderTemplate: React.FunctionComponent<IServiceHeaderTemplateProps> = (props) => {
 
     const location = useLocation()
-    console.log(location.pathname.split('/'))
+    // console.log(location.pathname.split('/'))
 
     const createBreadCrumbs = (i: string, name: string) => {
         switch (i) {

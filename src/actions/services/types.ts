@@ -26,14 +26,16 @@ export type TServicesData = {
     }[],
     images: {
         logo: string,
-        screenshots?: {
-            id: number,
-            name?: string,
-            service: number,
-            source: string
-        }[]
+        screenshots?: TServiceScreenshots[]
     },
     isNew?: boolean
+}
+
+export type TServiceScreenshots = {
+    id: number,
+    name?: string,
+    service: number,
+    source: string
 }
 
 interface IGetAllServices {

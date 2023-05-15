@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { RootStore } from '../../store';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../global/Header';
 import ServiceHeaderTemplate from './ServiceHeaderTemplate';
 import '../../static/css/services.css';
@@ -10,6 +10,11 @@ import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
 import Banner from '../../static/images/service_banner.webp'
 import { createServiceLink } from '../utils';
+import { mockFeedbackData } from '../../actions/feedback/feedback';
+import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
+import Footer from '../global/Footer';
+import { TServicesData } from '../../actions/services/types';
+import ServiceGallery from './ServiceGallery';
 
 interface IServicePageProps {
 }
@@ -18,26 +23,37 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     const { serviceName } = useParams()
     const serviceState = useSelector((state: RootStore) => state.services.services)
-    const [currentService, setCurrentService] = useState(serviceState.find(i => createServiceLink(i.name) === serviceName))
+    const [currentService, setCurrentService] = useState<TServicesData>()
 
-    // const categoriesState = useSelector((state: RootStore) => state.categories.categories)
+    useEffect(() => {
+        setCurrentService(serviceState.find(i => createServiceLink(i.name) === serviceName))
+    }, [, serviceState])
+
+    const [selectedImageSource, setSelectedImageSource] = useState(null)
+    const [mode, setMode] = useState<number>(1)
 
     return <>
+
+        {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => setSelectedImageSource(null)} />}
+
         {currentService && <Header template={<ServiceHeaderTemplate name={currentService.name} />} />}
         {currentService && <>
             <div className='service-page-wrapper'>
                 <div className='service-page-categories'>
                     <ul>
                         {currentService.categories.map(i => {
-                            return <CategoryTag name={i.name} qty={i.id} />
+
+                            const categoriesQty = serviceState.filter(service => service.categories.find(category => category.id === i.id)).length
+
+                            return <CategoryTag name={i.name} qty={categoriesQty} />
                         })}
                     </ul>
                 </div>
                 <div className='service-main-container'>
                     <div className='service-images'>
-                        {currentService.images.screenshots?.map(i => {
+                        {currentService.images.screenshots?.slice(0, 4).map(i => {
                             return <>
-                                <div className='service-image-wrapper'>
+                                <div className='service-image-wrapper' onClick={() => setSelectedImageSource(i.source)}>
                                     <img src={i.source} alt="" />
                                 </div>
                             </>
@@ -85,8 +101,32 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         </div>
                     </div>
                 </div>
+                <section>
+                    <div className='service-feedback-header-options'>
+                        <div className='service-feedback-header-buttons'>
+                            <button className={mode === 1 ? 'active' : ''} onClick={() => setMode(1)}><p>Отзывы</p><span>30</span></button>
+                            <button className={mode === 2 ? 'active' : ''} onClick={() => setMode(2)}><p>Специалисты</p><span>30</span></button>
+                        </div>
+                        <div className='service-feedback-sort'>
+                            <span>Сортировать:</span>
+                            <select className='color-blue'>
+                                <option value="">по умолчанию</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className='service-feedback-header'>
+                        <h2>Отзывы</h2>
+                        <button className='color-blue'><i className='far fa-edit' /><span>Оставить отзыв</span></button>
+                    </div>
+                    <div className='service-feedback-cards'>
+                        {mockFeedbackData.map(i => {
+                            return <FeedbackCardComponent comment={i} />
+                        })}
+                    </div>
+                </section>
             </div>
         </>}
+        <Footer />
     </>;
 };
 

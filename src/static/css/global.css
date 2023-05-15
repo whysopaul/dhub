@@ -9,9 +9,12 @@ button,
 input,
 textarea,
 p,
+select,
 ul {
     margin: 0;
     padding: 0;
+    border: none;
+    background: none;
 }
 
 hr {
@@ -29,4 +32,20 @@ hr {
     z-index: 99;
     background-color: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(8px);
+}
+
+.bg-white {
+    background: white !important;
+}
+
+.bg-blue {
+    background: #386BEE !important;
+}
+
+.color-white {
+    color: white !important;
+}
+
+.color-blue {
+    color: #386BEE !important;
 }

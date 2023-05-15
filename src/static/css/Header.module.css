@@ -4,6 +4,7 @@ header {
     border-bottom-right-radius: 50px;
     font-family: 'Noto Sans', sans-serif;
     font-style: normal;
+    min-width: 1440px;
 }
 
 .wrapper {
