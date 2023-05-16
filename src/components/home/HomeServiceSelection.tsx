@@ -25,17 +25,17 @@ const HomeServiceSelection: React.FunctionComponent<IHomeServiceSelectionProps> 
                     <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам подобрать для вас тот сервис, который вам нужен.</p>
                 </div>
                 <hr />
-                <div>
+                <div className='home-service-selection-categories'>
                     <p>Выберите категории (одну или несколько):</p>
-                    <ul>
+                    <ul className='categories-list'>
 
                     </ul>
-                    <div>
-                        <button><span>Показать все категории</span><i className='fas fa-chevron-down' /></button>
+                    <div className='home-service-selection-categories-button-container'>
+                        <button className='color-blue cursor-pointer'><span>Показать все категории</span><i className='fas fa-chevron-down' /></button>
                     </div>
                 </div>
                 <hr />
-                <div>
+                <div className='home-service-selection-advanced-inputs'>
                     <div>
                         <p>Функциональные особенности:</p>
                         <label><input type='checkbox' name='isFree' />Бесплатная версия</label>
@@ -50,13 +50,14 @@ const HomeServiceSelection: React.FunctionComponent<IHomeServiceSelectionProps> 
                     </div>
                 </div>
                 <hr />
-                <div>
+                <div className='home-service-selection-search-container'>
                     <p>Поиск по названию:</p>
                     <input type='text' placeholder='Введите полное название сервиса или его часть' />
+                    <i className='fas fa-search color-blue' />
                 </div>
-                <div>
-                    <button><span>Подобрать сервис</span></button>
-                    <button>
+                <div className='home-service-selection-buttons'>
+                    <button className='filled-blue-bg'><span>Подобрать сервис</span></button>
+                    <button className='transparent-bg'>
                         <div>
                             <i className='far fa-smile' />
                         </div>

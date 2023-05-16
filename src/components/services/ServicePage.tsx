@@ -43,7 +43,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
         {currentService && <>
             <div className='service-page-wrapper'>
                 <div className='service-page-categories'>
-                    <ul>
+                    <ul className='categories-list'>
                         {currentService.categories.map(i => {
 
                             const categoriesQty = serviceState.filter(service => service.categories.find(category => category.id === i.id)).length

@@ -107,14 +107,6 @@
     margin-bottom: 40px;
 }
 
-.service-page-categories>ul {
-    list-style-type: none;
-    display: flex;
-    flex-wrap: wrap;
-    row-gap: 12px;
-    column-gap: 20px;
-}
-
 .service-main-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

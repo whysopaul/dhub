@@ -80,7 +80,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <p>Выберите категории:</p>
                 <div>
                     <div className='home-categories-left-block'>
-                        <ul>
+                        <ul className='categories-list'>
                             {randomCategories(6).map(i => {
 
                                 const categoryObj = categoriesState.find(category => category.id === i)

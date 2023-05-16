@@ -17,7 +17,7 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
 
     return <>
         <button className='transparent-bg' onClick={() => setShowPopup(true)}>
-            <div className='plus-button'>
+            <div>
                 <i className='fas fa-plus' />
             </div>
             <span>Добавить сервис</span>
