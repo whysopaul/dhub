@@ -25,6 +25,7 @@ import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { getAllCategories } from '../../actions/categories/categories';
 import Login from '../global/Login';
 import AddServicePopup from './AddServicePopup';
+import HomeServiceSelection from './HomeServiceSelection';
 
 interface IHomeProps {
 }
@@ -66,10 +67,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <h1>Агрегатор сервисов <br /> для <span>вашей продуктивности</span></h1>
                     <p>Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.</p>
                     <div>
-                        <button className='filled-blue-bg'>
-                            <span>Подобрать сервис</span>
-                            <i className='fas fa-long-arrow-alt-right' />
-                        </button>
+                        <HomeServiceSelection />
                         <AddServicePopup />
                     </div>
                 </div>
