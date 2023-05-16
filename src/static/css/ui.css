@@ -32,7 +32,7 @@
     margin-right: 12px;
 }
 
-.filled-blue-bg {
+.blue-shadow-button {
     padding: 0 24px;
     height: 48px;
     background-color: #386BEE;
@@ -52,7 +52,7 @@
     gap: 8px;
 }
 
-.transparent-bg {
+.round-item-button {
     height: 48px;
     /* background-color: rgba(56, 107, 238, 0.05); */
     background-color: #eff3ff;
@@ -70,7 +70,7 @@
     cursor: pointer;
 }
 
-.transparent-bg>div {
+.round-item-button>div {
     width: 48px;
     height: 48px;
     line-height: 48px;
@@ -81,6 +81,6 @@
     font-size: 18px;
 }
 
-.transparent-bg span {
+.round-item-button span {
     margin: 0 24px 0 14px;
 }

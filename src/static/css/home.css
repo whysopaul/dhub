@@ -514,6 +514,20 @@
     font-style: normal;
     color: #2D4379;
     overflow-y: auto;
+    animation-name: open-service-selection;
+    animation-duration: 0.4s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+}
+
+@keyframes open-service-selection {
+    from {
+        top: 100%;
+    }
+
+    to {
+        top: 10%;
+    }
 }
 
 .home-service-selection-container>hr {
@@ -547,6 +561,7 @@
 }
 
 .home-service-selection-categories-button-container {
+    margin-top: 16px;
     text-align: center;
 }
 
@@ -605,4 +620,12 @@
     display: flex;
     justify-content: flex-end;
     gap: 24px;
+}
+
+.home-service-selection-close {
+    position: absolute;
+    top: 40px;
+    right: 80px;
+    font-size: 20px;
+    color: #B3B7C1;
 }

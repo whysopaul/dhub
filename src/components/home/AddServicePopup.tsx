@@ -17,7 +17,7 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
     useOnClickOutside(ref, () => closePopup(setShowPopup))
 
     return <>
-        <button className='transparent-bg' onClick={() => openPopup(setShowPopup)}>
+        <button className='round-item-button' onClick={() => openPopup(setShowPopup)}>
             <div>
                 <i className='fas fa-plus' />
             </div>
@@ -35,8 +35,8 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
                     <input type="text" placeholder='Название сервиса' />
                     <input type="text" placeholder='Контакт для обратной связи (email или телефон)*' required />
                     <textarea placeholder='Краткое описание сервиса'></textarea>
-                    <label><input type="checkbox" />Соглашаюсь с <Link to='/'>политикой обработки</Link> персональных данных</label>
-                    <button>
+                    <label className={styles.privacy}><input type="checkbox" /><span>Соглашаюсь с <Link to='/'>политикой обработки</Link> персональных данных</span></label>
+                    <button className='blue-shadow-button'>
                         <span>Оставить заявку</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>
