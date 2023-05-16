@@ -37,7 +37,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     return <>
 
-        {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => setSelectedImageSource(null)} />}
+        {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => { setSelectedImageSource(null); document.body.style.overflow = '' }} />}
 
         {currentService && <Header template={<ServiceHeaderTemplate name={currentService.name} />} />}
         {currentService && <>
@@ -56,7 +56,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <div className='service-images'>
                         {currentService.images.screenshots?.slice(0, 4).map(i => {
                             return <>
-                                <div className='service-image-wrapper' onClick={() => setSelectedImageSource(i.source)}>
+                                <div className='service-image-wrapper' onClick={() => { setSelectedImageSource(i.source); document.body.style.overflow = 'hidden' }}>
                                     <img src={i.source} alt="" />
                                 </div>
                             </>

@@ -2,6 +2,7 @@ import * as React from 'react';
 import styles from '../../static/css/Login.module.css';
 import { useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
+import { closePopup, openPopup } from '../utils';
 
 interface ILoginProps {
 }
@@ -11,10 +12,10 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
     const [showPopup, setShowPopup] = useState(false)
     const ref = useRef(null)
 
-    useOnClickOutside(ref, () => setShowPopup(false))
+    useOnClickOutside(ref, () => closePopup(setShowPopup))
 
     return <>
-        <button onClick={() => setShowPopup(true)}>
+        <button onClick={() => openPopup(setShowPopup)}>
             <i className='fas fa-user' />
             <span>Войти в аккаунт</span>
         </button>

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import styles from '../../static/css/AddService.module.css';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import Image from '../../static/images/add_service.webp';
+import { closePopup, openPopup } from '../utils';
 
 interface IAddServicePopupProps {
 }
@@ -13,10 +14,10 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
     const [showPopup, setShowPopup] = useState(false)
     const ref = useRef(null)
 
-    useOnClickOutside(ref, () => setShowPopup(false))
+    useOnClickOutside(ref, () => closePopup(setShowPopup))
 
     return <>
-        <button className='transparent-bg' onClick={() => setShowPopup(true)}>
+        <button className='transparent-bg' onClick={() => openPopup(setShowPopup)}>
             <div>
                 <i className='fas fa-plus' />
             </div>

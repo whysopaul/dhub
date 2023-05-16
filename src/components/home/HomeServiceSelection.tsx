@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
+import { closePopup, openPopup } from '../utils';
 
 interface IHomeServiceSelectionProps {
 }
@@ -8,11 +9,12 @@ interface IHomeServiceSelectionProps {
 const HomeServiceSelection: React.FunctionComponent<IHomeServiceSelectionProps> = (props) => {
 
     const [showPopup, setShowPopup] = useState(false)
+
     const ref = useRef(null)
-    useOnClickOutside(ref, () => setShowPopup(false))
+    useOnClickOutside(ref, () => closePopup(setShowPopup))
 
     return <>
-        <button className='filled-blue-bg' onClick={() => setShowPopup(true)}>
+        <button className='filled-blue-bg' onClick={() => openPopup(setShowPopup)}>
             <span>Подобрать сервис</span>
             <i className='fas fa-long-arrow-alt-right' />
         </button>
