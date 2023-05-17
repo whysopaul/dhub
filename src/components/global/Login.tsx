@@ -3,11 +3,15 @@ import styles from '../../static/css/Login.module.css';
 import { useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { closePopup, openPopup } from '../utils';
+import { useDispatch } from 'react-redux';
+import { connectVkAccount } from '../../actions/auth/auth';
 
 interface ILoginProps {
 }
 
 const Login: React.FunctionComponent<ILoginProps> = (props) => {
+
+    const dispatch = useDispatch()
 
     const [showPopup, setShowPopup] = useState(false)
     const ref = useRef(null)
@@ -26,7 +30,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                 <img src="" alt="" />
                 <h3>Войти в аккаунт</h3>
                 <p>Войдите в аккаунт, чтобы сохранять историю просмотров и делиться своим опытом использования сервисов</p>
-                <button>
+                <button onClick={() => dispatch(connectVkAccount())}>
                     <i className='fab fa-vk' />
                     <span>Войти через ВКонтакте</span>
                 </button>

@@ -1,9 +1,15 @@
+export const LOGIN = 'LOGIN'
+
 export type TUserData = {
-    id: number,
-    vkProfile: {
-        vkId: number,
-        name: string,
-        photo: string
-    }
+    vk_id: number,
+    name: string,
+    photo: string,
     token: string
 }
+
+interface ILogin {
+    type: typeof LOGIN,
+    payload: TUserData
+}
+
+export type authDispatchTypes = ILogin

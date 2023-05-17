@@ -17,7 +17,7 @@ const ServiceHeaderTemplate: React.FunctionComponent<IServiceHeaderTemplateProps
             case '':
                 return <li><Link to='/'>Главная</Link></li>
             case 'service':
-                return <li><Link to='/'>Сервисы</Link></li>
+                return <li><Link to='/services'>Сервисы</Link></li>
             default:
                 return <li><span>{name}</span></li>
         }

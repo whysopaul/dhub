@@ -71,3 +71,43 @@ hr {
     row-gap: 12px;
     column-gap: 16px;
 }
+
+.page-main-container {
+    padding: 40px 80px;
+}
+
+.sort-selection>* {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #636E8D;
+}
+
+.sort-selection>span {
+    margin-right: 12px;
+}
+
+.user-header-container {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: inherit;
+}
+
+.user-header-container>img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.user-header-container>a {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: inherit;
+    text-decoration: none;
+}

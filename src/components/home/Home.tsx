@@ -26,6 +26,7 @@ import { getAllCategories } from '../../actions/categories/categories';
 import Login from '../global/Login';
 import AddServicePopup from './AddServicePopup';
 import HomeServiceSelection from './HomeServiceSelection';
+import UserHeader from '../global/UserHeader';
 
 interface IHomeProps {
 }
@@ -35,6 +36,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     const dispatch = useDispatch()
     const serviceState = useSelector((state: RootStore) => state.services.services)
     const categoriesState = useSelector((state: RootStore) => state.categories.categories)
+    const authState = useSelector((state: RootStore) => state.auth.user)
 
     useEffect(() => {
         dispatch(getServicesData())
@@ -59,7 +61,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-header-navigation'>
                     <Navigation />
                 </div>
-                <Login />
+                {!authState && <Login />}
+                {authState && <UserHeader />}
             </div>
 
             <div className='home-welcome-container'>

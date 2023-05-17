@@ -15,7 +15,7 @@ const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps
         <div className='home-section-common-container'>
             <div className='home-section-header'>
                 <h2>{props.title}</h2>
-                <Link to='/'>
+                <Link to='/services'>
                     <span>Показать все сервисы</span>
                     <i className='fas fa-long-arrow-alt-right' />
                 </Link>

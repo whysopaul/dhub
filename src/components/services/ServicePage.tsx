@@ -110,7 +110,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <button className={mode === 1 ? 'active' : ''} onClick={() => setMode(1)}><p>Отзывы</p><span>30</span></button>
                             <button className={mode === 2 ? 'active' : ''} onClick={() => setMode(2)}><p>Специалисты</p><span>30</span></button>
                         </div>
-                        <div className='service-feedback-sort'>
+                        <div className='sort-selection'>
                             <span>Сортировать:</span>
                             <select className='color-blue'>
                                 <option value="">по умолчанию</option>
