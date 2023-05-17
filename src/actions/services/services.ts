@@ -1,16 +1,33 @@
 import { Dispatch } from "react";
-import { GET_ALL_SERVICES, TServicesData, servicesDispatchTypes } from "./types";
+import { GET_ALL_SERVICES, SERVICES_LOADING, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
 export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
 
+    dispatch({
+        type: SERVICES_LOADING,
+        payload: true
+    })
+
     axios.get(SERVER_URL + '/getServices').then(res => {
         console.log(res.data)
 
         dispatch({
+            type: SERVICES_LOADING,
+            payload: false
+        })
+
+        dispatch({
             type: GET_ALL_SERVICES,
             payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+
+        dispatch({
+            type: SERVICES_LOADING,
+            payload: false
         })
     })
 

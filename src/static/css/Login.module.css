@@ -8,4 +8,41 @@
     padding: 48px;
     text-align: center;
     z-index: 100;
+    font-family: 'Montserrat';
+    font-style: normal;
+}
+
+.popup>h3 {
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 36px;
+    color: #16181B;
+    margin-bottom: 16px;
+}
+
+.popup>p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 24px;
+    color: #2D4379;
+    margin-bottom: 40px;
+}
+
+.popup>button {
+    padding: 0 24px;
+    height: 48px;
+    border: none;
+    border-radius: 75px;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #FFFFFF;
+    background-color: #386BEE;
+    cursor: pointer;
+}
+
+.popup>button>i {
+    margin-right: 12px;
 }

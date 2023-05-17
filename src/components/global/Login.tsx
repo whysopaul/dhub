@@ -34,7 +34,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
                     <i className='fab fa-vk' />
                     <span>Войти через ВКонтакте</span>
                 </button>
-                <span><i className='fas fa-times' /></span>
+                {/* <span><i className='fas fa-times' /></span> */}
             </div>
         </>}
     </>;

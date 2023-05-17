@@ -34,24 +34,32 @@ interface IHomeProps {
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const dispatch = useDispatch()
-    const serviceState = useSelector((state: RootStore) => state.services.services)
+    const serviceState = useSelector((state: RootStore) => state.services)
     const categoriesState = useSelector((state: RootStore) => state.categories.categories)
     const authState = useSelector((state: RootStore) => state.auth.user)
 
     useEffect(() => {
-        dispatch(getServicesData())
-        dispatch(getAllCategories())
+        if (serviceState.services.length === 0 || categoriesState.length === 0) {
+            dispatch(getServicesData())
+            dispatch(getAllCategories())
+        }
     }, [])
 
     const randomCategories = (qty: number): number[] => {
         let resultArr: number[] = []
         for (let i = 0; i < qty; i++) {
-            resultArr.push(Math.round(Math.random() * categoriesState.length))
+            resultArr.push(Math.round(Math.random() * categoriesState?.length))
         }
         return resultArr
     }
 
     return <>
+
+        {serviceState.is_loading && <>
+            <div className='backdrop-no-blur'></div>
+            <div className='loader'></div>
+        </>}
+
         <div className='home-main-container'>
             <div className='home-wave-backdrop'>
                 <img src={Wave} alt="" />
@@ -84,10 +92,10 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div>
                     <div className='home-categories-left-block'>
                         <ul className='categories-list'>
-                            {randomCategories(6).map(i => {
+                            {categoriesState.length > 0 && randomCategories(6).map(i => {
 
-                                const categoryObj = categoriesState.find(category => category.id === i)
-                                const servicesInCategory = serviceState.filter(service => service.categories.find(category => category.id === i)).length
+                                const categoryObj = categoriesState?.find(category => category.id === i)
+                                const servicesInCategory = serviceState.services?.filter(service => service.categories.find(category => category.id === i)).length
 
                                 return <CategoryTag name={categoryObj.name} qty={servicesInCategory} />
                             })}
@@ -104,7 +112,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Новые сервисы' data={serviceState} qty={8} />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState.services} qty={8} />
 
             <div className='home-banners-wrapper'>
                 <div className='home-giftbox-container'>
@@ -138,7 +146,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState} qty={8} />
+            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState.services} qty={8} />
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
@@ -155,11 +163,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Топ-сервисов' data={serviceState} qty={8} />
+            <HomeServicesComponent title='Топ-сервисов' data={serviceState.services} qty={8} />
 
             <HomeArticlesComponent data={mockArtData} />
 
-            <HomeServicesComponent title='Все сервисы' data={serviceState} qty={10} extended />
+            <HomeServicesComponent title='Все сервисы' data={serviceState.services} qty={10} extended />
 
             <div className='home-subscription-wrapper'>
                 <div className='home-subscription-container'>

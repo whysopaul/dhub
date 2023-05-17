@@ -18,9 +18,8 @@ export const connectVkAccount = () => (dispatch: Dispatch<authDispatchTypes>) =>
 export const extractToken = () => (dispatch: Dispatch<authDispatchTypes>) => {
 
     const queryString = '?' + window.location.href.split('#')[1];
-    console.log(queryString)
+    // console.log(queryString)
     const urlParams = new URLSearchParams(queryString);
-
 
     const access_token = urlParams.get('access_token')
     console.log(access_token);
