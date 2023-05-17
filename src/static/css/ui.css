@@ -84,3 +84,21 @@
 .round-item-button span {
     margin: 0 24px 0 14px;
 }
+
+.page-number-button {
+    padding: 6px 12px;
+    background: #F4F7FF;
+    border-radius: 32px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #386BEE;
+    cursor: pointer;
+}
+
+.page-number-button.active {
+    background: #386BEE;
+    color: #FFFFFF;
+}

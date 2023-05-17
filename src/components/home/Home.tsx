@@ -97,7 +97,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                                 const categoryObj = categoriesState?.find(category => category.id === i)
                                 const servicesInCategory = serviceState.services?.filter(service => service.categories.find(category => category.id === i)).length
 
-                                return <CategoryTag name={categoryObj.name} qty={servicesInCategory} />
+                                return <CategoryTag name={categoryObj?.name} qty={servicesInCategory} />
                             })}
                         </ul>
                     </div>
