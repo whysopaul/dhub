@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { getServicesData } from '../../actions/services/services';
 import CategoryTag from '../categories/CategoryTag';
 import HomeServicesComponent from './HomeServicesComponent';
@@ -25,8 +25,9 @@ import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { getAllCategories } from '../../actions/categories/categories';
 import Login from '../global/Login';
 import AddServicePopup from './AddServicePopup';
-import HomeServiceSelection from './HomeServiceSelection';
 import UserHeader from '../global/UserHeader';
+import ServiceSelection from '../services/ServiceSelection';
+import { closePopup, openPopup } from '../utils';
 
 interface IHomeProps {
 }
@@ -45,6 +46,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         }
     }, [])
 
+    const [showServiceSelection, setShowServiceSelection] = useState(false)
+
     const randomCategories = (qty: number): number[] => {
         let resultArr: number[] = []
         for (let i = 0; i < qty; i++) {
@@ -59,6 +62,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             <div className='backdrop-no-blur'></div>
             <div className='loader'></div>
         </>}
+
+        {showServiceSelection && <ServiceSelection onClose={() => closePopup(setShowServiceSelection)} />}
 
         <div className='home-main-container'>
             <div className='home-wave-backdrop'>
@@ -78,7 +83,10 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <h1>Агрегатор сервисов <br /> для <span>вашей продуктивности</span></h1>
                     <p>Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.</p>
                     <div>
-                        <HomeServiceSelection />
+                        <button className='blue-shadow-button' onClick={() => openPopup(setShowServiceSelection)}>
+                            <span>Подобрать сервис</span>
+                            <i className='fas fa-long-arrow-alt-right' />
+                        </button>
                         <AddServicePopup />
                     </div>
                 </div>

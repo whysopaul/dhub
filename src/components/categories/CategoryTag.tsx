@@ -10,7 +10,7 @@ interface ICategoryTagProps {
 const CategoryTag: React.FunctionComponent<ICategoryTagProps> = (props) => {
     return <>
         <li>
-            <button className='category-tag-button'>
+            <button type='button' className='category-tag-button'>
                 <span className='category-tag-name'>{props.name}</span>
                 <div className='category-tag-qty'>
                     <span>{props.qty}</span>
