@@ -6,7 +6,6 @@ import ServiceCardComponent from './ServiceCardComponent';
 import Footer from '../global/Footer';
 import { useState } from 'react';
 import Header from '../global/Header';
-import ServicesListHeader from './ServicesListHeader';
 
 interface IServicesListPageProps {
 }
@@ -23,7 +22,7 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     const numberOfPages = new Array(Math.ceil(searchCondition.length / numberOfServices)).fill('').map((_, idx) => idx + 1)
 
     return <>
-        <Header template={<ServicesListHeader value={search} setValue={setSearch} />} />
+        <Header />
         <div className='page-main-container'>
             <div className='services-list-categories-container'>
                 <p>Популярные категории:</p>

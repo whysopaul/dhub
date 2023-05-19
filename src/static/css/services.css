@@ -97,13 +97,6 @@
 
 /* SERVICE PAGE */
 
-.service-page-wrapper {
-    padding: 40px 80px;
-    width: 1440px;
-    box-sizing: border-box;
-    margin: 0 auto;
-}
-
 .service-page-categories {
     margin-bottom: 40px;
 }
@@ -112,6 +105,7 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
+    margin-bottom: 64px;
 }
 
 .service-images {
@@ -150,17 +144,13 @@
 }
 
 .service-info>h1 {
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 40px;
-    color: #000000;
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .service-info>h1+span {
     font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 16px;
+    line-height: 16px;
     color: #2D4379;
 }
 
@@ -172,8 +162,8 @@
 .service-info>p {
     margin-top: 32px;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 20px;
     color: #2D4379;
 }
 
@@ -186,8 +176,8 @@
 
 .service-details>span {
     font-weight: 300;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 14px;
     color: #2D4379;
 }
 
@@ -199,7 +189,7 @@
 /* SERVICE BANNER */
 
 .service-banner-wrapper {
-    margin: 40px 0;
+    margin: 32px 0;
     padding-top: 9px;
     overflow: hidden;
 }
@@ -217,8 +207,8 @@
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
-    font-size: 24px;
-    line-height: 30px;
+    font-size: 22px;
+    line-height: 22px;
     color: #FFFFFF;
     margin-bottom: 16px;
 }
@@ -280,7 +270,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 64px 0 40px 0;
+    margin-bottom: 40px;
 }
 
 .service-feedback-header {
@@ -290,24 +280,20 @@
     margin-bottom: 32px;
 }
 
-.service-feedback-header>h2 {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 36px;
-    line-height: 36px;
-    color: #000000;
-}
-
 .service-feedback-header>button {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 14px;
     display: flex;
+    align-items: center;
     gap: 12px;
     cursor: pointer;
+}
+
+.service-feedback-header>button>i {
+    font-size: 18px;
 }
 
 .service-feedback-header-buttons {
@@ -321,12 +307,13 @@
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
-    line-height: 20px;
+    font-size: 14px;
+    line-height: 14px;
     color: #386BEE;
-    padding: 15px 24px;
+    padding: 12px 20px;
     display: flex;
-    gap: 8px;
+    align-items: center;
+    gap: 12px;
     cursor: pointer;
 }
 

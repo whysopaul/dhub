@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 import { RootStore } from '../../store';
 import { useEffect, useState } from 'react';
 import Header from '../global/Header';
-import ServiceHeaderTemplate from './ServiceHeaderTemplate';
 import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
@@ -39,9 +38,9 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
         {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => { setSelectedImageSource(null); document.body.style.overflow = '' }} />}
 
-        {currentService && <Header template={<ServiceHeaderTemplate name={currentService.name} />} />}
+        <Header />
         {currentService && <>
-            <div className='service-page-wrapper'>
+            <div className='page-main-container'>
                 <div className='service-page-categories'>
                     <ul className='categories-list'>
                         {currentService.categories.map(i => {
@@ -64,7 +63,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         {currentService.images.screenshots?.length === 0 && <p>Нет скриншотов для показа</p>}
                     </div>
                     <div className='service-info'>
-                        <h1>{currentService.name}</h1>
+                        <h1 className='section-main-title'>{currentService.name}</h1>
                         <span>{currentService.categories[0]?.name}</span>
                         <div className='service-rating-section'>
                             <ServiceRatingTag rating={currentService.rating} />
@@ -119,7 +118,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>
                     {mode === 1 && <>
                         <div className='service-feedback-header'>
-                            <h2>Отзывы</h2>
+                            <h2 className='section-main-title'>Отзывы</h2>
                             <button className='color-blue'><i className='far fa-edit' /><span>Оставить отзыв</span></button>
                         </div>
                         <div className='service-feedback-cards'>
@@ -131,7 +130,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
                     {mode === 2 && <>
                         <div className='service-feedback-header'>
-                            <h2>Специалисты по {currentService.name}</h2>
+                            <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
                         </div>
                         <div>
 

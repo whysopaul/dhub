@@ -28,6 +28,7 @@ import AddServicePopup from './AddServicePopup';
 import UserHeader from '../global/UserHeader';
 import ServiceSelection from '../services/ServiceSelection';
 import { closePopup, openPopup } from '../utils';
+import Header from '../global/Header';
 
 interface IHomeProps {
 }
@@ -65,17 +66,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
         {showServiceSelection && <ServiceSelection onClose={() => closePopup(setShowServiceSelection)} />}
 
+        <Header root />
+
         <div className='home-main-container'>
             <div className='home-wave-backdrop'>
                 <img src={Wave} alt="" />
-            </div>
-            <div className='home-header'>
-                <img src={Logo} alt='digital.hub' />
-                <div className='home-header-navigation'>
-                    <Navigation />
-                </div>
-                {!authState && <Login />}
-                {authState && <UserHeader />}
             </div>
 
             <div className='home-welcome-container'>

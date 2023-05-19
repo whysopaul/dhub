@@ -1,60 +1,50 @@
 header {
-    background: linear-gradient(97.32deg, #4586F5 34.09%, #6AB8FF 116.32%);
-    border-bottom-left-radius: 50px;
-    border-bottom-right-radius: 50px;
-    font-family: 'Noto Sans', sans-serif;
-    font-style: normal;
-    min-width: 1440px;
-}
-
-.wrapper {
-    padding: 32px 80px 40px;
+    padding: 40px 80px;
     margin: 0 auto;
     width: 1440px;
     box-sizing: border-box;
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    color: #386BEE;
+    position: relative;
+    z-index: 1;
 }
 
 .navbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 48px;
-    color: #FFFFFF;
+    position: relative;
 }
 
 .navigation {
-    margin-left: 137px;
-    margin-right: auto;
+    margin: 0 auto;
     display: flex;
     gap: 80px;
 }
 
 .navigation a {
     font-weight: 400;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 14px;
     text-decoration: none;
-    color: #C8DEFD;
+    color: #636E8D;
 }
 
 .navigation a:hover {
     text-decoration-line: underline;
-    color: #FFFFFF;
-    /* color: #FFFFFFE5; */
+    color: #386BEE;
 }
 
 .navbar>button {
-    padding: 0 24px;
-    height: 48px;
-    border: 1px solid #FFFFFF;
-    border-radius: 55px;
+    border: none;
     background: none;
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 16px;
-    color: #FFFFFF;
+    color: #386BEE;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -67,11 +57,31 @@ header {
 }
 
 .navbar>button:hover {
-    background-color: #FFFFFF;
-    /* background-color: #FFFFFFE5; */
-    color: black;
-    mix-blend-mode: screen;
+    text-decoration-line: underline;
 }
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    color: inherit;
+}
+
+.user>img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.user>a {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 16px;
+    color: inherit;
+    text-decoration: none;
+}
+
+/* SERVICE HEADER TEMPLATE */
 
 .name {
     display: flex;
@@ -107,6 +117,12 @@ header {
     margin-right: 12px;
 }
 
+/* BREADCRUMBS */
+
+.breadcrumbs {
+    margin-top: 40px;
+}
+
 .breadcrumbs>ul {
     list-style-type: none;
     display: flex;
@@ -115,7 +131,7 @@ header {
 .breadcrumbs li+li::before {
     content: '•';
     padding: 32px;
-    color: #FFFFFF;
+    color: #636E8D;
 }
 
 .breadcrumbs * {
@@ -127,15 +143,15 @@ header {
 }
 
 .breadcrumbs a {
-    color: #C8DEFD;
+    color: #636E8D;
     text-decoration: none;
 }
 
 .breadcrumbs a:hover {
-    color: #FFFFFF;
+    color: #386BEE;
     text-decoration-line: underline;
 }
 
 .breadcrumbs span {
-    color: #FFFFFF;
+    color: #386BEE;
 }
