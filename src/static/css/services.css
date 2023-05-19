@@ -348,6 +348,7 @@
 .service-feedback-cards>.feedback-card-container {
     background-color: rgba(244, 247, 255, 0.5);
     box-shadow: 0 0 8px #e0e7f4;
+    backdrop-filter: none;
 }
 
 /* SERVICES LIST PAGE */
@@ -465,28 +466,20 @@
 
 .service-selection-container p {
     font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
+    font-size: 14px;
     margin-bottom: 16px;
 }
 
 .service-selection-header {
-    width: 50%;
+    width: 35%;
 }
 
 .service-selection-header>h2 {
-    font-weight: 500;
-    font-size: 32px;
-    line-height: 32px;
-    color: #16181B;
-    margin-bottom: 12px;
+    margin-bottom: 20px;
 }
 
-.service-selection-header>p,
-.service-selection-advanced-inputs label {
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 24px;
+.service-selection-header>p {
+    line-height: 20px;
 }
 
 .service-selection-categories-button-container {
@@ -527,10 +520,10 @@
     width: 100%;
     font-family: 'Montserrat';
     font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-    padding: 10px 48px 10px 16px;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 0 48px 0 16px;
     border: 1px solid rgb(45, 67, 121, 0.4);
     border-radius: 32px;
     box-sizing: border-box;

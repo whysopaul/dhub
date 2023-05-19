@@ -25,7 +25,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
         <div className='service-selection-container' ref={ref}>
             <form action='/services'>
                 <div className='service-selection-header'>
-                    <h2>Подобрать сервис</h2>
+                    <h2 className='section-main-title'>Подобрать сервис</h2>
                     <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам подобрать для вас тот сервис, который вам нужен.</p>
                 </div>
                 <hr />
@@ -62,7 +62,10 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                     <i className='fas fa-search color-blue' />
                 </div>
                 <div className='service-selection-buttons'>
-                    <button type='submit' className='blue-shadow-button'><span>Подобрать сервис</span></button>
+                    <button type='submit' className='blue-shadow-button'>
+                        <span>Подобрать сервис</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </button>
                     <button type='button' className='round-item-button'>
                         <div>
                             <i className='far fa-smile' />
