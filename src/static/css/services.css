@@ -353,7 +353,7 @@
 
 /* SERVICES LIST PAGE */
 
-.services-header-search-container>input {
+.services-list-search-container>input {
     width: 100%;
     font-family: 'Montserrat';
     font-style: normal;
@@ -368,7 +368,7 @@
     color: #FFFFFF;
 }
 
-.services-header-search-container>div {
+.services-list-search-container>div {
     float: right;
     font-size: 18px;
     margin-top: -32px;
@@ -378,7 +378,7 @@
     gap: 16px;
 }
 
-.services-header-search-settings {
+.services-list-search-settings {
     font-size: 18px;
     display: flex;
     position: relative;
@@ -395,21 +395,21 @@
     margin-bottom: 32px;
 }
 
-.services-list-header {
+.services-list-title {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin: 32px 0;
 }
 
-.services-list-header>h2 {
+/* .services-list-title>h2 {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 600;
     font-size: 42px;
     line-height: 54px;
     color: #000000;
-}
+} */
 
 .services-list-pagination {
     display: flex;

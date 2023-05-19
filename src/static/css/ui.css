@@ -102,3 +102,15 @@
     background: #386BEE;
     color: #FFFFFF;
 }
+
+.popup-close-button {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    font-size: 20px;
+    line-height: 20px;
+    color: #B3B7C1;
+    cursor: pointer;
+}

@@ -71,18 +71,3 @@
     display: flex;
     gap: 24px;
 }
-
-.closeBtn {
-    width: 20px;
-    height: 20px;
-    padding: 24px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    cursor: pointer;
-}
-
-.closeBtn>i {
-    font-size: 20px;
-    color: #B3B7C1;
-}

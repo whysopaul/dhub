@@ -23,11 +23,11 @@ const ServicesListHeader: React.FunctionComponent<IServicesListHeaderProps> = (p
 
         {showServiceSelection && <ServiceSelection onClose={() => closePopup(setShowServiceSelection)} />}
 
-        <div className='services-header-search-container'>
+        <div className='services-list-search-container'>
             <input type='text' placeholder='Введите название сервиса' value={props.value} onChange={e => props.setValue(e.target.value)} />
             <div>
                 <i className='fas fa-search color-white' />
-                <button className='services-header-search-settings' onClick={() => openPopup(setShowServiceSelection)}><i className='fas fa-sliders-h color-white' /></button>
+                <button className='services-list-search-settings' onClick={() => openPopup(setShowServiceSelection)}><i className='fas fa-sliders-h color-white' /></button>
             </div>
         </div>
     </>;

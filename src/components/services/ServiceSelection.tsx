@@ -4,6 +4,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
+import CategoryTagInput from '../categories/CategoryTagInput';
 
 interface IServiceSelectionProps {
     onClose: () => void
@@ -33,7 +34,8 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                     <p>Выберите категории (одну или несколько):</p>
                     <ul className='categories-list'>
                         {rootState.categories.categories.slice(0, showCategories).map(i => {
-                            return <CategoryTag name={i.name} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
+                            // return <CategoryTag name={i.name} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
+                            return <CategoryTagInput category={i} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
                         })}
                     </ul>
                     <div className='service-selection-categories-button-container'>

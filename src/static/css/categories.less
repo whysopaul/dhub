@@ -39,3 +39,51 @@
         }
     }
 }
+
+.category-tag-input {
+    position: absolute;
+    opacity: 0;
+
+    &+label {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 7px 12px;
+        gap: 6px;
+        background-color: #F6F7FB;
+        border-radius: 24px;
+        cursor: pointer;
+        font-family: 'Montserrat', sans-serif;
+        font-style: normal;
+        font-size: 12px;
+        font-weight: 400;
+        line-height: 14px;
+        text-transform: uppercase;
+        color: #386BEE;
+
+        span {
+            width: 32px;
+            height: 24px;
+            background-color: #386BEE;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            line-height: 12px;
+            text-align: center;
+            text-transform: uppercase;
+            color: #FFFFFF;
+        }
+    }
+
+    &:checked+label {
+        background-color: #386BEE;
+        color: #FFFFFF;
+
+        span {
+            background-color: #F6F7FB;
+            color: #386BEE;
+        }
+    }
+}

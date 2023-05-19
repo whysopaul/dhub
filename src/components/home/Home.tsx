@@ -12,7 +12,6 @@ import Footer from '../global/Footer';
 import Navigation from '../global/Navigation';
 
 import '../../static/css/home.css';
-import Logo from '../../static/images/logo.svg';
 import Welcome from '../../static/images/welcome.webp';
 import Giftbox from '../../static/images/giftbox.webp';
 import Taskboard from '../../static/images/taskboard.webp';

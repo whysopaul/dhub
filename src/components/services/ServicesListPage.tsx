@@ -38,8 +38,8 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
                 </ul>
             </div>
             <div className='services-list-main-container'>
-                <div className='services-list-header'>
-                    <h2>Все сервисы</h2>
+                <div className='services-list-title'>
+                    <h2 className='section-main-title'>Все сервисы</h2>
                     <div className='sort-selection'>
                         <span>Сортировать:</span>
                         <select className='color-blue'>
