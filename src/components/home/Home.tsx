@@ -9,7 +9,6 @@ import HomeServicesComponent from './HomeServicesComponent';
 import HomeArticlesComponent from './HomeArticlesComponent';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import Footer from '../global/Footer';
-import Navigation from '../global/Navigation';
 
 import '../../static/css/home.css';
 import Welcome from '../../static/images/welcome.webp';
@@ -22,9 +21,7 @@ import Service from '../../static/images/service_banner.webp';
 import { mockArtData } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { getAllCategories } from '../../actions/categories/categories';
-import Login from '../global/Login';
 import AddServicePopup from './AddServicePopup';
-import UserHeader from '../global/UserHeader';
 import ServiceSelection from '../services/ServiceSelection';
 import { closePopup, openPopup } from '../utils';
 import Header from '../global/Header';
@@ -48,13 +45,15 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const [showServiceSelection, setShowServiceSelection] = useState(false)
 
-    const randomCategories = (qty: number): number[] => {
-        let resultArr: number[] = []
-        for (let i = 0; i < qty; i++) {
-            resultArr.push(Math.round(Math.random() * categoriesState?.length))
-        }
-        return resultArr
-    }
+    // const randomCategories = (qty: number): number[] => {
+    //     let resultArr: number[] = []
+    //     for (let i = 0; i < qty; i++) {
+    //         resultArr.push(Math.round(Math.random() * categoriesState?.length))
+    //     }
+    //     return resultArr
+    // }
+
+    const [search, setSearch] = useState('')
 
     return <>
 
@@ -94,19 +93,19 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div>
                     <div className='home-categories-left-block'>
                         <ul className='categories-list'>
-                            {categoriesState.length > 0 && randomCategories(6).map(i => {
+                            {categoriesState.length > 0 && categoriesState.slice(0, 5).map(i => {
 
-                                const categoryObj = categoriesState?.find(category => category.id === i)
-                                const servicesInCategory = serviceState.services?.filter(service => service.categories.find(category => category.id === i)).length
+                                // const categoryObj = categoriesState?.find(category => category.id === i)
+                                const servicesInCategory = serviceState.services?.filter(service => service.categories.find(category => category.id === i.id)).length
 
-                                return <CategoryTag name={categoryObj?.name} qty={servicesInCategory} />
+                                return <CategoryTag name={i.name} qty={servicesInCategory} />
                             })}
                         </ul>
                     </div>
                     <div className='home-categories-right-block'>
-                        <form>
+                        <form action='/services'>
                             <div className='home-categories-search-field'>
-                                <input type='text' placeholder='Поиск' />
+                                <input type='text' name='search' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} />
                                 <i className='fas fa-search' />
                             </div>
                         </form>
@@ -120,7 +119,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-giftbox-container'>
                     <div className='home-banner-text-block'>
                         <p>Получите чек-лист по правильному подбору сервисов для работы</p>
-                        <button className='banner-button'>
+                        <button className='arrow-right-button'>
                             <span>Получить подарок</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
@@ -137,7 +136,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-specialist-banner-container'>
                     <div className='home-banner-text-block'>
                         <p>Специалист в каком-либо сервисе?</p>
-                        <button className='banner-button'>
+                        <button className='arrow-right-button'>
                             <span>Регистрируйся</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
@@ -153,7 +152,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
                     <h2>Отзывы клиентов</h2>
-                    <Link to='/'>
+                    <Link to='/' className='arrow-right-link'>
                         <span>Смотреть все</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </Link>

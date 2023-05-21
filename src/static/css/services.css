@@ -264,23 +264,23 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* SERVICE FEEDBACK */
+/* SERVICE SECTION (FEEDBACK, SPECIALISTS) */
 
-.service-feedback-header-options {
+.service-section-header-options {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 40px;
 }
 
-.service-feedback-header {
+.service-section-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 32px;
 }
 
-.service-feedback-header>button {
+.service-section-header>button {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
@@ -292,16 +292,16 @@
     cursor: pointer;
 }
 
-.service-feedback-header>button>i {
+.service-section-header>button>i {
     font-size: 18px;
 }
 
-.service-feedback-header-buttons {
+.service-section-header-buttons {
     display: flex;
     gap: 16px;
 }
 
-.service-feedback-header-buttons>button {
+.service-section-header-buttons>button {
     background-color: rgb(115, 149, 231, 0.1);
     border-radius: 75px;
     font-family: 'Noto Sans';
@@ -317,7 +317,7 @@
     cursor: pointer;
 }
 
-.service-feedback-header-buttons>button>span {
+.service-section-header-buttons>button>span {
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 600;
@@ -329,12 +329,12 @@
     border-radius: 12px;
 }
 
-.service-feedback-header-buttons>.active {
+.service-section-header-buttons>.active {
     color: #FFFFFF;
     background-color: #386BEE;
 }
 
-.service-feedback-header-buttons>.active>span {
+.service-section-header-buttons>.active>span {
     color: #386BEE;
     background: white;
 }
@@ -349,6 +349,11 @@
     background-color: rgba(244, 247, 255, 0.5);
     box-shadow: 0 0 8px #e0e7f4;
     backdrop-filter: none;
+}
+
+.service-specialists-cards {
+    display: grid;
+    gap: 16px;
 }
 
 /* SERVICES LIST PAGE */

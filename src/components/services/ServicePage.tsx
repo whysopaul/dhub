@@ -14,6 +14,8 @@ import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import Footer from '../global/Footer';
 import { TServicesData } from '../../actions/services/types';
 import ServiceGallery from './ServiceGallery';
+import { mockSpecialists } from '../../actions/specialists/specialists';
+import SpecialistCardComponent from '../specialists/SpecialistCardComponent';
 
 interface IServicePageProps {
 }
@@ -74,7 +76,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <div className='service-banner-container'>
                                 <div>
                                     <h3>Специалист в этом сервисе?</h3>
-                                    <button className='banner-button'>
+                                    <button className='arrow-right-button'>
                                         <span>Регистрируйся</span>
                                         <i className='fas fa-long-arrow-alt-right' />
                                     </button>
@@ -104,8 +106,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>
                 </div>
                 <section>
-                    <div className='service-feedback-header-options'>
-                        <div className='service-feedback-header-buttons'>
+                    <div className='service-section-header-options'>
+                        <div className='service-section-header-buttons'>
                             <button className={mode === 1 ? 'active' : ''} onClick={() => setMode(1)}><p>Отзывы</p><span>30</span></button>
                             <button className={mode === 2 ? 'active' : ''} onClick={() => setMode(2)}><p>Специалисты</p><span>30</span></button>
                         </div>
@@ -117,7 +119,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         </div>
                     </div>
                     {mode === 1 && <>
-                        <div className='service-feedback-header'>
+                        <div className='service-section-header'>
                             <h2 className='section-main-title'>Отзывы</h2>
                             <button className='color-blue'><i className='far fa-edit' /><span>Оставить отзыв</span></button>
                         </div>
@@ -129,11 +131,13 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </>}
 
                     {mode === 2 && <>
-                        <div className='service-feedback-header'>
+                        <div className='service-section-header'>
                             <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
                         </div>
-                        <div>
-
+                        <div className='service-specialists-cards'>
+                            {mockSpecialists.map(specialist => {
+                                return <SpecialistCardComponent specialist={specialist} />
+                            })}
                         </div>
                     </>}
                 </section>

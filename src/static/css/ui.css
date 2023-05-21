@@ -1,4 +1,4 @@
-.banner-button {
+.arrow-right-button {
     border: none;
     background: none;
     font-family: 'Noto Sans';
@@ -14,7 +14,7 @@
     gap: 12px;
 }
 
-.link-arrow-right {
+.arrow-right-link {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 500;
@@ -24,11 +24,11 @@
     text-decoration: none;
 }
 
-.link-arrow-right:hover {
+.arrow-right-link:hover {
     text-decoration-line: underline;
 }
 
-.link-arrow-right>span {
+.arrow-right-link>span {
     margin-right: 12px;
 }
 

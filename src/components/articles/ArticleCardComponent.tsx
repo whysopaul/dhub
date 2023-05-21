@@ -16,7 +16,7 @@ const ArticleCardComponent: React.FunctionComponent<IArticleCardComponentProps> 
             </div>
             <h3>{props.article.title}</h3>
             <p>{props.article.description}</p>
-            <Link to='/' className='link-arrow-right'>
+            <Link to='/' className='arrow-right-link'>
                 <span>Подробнее</span>
                 <i className='fas fa-long-arrow-alt-right' />
             </Link>
