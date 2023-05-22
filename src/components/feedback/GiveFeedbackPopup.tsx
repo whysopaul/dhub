@@ -60,7 +60,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                         </div>
                     </div>
                     <textarea placeholder='Опишите ваш опыт использования' value={textarea} onChange={e => setTextarea(e.target.value)} />
-                    <button type='submit' className='blue-shadow-button'>
+                    <button type='button' className='blue-shadow-button'>
                         <span>Отправить</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>

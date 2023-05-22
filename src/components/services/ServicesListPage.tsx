@@ -17,7 +17,17 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     const rootState = useSelector((state: RootStore) => state)
 
     const [search, setSearch] = useState('')
-    const searchCondition = rootState.services.services.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    const [isNotFree, setIsNotFree] = useState<boolean>(null)
+    const [hasNoTrial, setHasNoTrial] = useState<boolean>(null)
+    const [hasNoPartnership, setHasNoPartnership] = useState<boolean>(null)
+    const searchCondition = rootState.services.services.filter(service =>
+        service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        &&
+        service.description.isFree !== isNotFree
+        &&
+        service.description.hasTrial !== hasNoTrial
+        && service.description.hasPartnership !== hasNoPartnership
+    )
 
     const [numberOfServices] = useState(20)
     const [currentPage, setCurrentPage] = useState(1)
@@ -27,6 +37,15 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
         const urlParams = new URLSearchParams(window.location.search)
         if (urlParams.has('search')) {
             setSearch(urlParams.get('search'))
+        }
+        if (urlParams.has('isFree')) {
+            setIsNotFree(false)
+        }
+        if (urlParams.has('hasTrial')) {
+            setHasNoTrial(false)
+        }
+        if (urlParams.has('hasPartnership')) {
+            setHasNoPartnership(false)
         }
     }, [])
 
@@ -48,13 +67,16 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
             <div className='services-list-categories-container'>
                 <p>Категории:</p>
                 <ul className='categories-list'>
-                    {rootState.categories.categories.map(category => {
+                    {/* {rootState.categories.categories.map(category => {
                         return {
                             ...category,
                             servicesInCategory: rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length
                         }
                     }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 16).map(popularCategory => {
                         return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} />
+                    })} */}
+                    {searchCondition.flatMap(service => service.categories).filter((categoryObject, idx, array) => idx === array.findIndex(i => i.id === categoryObject.id)).slice(0, 16).map(category => {
+                        return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length} />
                     })}
                 </ul>
             </div>
