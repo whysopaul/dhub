@@ -114,3 +114,12 @@
     color: #B3B7C1;
     cursor: pointer;
 }
+
+.star-button {
+    color: #D3DAEA;
+    cursor: pointer;
+}
+
+.star-button.active {
+    color: #FFC517;
+}

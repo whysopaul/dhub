@@ -202,13 +202,17 @@
     color: #2D4379;
 }
 
-.feedback-popup-rating>div {
+.feedback-popup-stars {
     display: flex;
     gap: 12px;
 }
 
-.feedback-popup-rating i {
+.feedback-popup-stars i {
     font-size: 24px;
+}
+
+.feedback-popup-total-rating {
+    justify-self: flex-end;
 }
 
 .feedback-popup-main>textarea {
