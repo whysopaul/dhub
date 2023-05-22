@@ -1,13 +1,13 @@
 import { Dispatch } from "react";
 import { LOGIN, authDispatchTypes } from "./types";
 import axios from "axios";
-import { SERVER_URL } from '../../components/utils'
+import { SERVER_URL, URL } from '../../components/utils'
 
 export const connectVkAccount = () => (dispatch: Dispatch<authDispatchTypes>) => {
 
     const client_id = '51648679'
 
-    const redirect_uri = 'http://localhost:8080/loginVk'
+    const redirect_uri = URL + '/loginVk'
 
     const auth = 'https://oauth.vk.com/authorize?client_id=' + client_id + '&redirect_uri=' + redirect_uri + '&scope=notify,offline&response_type=token&v=5.131'
 

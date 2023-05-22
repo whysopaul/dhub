@@ -82,7 +82,7 @@
 }
 
 .service-rating-tag>i {
-    font-size: 10px;
+    font-size: 10px !important;
 }
 
 .service-rating-tag>span {
@@ -366,11 +366,11 @@
     font-size: 18px;
     line-height: 18px;
     padding: 10px 85px 10px 16px;
-    border: 1px solid rgba(200, 222, 253, 0.4);
+    border: 1px solid rgba(45, 67, 121, 0.4);
     border-radius: 32px;
     box-sizing: border-box;
     height: 48px;
-    color: #FFFFFF;
+    color: #B3BBC2;
 }
 
 .services-list-search-container>div {
@@ -388,6 +388,10 @@
     display: flex;
     position: relative;
     cursor: pointer;
+}
+
+.services-list-categories-container {
+    margin-top: 32px;
 }
 
 .services-list-categories-container>p {

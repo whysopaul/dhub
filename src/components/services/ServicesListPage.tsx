@@ -4,8 +4,10 @@ import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import ServiceCardComponent from './ServiceCardComponent';
 import Footer from '../global/Footer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Header from '../global/Header';
+import ServiceSelection from './ServiceSelection';
+import { closePopup, openPopup } from '../utils';
 
 interface IServicesListPageProps {
 }
@@ -21,11 +23,30 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     const [currentPage, setCurrentPage] = useState(1)
     const numberOfPages = new Array(Math.ceil(searchCondition.length / numberOfServices)).fill('').map((_, idx) => idx + 1)
 
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search)
+        if (urlParams.has('search')) {
+            setSearch(urlParams.get('search'))
+        }
+    }, [])
+
+    const [showServiceSelection, setShowServiceSelection] = useState(false)
+
     return <>
+
+        {showServiceSelection && <ServiceSelection onClose={() => closePopup(setShowServiceSelection)} />}
+
         <Header />
         <div className='page-main-container'>
+            <div className='services-list-search-container'>
+                <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} />
+                <div>
+                    <i className='fas fa-search color-blue' />
+                    <button className='services-list-search-settings' onClick={() => openPopup(setShowServiceSelection)}><i className='fas fa-sliders-h color-blue' /></button>
+                </div>
+            </div>
             <div className='services-list-categories-container'>
-                <p>Популярные категории:</p>
+                <p>Категории:</p>
                 <ul className='categories-list'>
                     {rootState.categories.categories.map(category => {
                         return {

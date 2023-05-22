@@ -8,7 +8,7 @@ import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
 import Banner from '../../static/images/service_banner.webp'
-import { createServiceLink } from '../utils';
+import { closePopup, createServiceLink, openPopup } from '../utils';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import Footer from '../global/Footer';
@@ -16,6 +16,7 @@ import { TServicesData } from '../../actions/services/types';
 import ServiceGallery from './ServiceGallery';
 import { mockSpecialists } from '../../actions/specialists/specialists';
 import SpecialistCardComponent from '../specialists/SpecialistCardComponent';
+import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 
 interface IServicePageProps {
 }
@@ -36,9 +37,12 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     // 2 - Специалисты
     const [mode, setMode] = useState<number>(1)
 
+    const [showFeedbackPopup, setShowFeedbackPopup] = useState(false)
+
     return <>
 
         {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => { setSelectedImageSource(null); document.body.style.overflow = '' }} />}
+        {showFeedbackPopup && <GiveFeedbackPopup service={currentService} onClose={() => closePopup(setShowFeedbackPopup)} />}
 
         <Header />
         {currentService && <>
@@ -121,7 +125,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     {mode === 1 && <>
                         <div className='service-section-header'>
                             <h2 className='section-main-title'>Отзывы</h2>
-                            <button className='color-blue'><i className='far fa-edit' /><span>Оставить отзыв</span></button>
+                            <button className='color-blue' onClick={() => openPopup(setShowFeedbackPopup)}><i className='far fa-edit' /><span>Оставить отзыв</span></button>
                         </div>
                         <div className='service-feedback-cards'>
                             {mockFeedbackData.map(i => {
