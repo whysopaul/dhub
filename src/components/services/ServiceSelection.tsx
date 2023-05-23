@@ -20,21 +20,34 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
     const [showCategories, setShowCategories] = useState(16)
 
     const [search, setSearch] = useState('')
+    const isFreeRef = useRef<HTMLInputElement>(null)
+    const hasTrialRef = useRef<HTMLInputElement>(null)
+    const hasPartnershipRef = useRef<HTMLInputElement>(null)
 
-    const onSubmit = (e) => {
+    const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
-        const params = new URLSearchParams()
+        const urlParams = new URLSearchParams()
 
-        params.append('search', search)
+        urlParams.append('search', search)
+
+        if (isFreeRef.current.checked) {
+            urlParams.append('isFree', 'true')
+        }
+        if (hasTrialRef.current.checked) {
+            urlParams.append('hasTrial', 'true')
+        }
+        if (hasPartnershipRef.current.checked) {
+            urlParams.append('hasPartnership', 'true')
+        }
 
         let checkedCategories = document.querySelectorAll('input[type="checkbox"][name="category"]:checked')
         let categoriesValues = Array.from(checkedCategories, category => category.getAttribute('value')).join(',')
         if (checkedCategories.length > 0) {
-            params.append('categories', categoriesValues)
+            urlParams.append('categories', categoriesValues)
         }
 
-        return window.location.replace('/services?' + params)
+        return window.location.replace('/services?' + urlParams)
     }
 
     return <>
@@ -62,9 +75,9 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                 <div className='service-selection-advanced-inputs'>
                     <div>
                         <p>Функциональные особенности:</p>
-                        <label><input type='checkbox' name='isFree' />Бесплатная версия</label>
-                        <label><input type='checkbox' name='hasTrial' />Пробный период</label>
-                        <label><input type='checkbox' name='hasPartnership' />Партнёрская программа</label>
+                        <label><input type='checkbox' ref={isFreeRef} />Бесплатная версия</label>
+                        <label><input type='checkbox' ref={hasTrialRef} />Пробный период</label>
+                        <label><input type='checkbox' ref={hasPartnershipRef} />Партнёрская программа</label>
                     </div>
                     <div>
                         <p>Способ оплаты:</p>

@@ -123,3 +123,20 @@
 .star-button.active {
     color: #FFC517;
 }
+
+.feedback-button {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #386BEE;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.feedback-button>i {
+    font-size: 18px;
+}

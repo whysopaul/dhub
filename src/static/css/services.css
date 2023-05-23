@@ -280,22 +280,6 @@
     margin-bottom: 32px;
 }
 
-.service-section-header>button {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 14px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    cursor: pointer;
-}
-
-.service-section-header>button>i {
-    font-size: 18px;
-}
-
 .service-section-header-buttons {
     display: flex;
     gap: 16px;
