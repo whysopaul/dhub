@@ -475,16 +475,6 @@
     line-height: 20px;
 }
 
-.service-selection-categories-button-container {
-    margin-top: 16px;
-    text-align: center;
-}
-
-.service-selection-categories-button-container i {
-    font-size: 10px;
-    margin-left: 8px;
-}
-
 .service-selection-advanced-inputs {
     display: grid;
     grid-template-columns: 1fr 1fr;

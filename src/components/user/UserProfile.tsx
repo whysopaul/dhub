@@ -25,7 +25,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                 <p className='section-main-title'>{userState.name}</p>
             </div>
             <div>
-                <Link to='/' className='arrow-right-link'>
+                <Link to='/profile' className='arrow-right-link'>
                     <span>Редактировать профиль</span>
                     <i className='fas fa-long-arrow-alt-right' />
                 </Link>
@@ -56,7 +56,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
         {mode === 1 && <>
             <div className='service-feedback-cards'>
                 {mockFeedbackData.map(i => {
-                    return <FeedbackCardComponent comment={i} />
+                    return <FeedbackCardComponent comment={i} owner />
                 })}
             </div>
         </>}
@@ -67,6 +67,12 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                 })}
             </div>
         </>}
+        <div className='show-more-container'>
+            <button className='color-blue cursor-pointer'>
+                <span>Показать еще</span>
+                <i className='fas fa-chevron-down' />
+            </button>
+        </div>
     </>;
 };
 

@@ -3,10 +3,11 @@ import { TFeedbackComment } from '../../actions/feedback/types';
 import '../../static/css/feedback.css';
 
 interface IFeedbackCardComponentProps {
-    comment: TFeedbackComment
+    comment: TFeedbackComment,
+    owner?: boolean
 }
 
-const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment }) => {
+const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner }) => {
 
     const starCount = (points: number) => {
         const stars = new Array(points).fill('').map(_ => {
@@ -20,11 +21,13 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
     return <>
         <div className='feedback-card-container'>
             <div className='feedback-card-header'>
-                <img src={comment.author.profilePhoto} alt="" />
-                <div className='feedback-card-username'>
-                    <p>{comment.author.firstName}</p>
-                    <p>{comment.author.lastName}</p>
-                </div>
+                {!owner && <>
+                    <img src={comment.author.profilePhoto} alt="" />
+                    <div className='feedback-card-username'>
+                        <p>{comment.author.firstName}</p>
+                        <p>{comment.author.lastName}</p>
+                    </div>
+                </>}
                 <div className='feedback-card-rating'>
                     <span>Функциональность</span>
                     <div>{starCount(comment.points.functionality)}</div>

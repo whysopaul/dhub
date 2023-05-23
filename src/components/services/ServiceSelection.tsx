@@ -67,8 +67,11 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                             return <CategoryTagInput category={i} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
                         })}
                     </ul>
-                    <div className='service-selection-categories-button-container'>
-                        <button type='button' className='color-blue cursor-pointer' onClick={() => showCategories ? setShowCategories(undefined) : setShowCategories(16)}><span>{showCategories ? 'Показать все категории' : 'Скрыть все категории'}</span><i className={showCategories ? 'fas fa-chevron-down' : 'fas fa-chevron-up'} /></button>
+                    <div className='show-more-container'>
+                        <button type='button' className='color-blue cursor-pointer' onClick={() => showCategories ? setShowCategories(undefined) : setShowCategories(16)}>
+                            <span>{showCategories ? 'Показать все категории' : 'Скрыть все категории'}</span>
+                            <i className={showCategories ? 'fas fa-chevron-down' : 'fas fa-chevron-up'} />
+                        </button>
                     </div>
                 </div>
                 <hr />

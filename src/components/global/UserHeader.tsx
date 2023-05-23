@@ -14,7 +14,7 @@ const UserHeader: React.FunctionComponent<IUserHeaderProps> = (props) => {
     return <>
         <div className={styles.user}>
             <img src={authState.photo} alt="" />
-            <Link to='/profile'>{authState.name}</Link>
+            <Link to='/profile' title='Перейти в профиль'>{authState.name}</Link>
         </div>
     </>;
 };
