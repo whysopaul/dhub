@@ -20,13 +20,18 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     const [isNotFree, setIsNotFree] = useState<boolean>(null)
     const [hasNoTrial, setHasNoTrial] = useState<boolean>(null)
     const [hasNoPartnership, setHasNoPartnership] = useState<boolean>(null)
+    const [searchCategories, setSearchCategories] = useState<string>(null)
+
     const searchCondition = rootState.services.services.filter(service =>
         service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         &&
         service.description.isFree !== isNotFree
         &&
         service.description.hasTrial !== hasNoTrial
-        && service.description.hasPartnership !== hasNoPartnership
+        &&
+        service.description.hasPartnership !== hasNoPartnership
+        &&
+        service.categories.find(category => searchCategories?.split(',').map(c => Number(c)).indexOf(category.id) !== -1)
     )
 
     const [numberOfServices] = useState(20)
@@ -46,6 +51,9 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
         }
         if (urlParams.has('hasPartnership')) {
             setHasNoPartnership(false)
+        }
+        if (urlParams.has('categories')) {
+            setSearchCategories(urlParams.get('categories'))
         }
     }, [])
 

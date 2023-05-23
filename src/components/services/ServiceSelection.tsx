@@ -21,10 +21,26 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
 
     const [search, setSearch] = useState('')
 
+    const onSubmit = (e) => {
+        e.preventDefault()
+
+        const params = new URLSearchParams()
+
+        params.append('search', search)
+
+        let checkedCategories = document.querySelectorAll('input[type="checkbox"][name="category"]:checked')
+        let categoriesValues = Array.from(checkedCategories, category => category.getAttribute('value')).join(',')
+        if (checkedCategories.length > 0) {
+            params.append('categories', categoriesValues)
+        }
+
+        return window.location.replace('/services?' + params)
+    }
+
     return <>
         <div className='backdrop-no-blur'></div>
         <div className='service-selection-container' ref={ref}>
-            <form action='/services'>
+            <form action='/services' onSubmit={onSubmit}>
                 <div className='service-selection-header'>
                     <h2 className='section-main-title'>Подобрать сервис</h2>
                     <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам подобрать для вас тот сервис, который вам нужен.</p>
