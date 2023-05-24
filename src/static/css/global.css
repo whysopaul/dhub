@@ -68,11 +68,22 @@ hr {
     cursor: pointer;
 }
 
+.mb-32 {
+    margin-bottom: 32px;
+}
+
 .page-main-container {
     width: 1440px;
     margin: 0 auto;
     padding: 0 80px;
     box-sizing: border-box;
+}
+
+.section-header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
 }
 
 .section-main-title {
@@ -114,6 +125,34 @@ hr {
     font-size: 10px;
     margin-left: 8px;
 }
+
+.wide-search-container {
+    margin-bottom: 32px;
+}
+
+.wide-search-container>input {
+    width: 100%;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    padding: 0 48px 0 16px;
+    border: 1px solid rgb(45, 67, 121, 0.4);
+    border-radius: 32px;
+    box-sizing: border-box;
+    height: 48px;
+    color: #B3BBC2;
+}
+
+.wide-search-container>i {
+    float: right;
+    font-size: 18px;
+    margin-top: -32px;
+    margin-right: 18px;
+}
+
+/* LOADER */
 
 .loader {
     border: 5px solid #555;

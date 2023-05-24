@@ -1,12 +1,5 @@
 /* USER PROFILE */
 
-.user-profile-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
-}
-
 .user-profile-subheader {
     display: flex;
     align-items: center;
@@ -35,13 +28,6 @@
 .user-profile-modes>.active {
     color: #FFFFFF;
     background-color: #386BEE;
-}
-
-.user-profile-section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
 }
 
 /* USER PROFILE EDIT */

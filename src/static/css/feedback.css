@@ -1,3 +1,17 @@
+/* FEEDBACK CARDS */
+
+.feedback-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.feedback-cards>.feedback-card-container {
+    background-color: rgba(244, 247, 255, 0.5);
+    box-shadow: 0 0 8px #e0e7f4;
+    backdrop-filter: none;
+}
+
 /* FEEDBACK CARD */
 
 .feedback-card-container {
@@ -228,5 +242,21 @@
     height: 86px;
     resize: none;
     box-sizing: border-box;
+    margin-bottom: 32px;
+}
+
+/* FEEDBACK LIST */
+
+.feedback-list-categories {
+    margin-bottom: 32px;
+}
+
+.feedback-list-categories>p {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
     margin-bottom: 32px;
 }

@@ -264,20 +264,13 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* SERVICE SECTION (FEEDBACK, SPECIALISTS) */
+/* SERVICE SECTION (SPECIALISTS) */
 
 .service-section-header-options {
     display: flex;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 40px;
-}
-
-.service-section-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
 }
 
 .service-section-header-buttons {
@@ -323,18 +316,6 @@
     background: white;
 }
 
-.service-feedback-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-}
-
-.service-feedback-cards>.feedback-card-container {
-    background-color: rgba(244, 247, 255, 0.5);
-    box-shadow: 0 0 8px #e0e7f4;
-    backdrop-filter: none;
-}
-
 .service-specialists-cards {
     display: grid;
     gap: 16px;
@@ -375,7 +356,7 @@
 }
 
 .services-list-categories-container {
-    margin-top: 32px;
+    margin: 32px 0;
 }
 
 .services-list-categories-container>p {
@@ -387,22 +368,6 @@
     color: #2D4379;
     margin-bottom: 32px;
 }
-
-.services-list-title {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 32px 0;
-}
-
-/* .services-list-title>h2 {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 42px;
-    line-height: 54px;
-    color: #000000;
-} */
 
 .services-list-pagination {
     display: flex;
@@ -493,32 +458,6 @@
 
 .service-selection-advanced-inputs input[type='checkbox'] {
     margin-right: 16px;
-}
-
-.service-selection-search-container {
-    margin-bottom: 32px;
-}
-
-.service-selection-search-container>input {
-    width: 100%;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 14px;
-    padding: 0 48px 0 16px;
-    border: 1px solid rgb(45, 67, 121, 0.4);
-    border-radius: 32px;
-    box-sizing: border-box;
-    height: 48px;
-    color: #B3BBC2;
-}
-
-.service-selection-search-container>i {
-    float: right;
-    font-size: 18px;
-    margin-top: -32px;
-    margin-right: 18px;
 }
 
 .service-selection-buttons {

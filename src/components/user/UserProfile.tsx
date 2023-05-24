@@ -19,7 +19,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
     const [mode, setMode] = useState<number>(1)
 
     return <>
-        <div className='user-profile-header'>
+        <div className='section-header-container'>
             <div className='user-profile-subheader'>
                 <img src={userState.photo} alt="" className='user-profile-photo' />
                 <h2 className='section-main-title'>{userState.name}</h2>
@@ -36,7 +36,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             <button className={mode === 1 && 'active'} onClick={() => setMode(1)}>Отзывы</button>
             <button className={mode === 2 && 'active'} onClick={() => setMode(2)}>История просмотров</button>
         </div>
-        <div className='user-profile-section-header'>
+        <div className='section-header-container'>
             <div className='user-profile-subheader'>
                 {mode === 1 && <>
                     <h2 className='section-main-title'>Мои отзывы</h2>
@@ -54,7 +54,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             </div>
         </div>
         {mode === 1 && <>
-            <div className='service-feedback-cards'>
+            <div className='feedback-cards'>
                 {mockFeedbackData.map(i => {
                     return <FeedbackCardComponent comment={i} owner />
                 })}

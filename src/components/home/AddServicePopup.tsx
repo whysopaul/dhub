@@ -41,7 +41,7 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>
                 </form>
-                <button className='popup-close-button' onClick={() => setShowPopup(false)}><i className='fas fa-times' /></button>
+                <button className='popup-close-button' onClick={() => closePopup(setShowPopup)}><i className='fas fa-times' /></button>
             </div>
         </>}
     </>;

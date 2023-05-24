@@ -152,7 +152,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
                     <h2>Отзывы клиентов</h2>
-                    <Link to='/' className='arrow-right-link'>
+                    <Link to='/feedback' className='arrow-right-link'>
                         <span>Смотреть все</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </Link>

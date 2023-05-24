@@ -87,7 +87,7 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
             </ul>
         </div>
         <div className='services-list-main-container'>
-            <div className='services-list-title'>
+            <div className='section-header-container'>
                 <h2 className='section-main-title'>Все сервисы</h2>
                 <div className='sort-selection'>
                     <span>Сортировать:</span>

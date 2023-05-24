@@ -119,11 +119,14 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>
                 </div>
                 {mode === 1 && <>
-                    <div className='service-section-header'>
+                    <div className='section-header-container'>
                         <h2 className='section-main-title'>Отзывы</h2>
-                        <button className='feedback-button' onClick={() => openPopup(setShowFeedbackPopup)}><i className='far fa-edit' /><span>Оставить отзыв</span></button>
+                        <button className='feedback-button' onClick={() => openPopup(setShowFeedbackPopup)}>
+                            <i className='far fa-edit' />
+                            <span>Оставить отзыв</span>
+                        </button>
                     </div>
-                    <div className='service-feedback-cards'>
+                    <div className='feedback-cards'>
                         {mockFeedbackData.map(i => {
                             return <FeedbackCardComponent comment={i} />
                         })}
@@ -131,7 +134,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 </>}
 
                 {mode === 2 && <>
-                    <div className='service-section-header'>
+                    <div className='mb-32'>
                         <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
                     </div>
                     <div className='service-specialists-cards'>
