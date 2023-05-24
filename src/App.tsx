@@ -6,6 +6,7 @@ import ServicesListPage from './components/services/ServicesListPage';
 import LoginVk from './components/auth/LoginVk';
 import UserProfile from './components/user/UserProfile';
 import Layout from './components/global/Layout';
+import UserProfileEdit from './components/user/UserProfileEdit';
 
 interface IAppProps {
 }
@@ -19,6 +20,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                     <Route path='/services' element={<ServicesListPage />} />
                     <Route path='/service/:serviceName' element={<ServicePage />} />
                     <Route path='/profile' element={<UserProfile />} />
+                    <Route path='/profile/edit' element={<UserProfileEdit />} />
                 </Route>
 
                 <Route path='/loginVk' element={<LoginVk />} />

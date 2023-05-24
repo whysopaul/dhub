@@ -13,12 +13,6 @@
     gap: 24px;
 }
 
-.user-profile-image {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-}
-
 .user-profile-modes {
     display: flex;
     gap: 20px;
@@ -48,4 +42,101 @@
     align-items: center;
     justify-content: space-between;
     margin-bottom: 32px;
+}
+
+/* USER PROFILE EDIT */
+
+.user-profile-edit-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+    margin-top: 48px;
+}
+
+.user-profile-edit-photo {
+    position: relative;
+}
+
+.user-profile-edit-photo-input {
+    position: absolute;
+    display: none;
+}
+
+.user-profile-edit-photo-input+label {
+    position: absolute;
+    top: 0;
+    right: -8px;
+    padding: 8px;
+    background: #386BEE;
+    color: white;
+    border-radius: 50%;
+    box-shadow: 0px 8px 16px rgba(56, 107, 238, 0.25);
+    display: flex;
+    cursor: pointer;
+}
+
+.user-profile-edit-info {
+    display: grid;
+    gap: 16px;
+    margin-right: auto;
+}
+
+.user-profile-edit-info>input {
+    border: 1px solid rgba(45, 67, 121, 0.6);
+    border-radius: 32px;
+    padding: 0 32px;
+    height: 48px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #16181B;
+}
+
+.user-profile-edit-info>label {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
+}
+
+.user-profile-edit-info>label>input {
+    margin-right: 20px;
+}
+
+.user-profile-edit-info a {
+    color: #386BEE;
+}
+
+.user-profile-edit-info>button {
+    width: 220px;
+    padding: 0;
+    margin-top: 24px;
+}
+
+.user-profile-edit-delete {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #FF2038;
+    cursor: pointer;
+}
+
+/* MISC */
+
+.user-profile-photo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+
+.user-profile-large-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
 }

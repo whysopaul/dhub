@@ -21,11 +21,11 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
     return <>
         <div className='user-profile-header'>
             <div className='user-profile-subheader'>
-                <img src={userState.photo} alt="" className='user-profile-image' />
-                <p className='section-main-title'>{userState.name}</p>
+                <img src={userState.photo} alt="" className='user-profile-photo' />
+                <h2 className='section-main-title'>{userState.name}</h2>
             </div>
             <div>
-                <Link to='/profile' className='arrow-right-link'>
+                <Link to='/profile/edit' className='arrow-right-link'>
                     <span>Редактировать профиль</span>
                     <i className='fas fa-long-arrow-alt-right' />
                 </Link>

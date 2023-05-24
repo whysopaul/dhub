@@ -28,7 +28,9 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             case 'services':
                 return <li><span>Сервисы</span></li>
             case 'profile':
-                return <li><span>Профиль</span></li>
+                return <li><Link to='/profile'>Профиль</Link></li>
+            case 'edit':
+                return <li><span>Редактировать профиль</span></li>
             default:
                 return <li><span>{i}</span></li>
         }
