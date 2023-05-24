@@ -11,31 +11,34 @@ const Footer: React.FunctionComponent<IFooterProps> = (props) => {
     return <>
         <footer style={styles}>
             <div className={styles.wrapper}>
-                <div className={styles.footerTop}>
-                    <img src={Logo} alt='digital.hub' />
-                    <div className={styles.navigation}>
-                        <Navigation />
-                    </div>
+                <img src={Logo} alt='digital.hub' />
+                <div className={styles.navigation}>
+                    <Navigation />
+                </div>
+                <div className={styles.buttons}>
                     <button><i className='fab fa-vk' /></button>
                     <button><i className='fab fa-telegram-plane' /></button>
                     <button><i className='fab fa-whatsapp' /></button>
                 </div>
-                <div>
+                <div className={styles.phone}>
                     <p>На все вопросы с радостью ответим на горячей линии:</p>
                     <h3>+7 (999) 999-99-99</h3>
                 </div>
-                <div className={styles.footerBottom}>
-                    <div>
+                <div className={styles.info}>
+                    <div className={styles.docs}>
+                        <Link to='/'>Политика конфиденциальности</Link>
+                        <Link to='/'>Договор оферты</Link>
+                    </div>
+                    <div className={styles.credentials}>
                         <p>ИП Крестинин К.И.</p>
                         <br />
                         <p>ИНН 745104702135</p>
                         <br />
                         <p>ОГРН 319745600113724</p>
                     </div>
-                    <div className={styles.docs}>
-                        <Link to='/'>Политика конфиденциальности</Link>
-                        <Link to='/'>Договор оферты</Link>
-                    </div>
+                </div>
+                <div className={styles.copyright}>
+                    <p>Санкт-Петербург, 2023. Все права защищены.</p>
                 </div>
             </div>
         </footer>

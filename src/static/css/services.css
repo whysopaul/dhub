@@ -157,6 +157,34 @@
 .service-rating-section {
     margin: 32px 0;
     display: flex;
+    align-items: center;
+}
+
+.service-rating-divider {
+    width: 1px;
+    height: 30px;
+    background: #E9EEFA;
+    margin: 0 24px;
+}
+
+.service-feedback-qty {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.service-feedback-qty>i {
+    font-size: 20px;
+    color: #F8B32D;
+}
+
+.service-feedback-qty>span {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #2D4379;
 }
 
 .service-info>p {
@@ -448,6 +476,11 @@
 .service-selection-advanced-inputs>div {
     display: grid;
     width: fit-content;
+    gap: 16px;
+}
+
+.service-selection-advanced-inputs p {
+    margin: 0;
 }
 
 .service-selection-advanced-inputs input[type='radio'] {

@@ -69,6 +69,11 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <span>{currentService.categories[0]?.name}</span>
                     <div className='service-rating-section'>
                         <ServiceRatingTag rating={currentService.rating} />
+                        <div className='service-rating-divider' />
+                        <div className='service-feedback-qty'>
+                            <i className='fas fa-star' />
+                            <span>34 отзыва</span>
+                        </div>
                     </div>
                     <hr />
                     <p>{currentService.description.text}</p>

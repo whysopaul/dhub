@@ -3,11 +3,11 @@ footer {
     background-color: #0D253C;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
-    font-family: 'Montserrat';
+    font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 14px;
     min-width: 1440px;
 }
 
@@ -15,6 +15,9 @@ footer {
     padding: 40px 80px;
     margin: 0 auto;
     width: 1440px;
+    display: grid;
+    grid-template-columns: calc(464px - 80px) auto min-content;
+    row-gap: 48px;
     box-sizing: border-box;
 }
 
@@ -26,18 +29,17 @@ footer {
 }
 
 .navigation {
-    margin-left: calc(137px - 24px);
-    margin-right: auto;
     display: flex;
-    gap: 80px;
+    gap: 120px;
+    align-self: center;
 }
 
 .navigation>a {
-    font-family: 'Noto Sans', sans-serif;
+    font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 18px;
+    font-size: 14px;
+    line-height: 14px;
     text-decoration: none;
     color: #636E8D;
 }
@@ -47,7 +49,13 @@ footer {
     color: #386BEE;
 }
 
-.footerTop>button {
+.buttons {
+    display: flex;
+    gap: 24px;
+    justify-self: end;
+}
+
+.buttons>button {
     width: 36px;
     height: 36px;
     border: none;
@@ -59,10 +67,12 @@ footer {
 }
 
 footer p {
-    color: rgba(244, 247, 255, 0.5);
+    color: #636E8D;
 }
 
 footer h3 {
+    font-family: 'Montserrat';
+    font-style: normal;
     font-weight: 700;
     font-size: 22px;
     line-height: 22px;
@@ -74,18 +84,34 @@ footer h3 {
     margin: 48px 0;
 }
 
-.footerBottom {
+.info {
     display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
+    grid-column-end: span 2;
 }
 
-.footerBottom a {
+.info a {
     text-decoration-line: underline;
     color: #386BEE;
 }
 
+.phone {
+    width: 250px;
+}
+
+.phone>p {
+    line-height: 18px;
+}
+
 .docs {
-    display: flex;
-    gap: 40px;
+    display: grid;
+    gap: 16px;
+    align-self: start;
+}
+
+.credentials {
+    margin-left: 134px;
+}
+
+.copyright {
+    margin-top: 52px;
 }

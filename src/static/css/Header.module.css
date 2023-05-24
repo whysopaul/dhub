@@ -20,7 +20,7 @@ header {
 .navigation {
     margin: 0 auto;
     display: flex;
-    gap: 80px;
+    gap: 120px;
 }
 
 .navigation a {
