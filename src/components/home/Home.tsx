@@ -77,7 +77,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <p>Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.</p>
                     <div>
                         <button className='blue-shadow-button' onClick={() => openPopup(setShowServiceSelection)}>
-                            <span>Подобрать сервис</span>
+                            <span>Найти сервис</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
                         <AddServicePopup />

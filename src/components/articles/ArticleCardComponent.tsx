@@ -11,12 +11,12 @@ const ArticleCardComponent: React.FunctionComponent<IArticleCardComponentProps> 
     return <>
         <div className='article-card-container'>
             <div className='article-card-image'>
-                <img src={props.article.previewImage} alt="" />
+                <Link to={'/article/' + props.article.id}><img src={props.article.previewImage} alt="" /></Link>
                 <span>{props.article.category}</span>
             </div>
-            <h3>{props.article.title}</h3>
+            <h3 className='article-card-title'><Link to={'/article/' + props.article.id}>{props.article.title}</Link></h3>
             <p>{props.article.description}</p>
-            <Link to='/' className='arrow-right-link'>
+            <Link to={'/article/' + props.article.id} className='arrow-right-link'>
                 <span>Подробнее</span>
                 <i className='fas fa-long-arrow-alt-right' />
             </Link>

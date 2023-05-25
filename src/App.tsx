@@ -9,6 +9,7 @@ import Layout from './components/global/Layout';
 import UserProfileEdit from './components/user/UserProfileEdit';
 import FeedbackListPage from './components/feedback/FeedbackListPage';
 import ArticlesListPage from './components/articles/ArticlesListPage';
+import ArticlePage from './components/articles/ArticlePage';
 
 interface IAppProps {
 }
@@ -23,6 +24,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                     <Route path='/service/:serviceName' element={<ServicePage />} />
                     <Route path='/feedback' element={<FeedbackListPage />} />
                     <Route path='/articles' element={<ArticlesListPage />} />
+                    <Route path='/article/:articleId' element={<ArticlePage />} />
                     <Route path='/profile' element={<UserProfile />} />
                     <Route path='/profile/edit' element={<UserProfileEdit />} />
                 </Route>

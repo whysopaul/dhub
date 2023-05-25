@@ -101,10 +101,10 @@
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 14px;
     color: #B3BBC2;
-    height: 54px;
+    height: 48px;
     box-sizing: border-box;
 }
 
@@ -112,7 +112,7 @@
     float: right;
     font-size: 20px;
     color: #386BEE;
-    margin-top: -37px;
+    margin-top: -33px;
     margin-right: 18px;
 }
 

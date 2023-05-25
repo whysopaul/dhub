@@ -55,7 +55,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
         <div className='service-selection-container' ref={ref}>
             <form action='/services' onSubmit={onSubmit}>
                 <div className='service-selection-header'>
-                    <h2 className='section-main-title'>Подобрать сервис</h2>
+                    <h2 className='section-main-title'>Найти сервис</h2>
                     <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам подобрать для вас тот сервис, который вам нужен.</p>
                 </div>
                 <hr />
