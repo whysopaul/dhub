@@ -8,7 +8,7 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
     return <>
         <Link to='/services'>Сервисы</Link>
         <Link to='/feedback'>Отзывы</Link>
-        <Link to='/'>Статьи и обзоры</Link>
+        <Link to='/articles'>Статьи и обзоры</Link>
     </>;
 };
 

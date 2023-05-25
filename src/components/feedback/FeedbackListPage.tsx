@@ -18,7 +18,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
             <input type='text' placeholder='Введите название сервиса' />
             <i className='fas fa-search color-blue' />
         </div>
-        <div className='feedback-list-categories'>
+        <div className='categories-section'>
             <p>Выберите категории:</p>
             <div>
                 <ul className='categories-list'>

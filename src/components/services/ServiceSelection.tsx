@@ -59,7 +59,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                     <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам подобрать для вас тот сервис, который вам нужен.</p>
                 </div>
                 <hr />
-                <div className='service-selection-categories'>
+                <div className='categories-section'>
                     <p>Выберите категории (одну или несколько):</p>
                     <ul className='categories-list'>
                         {rootState.categories.categories.slice(0, showCategories).map(i => {

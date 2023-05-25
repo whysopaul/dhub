@@ -244,19 +244,3 @@
     box-sizing: border-box;
     margin-bottom: 32px;
 }
-
-/* FEEDBACK LIST */
-
-.feedback-list-categories {
-    margin-bottom: 32px;
-}
-
-.feedback-list-categories>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 14px;
-    line-height: 14px;
-    color: #2D4379;
-    margin-bottom: 32px;
-}

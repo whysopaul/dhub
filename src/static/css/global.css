@@ -95,6 +95,20 @@ hr {
     color: #16181B;
 }
 
+.categories-section {
+    margin-bottom: 32px;
+}
+
+.categories-section>p {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
+    margin-bottom: 32px;
+}
+
 .categories-list {
     list-style-type: none;
     display: flex;
@@ -104,7 +118,7 @@ hr {
 }
 
 .sort-selection>* {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -132,7 +146,7 @@ hr {
 
 .wide-search-container>input {
     width: 100%;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
