@@ -335,50 +335,14 @@
 
 /* SERVICES LIST PAGE */
 
-.services-list-search-container>input {
-    width: 100%;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 18px;
-    padding: 10px 85px 10px 16px;
-    border: 1px solid rgba(45, 67, 121, 0.4);
-    border-radius: 32px;
-    box-sizing: border-box;
-    height: 48px;
-    color: #B3BBC2;
-}
-
-.services-list-search-container>div {
-    float: right;
-    font-size: 18px;
-    margin-top: -32px;
-    margin-right: 18px;
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 16px;
-}
-
-.services-list-search-settings {
-    font-size: 18px;
-    display: flex;
-    position: relative;
-    cursor: pointer;
-}
-
 .services-list-categories-container {
-    margin: 32px 0;
+    padding: 24px;
+    background: rgba(244, 247, 255, 0.5);
+    border-radius: 12px;
 }
 
 .services-list-categories-container>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 20px;
-    color: #2D4379;
-    margin-bottom: 32px;
+    margin-bottom: 24px !important;
 }
 
 .services-list-pagination {
@@ -392,8 +356,24 @@
 .services-list-cards-container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    column-gap: calc((1280px - 245px * 5) / 4);
     row-gap: 16px;
+}
+
+.services-list-not-found {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 24px;
+    color: #B3BBC2;
+    text-align: center;
+    margin: 200px auto;
+}
+
+.services-list-not-found>i {
+    font-size: 120pt;
+    margin-bottom: 16px;
 }
 
 /* SERVICE SELECTION */

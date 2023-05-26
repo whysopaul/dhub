@@ -4,7 +4,7 @@ module.exports = {
     entry: "./index.tsx",
     output: {
         filename: "index.js",
-        path: path.resolve(__dirname, ''), // change this,
+        path: path.resolve(__dirname, 'build'), // change this,
         publicPath: '/',
     },
     module: {

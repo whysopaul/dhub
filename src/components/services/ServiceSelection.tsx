@@ -97,7 +97,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                 </div>
                 <div className='service-selection-buttons'>
                     <button type='submit' className='blue-shadow-button'>
-                        <span>Подобрать сервис</span>
+                        <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>
                     <button type='button' className='round-item-button'>

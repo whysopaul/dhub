@@ -63,17 +63,16 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
 
         {showServiceSelection && <ServiceSelection onClose={() => closePopup(setShowServiceSelection)} />}
 
-        <div className='services-list-search-container'>
+        <div className='wide-search-container'>
+            <h2 className='section-main-title mb-32'>Сервисы</h2>
             <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} />
-            <div>
-                <i className='fas fa-search color-blue' />
-                <button className='services-list-search-settings' onClick={() => openPopup(setShowServiceSelection)}><i className='fas fa-sliders-h color-blue' /></button>
-            </div>
+            <i className='fas fa-search color-blue' />
         </div>
-        <div className='services-list-categories-container'>
-            <p>Категории:</p>
-            <ul className='categories-list'>
-                {/* {rootState.categories.categories.map(category => {
+        {searchCondition.length > 0 && <>
+            <div className='services-list-categories-container categories-section'>
+                <p>Популярные категории:</p>
+                <ul className='categories-list'>
+                    {/* {rootState.categories.categories.map(category => {
                         return {
                             ...category,
                             servicesInCategory: rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length
@@ -81,20 +80,10 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
                     }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 16).map(popularCategory => {
                         return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} />
                     })} */}
-                {searchCondition.flatMap(service => service.categories).filter((categoryObject, idx, array) => idx === array.findIndex(i => i.id === categoryObject.id)).slice(0, 16).map(category => {
-                    return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length} />
-                })}
-            </ul>
-        </div>
-        <div className='services-list-main-container'>
-            <div className='section-header-container'>
-                <h2 className='section-main-title'>Все сервисы</h2>
-                <div className='sort-selection'>
-                    <span>Сортировать:</span>
-                    <select className='color-blue'>
-                        <option value="">по умолчанию</option>
-                    </select>
-                </div>
+                    {searchCondition.flatMap(service => service.categories).filter((categoryObject, idx, array) => idx === array.findIndex(i => i.id === categoryObject.id)).slice(0, 16).map(category => {
+                        return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length} />
+                    })}
+                </ul>
             </div>
             <div className='services-list-pagination'>
                 {numberOfPages.map(number => {
@@ -106,7 +95,9 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
                     return <ServiceCardComponent service={service} />
                 })}
             </div>
-        </div>
+        </>}
+
+        {searchCondition.length === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}
     </>;
 };
 
