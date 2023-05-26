@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
@@ -17,6 +17,8 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
     const serviceState = useSelector((state: RootStore) => state.services.services)
 
     const [mode, setMode] = useState<number>(1)
+
+    const navigate = useNavigate()
 
     return <>
         <div className='section-header-container'>
@@ -40,7 +42,10 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             <div className='user-profile-subheader'>
                 {mode === 1 && <>
                     <h2 className='section-main-title'>Мои отзывы</h2>
-                    <button className='feedback-button'><i className='far fa-edit' /><span>Оставить отзыв</span></button>
+                    <button className='feedback-button' onClick={() => navigate('/services')}>
+                        <i className='far fa-edit' />
+                        <span>Оставить отзыв</span>
+                    </button>
                 </>}
                 {mode === 2 && <>
                     <h2 className='section-main-title'>История просмотров</h2>

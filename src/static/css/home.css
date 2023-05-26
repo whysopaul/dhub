@@ -184,7 +184,8 @@
 
 .home-articles-cards {
     display: flex;
-    justify-content: space-between;
+    column-gap: calc((1280px - (300px * 4)) / 3);
+    overflow: hidden;
 }
 
 /* HOME BANNERS */
