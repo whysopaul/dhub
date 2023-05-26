@@ -15,7 +15,7 @@ const HomeArticlesComponent: React.FunctionComponent<IHomeArticlesComponentProps
     const listBack = () => {
         if (sliceStart - 1 < 0) {
             setSliceStart(4)
-            setSliceEnd(9)
+            setSliceEnd(8)
         } else {
             setSliceStart(sliceStart - 1)
             setSliceEnd(sliceEnd - 1)
