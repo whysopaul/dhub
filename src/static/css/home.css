@@ -156,8 +156,7 @@
 .home-services-cards {
     display: flex;
     flex-wrap: nowrap;
-    column-gap: 13.7px;
-    /* ??? */
+    column-gap: calc((1280px - 245px * 5) / 4);
     row-gap: 16px;
     /* -webkit-mask-image: linear-gradient(to right, black, transparent); */
     overflow-x: auto;
@@ -270,7 +269,6 @@
 /* HOME FEEDBACK */
 
 .home-feedback-container {
-    /* margin-top: 90px; */
     background: linear-gradient(99.72deg, #6AB8FF 17.77%, #4586F5 79.02%);
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
@@ -343,7 +341,7 @@
     width: 405px;
 }
 
-.home-subscription-container p {
+/* .home-subscription-container p {
     font-family: 'Noto Sans';
     font-style: normal;
     font-weight: 400;
@@ -351,7 +349,7 @@
     line-height: 24px;
     color: #2D4379;
     margin-bottom: 16px;
-}
+} */
 
 .home-subscription-container img {
     width: 304px;

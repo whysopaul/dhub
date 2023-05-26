@@ -64,7 +64,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                     case 'articles':
                         return <li><span>Статьи</span></li>
                     default:
-                        return <li><span>{mockArtData.find(article => article.id === parseInt(link)).title}</span></li>
+                        return <li><span>{mockArtData.find(article => article.id === parseInt(link))?.title}</span></li>
                 }
             })
         }

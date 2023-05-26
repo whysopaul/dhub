@@ -3,7 +3,7 @@ footer {
     background-color: #0D253C;
     border-top-left-radius: 50px;
     border-top-right-radius: 50px;
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -21,13 +21,6 @@ footer {
     box-sizing: border-box;
 }
 
-.footerTop {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-}
-
 .navigation {
     display: flex;
     gap: 120px;
@@ -35,7 +28,7 @@ footer {
 }
 
 .navigation>a {
-    font-family: 'Noto Sans';
+    font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -71,17 +64,13 @@ footer p {
 }
 
 footer h3 {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 22px;
     line-height: 22px;
     color: #FFFFFF;
     margin-top: 16px;
-}
-
-.footerTop+div {
-    margin: 48px 0;
 }
 
 .info {

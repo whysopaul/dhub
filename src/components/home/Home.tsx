@@ -98,7 +98,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                                 // const categoryObj = categoriesState?.find(category => category.id === i)
                                 const servicesInCategory = serviceState.services?.filter(service => service.categories.find(category => category.id === i.id)).length
 
-                                return <CategoryTag name={i.name} qty={servicesInCategory} />
+                                return <CategoryTag name={i.name} qty={servicesInCategory} key={i.id} />
                             })}
                         </ul>
                     </div>
@@ -159,7 +159,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
                 <div className='home-feedback-cards'>
                     {mockFeedbackData.map(i => {
-                        return <FeedbackCardComponent comment={i} />
+                        return <FeedbackCardComponent comment={i} key={i.id} />
                     })}
                 </div>
             </div>

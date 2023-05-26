@@ -22,7 +22,7 @@ const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps
             </div>
             <div className={props.extended ? 'home-services-cards extended' : 'home-services-cards'}>
                 {props.data.slice(0, props.qty).map(i => {
-                    return <ServiceCardComponent service={i} />
+                    return <ServiceCardComponent service={i} key={i.id} />
                 })}
             </div>
         </div>

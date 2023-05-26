@@ -81,42 +81,6 @@ header {
     text-decoration: none;
 }
 
-/* SERVICE HEADER TEMPLATE */
-
-.name {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.name>h1 {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 600;
-    font-size: 40px;
-    line-height: 40px;
-    color: #FFFFFF;
-    margin-bottom: 32px;
-}
-
-.name>a {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 16px;
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.name>a:hover {
-    text-decoration-line: underline;
-}
-
-.name span {
-    margin-right: 12px;
-}
-
 /* BREADCRUMBS */
 
 .breadcrumbs {
@@ -130,7 +94,7 @@ header {
 
 .breadcrumbs li+li::before {
     content: '•';
-    padding: 32px;
+    padding: 0 32px;
     color: #636E8D;
 }
 

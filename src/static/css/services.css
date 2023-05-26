@@ -241,22 +241,6 @@
     margin-bottom: 16px;
 }
 
-/* .service-banner-container button {
-    border: none;
-    background: none;
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 18px;
-    line-height: 18px;
-    color: #FFFFFF;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-} */
-
 .service-banner-container img {
     width: 140px;
     position: absolute;

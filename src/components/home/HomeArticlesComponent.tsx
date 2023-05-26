@@ -20,7 +20,7 @@ const HomeArticlesComponent: React.FunctionComponent<IHomeArticlesComponentProps
             </div>
             <div className='home-articles-cards'>
                 {props.data.map(i => {
-                    return <ArticleCardComponent article={i} />
+                    return <ArticleCardComponent article={i} key={i.id} />
                 })}
             </div>
             {/* </div> */}
