@@ -9,7 +9,7 @@ interface IArticlesListPageProps {
 const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props) => {
     return <>
         <div className='categories-section'>
-            <p>Выберите категории:</p>
+            <p>Категории статей и обзоров:</p>
             <div>
                 <ul className='categories-list'>
                     {mockArtData.map(i => {

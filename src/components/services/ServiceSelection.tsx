@@ -92,7 +92,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                 <hr />
                 <div className='wide-search-container'>
                     <p>Поиск по названию:</p>
-                    <input type='text' name='search' placeholder='Введите полное название сервиса или его часть' value={search} onChange={e => setSearch(e.target.value)} />
+                    <input type='text' name='search' placeholder='Введите название сервиса или его часть' value={search} onChange={e => setSearch(e.target.value)} />
                     <i className='fas fa-search color-blue' />
                 </div>
                 <div className='service-selection-buttons'>
