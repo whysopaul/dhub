@@ -44,6 +44,7 @@ const ServiceGallery: React.FunctionComponent<IServiceGalleryProps> = (props) =>
             <img src={props.service.images?.screenshots[currentImage]?.source} alt="" />
             <button onClick={() => setCurrentImage(listForward(screenshots, currentImage))}><i className='fas fa-chevron-right' /></button>
         </div>
+        <span className='service-gallery-counter'>{currentImage + 1 + ' / ' + screenshots.length}</span>
     </>;
 };
 

@@ -18,7 +18,12 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     const [isNotFree, setIsNotFree] = useState<boolean>(null)
     const [hasNoTrial, setHasNoTrial] = useState<boolean>(null)
     const [hasNoPartnership, setHasNoPartnership] = useState<boolean>(null)
+    const [paymentMethod, setPaymentMethod] = useState<number>(null)
     const [searchCategories, setSearchCategories] = useState<string>(null)
+
+    const paymentMethodOne = ['по подписке', 'ежемесячно', 'ежегодно', 'посуточно', 'ежеквартально', 'месяц', 'ежедневно', 'еженедельно', 'поквартально', 'подписка', 'ежечасно', 'покупка баллов']
+    const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефиксированный', 'за услугу', 'за число кликов']
+    const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
     const searchCondition = rootState.services.services.filter(service =>
         service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
@@ -30,6 +35,15 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
         service.description.hasPartnership !== hasNoPartnership
         &&
         service.categories.find(category => searchCategories?.split(',').map(c => Number(c)).indexOf(category.id) !== -1)
+        &&
+        (
+            paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
+                :
+                paymentMethod === 2 ? paymentMethodTwo.some(p_m => service.description.paymentMethod.includes(p_m))
+                    :
+                    paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m))
+                        : true
+        )
     )
 
     // console.log([...new Set(rootState.services.services.map(s => s.description.paymentMethod))])
@@ -54,6 +68,9 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
         }
         if (urlParams.has('categories')) {
             setSearchCategories(urlParams.get('categories'))
+        }
+        if (urlParams.has('paymentMethod')) {
+            setPaymentMethod(Number(urlParams.get('paymentMethod')))
         }
     }, [])
 

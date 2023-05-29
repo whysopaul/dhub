@@ -276,6 +276,18 @@
     background-color: rgba(255, 255, 255, 0.2);
 }
 
+.service-gallery-counter {
+    position: fixed;
+    top: 8px;
+    left: 8px;
+    padding: 4px 8px;
+    font-family: 'Noto Sans', sans-serif;
+    color: #FFFFFF;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    z-index: 100;
+}
+
 /* SERVICE SECTION (SPECIALISTS) */
 
 .service-section-header-options {

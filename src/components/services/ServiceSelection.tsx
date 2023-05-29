@@ -23,13 +23,16 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
     const isFreeRef = useRef<HTMLInputElement>(null)
     const hasTrialRef = useRef<HTMLInputElement>(null)
     const hasPartnershipRef = useRef<HTMLInputElement>(null)
+    const [paymentMethod, setPaymentMethod] = useState<number>(null)
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
 
         const urlParams = new URLSearchParams()
 
-        urlParams.append('search', search)
+        if (search) {
+            urlParams.append('search', search.trim())
+        }
 
         if (isFreeRef.current.checked) {
             urlParams.append('isFree', 'true')
@@ -39,6 +42,10 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
         }
         if (hasPartnershipRef.current.checked) {
             urlParams.append('hasPartnership', 'true')
+        }
+
+        if (paymentMethod) {
+            urlParams.append('paymentMethod', paymentMethod.toString())
         }
 
         let checkedCategories = document.querySelectorAll('input[type="checkbox"][name="category"]:checked')
@@ -84,9 +91,9 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                     </div>
                     <div>
                         <p>Способ оплаты:</p>
-                        <label><input type='radio' name='paymentMethod' value='1' />По клику</label>
-                        <label><input type='radio' name='paymentMethod' value='2' />По времени</label>
-                        <label><input type='radio' name='paymentMethod' value='3' />По действию</label>
+                        <label><input type='radio' onChange={() => setPaymentMethod(1)} checked={paymentMethod === 1} />По подписке</label>
+                        <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
+                        <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
                     </div>
                 </div>
                 <hr />

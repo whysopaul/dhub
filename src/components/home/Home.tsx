@@ -66,11 +66,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
         <Header root />
 
+        <div className='home-wave-backdrop' style={{ backgroundImage: `url(${Wave})` }} />
         <div className='home-main-container'>
-            <div className='home-wave-backdrop'>
-                <img src={Wave} alt="" />
-            </div>
-
             <div className='home-welcome-container'>
                 <div className='home-welcome-left-block'>
                     <h1>Агрегатор сервисов <br /> для <span>вашей продуктивности</span></h1>
