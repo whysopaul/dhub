@@ -13,7 +13,7 @@ const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props
             <div>
                 <ul className='categories-list'>
                     {mockArtData.map(i => {
-                        return <CategoryTag name={i.category} qty={i.id} />
+                        return <CategoryTag name={i.category} qty={i.id} key={i.id} />
                     })}
                 </ul>
             </div>
@@ -29,7 +29,7 @@ const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props
         </div>
         <div className='articles-cards'>
             {mockArtData.map(i => {
-                return <ArticleCardComponent article={i} />
+                return <ArticleCardComponent article={i} key={i.id} />
             })}
         </div>
     </>;

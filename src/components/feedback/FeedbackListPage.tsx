@@ -24,7 +24,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
                 <ul className='categories-list'>
                     {rootState.categories.categories.length > 0 && rootState.categories.categories.slice(0, 16).map(i => {
                         const servicesInCategory = rootState.services.services?.filter(service => service.categories.find(category => category.id === i.id)).length
-                        return <CategoryTag name={i.name} qty={servicesInCategory} />
+                        return <CategoryTag name={i.name} qty={servicesInCategory} key={i.id} />
                     })}
                 </ul>
             </div>
@@ -40,7 +40,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
         </div>
         <div className='feedback-cards'>
             {mockFeedbackData.map(i => {
-                return <FeedbackCardComponent comment={i} />
+                return <FeedbackCardComponent comment={i} key={i.id} />
             })}
         </div>
     </>;

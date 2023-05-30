@@ -49,7 +49,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
                         const categoriesQty = serviceState.filter(service => service.categories.find(category => category.id === i.id)).length
 
-                        return <CategoryTag name={i.name} qty={categoriesQty} />
+                        return <CategoryTag name={i.name} qty={categoriesQty} key={i.id} />
                     })}
                 </ul>
             </div>
@@ -57,7 +57,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 <div className='service-images'>
                     {currentService.images.screenshots?.slice(0, 4).map(i => {
                         return <>
-                            <div className='service-image-wrapper' onClick={() => { setSelectedImageSource(i.source); document.body.style.overflow = 'hidden' }}>
+                            <div className='service-image-wrapper' onClick={() => { setSelectedImageSource(i.source); document.body.style.overflow = 'hidden' }} key={i.id}>
                                 <img src={i.source} alt="" />
                             </div>
                         </>
@@ -133,7 +133,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>
                     <div className='feedback-cards'>
                         {mockFeedbackData.map(i => {
-                            return <FeedbackCardComponent comment={i} />
+                            return <FeedbackCardComponent comment={i} key={i.id} />
                         })}
                     </div>
                 </>}
@@ -144,7 +144,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>
                     <div className='service-specialists-cards'>
                         {mockSpecialists.map(specialist => {
-                            return <SpecialistCardComponent specialist={specialist} />
+                            return <SpecialistCardComponent specialist={specialist} key={specialist.id} />
                         })}
                     </div>
                 </>}

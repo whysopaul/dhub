@@ -35,8 +35,8 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
         </div>
         <hr />
         <div className='user-profile-modes'>
-            <button className={mode === 1 && 'active'} onClick={() => setMode(1)}>Отзывы</button>
-            <button className={mode === 2 && 'active'} onClick={() => setMode(2)}>История просмотров</button>
+            <button className={mode === 1 ? 'active' : null} onClick={() => setMode(1)}>Отзывы</button>
+            <button className={mode === 2 ? 'active' : null} onClick={() => setMode(2)}>История просмотров</button>
         </div>
         <div className='section-header-container'>
             <div className='user-profile-subheader'>
@@ -61,14 +61,14 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
         {mode === 1 && <>
             <div className='feedback-cards'>
                 {mockFeedbackData.map(i => {
-                    return <FeedbackCardComponent comment={i} owner />
+                    return <FeedbackCardComponent comment={i} owner key={i.id} />
                 })}
             </div>
         </>}
         {mode === 2 && <>
             <div className='home-services-cards extended'>
                 {serviceState.slice(0, 10).map(i => {
-                    return <ServiceCardComponent service={i} />
+                    return <ServiceCardComponent service={i} key={i.id} />
                 })}
             </div>
         </>}
