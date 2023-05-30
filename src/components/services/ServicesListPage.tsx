@@ -98,18 +98,18 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
                         return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} />
                     })} */}
                     {searchCondition.flatMap(service => service.categories).filter((categoryObject, idx, array) => idx === array.findIndex(i => i.id === categoryObject.id)).slice(0, 16).map(category => {
-                        return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length} />
+                        return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length} key={category.id} />
                     })}
                 </ul>
             </div>
             <div className='services-list-pagination'>
                 {numberOfPages.map(number => {
-                    return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => setCurrentPage(number)}>{number}</button>
+                    return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => setCurrentPage(number)} key={number}>{number}</button>
                 })}
             </div>
             <div className='services-list-cards-container'>
                 {searchCondition.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(service => {
-                    return <ServiceCardComponent service={service} />
+                    return <ServiceCardComponent service={service} key={service.id} />
                 })}
             </div>
         </>}

@@ -21,6 +21,12 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
 
     const [textarea, setTextarea] = useState('')
 
+    const starCount = (state: number, setState: (_: number) => void) => {
+        return [...new Array(5)].map((_, idx) => {
+            return <button type='button' className={idx < state ? 'star-button active' : 'star-button'} onClick={() => setState(idx + 1)} key={idx}><i className='fas fa-star' /></button>
+        })
+    }
+
     return <>
         <div className='backdrop'></div>
         <div className='feedback-popup-container' ref={ref}>
@@ -36,21 +42,15 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                             <div className='feedback-popup-rating'>
                                 <span>Функциональность</span>
                                 <div className='feedback-popup-stars'>
-                                    {[...new Array(5)].map((_, idx) => {
-                                        return <button type='button' className={idx < functionality ? 'star-button active' : 'star-button'} onClick={() => setFunctionality(idx + 1)}><i className='fas fa-star' /></button>
-                                    })}
+                                    {starCount(functionality, setFunctionality)}
                                 </div>
                                 <span>Простота использования</span>
                                 <div className='feedback-popup-stars'>
-                                    {[...new Array(5)].map((_, idx) => {
-                                        return <button type='button' className={idx < usability ? 'star-button active' : 'star-button'} onClick={() => setUsability(idx + 1)}><i className='fas fa-star' /></button>
-                                    })}
+                                    {starCount(usability, setUsability)}
                                 </div>
                                 <span>Служба поддержки</span>
                                 <div className='feedback-popup-stars'>
-                                    {[...new Array(5)].map((_, idx) => {
-                                        return <button type='button' className={idx < customerService ? 'star-button active' : 'star-button'} onClick={() => setCustomerService(idx + 1)}><i className='fas fa-star' /></button>
-                                    })}
+                                    {starCount(customerService, setCustomerService)}
                                 </div>
                                 <span>Итоговая оценка</span>
                                 <div className='feedback-popup-total-rating'>

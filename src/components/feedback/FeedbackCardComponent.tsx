@@ -10,12 +10,9 @@ interface IFeedbackCardComponentProps {
 const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner }) => {
 
     const starCount = (points: number) => {
-        const stars = new Array(points).fill('').map(_ => {
-            return <i style={{ color: '#FFC517' }} className='fas fa-star' />
-        }).concat(new Array(5 - points).fill('').map(_ => {
-            return <i style={{ color: '#D3DAEA' }} className='fas fa-star' />
-        }))
-        return stars
+        return new Array(5).fill('').map((_, idx) => {
+            return <i style={{ color: idx < points ? '#FFC517' : '#D3DAEA' }} className='fas fa-star' key={idx} />
+        })
     }
 
     return <>

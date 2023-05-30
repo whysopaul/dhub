@@ -82,7 +82,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <div>
                                 <h3>Специалист в этом сервисе?</h3>
                                 <button className='arrow-right-button'>
-                                    <span>Регистрируйся</span>
+                                    <span>Подробнее</span>
                                     <i className='fas fa-long-arrow-alt-right' />
                                 </button>
                             </div>
@@ -113,8 +113,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
             <section>
                 <div className='service-section-header-options'>
                     <div className='service-section-header-buttons'>
-                        <button className={mode === 1 && 'active'} onClick={() => setMode(1)}><p>Отзывы</p><span>30</span></button>
-                        <button className={mode === 2 && 'active'} onClick={() => setMode(2)}><p>Специалисты</p><span>30</span></button>
+                        <button className={mode === 1 ? 'active' : null} onClick={() => setMode(1)}><p>Отзывы</p><span>30</span></button>
+                        <button className={mode === 2 ? 'active' : null} onClick={() => setMode(2)}><p>Специалисты</p><span>30</span></button>
                     </div>
                     {mode === 1 && <div className='sort-selection'>
                         <span>Сортировать:</span>

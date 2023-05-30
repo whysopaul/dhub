@@ -134,7 +134,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <div className='home-banner-text-block'>
                         <p>Специалист в каком-либо сервисе?</p>
                         <button className='arrow-right-button'>
-                            <span>Регистрируйся</span>
+                            <span>Подробнее</span>
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
                     </div>
