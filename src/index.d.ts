@@ -6,3 +6,4 @@ declare module '*.webp';
 
 declare module '*.css';
 declare module '*.module.css';
+declare module '*.less';

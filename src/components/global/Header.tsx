@@ -41,6 +41,19 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             })
         }
 
+        if (path.includes('categories')) {
+            return pathArray.map(link => {
+                switch (link) {
+                    case '':
+                        return <li><Link to='/'>Главная</Link></li>
+                    case 'categories':
+                        return <li><span>Категории</span></li>
+                    default:
+                        return null
+                }
+            })
+        }
+
         if (path.includes('feedback')) {
             return pathArray.map(link => {
                 switch (link) {

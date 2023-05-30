@@ -1,16 +1,7 @@
 import { Dispatch } from "react";
-import { GET_ALL_CATEGORIES, categoriesDispatchTypes } from "./types";
+import { GET_ALL_CATEGORIES, TMainCategory, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
-
-// export const mockCatData: TMockCategory[] = [
-//     { name: CategoryName.CRMSystems, qty: 43 },
-//     { name: CategoryName.OnlineAppt, qty: 2 },
-//     { name: CategoryName.VirtualATC, qty: 13 },
-//     { name: CategoryName.Tenders, qty: 30 },
-//     { name: CategoryName.InternetEq, qty: 30 },
-//     { name: CategoryName.PriceMonitoring, qty: 30 },
-// ]
 
 export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getCategories').then(res => {
@@ -22,3 +13,10 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
         })
     })
 }
+
+export const mockMainCategories: TMainCategory[] = [
+    { id: 1, name: 'Автоматизация бизнес-процессов', subcategories: [{ id: 1, name: 'CRM-системы' }, { id: 2, name: 'Онлайн-запись' }, { id: 3, name: 'Виртуальная АТС' }, { id: 4, name: 'Тендеры' }] },
+    { id: 2, name: 'Автоматизация маркетинга', subcategories: [{ id: 1, name: 'CRM-системы' }, { id: 2, name: 'Онлайн-запись' }, { id: 3, name: 'Виртуальная АТС' }, { id: 4, name: 'Тендеры' }] },
+    { id: 3, name: 'Аналитика для бизнеса', subcategories: [{ id: 1, name: 'CRM-системы' }, { id: 2, name: 'Онлайн-запись' }, { id: 3, name: 'Виртуальная АТС' }, { id: 4, name: 'Тендеры' }] },
+    { id: 4, name: 'Заработок в интернете', subcategories: [{ id: 1, name: 'CRM-системы' }, { id: 2, name: 'Онлайн-запись' }, { id: 3, name: 'Виртуальная АТС' }, { id: 4, name: 'Тендеры' }] }
+]
