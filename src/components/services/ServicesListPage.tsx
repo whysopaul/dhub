@@ -4,8 +4,6 @@ import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import ServiceCardComponent from './ServiceCardComponent';
 import { useEffect, useState } from 'react';
-import ServiceSelection from './ServiceSelection';
-import { closePopup, openPopup } from '../utils';
 
 interface IServicesListPageProps {
 }
@@ -22,10 +20,18 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     const [searchCategories, setSearchCategories] = useState<string>(null)
 
     const paymentMethodOne = ['по подписке', 'ежемесячно', 'ежегодно', 'посуточно', 'ежеквартально', 'месяц', 'ежедневно', 'еженедельно', 'поквартально', 'подписка', 'ежечасно', 'покупка баллов']
-    const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефиксированный', 'за услугу', 'за число кликов']
+    const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов']
     const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
-    const searchCondition = rootState.services.services.filter(service =>
+    const searchCondition = rootState.services.services.map(service => {
+        return {
+            ...service,
+            description: {
+                ...service.description,
+                paymentMethod: service.description.paymentMethod.includes('нефиксированный') ? 'нефикс' : service.description.paymentMethod
+            }
+        }
+    }).filter(service =>
         service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
         &&
         service.description.isFree !== isNotFree
@@ -74,12 +80,7 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
         }
     }, [])
 
-    const [showServiceSelection, setShowServiceSelection] = useState(false)
-
     return <>
-
-        {showServiceSelection && <ServiceSelection onClose={() => closePopup(setShowServiceSelection)} />}
-
         <div className='wide-search-container'>
             <h2 className='section-main-title mb-32'>Сервисы</h2>
             <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} />
