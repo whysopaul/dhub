@@ -15,6 +15,7 @@ interface IGiveFeedbackPopupProps {
 const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (props) => {
 
     const serviceState = useSelector((state: RootStore) => state.services.services)
+
     const [search, setSearch] = useState('')
     const searchRef = useRef<HTMLInputElement>(null)
     const [showList, setShowList] = useState(false)
@@ -66,7 +67,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                                 <div className='feedback-popup-services-list'>
                                     {showList && serviceState.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(service => {
                                         return <>
-                                            <label className='feedback-popup-services-list-item'>
+                                            <label className='feedback-popup-services-list-item' key={service.id}>
                                                 <img src={service.images.logo} />
                                                 <div>
                                                     <p>{service.name}</p>

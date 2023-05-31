@@ -222,12 +222,15 @@
     flex-direction: column;
     row-gap: 12px;
     overflow: scroll;
+    mask-image: linear-gradient(white, 90%, transparent);
+    -webkit-mask-image: linear-gradient(white, 90%, transparent);
 }
 
 .feedback-popup-services-list-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    cursor: pointer;
 }
 
 .feedback-popup-services-list-item img {

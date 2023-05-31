@@ -19,8 +19,10 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
     return <>
         <div className='wide-search-container'>
             <h2 className='section-main-title mb-32'>Сервисы</h2>
-            <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} />
-            <i className='fas fa-search color-blue' />
+            <form action='/search'>
+                <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} />
+                <i className='fas fa-search color-blue' />
+            </form>
         </div>
         <div className='services-list-categories-container categories-section'>
             <p>Популярные категории:</p>
@@ -50,7 +52,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                     <div>
                         <ul className='categories-list'>
                             {category.subcategories.map(sub_c => {
-                                return <CategoryTag name={sub_c.name} qty={sub_c.id} />
+                                return <CategoryTag name={sub_c.name} qty={sub_c.id} key={sub_c.id} />
                             })}
                         </ul>
                     </div>
