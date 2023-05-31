@@ -5,10 +5,10 @@ import CategoryTag from '../categories/CategoryTag';
 import ServiceCardComponent from './ServiceCardComponent';
 import { useEffect, useState } from 'react';
 
-interface IServicesListPageProps {
+interface IServicesSearchListProps {
 }
 
-const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props) => {
+const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (props) => {
 
     const rootState = useSelector((state: RootStore) => state)
 
@@ -81,33 +81,37 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     }, [])
 
     return <>
-        <div className='wide-search-container'>
-            <h2 className='section-main-title mb-32'>Сервисы</h2>
-            <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} />
-            <i className='fas fa-search color-blue' />
+        <div className='section-header-container'>
+            <h3 className='section-main-title'>Найденные сервисы:</h3>
+            {searchCondition.length > 0 && <div className='sort-selection'>
+                <span>Сортировать:</span>
+                <select className='color-blue'>
+                    <option value="">по умолчанию</option>
+                </select>
+            </div>}
         </div>
         {searchCondition.length > 0 && <>
-            <div className='services-list-categories-container categories-section'>
+            {/* <div className='services-list-categories-container categories-section'>
                 <p>Популярные категории:</p>
                 <ul className='categories-list'>
-                    {/* {rootState.categories.categories.map(category => {
+                    {rootState.categories.categories.map(category => {
                         return {
                             ...category,
                             servicesInCategory: rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length
                         }
                     }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 16).map(popularCategory => {
                         return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} />
-                    })} */}
+                    })}
                     {searchCondition.flatMap(service => service.categories).filter((categoryObject, idx, array) => idx === array.findIndex(i => i.id === categoryObject.id)).slice(0, 16).map(category => {
                         return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length} key={category.id} />
                     })}
                 </ul>
-            </div>
-            <div className='services-list-pagination'>
+            </div> */}
+            {numberOfPages.length > 1 && <div className='services-list-pagination'>
                 {numberOfPages.map(number => {
                     return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => setCurrentPage(number)} key={number}>{number}</button>
                 })}
-            </div>
+            </div>}
             <div className='services-list-cards-container'>
                 {searchCondition.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(service => {
                     return <ServiceCardComponent service={service} key={service.id} />
@@ -119,4 +123,4 @@ const ServicesListPage: React.FunctionComponent<IServicesListPageProps> = (props
     </>;
 };
 
-export default ServicesListPage;
+export default ServicesSearchList;

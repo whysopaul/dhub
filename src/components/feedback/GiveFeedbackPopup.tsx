@@ -1,12 +1,12 @@
 import * as React from 'react';
 import '../../static/css/feedback.css';
 import { TServicesData } from '../../actions/services/types';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import ServiceRatingTag from '../services/ServiceRatingTag';
 
 interface IGiveFeedbackPopupProps {
-    service: TServicesData,
+    service?: TServicesData,
     onClose: () => void
 }
 
@@ -14,6 +14,19 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
 
     const ref = useRef(null)
     useOnClickOutside(ref, () => props.onClose())
+
+    const [selectService, setSelectService] = useState(false)
+    const [selectedService, setSelectedService] = useState<TServicesData>(null)
+
+    useEffect(() => {
+        if (props.service) {
+            setSelectedService(props.service)
+        }
+
+        if (!props.service) {
+            setSelectService(true)
+        }
+    }, [])
 
     const [functionality, setFunctionality] = useState(0)
     const [usability, setUsability] = useState(0)
@@ -38,30 +51,32 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                         </div>
                         <div>
                             <h3>Оставьте отзыв на сервис</h3>
-                            <h3 className='color-blue'>{props.service.name}</h3>
-                            <div className='feedback-popup-rating'>
-                                <span>Функциональность</span>
-                                <div className='feedback-popup-stars'>
-                                    {starCount(functionality, setFunctionality)}
+                            {!selectService && <>
+                                <h3 className='color-blue'>{selectedService?.name}</h3>
+                                <div className='feedback-popup-rating'>
+                                    <span>Функциональность</span>
+                                    <div className='feedback-popup-stars'>
+                                        {starCount(functionality, setFunctionality)}
+                                    </div>
+                                    <span>Простота использования</span>
+                                    <div className='feedback-popup-stars'>
+                                        {starCount(usability, setUsability)}
+                                    </div>
+                                    <span>Служба поддержки</span>
+                                    <div className='feedback-popup-stars'>
+                                        {starCount(customerService, setCustomerService)}
+                                    </div>
+                                    <span>Итоговая оценка</span>
+                                    <div className='feedback-popup-total-rating'>
+                                        <ServiceRatingTag rating={Number(((functionality + usability + customerService) / 3).toFixed(1))} />
+                                    </div>
                                 </div>
-                                <span>Простота использования</span>
-                                <div className='feedback-popup-stars'>
-                                    {starCount(usability, setUsability)}
-                                </div>
-                                <span>Служба поддержки</span>
-                                <div className='feedback-popup-stars'>
-                                    {starCount(customerService, setCustomerService)}
-                                </div>
-                                <span>Итоговая оценка</span>
-                                <div className='feedback-popup-total-rating'>
-                                    <ServiceRatingTag rating={Number(((functionality + usability + customerService) / 3).toFixed(1))} />
-                                </div>
-                            </div>
+                            </>}
                         </div>
                     </div>
-                    <textarea placeholder='Опишите ваш опыт использования' value={textarea} onChange={e => setTextarea(e.target.value)} />
+                    {!selectService && <textarea placeholder='Опишите ваш опыт использования' value={textarea} onChange={e => setTextarea(e.target.value)} />}
                     <button type='button' className='blue-shadow-button'>
-                        <span>Отправить</span>
+                        <span>{selectService ? 'Далее' : 'Отправить'}</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>
                 </div>

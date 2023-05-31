@@ -100,7 +100,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         </ul>
                     </div>
                     <div className='home-categories-right-block'>
-                        <form action='/services'>
+                        <form action='/search'>
                             <div className='home-categories-search-field'>
                                 <input type='text' name='search' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} />
                                 <i className='fas fa-search' />

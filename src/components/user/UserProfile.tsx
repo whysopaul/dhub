@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import ServiceCardComponent from '../services/ServiceCardComponent';
 import '../../static/css/user.css';
+import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 
 interface IUserProfileProps {
 }
@@ -17,10 +18,12 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
     const serviceState = useSelector((state: RootStore) => state.services.services)
 
     const [mode, setMode] = useState<number>(1)
-
-    const navigate = useNavigate()
+    const [showFeedbackPopup, setShowFeedbackPopup] = useState(false)
 
     return <>
+
+        {showFeedbackPopup && <GiveFeedbackPopup onClose={() => setShowFeedbackPopup(false)} />}
+
         <div className='section-header-container'>
             <div className='user-profile-subheader'>
                 <img src={userState.photo} alt="" className='user-profile-photo' />
@@ -42,7 +45,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             <div className='user-profile-subheader'>
                 {mode === 1 && <>
                     <h2 className='section-main-title'>Мои отзывы</h2>
-                    <button className='feedback-button' onClick={() => navigate('/services')}>
+                    <button className='feedback-button' onClick={() => setShowFeedbackPopup(true)}>
                         <i className='far fa-edit' />
                         <span>Оставить отзыв</span>
                     </button>

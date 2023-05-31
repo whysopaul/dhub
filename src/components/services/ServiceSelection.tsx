@@ -23,6 +23,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
     const isFreeRef = useRef<HTMLInputElement>(null)
     const hasTrialRef = useRef<HTMLInputElement>(null)
     const hasPartnershipRef = useRef<HTMLInputElement>(null)
+    // 1 - по подписке; 2 - за действие; 3 - разовая
     const [paymentMethod, setPaymentMethod] = useState<number>(null)
 
     const onSubmit = (e: React.FormEvent) => {
@@ -54,7 +55,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
             urlParams.append('categories', categoriesValues)
         }
 
-        return window.location.replace('/services?' + urlParams)
+        return window.location.replace('/search?' + urlParams)
     }
 
     return <>
@@ -63,7 +64,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
             <form action='/services' onSubmit={onSubmit}>
                 <div className='service-selection-header'>
                     <h2 className='section-main-title'>Найти сервис</h2>
-                    <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам подобрать для вас тот сервис, который вам нужен.</p>
+                    <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам найти для вас тот сервис, который вам нужен.</p>
                 </div>
                 <hr />
                 <div className='categories-section'>

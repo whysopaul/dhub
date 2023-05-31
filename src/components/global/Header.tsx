@@ -41,13 +41,13 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             })
         }
 
-        if (path.includes('categories')) {
+        if (path.includes('search')) {
             return pathArray.map(link => {
                 switch (link) {
                     case '':
                         return <li><Link to='/'>Главная</Link></li>
-                    case 'categories':
-                        return <li><span>Категории</span></li>
+                    case 'search':
+                        return <li><span>Поиск</span></li>
                     default:
                         return null
                 }

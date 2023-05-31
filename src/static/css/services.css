@@ -437,7 +437,7 @@
 }
 
 .service-selection-header {
-    width: 35%;
+    max-width: 450px;
 }
 
 .service-selection-header>h2 {
