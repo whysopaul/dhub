@@ -4,6 +4,8 @@ import { TServicesData } from '../../actions/services/types';
 import { useEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import ServiceRatingTag from '../services/ServiceRatingTag';
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../store';
 
 interface IGiveFeedbackPopupProps {
     service?: TServicesData,
@@ -11,6 +13,11 @@ interface IGiveFeedbackPopupProps {
 }
 
 const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (props) => {
+
+    const serviceState = useSelector((state: RootStore) => state.services.services)
+    const [search, setSearch] = useState('')
+    const searchRef = useRef<HTMLInputElement>(null)
+    const [showList, setShowList] = useState(false)
 
     const ref = useRef(null)
     useOnClickOutside(ref, () => props.onClose())
@@ -51,6 +58,26 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                         </div>
                         <div>
                             <h3>Оставьте отзыв на сервис</h3>
+                            {selectService && <>
+                                <div className='feedback-popup-search'>
+                                    <input type='text' placeholder='Выберите сервис из списка' value={search} onChange={e => setSearch(e.target.value)} onFocus={() => setShowList(true)} ref={searchRef} />
+                                    <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}><i className={`fas fa-caret-${showList ? 'up' : 'down'} color-blue cursor-pointer`} /></button>
+                                </div>
+                                <div className='feedback-popup-services-list'>
+                                    {showList && serviceState.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(service => {
+                                        return <>
+                                            <label className='feedback-popup-services-list-item'>
+                                                <img src={service.images.logo} />
+                                                <div>
+                                                    <p>{service.name}</p>
+                                                    <span>{service.categories[0]?.name}</span>
+                                                </div>
+                                                <input type='radio' name='service' checked={selectedService?.id === service.id} onChange={() => setSelectedService(service)} />
+                                            </label>
+                                        </>
+                                    })}
+                                </div>
+                            </>}
                             {!selectService && <>
                                 <h3 className='color-blue'>{selectedService?.name}</h3>
                                 <div className='feedback-popup-rating'>
@@ -75,7 +102,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                         </div>
                     </div>
                     {!selectService && <textarea placeholder='Опишите ваш опыт использования' value={textarea} onChange={e => setTextarea(e.target.value)} />}
-                    <button type='button' className='blue-shadow-button'>
+                    <button type='button' className='blue-shadow-button' onClick={() => selectedService ? setSelectService(false) : alert('Выберите сервис из списка')}>
                         <span>{selectService ? 'Далее' : 'Отправить'}</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>

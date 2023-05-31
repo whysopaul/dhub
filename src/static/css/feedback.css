@@ -200,6 +200,62 @@
     margin-bottom: 12px;
 }
 
+.feedback-popup-search input {
+    width: 100%;
+    padding: 16px 28px 16px 0;
+    border-bottom: 1px solid #E9EEFA;
+    color: #2D4379;
+    box-sizing: border-box;
+}
+
+.feedback-popup-search button {
+    position: fixed;
+    float: right;
+    margin-top: 14px;
+    right: 40px;
+}
+
+.feedback-popup-services-list {
+    height: 300px;
+    margin: 12px 0;
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    overflow: scroll;
+}
+
+.feedback-popup-services-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.feedback-popup-services-list-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: contain;
+}
+
+.feedback-popup-services-list-item div {
+    margin: 0 auto 0 16px;
+}
+
+.feedback-popup-services-list-item p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #386BEE;
+}
+
+.feedback-popup-services-list-item span {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+    color: #2D4379;
+    opacity: 0.6;
+}
+
 .feedback-popup-rating {
     display: grid;
     grid-template-columns: auto auto;
