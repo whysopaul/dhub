@@ -140,3 +140,27 @@
 .feedback-button>i {
     font-size: 18px;
 }
+
+/* MOBILE */
+
+@media screen and (max-width: 576px) {
+    .blue-shadow-button {
+        height: 32px;
+        font-size: 10px;
+        line-height: 12px;
+        gap: 6px;
+    }
+
+    .round-item-button {
+        height: 32px;
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .round-item-button>div {
+        width: 32px;
+        height: 32px;
+        font-size: 12px;
+        line-height: 32px;
+    }
+}

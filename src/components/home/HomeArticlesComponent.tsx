@@ -36,12 +36,12 @@ const HomeArticlesComponent: React.FunctionComponent<IHomeArticlesComponentProps
         <div className='home-section-common-container'>
             {/* <hr /> */}
             {/* <div className='home-articles-section'> */}
-            <div className='home-section-header'>
+            <div className='home-section-title'>
                 <h2>Статьи и обзоры</h2>
-                <div className='home-articles-buttons'>
-                    <button onClick={() => listBack()}><i className='fas fa-chevron-left' /></button>
-                    <button onClick={() => listForward()}><i className='fas fa-chevron-right' /></button>
-                </div>
+            </div>
+            <div className='home-articles-buttons'>
+                <button onClick={() => listBack()}><i className='fas fa-chevron-left' /></button>
+                <button onClick={() => listForward()}><i className='fas fa-chevron-right' /></button>
             </div>
             <div className='home-articles-cards'>
                 {props.data.slice(sliceStart, sliceEnd).map(i => {

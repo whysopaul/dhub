@@ -177,6 +177,7 @@
 
 .home-articles-buttons {
     display: flex;
+    justify-content: flex-end;
     gap: 12px;
 }
 
@@ -193,6 +194,7 @@
 .home-articles-cards {
     display: flex;
     justify-content: space-between;
+    grid-column-end: span 2;
 }
 
 /* HOME BANNERS */
@@ -227,8 +229,6 @@
 }
 
 .home-banner-text-block>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 600;
     font-size: 26px;
     line-height: 32px;
@@ -306,14 +306,6 @@
     margin-top: 6px;
 }
 
-.home-feedback-header img {
-    width: 627px;
-    height: 298px;
-    position: absolute;
-    top: -50px;
-    right: 30px;
-}
-
 .home-feedback-cards {
     display: grid;
     grid-template-columns: repeat(2, auto);
@@ -332,6 +324,7 @@
 .home-subscription-container {
     padding: 32px 48px;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: space-between;
     background: linear-gradient(99.72deg, #AAD1FC 17.77%, #76ACE8 79.02%);
@@ -340,8 +333,6 @@
 }
 
 .home-subscription-container h2 {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 600;
     font-size: 26px;
     line-height: 32px;
@@ -369,6 +360,7 @@
 
 .home-subscription-buttons {
     display: flex;
+    flex-direction: row;
     gap: 16px;
 }
 
@@ -377,8 +369,6 @@
     height: 48px;
     border: none;
     border-radius: 75px;
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 20px;
@@ -413,6 +403,10 @@
 @media screen and (max-width: 576px) {
     .home-main-container {
         width: 100%;
+    }
+
+    .home-wave-backdrop {
+        top: -180px;
     }
 
     .home-welcome-container {
@@ -473,6 +467,19 @@
         width: auto;
     }
 
+    .home-categories-search-field>input {
+        padding: 0 46px 0 20px;
+        font-size: 10px;
+        line-height: 10px;
+        height: 42px;
+    }
+
+    .home-categories-search-field>i {
+        font-size: 16px;
+        margin-top: -29px;
+        margin-right: 20px;
+    }
+
     .home-section-common-container {
         margin: 24px 0;
         padding: 0 16px;
@@ -495,5 +502,128 @@
         justify-content: center;
         grid-row-start: initial;
         grid-column-start: initial;
+    }
+
+    .home-articles-buttons {
+        display: none;
+    }
+
+    .home-articles-cards {
+        grid-column-end: initial;
+    }
+
+    .home-banners-wrapper {
+        margin: 0 16px;
+        grid-template-columns: auto;
+        gap: 10px;
+    }
+
+    .home-banners-wrapper>div {
+        height: 157px;
+    }
+
+    .home-giftbox-container {
+        grid-template-columns: 55% 45%;
+        padding: 16px;
+    }
+
+    .home-banner-text-block>p {
+        font-size: 16px;
+        line-height: 22px;
+    }
+
+    .home-giftbox-image>img {
+        width: 64px;
+        height: 74px;
+        top: 57px;
+        left: auto;
+        right: 108px;
+    }
+
+    .home-taskboard-image>img {
+        width: 131.28px;
+        height: 168.75px;
+        top: 14px;
+        right: 7px;
+    }
+
+    .home-specialist-banner-container {
+        grid-template-columns: 36% auto;
+        padding: 16px;
+    }
+
+    .home-specialist-banner-container img {
+        width: 132px;
+        height: 189px;
+        top: 16px;
+        right: 27px;
+    }
+
+    .home-feedback-container {
+        padding: 20px 16px;
+        border-top-left-radius: 22px;
+        border-top-right-radius: 22px;
+    }
+
+    .home-feedback-header {
+        margin-bottom: 16px;
+    }
+
+    .home-feedback-header>h2 {
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+    .home-feedback-header>a {
+        margin-top: 0;
+    }
+
+    .home-feedback-cards {
+        grid-template-columns: auto;
+    }
+
+    .home-subscription-wrapper {
+        margin: 0 16px;
+        padding-top: 0;
+    }
+
+    .home-subscription-container {
+        padding: 12px 16px;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .home-subscription-container h2 {
+        font-size: 16px;
+        line-height: 20px;
+        width: auto;
+        margin-left: 111px;
+        margin-bottom: 10px;
+    }
+
+    .home-subscription-container img {
+        width: 195px;
+        height: 145px;
+        top: 15px;
+        left: -76px;
+        right: auto;
+    }
+
+    .home-subscription-buttons {
+        flex-direction: column;
+        gap: 6px;
+        margin-left: 111px;
+    }
+
+    .home-subscription-buttons>button {
+        padding: 0 16px;
+        height: 36px;
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .home-subscription-buttons>#vk>i,
+    .home-subscription-buttons>#email>i {
+        font-size: 16px;
     }
 }
