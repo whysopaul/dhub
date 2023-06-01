@@ -27,8 +27,6 @@
 }
 
 .home-welcome-left-block>h1 {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 600;
     font-size: 40px;
     line-height: 48px;
@@ -42,20 +40,12 @@
 }
 
 .home-welcome-left-block>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 400;
     font-size: 18px;
     line-height: 24px;
     color: #2D4379;
     margin-bottom: 80px;
     max-width: 500px;
-}
-
-.home-welcome-left-block>div {
-    display: flex;
-    align-items: center;
-    gap: 24px;
 }
 
 .home-welcome-right-block>img {
@@ -66,6 +56,13 @@
     right: 0;
 }
 
+.home-welcome-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
 /* HOME CATEGORIES */
 
 .home-categories-container {
@@ -74,8 +71,6 @@
 }
 
 .home-categories-container>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
@@ -85,6 +80,7 @@
 
 .home-categories-container>div {
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
@@ -125,7 +121,9 @@
     margin: 48px 0;
     padding: 0 80px;
     overflow: visible;
-    display: block;
+    display: grid;
+    grid-template-columns: auto auto;
+    row-gap: 32px;
 }
 
 /* .home-section-common-container.extended {
@@ -136,16 +134,13 @@
     padding: 48px 0;
 } */
 
-.home-section-header {
+.home-section-title {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    margin-bottom: 32px;
+    justify-content: flex-start;
 }
 
-.home-section-header>h2 {
-    font-family: 'Noto Sans';
-    font-style: normal;
+.home-section-title>h2 {
     font-weight: 500;
     font-size: 32px;
     line-height: 32px;
@@ -163,11 +158,21 @@
     row-gap: 16px;
     /* -webkit-mask-image: linear-gradient(to right, black, transparent); */
     overflow-x: auto;
+    grid-row-start: 2;
+    grid-column-end: span 2;
 }
 
 .home-services-cards.extended {
     display: flex;
     flex-wrap: wrap;
+}
+
+.home-section-link {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    grid-row-start: 1;
+    grid-column-start: 2;
 }
 
 .home-articles-buttons {
@@ -401,4 +406,94 @@
 
 .home-subscription-buttons>#email>i {
     font-size: 22px;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 576px) {
+    .home-main-container {
+        width: 100%;
+    }
+
+    .home-welcome-container {
+        margin: 32px 16px;
+        grid-template-columns: 1fr;
+        row-gap: 16px;
+    }
+
+    .home-welcome-left-block>h1 {
+        font-size: 20px;
+        line-height: 24px;
+        text-align: center;
+        margin-bottom: 12px;
+    }
+
+    .home-welcome-left-block>p {
+        font-size: 10px;
+        line-height: 14px;
+        text-align: center;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+
+    .home-welcome-right-block>img {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        top: auto;
+        right: auto;
+    }
+
+    .home-welcome-buttons {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .home-categories-container {
+        margin: 0 16px;
+    }
+
+    .home-categories-container>p {
+        font-size: 10px;
+        line-height: 10px;
+        margin-bottom: 12px;
+    }
+
+    .home-categories-container>div {
+        flex-direction: column;
+        justify-content: normal;
+        gap: 24px;
+    }
+
+    .home-categories-left-block {
+        max-width: none;
+    }
+
+    .home-categories-search-field {
+        width: auto;
+    }
+
+    .home-section-common-container {
+        margin: 24px 0;
+        padding: 0 16px;
+        grid-template-columns: auto;
+        row-gap: 16px;
+    }
+
+    .home-section-title>h2 {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 16px;
+    }
+
+    .home-services-cards {
+        grid-row-start: initial;
+        grid-column-end: initial;
+    }
+
+    .home-section-link {
+        justify-content: center;
+        grid-row-start: initial;
+        grid-column-start: initial;
+    }
 }

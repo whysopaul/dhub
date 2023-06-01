@@ -4,6 +4,7 @@ import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import ServiceCardComponent from './ServiceCardComponent';
 import { useEffect, useState } from 'react';
+import { TServicesData } from '../../actions/services/types';
 
 interface IServicesSearchListProps {
 }
@@ -23,7 +24,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов']
     const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
-    const searchCondition = rootState.services.services.map(service => {
+    const searchCondition: TServicesData[] = rootState.services.services.map(service => {
         return {
             ...service,
             description: {

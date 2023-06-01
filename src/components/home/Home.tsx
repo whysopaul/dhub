@@ -72,16 +72,16 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-welcome-left-block'>
                     <h1>Агрегатор сервисов <br /> для <span>вашей продуктивности</span></h1>
                     <p>Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.</p>
-                    <div>
-                        <button className='blue-shadow-button' onClick={() => openPopup(setShowServiceSelection)}>
-                            <span>Найти сервис</span>
-                            <i className='fas fa-long-arrow-alt-right' />
-                        </button>
-                        <AddServicePopup />
-                    </div>
                 </div>
                 <div className='home-welcome-right-block'>
                     <img src={Welcome} alt='' />
+                </div>
+                <div className='home-welcome-buttons'>
+                    <button className='blue-shadow-button' onClick={() => openPopup(setShowServiceSelection)}>
+                        <span>Найти сервис</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </button>
+                    <AddServicePopup />
                 </div>
             </div>
 

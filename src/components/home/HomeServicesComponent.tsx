@@ -13,17 +13,19 @@ interface IHomeServicesComponentProps {
 const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps> = (props) => {
     return <>
         <div className='home-section-common-container'>
-            <div className='home-section-header'>
+            <div className='home-section-title'>
                 <h2>{props.title}</h2>
-                <Link to='/services' className='arrow-right-link'>
-                    <span>Показать все сервисы</span>
-                    <i className='fas fa-long-arrow-alt-right' />
-                </Link>
             </div>
             <div className={props.extended ? 'home-services-cards extended' : 'home-services-cards'}>
                 {props.data.slice(0, props.qty).map(i => {
                     return <ServiceCardComponent service={i} key={i.id} />
                 })}
+            </div>
+            <div className='home-section-link'>
+                <Link to='/services' className='arrow-right-link'>
+                    <span>Показать все сервисы</span>
+                    <i className='fas fa-long-arrow-alt-right' />
+                </Link>
             </div>
         </div>
     </>;

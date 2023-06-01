@@ -1,7 +1,7 @@
 import * as React from 'react';
 import '../../static/css/feedback.css';
 import { TServicesData } from '../../actions/services/types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import ServiceRatingTag from '../services/ServiceRatingTag';
 import { useSelector } from 'react-redux';
@@ -19,6 +19,10 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
     const [search, setSearch] = useState('')
     const searchRef = useRef<HTMLInputElement>(null)
     const [showList, setShowList] = useState(false)
+
+    const searchFilterName = useMemo(() => {
+        return serviceState.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    }, [search, serviceState])
 
     const ref = useRef(null)
     useOnClickOutside(ref, () => props.onClose())
@@ -65,7 +69,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                                     <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}><i className={`fas fa-caret-${showList ? 'up' : 'down'} color-blue cursor-pointer`} /></button>
                                 </div>
                                 <div className='feedback-popup-services-list'>
-                                    {showList && serviceState.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(service => {
+                                    {showList && searchFilterName.map(service => {
                                         return <>
                                             <label className='feedback-popup-services-list-item' key={service.id}>
                                                 <img src={service.images.logo} />
