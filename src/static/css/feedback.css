@@ -23,7 +23,8 @@
 }
 
 .feedback-card-header {
-    display: flex;
+    display: grid;
+    grid-template-columns: 64px auto auto;
     align-items: center;
 }
 
@@ -34,10 +35,7 @@
 
 .feedback-card-username {
     margin: 0 auto 0 20px;
-}
-
-.feedback-card-username>p {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 600;
     font-size: 22px;
@@ -56,7 +54,7 @@
 }
 
 .feedback-card-rating>span {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -78,8 +76,6 @@
 }
 
 .feedback-card-container>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -107,8 +103,6 @@
 }
 
 .feedback-service-name>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 16px;
@@ -117,7 +111,7 @@
 }
 
 .feedback-service-name>span {
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 12px;
@@ -303,4 +297,90 @@
     resize: none;
     box-sizing: border-box;
     margin-bottom: 32px;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 576px) {
+    .feedback-card-container {
+        padding: 16px;
+        border-radius: 16px;
+        box-shadow: none;
+    }
+
+    .feedback-card-header {
+        grid-template-columns: 32px auto;
+        grid-template-rows: 32px auto;
+        column-gap: 12px;
+        row-gap: 10px;
+    }
+
+    .feedback-card-header>img {
+        width: 32px;
+        height: 32px;
+        grid-row-end: span 2;
+        align-self: flex-start;
+    }
+
+    .feedback-card-username {
+        margin: 0;
+        font-size: 16px;
+        line-height: 20px;
+        width: max-content;
+    }
+
+    .feedback-card-rating {
+        row-gap: 8px;
+    }
+
+    .feedback-card-rating>span {
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .feedback-card-rating>div {
+        gap: 5px;
+    }
+
+    .feedback-card-container>hr {
+        margin: 16px 0;
+    }
+
+    .feedback-card-container>p {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .feedback-service-name {
+        margin: 0 auto 0 12px;
+    }
+
+    .feedback-service-name>p {
+        margin-bottom: 4px;
+    }
+
+    .feedback-service-name>span {
+        font-family: 'Noto Sans', sans-serif;
+        font-style: normal;
+        font-weight: 300;
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .feedback-service-likes {
+        gap: 4px;
+    }
+
+    .feedback-service-likes>i {
+        font-size: 12px;
+    }
+
+    .feedback-service-likes>div {
+        height: 22px;
+    }
+
+    .feedback-service-likes span {
+        font-size: 10px;
+        line-height: 10px;
+    }
 }

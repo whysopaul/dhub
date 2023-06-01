@@ -510,7 +510,9 @@
     }
 
     .home-articles-cards {
+        flex-wrap: wrap;
         grid-column-end: initial;
+        gap: 16px;
     }
 
     .home-banners-wrapper {

@@ -7,7 +7,7 @@
 
 .article-card-container {
     width: 300px;
-    height: 412px;
+    height: auto;
     line-height: 0;
     flex-shrink: 0;
 }
@@ -32,8 +32,6 @@
     background: #386BEE;
     border-radius: 12px;
     padding: 6px 14px;
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 600;
     font-size: 12px;
     line-height: 12px;
@@ -42,8 +40,6 @@
 }
 
 .article-card-title {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 600;
     font-size: 22px;
     line-height: 24px;
@@ -57,8 +53,6 @@
 }
 
 .article-card-container>p {
-    font-family: 'Noto Sans';
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -137,4 +131,41 @@
     height: 24px;
     font-size: 16px;
     cursor: pointer;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 576px) {
+    .article-card-container {
+        width: 160px;
+    }
+
+    .article-card-image {
+        margin-bottom: 8px;
+    }
+
+    .article-card-image img {
+        height: 120px;
+        border-radius: 12px;
+    }
+
+    .article-card-image>span {
+        top: 10px;
+        left: 10px;
+        padding: 5px 8px;
+        border-radius: 12px;
+        font-size: 8px;
+        line-height: 8px;
+    }
+
+    .article-card-title {
+        font-size: 14px;
+        line-height: 16px;
+        margin-bottom: 6px;
+    }
+
+    .article-card-container>p {
+        font-size: 10px;
+        line-height: 14px;
+    }
 }
