@@ -144,6 +144,21 @@
 /* MOBILE */
 
 @media screen and (max-width: 576px) {
+    .arrow-right-button {
+        font-size: 12px;
+        line-height: 12px;
+        gap: 10px;
+    }
+
+    .arrow-right-link {
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .arrow-right-link>span {
+        margin-right: 10px;
+    }
+
     .blue-shadow-button {
         height: 32px;
         font-size: 10px;

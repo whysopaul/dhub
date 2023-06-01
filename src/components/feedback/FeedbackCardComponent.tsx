@@ -21,8 +21,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                 {!owner && <>
                     <img src={comment.author.profilePhoto} alt="" />
                     <div className='feedback-card-username'>
-                        <p>{comment.author.firstName}</p>
-                        <p>{comment.author.lastName}</p>
+                        <p>{comment.author.firstName} {comment.author.lastName}</p>
                     </div>
                 </>}
                 <div className='feedback-card-rating'>

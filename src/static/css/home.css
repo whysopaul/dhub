@@ -496,6 +496,7 @@
     .home-services-cards {
         grid-row-start: initial;
         grid-column-end: initial;
+        flex-wrap: wrap;
     }
 
     .home-section-link {
