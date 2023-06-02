@@ -65,18 +65,24 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     {currentService.images.screenshots?.length === 0 && <p>Нет скриншотов для показа</p>}
                 </div>
                 <div className='service-info'>
-                    <h1 className='section-main-title'>{currentService.name}</h1>
-                    <span>{currentService.categories[0]?.name}</span>
-                    <div className='service-rating-section'>
-                        <ServiceRatingTag rating={currentService.rating} />
-                        <div className='service-rating-divider' />
-                        <div className='service-feedback-qty'>
-                            <i className='fas fa-star' />
-                            <span>34 отзыва</span>
+                    <div className='service-info-header'>
+                        <div className='service-title-section'>
+                            <h1 className='section-main-title'>{currentService.name}</h1>
+                            <span>{currentService.categories[0]?.name}</span>
+                        </div>
+                        <div className='service-rating-section'>
+                            <ServiceRatingTag rating={currentService.rating} />
+                            <div className='service-rating-divider' />
+                            <div className='service-feedback-qty'>
+                                <i className='fas fa-star' />
+                                <span>34 отзыва</span>
+                            </div>
                         </div>
                     </div>
                     <hr />
                     <p>{currentService.description.text}</p>
+                </div>
+                <div className='service-more-info'>
                     <div className='service-banner-wrapper'>
                         <div className='service-banner-container'>
                             <div>
@@ -113,8 +119,14 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
             <section>
                 <div className='service-section-header-options'>
                     <div className='service-section-header-buttons'>
-                        <button className={mode === 1 ? 'active' : null} onClick={() => setMode(1)}><p>Отзывы</p><span>30</span></button>
-                        <button className={mode === 2 ? 'active' : null} onClick={() => setMode(2)}><p>Специалисты</p><span>30</span></button>
+                        <button className={mode === 1 ? 'active' : null} onClick={() => setMode(1)}>
+                            <p>Отзывы</p>
+                            <span>30</span>
+                        </button>
+                        <button className={mode === 2 ? 'active' : null} onClick={() => setMode(2)}>
+                            <p>Специалисты</p>
+                            <span>30</span>
+                        </button>
                     </div>
                     {mode === 1 && <div className='sort-selection'>
                         <span>Сортировать:</span>
@@ -139,7 +151,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 </>}
 
                 {mode === 2 && <>
-                    <div className='mb-32'>
+                    <div className='section-header-container'>
                         <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
                     </div>
                     <div className='service-specialists-cards'>

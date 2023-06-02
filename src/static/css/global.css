@@ -89,8 +89,6 @@ hr {
 }
 
 .section-main-title {
-    font-family: 'Noto Sans', sans-serif;
-    font-style: normal;
     font-weight: 600;
     font-size: 32px;
     line-height: 32px;
@@ -102,8 +100,6 @@ hr {
 }
 
 .categories-section>p {
-    font-family: 'Noto Sans', sans-serif;
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
@@ -192,5 +188,61 @@ hr {
 
     100% {
         transform: rotate(360deg);
+    }
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 576px) {
+    .page-main-container {
+        width: 100%;
+        padding: 0 16px;
+    }
+
+    .section-header-container {
+        margin-bottom: 16px;
+    }
+
+    .section-main-title {
+        font-size: 20px;
+        line-height: 20px;
+    }
+
+    .categories-section {
+        margin-bottom: 20px;
+    }
+
+    .categories-section>p {
+        font-size: 10px;
+        line-height: 10px;
+        margin-bottom: 12px;
+    }
+
+    .show-more-container {
+        margin-top: 24px;
+    }
+
+    .show-more-container span {
+        font-weight: 500;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .show-more-container i {
+        font-size: 8px;
+        margin-left: 6px;
+    }
+
+    .wide-search-container input {
+        padding: 0 46px 0 20px;
+        font-size: 10px;
+        line-height: 10px;
+        height: 42px;
+    }
+
+    .wide-search-container i {
+        font-size: 16px;
+        margin-top: -29px;
+        margin-right: 20px;
     }
 }

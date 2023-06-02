@@ -8,6 +8,7 @@ import UserHeader from './UserHeader';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { mockArtData } from '../../actions/articles/articles';
 import { createServiceLink } from '../utils';
+import { useState } from 'react';
 
 interface IHeaderProps {
     root?: boolean
@@ -16,6 +17,8 @@ interface IHeaderProps {
 const Header: React.FunctionComponent<IHeaderProps> = (props) => {
 
     const rootState = useSelector((state: RootStore) => state)
+
+    const [showLoginPopup, setShowLoginPopup] = useState(false)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -101,16 +104,24 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     }
 
     return <>
+
+        {showLoginPopup && <Login onClose={() => setShowLoginPopup(false)} />}
+
         <header className='header'>
             <div className='header-navbar'>
                 <img src={Logo} alt="" className='cursor-pointer' onClick={() => navigate('/')} />
                 <div className='header-navbar-navigation'>
                     <Navigation />
                 </div>
-                {!rootState.auth.user && <Login />}
+                {!rootState.auth.user && <>
+                    <button className='header-navbar-login-button' onClick={() => setShowLoginPopup(true)}>
+                        <i className='fas fa-user' />
+                        <span>Войти в аккаунт</span>
+                    </button>
+                </>}
                 {rootState.auth.user && <UserHeader />}
                 <div className='header-navbar-navigation mobile'>
-                    <button><i className='fas fa-user' /></button>
+                    <button onClick={() => setShowLoginPopup(true)}><i className='fas fa-user' /></button>
                     <button className='bg-blue'><i className='fas fa-bars color-white' /></button>
                 </div>
             </div>

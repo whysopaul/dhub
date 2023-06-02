@@ -6,21 +6,22 @@
     box-shadow: 0 0 8px #e0e7f4;
     padding: 20px 30px;
     display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: auto auto auto;
     align-items: center;
-}
-
-.specialist-card-info {
-    display: flex;
     gap: 32px;
 }
 
-.specialist-card-info>img {
+.specialist-card-photo {
+    grid-row-end: initial;
+}
+
+.specialist-card-photo>img {
     width: 64px;
     height: 64px;
 }
 
-.specialist-card-info>div {
+.specialist-card-info {
+    display: block;
     width: 60%;
 }
 
@@ -35,10 +36,49 @@
 }
 
 .specialist-card-info span {
-    font-family: 'Noto Sans', sans-serif;
-    font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
     color: #2D4379;
+}
+
+/* MOBILE */
+
+@media screen and (max-width: 576px) {
+    .specialist-card-container {
+        border-radius: 16px;
+        padding: 16px 16px 20px;
+        grid-template-columns: auto auto;
+        align-items: flex-start;
+        row-gap: 16px;
+        column-gap: 12px;
+    }
+
+    .specialist-card-photo {
+        grid-row-end: span 2;
+    }
+
+    .specialist-card-photo>img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .specialist-card-info {
+        width: auto;
+    }
+
+    .specialist-card-info p {
+        font-size: 16px;
+        line-height: 20px;
+        margin-bottom: 6px;
+    }
+
+    .specialist-card-info span {
+        font-size: 10px;
+        line-height: 14px;
+    }
+
+    .specialist-card-container>.arrow-right-button {
+        justify-self: flex-start;
+    }
 }

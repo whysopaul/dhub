@@ -302,6 +302,10 @@
 /* MOBILE */
 
 @media screen and (max-width: 576px) {
+    .feedback-cards {
+        grid-template-columns: auto;
+    }
+
     .feedback-card-container {
         padding: 16px;
         border-radius: 16px;

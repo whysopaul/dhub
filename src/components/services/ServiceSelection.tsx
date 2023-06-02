@@ -115,7 +115,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                         <span>Обратиться за помощью</span>
                     </button>
                 </div>
-                <button type='button' className='service-selection-close cursor-pointer' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
+                <button type='button' className='service-selection-close' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
             </form>
         </div>
     </>;
