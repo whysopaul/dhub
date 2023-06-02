@@ -2,7 +2,6 @@ import * as React from 'react';
 import Logo from '../../static/images/logo.svg';
 import Navigation from './Navigation';
 import Login from './Login';
-import styles from '../../static/css/Header.module.css';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import UserHeader from './UserHeader';
@@ -102,17 +101,21 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     }
 
     return <>
-        <header style={styles}>
-            <div className={styles.navbar}>
+        <header className='header'>
+            <div className='header-navbar'>
                 <img src={Logo} alt="" className='cursor-pointer' onClick={() => navigate('/')} />
-                <div className={styles.navigation}>
+                <div className='header-navbar-navigation'>
                     <Navigation />
                 </div>
                 {!rootState.auth.user && <Login />}
                 {rootState.auth.user && <UserHeader />}
+                <div className='header-navbar-navigation mobile'>
+                    <button><i className='fas fa-user' /></button>
+                    <button className='bg-blue'><i className='fas fa-bars color-white' /></button>
+                </div>
             </div>
             {!props.root && <>
-                <div className={styles.breadcrumbs}>
+                <div className='header-breadcrumbs'>
                     <ul>
                         {createBreadCrumbs(location.pathname)}
                     </ul>

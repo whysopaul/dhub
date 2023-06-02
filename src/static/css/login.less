@@ -1,4 +1,6 @@
-.popup {
+/* LOGIN */
+
+.login-popup-container {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -12,32 +14,32 @@
     font-style: normal;
     width: 600px;
     box-sizing: border-box;
+
+    &>img {
+        width: 478px;
+        height: 242px;
+        margin-bottom: 40px;
+    }
+
+    &>h3 {
+        font-weight: 700;
+        font-size: 32px;
+        line-height: 32px;
+        color: #16181B;
+        margin-bottom: 20px;
+    }
+
+    &>p {
+        padding: 0 48px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 24px;
+        color: #2D4379;
+        margin-bottom: 48px;
+    }
 }
 
-.popup>img {
-    width: 478px;
-    height: 242px;
-    margin-bottom: 40px;
-}
-
-.popup>h3 {
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 32px;
-    color: #16181B;
-    margin-bottom: 20px;
-}
-
-.popup>p {
-    padding: 0 48px;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 24px;
-    color: #2D4379;
-    margin-bottom: 48px;
-}
-
-.login {
+.login-popup-login-button {
     width: 100%;
     padding: 0 24px;
     height: 48px;
@@ -54,9 +56,9 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-}
 
-.login>i {
-    margin-right: 12px;
-    font-size: 24px;
+    &>i {
+        margin-right: 12px;
+        font-size: 24px;
+    }
 }
