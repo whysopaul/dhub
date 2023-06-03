@@ -32,7 +32,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
         {showFeedbackPopup && <GiveFeedbackPopup onClose={() => setShowFeedbackPopup(false)} />}
 
         {userState && <>
-            <div className='section-header-container'>
+            <div className='user-profile-header-container'>
                 <div className='user-profile-subheader'>
                     <img src={userState.photo} alt="" className='user-profile-photo' />
                     <h2 className='section-main-title'>{userState.name}</h2>
@@ -50,7 +50,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                 <button className={mode === 2 ? 'active' : null} onClick={() => setMode(2)}>История просмотров</button>
             </div>
             <div className='section-header-container'>
-                <div className='user-profile-subheader'>
+                <div className='user-profile-modes-subheader'>
                     {mode === 1 && <>
                         <h2 className='section-main-title'>Мои отзывы</h2>
                         <button className='feedback-button' onClick={() => setShowFeedbackPopup(true)}>

@@ -17,7 +17,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
 
     return <>
         <div className='feedback-card-container'>
-            <div className='feedback-card-header'>
+            <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
                 {!owner && <>
                     <img src={comment.author.profilePhoto} alt="" />
                     <div className='feedback-card-username'>

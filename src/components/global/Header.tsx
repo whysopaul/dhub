@@ -121,7 +121,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                 </>}
                 {rootState.auth.user && <UserHeader />}
                 <div className='header-navbar-navigation mobile'>
-                    <button onClick={() => setShowLoginPopup(true)}><i className='fas fa-user' /></button>
+                    <button onClick={() => rootState.auth.user ? navigate('/profile') : setShowLoginPopup(true)}><i className='fas fa-user' /></button>
                     <button className='bg-blue'><i className='fas fa-bars color-white' /></button>
                 </div>
             </div>

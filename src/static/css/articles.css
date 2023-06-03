@@ -110,7 +110,7 @@
     border-radius: 16px;
     padding: 24px;
     width: max-content;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 16px;
@@ -136,6 +136,11 @@
 /* MOBILE */
 
 @media screen and (max-width: 576px) {
+    .articles-cards {
+        grid-template-columns: repeat(2, 1fr);
+        column-gap: 23px;
+    }
+
     .article-card-container {
         width: 160px;
     }
@@ -167,5 +172,50 @@
     .article-card-container>p {
         font-size: 10px;
         line-height: 14px;
+    }
+
+    .article-page-container {
+        grid-template-columns: auto;
+        gap: 16px;
+    }
+
+    .article-page-content {
+        gap: 16px;
+    }
+
+    .article-page-content>p {
+        font-size: 10px;
+        line-height: 16px;
+    }
+
+    .article-page-content>img {
+        width: 100%;
+        border-radius: 12px;
+    }
+
+    .article-page-category {
+        font-size: 8px;
+        line-height: 8px;
+        padding: 5px 8px;
+        border-radius: 12px;
+    }
+
+    .article-page-sharing {
+        justify-content: space-between;
+        border-radius: 12px;
+        padding: 16px;
+        font-size: 12px;
+        line-height: 12px;
+        width: auto;
+    }
+
+    .article-page-sharing-buttons {
+        gap: 10px;
+    }
+
+    .article-page-sharing-buttons>button {
+        width: 20px;
+        height: 20px;
+        font-size: 14px;
     }
 }

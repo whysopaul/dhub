@@ -218,6 +218,15 @@ hr {
         margin-bottom: 12px;
     }
 
+    .sort-selection>* {
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .sort-selection>span {
+        display: none;
+    }
+
     .show-more-container {
         margin-top: 24px;
     }
@@ -244,5 +253,9 @@ hr {
         font-size: 16px;
         margin-top: -29px;
         margin-right: 20px;
+    }
+
+    .wide-search-container>.section-main-title {
+        margin-bottom: 20px !important;
     }
 }

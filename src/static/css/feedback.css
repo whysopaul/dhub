@@ -28,6 +28,10 @@
     align-items: center;
 }
 
+.feedback-card-header.owner {
+    grid-template-columns: max-content;
+}
+
 .feedback-card-header>img {
     width: 64px;
     height: 64px;
@@ -317,6 +321,11 @@
         grid-template-rows: 32px auto;
         column-gap: 12px;
         row-gap: 10px;
+    }
+
+    .feedback-card-header.owner {
+        grid-template-columns: auto;
+        grid-template-rows: initial;
     }
 
     .feedback-card-header>img {
