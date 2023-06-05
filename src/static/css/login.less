@@ -10,7 +10,7 @@
     padding: 64px 48px 32px;
     text-align: center;
     z-index: 100;
-    font-family: 'Montserrat';
+    font-family: 'Montserrat', sans-serif;
     font-style: normal;
     width: 600px;
     box-sizing: border-box;
@@ -60,5 +60,46 @@
     &>i {
         margin-right: 12px;
         font-size: 24px;
+    }
+}
+
+// MOBILE
+
+@media screen and (max-width: 576px) {
+    .login-popup-container {
+        left: 0;
+        transform: none;
+        padding: 45px 16px 40px;
+        border-radius: 24px 24px 0 0;
+        width: 100%;
+
+        &>img {
+            width: 304px;
+            height: 154px;
+            margin-bottom: 32px;
+        }
+
+        &>h3 {
+            font-weight: 600;
+            font-size: 20px;
+            line-height: 20px;
+            margin-bottom: 16px;
+        }
+
+        &>p {
+            font-size: 10px;
+            line-height: 14px;
+            margin-bottom: 40px;
+        }
+    }
+
+    .login-popup-login-button {
+        height: 42px;
+        font-size: 10px;
+        line-height: 12px;
+
+        &>i {
+            margin-right: 8px;
+        }
     }
 }

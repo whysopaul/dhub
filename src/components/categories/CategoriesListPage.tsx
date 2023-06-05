@@ -38,9 +38,18 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
             </ul>
         </div>
         <div className='categories-list-modes'>
-            <label><input type='radio' name='category-type' checked={mode === 1} onChange={() => setMode(1)} />Все категории</label>
-            <label><input type='radio' name='category-type' checked={mode === 2} onChange={() => setMode(2)} />По профессиям</label>
-            <label><input type='radio' name='category-type' checked={mode === 3} onChange={() => setMode(3)} />По сферам</label>
+            <label>
+                <input type='radio' name='category-type' checked={mode === 1} onChange={() => setMode(1)} />
+                <span>Все категории</span>
+            </label>
+            <label>
+                <input type='radio' name='category-type' checked={mode === 2} onChange={() => setMode(2)} />
+                <span>По профессиям</span>
+            </label>
+            <label>
+                <input type='radio' name='category-type' checked={mode === 3} onChange={() => setMode(3)} />
+                <span>По сферам</span>
+            </label>
         </div>
         {mode === 1 && mockMainCategories.map(category => {
             return <>
