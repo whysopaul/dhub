@@ -36,8 +36,14 @@ const UserProfileEdit: React.FunctionComponent<IUserProfileEditProps> = (props) 
                 <div className='user-profile-edit-info'>
                     <input type='text' placeholder='Введите имя' value={firstName} onChange={e => setFirstName(e.target.value)} />
                     <input type='text' placeholder='Введите фамилию' value={lastName} onChange={e => setLastName(e.target.value)} />
-                    <label><input type='checkbox' /><span>Согласен на получение информационной и рекламной информации</span></label>
-                    <label><input type='checkbox' /><span>Ознакомлен с <Link to='/'>политикой обработки</Link> персональных данных</span></label>
+                    <label>
+                        <input type='checkbox' />
+                        <span>Согласен на получение информационной и рекламной информации</span>
+                    </label>
+                    <label>
+                        <input type='checkbox' />
+                        <span>Ознакомлен с <Link to='/'>политикой обработки</Link> персональных данных</span>
+                    </label>
                     <button className='blue-shadow-button'>
                         <span>Сохранить</span>
                         <i className='fas fa-long-arrow-alt-right' />
