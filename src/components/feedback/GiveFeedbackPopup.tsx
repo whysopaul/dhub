@@ -66,7 +66,9 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                             {selectService && <>
                                 <div className='feedback-popup-search'>
                                     <input type='text' placeholder='Выберите сервис из списка' value={search} onChange={e => setSearch(e.target.value)} onFocus={() => setShowList(true)} ref={searchRef} />
-                                    <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}><i className={`fas fa-caret-${showList ? 'up' : 'down'} color-blue cursor-pointer`} /></button>
+                                    <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}>
+                                        <i className={`fas fa-caret-${showList ? 'up' : 'down'} color-blue cursor-pointer`} />
+                                    </button>
                                 </div>
                                 <div className='feedback-popup-services-list'>
                                     {showList && searchFilterName.map(service => {
