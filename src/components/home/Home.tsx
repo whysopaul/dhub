@@ -55,6 +55,77 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const [search, setSearch] = useState('')
 
+    const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
+    const [servicesQty, setServicesQty] = useState<number>(8)
+    const [servicesQtyExtended, setServicesQtyExtended] = useState<number>(10)
+    const [currentComment, setCurrentComment] = useState<number>(0)
+
+    useEffect(() => {
+        setScreenWidth(window.innerWidth)
+
+        if (screenWidth < 576) {
+            setServicesQty(3)
+            setServicesQtyExtended(3)
+        } else {
+            setServicesQty(8)
+            setServicesQtyExtended(10)
+        }
+
+        const updateServicesQty = () => {
+            setScreenWidth(window.innerWidth)
+
+            if (screenWidth < 576) {
+                setServicesQty(3)
+                setServicesQtyExtended(3)
+            } else {
+                setServicesQty(8)
+                setServicesQtyExtended(10)
+            }
+        }
+
+        window.addEventListener('resize', updateServicesQty)
+
+        return () => {
+            window.removeEventListener('resize', updateServicesQty)
+        }
+    }, [, screenWidth])
+
+    // Comment Mobile Swipe
+
+    const [touchPosition, setTouchPosition] = useState(null)
+
+    const handleTouchStart = (e) => {
+        const touchDown = e.touches[0].clientX
+        setTouchPosition(touchDown)
+    }
+
+    const handleTouchMove = (e) => {
+        const touchDown = touchPosition
+
+        if (touchDown === null) {
+            return
+        }
+
+        const currentTouch = e.touches[0].clientX
+        const diff = touchDown - currentTouch
+
+        if (diff > 5) {
+            if (currentComment + 1 === 4) {
+                return setCurrentComment(0)
+            }
+            return setCurrentComment(currentComment + 1)
+        }
+
+        if (diff < -5) {
+            if (currentComment - 1 < 0) {
+                return setCurrentComment(3)
+            }
+            return setCurrentComment(currentComment - 1)
+        }
+
+        setTouchPosition(null)
+    }
+
     return <>
 
         {serviceState.is_loading && <>
@@ -110,7 +181,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Новые сервисы' data={serviceState.services} qty={8} />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState.services} qty={servicesQty} />
 
             <div className='home-banners-wrapper'>
                 <div className='home-giftbox-container'>
@@ -144,7 +215,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState.services} qty={8} />
+            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState.services} qty={servicesQty} />
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
@@ -154,18 +225,23 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         <i className='fas fa-long-arrow-alt-right' />
                     </Link>
                 </div>
-                <div className='home-feedback-cards'>
+                {screenWidth > 576 && <div className='home-feedback-cards'>
                     {mockFeedbackData.map(i => {
                         return <FeedbackCardComponent comment={i} key={i.id} />
                     })}
-                </div>
+                </div>}
+                {screenWidth < 576 && <div className='home-feedback-cards'>
+                    {mockFeedbackData.slice(currentComment, currentComment + 1).map(i => {
+                        return <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} />
+                    })}
+                </div>}
             </div>
 
-            <HomeServicesComponent title='Топ-сервисов' data={serviceState.services} qty={8} />
+            <HomeServicesComponent title='Топ-сервисов' data={serviceState.services} qty={servicesQty} />
 
             <HomeArticlesComponent data={mockArtData} />
 
-            <HomeServicesComponent title='Все сервисы' data={serviceState.services} qty={10} extended />
+            <HomeServicesComponent title='Все сервисы' data={serviceState.services} qty={servicesQtyExtended} extended />
 
             <div className='home-subscription-wrapper'>
                 <div className='home-subscription-container'>

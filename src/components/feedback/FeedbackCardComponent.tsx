@@ -4,10 +4,12 @@ import '../../static/css/feedback.css';
 
 interface IFeedbackCardComponentProps {
     comment: TFeedbackComment,
-    owner?: boolean
+    owner?: boolean,
+    onTouchStart?: (_) => void,
+    onTouchMove?: (_) => void
 }
 
-const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner }) => {
+const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner, onTouchStart, onTouchMove }) => {
 
     const starCount = (points: number) => {
         return new Array(5).fill('').map((_, idx) => {
@@ -16,7 +18,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
     }
 
     return <>
-        <div className='feedback-card-container'>
+        <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
             <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
                 {!owner && <>
                     <img src={comment.author.profilePhoto} alt="" />
