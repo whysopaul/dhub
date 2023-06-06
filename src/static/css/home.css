@@ -531,7 +531,9 @@
     }
 
     .home-articles-cards {
-        flex-wrap: wrap;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        /* flex-wrap: wrap; */
         grid-column-end: initial;
         gap: 16px;
     }
