@@ -14,7 +14,6 @@ import '../../static/css/home.css';
 import Welcome from '../../static/images/welcome.webp';
 import Giftbox from '../../static/images/giftbox.webp';
 import Taskboard from '../../static/images/taskboard.webp';
-// import Stars from '../../static/images/stars.webp';
 import Subscribe from '../../static/images/subscribe.webp';
 import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
@@ -94,12 +93,12 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const [touchPosition, setTouchPosition] = useState(null)
 
-    const handleTouchStart = (e) => {
+    const handleTouchStart = (e: React.TouchEvent) => {
         const touchDown = e.touches[0].clientX
         setTouchPosition(touchDown)
     }
 
-    const handleTouchMove = (e) => {
+    const handleTouchMove = (e: React.TouchEvent) => {
         const touchDown = touchPosition
 
         if (touchDown === null) {
@@ -110,7 +109,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         const diff = touchDown - currentTouch
 
         if (diff > 5) {
-            if (currentComment + 1 === 4) {
+            if (currentComment + 1 > 3) {
                 return setCurrentComment(0)
             }
             return setCurrentComment(currentComment + 1)
@@ -232,7 +231,14 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>}
                 {screenWidth < 576 && <div className='home-feedback-cards'>
                     {mockFeedbackData.slice(currentComment, currentComment + 1).map(i => {
-                        return <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} />
+                        return <>
+                            <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} />
+                            <div className='home-feedback-swipe-bar'>
+                                {[...new Array(4)].map((_, idx) => {
+                                    return <button className={i.id === idx + 1 ? 'home-feedback-swipe-point active' : 'home-feedback-swipe-point'} onClick={() => setCurrentComment(idx)} key={idx}></button>
+                                })}
+                            </div>
+                        </>
                     })}
                 </div>}
             </div>

@@ -164,6 +164,25 @@ hr {
     margin-right: 18px;
 }
 
+.cards-mobile-swipe-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.cards-mobile-swipe-point {
+    width: 6px;
+    height: 6px;
+    background: #E5E9F2;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.cards-mobile-swipe-point.active {
+    background: #386BEE;
+    cursor: auto;
+}
+
 /* LOADER */
 
 .loader {

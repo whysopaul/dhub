@@ -37,6 +37,59 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     const [showFeedbackPopup, setShowFeedbackPopup] = useState(false)
 
+    const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
+    const [currentCard, setCurrentCard] = useState<number>(0)
+
+    useEffect(() => {
+        setScreenWidth(window.innerWidth)
+
+        const updateServicesQty = () => {
+            setScreenWidth(window.innerWidth)
+        }
+
+        window.addEventListener('resize', updateServicesQty)
+
+        return () => {
+            window.removeEventListener('resize', updateServicesQty)
+        }
+    }, [, screenWidth])
+
+    // Comment Mobile Swipe
+
+    const [touchPosition, setTouchPosition] = useState(null)
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        const touchDown = e.touches[0].clientX
+        setTouchPosition(touchDown)
+    }
+
+    const handleTouchMove = (e: React.TouchEvent, cardsQty: number) => {
+        const touchDown = touchPosition
+
+        if (touchDown === null) {
+            return
+        }
+
+        const currentTouch = e.touches[0].clientX
+        const diff = touchDown - currentTouch
+
+        if (diff > 5) {
+            if (currentCard + 1 > cardsQty) {
+                return setCurrentCard(0)
+            }
+            return setCurrentCard(currentCard + 1)
+        }
+
+        if (diff < -5) {
+            if (currentCard - 1 < 0) {
+                return setCurrentCard(cardsQty)
+            }
+            return setCurrentCard(currentCard - 1)
+        }
+
+        setTouchPosition(null)
+    }
+
     return <>
 
         {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => { setSelectedImageSource(null); document.body.style.overflow = '' }} />}
@@ -143,22 +196,48 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <span>Оставить отзыв</span>
                         </button>
                     </div>
-                    <div className='feedback-cards'>
+                    {screenWidth > 576 && <div className='feedback-cards'>
                         {mockFeedbackData.map(i => {
                             return <FeedbackCardComponent comment={i} key={i.id} />
                         })}
-                    </div>
+                    </div>}
+                    {screenWidth < 576 && <div className='feedback-cards'>
+                        {mockFeedbackData.slice(currentCard, currentCard + 1).map(i => {
+                            const dataLength = mockFeedbackData.length
+                            return <>
+                                <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
+                                <div className='cards-mobile-swipe-bar'>
+                                    {[...new Array(dataLength)].map((_, idx) => {
+                                        return <button className={i.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
+                                    })}
+                                </div>
+                            </>
+                        })}
+                    </div>}
                 </>}
 
                 {mode === 2 && <>
                     <div className='section-header-container'>
                         <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
                     </div>
-                    <div className='service-specialists-cards'>
+                    {screenWidth > 576 && <div className='service-specialists-cards'>
                         {mockSpecialists.map(specialist => {
                             return <SpecialistCardComponent specialist={specialist} key={specialist.id} />
                         })}
-                    </div>
+                    </div>}
+                    {screenWidth < 576 && <div className='service-specialists-cards'>
+                        {mockSpecialists.slice(currentCard, currentCard + 1).map(specialist => {
+                            const dataLength = mockSpecialists.length
+                            return <>
+                                <SpecialistCardComponent specialist={specialist} key={specialist.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
+                                <div className='cards-mobile-swipe-bar'>
+                                    {[...new Array(dataLength)].map((_, idx) => {
+                                        return <button className={specialist.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
+                                    })}
+                                </div>
+                            </>
+                        })}
+                    </div>}
                 </>}
             </section>
         </>}

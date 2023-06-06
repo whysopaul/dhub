@@ -5,8 +5,8 @@ import '../../static/css/feedback.css';
 interface IFeedbackCardComponentProps {
     comment: TFeedbackComment,
     owner?: boolean,
-    onTouchStart?: (_) => void,
-    onTouchMove?: (_) => void
+    onTouchStart?: (e: React.TouchEvent) => void,
+    onTouchMove?: (e: React.TouchEvent, cardsQty?: number) => void
 }
 
 const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner, onTouchStart, onTouchMove }) => {

@@ -668,6 +668,10 @@
         padding: 4px 6px;
     }
 
+    .service-specialists-cards {
+        gap: 16px;
+    }
+
     .service-selection-container {
         padding: 16px 16px 36px;
         border-top-left-radius: 22px;

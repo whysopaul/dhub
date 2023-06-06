@@ -313,6 +313,27 @@
     position: relative;
 }
 
+.home-feedback-swipe-bar {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.home-feedback-swipe-point {
+    width: 6px;
+    height: 6px;
+    background: #E5E9F2;
+    opacity: 0.4;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.home-feedback-swipe-point.active {
+    background: #FFFFFF;
+    opacity: 1;
+    cursor: auto;
+}
+
 /* HOME SUBSCRIPTION BANNER */
 
 .home-subscription-wrapper {
@@ -583,6 +604,7 @@
 
     .home-feedback-cards {
         grid-template-columns: auto;
+        gap: 12px;
     }
 
     .home-subscription-wrapper {

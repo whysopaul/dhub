@@ -312,6 +312,7 @@
 @media screen and (max-width: 576px) {
     .feedback-cards {
         grid-template-columns: auto;
+        gap: 12px;
     }
 
     .feedback-card-container {
