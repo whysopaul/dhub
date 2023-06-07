@@ -642,6 +642,15 @@
         right: 40px;
     }
 
+    .service-gallery-container {
+        width: 100%;
+    }
+
+    .service-gallery-container>button {
+        font-size: 20px;
+        width: 32px;
+    }
+
     .service-section-header-options {
         justify-content: center;
         margin-bottom: 20px;
