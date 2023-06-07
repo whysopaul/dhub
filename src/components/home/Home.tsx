@@ -62,7 +62,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     useEffect(() => {
         setScreenWidth(window.innerWidth)
 
-        if (screenWidth < 576) {
+        if (screenWidth <= 576) {
             setServicesQty(3)
             setServicesQtyExtended(3)
         } else {
@@ -73,7 +73,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         const updateServicesQty = () => {
             setScreenWidth(window.innerWidth)
 
-            if (screenWidth < 576) {
+            if (screenWidth <= 576) {
                 setServicesQty(3)
                 setServicesQtyExtended(3)
             } else {
@@ -229,7 +229,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         return <FeedbackCardComponent comment={i} key={i.id} />
                     })}
                 </div>}
-                {screenWidth < 576 && <div className='home-feedback-cards'>
+                {screenWidth <= 576 && <div className='home-feedback-cards'>
                     {mockFeedbackData.slice(currentComment, currentComment + 1).map(i => {
                         return <>
                             <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} />

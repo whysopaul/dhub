@@ -183,6 +183,10 @@
         margin-top: 24px;
     }
 
+    .user-profile-edit-info {
+        margin-right: 0;
+    }
+
     .user-profile-edit-info>input {
         padding: 0 20px;
         height: 42px;

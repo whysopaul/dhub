@@ -201,7 +201,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             return <FeedbackCardComponent comment={i} key={i.id} />
                         })}
                     </div>}
-                    {screenWidth < 576 && <div className='feedback-cards'>
+                    {screenWidth <= 576 && <div className='feedback-cards'>
                         {mockFeedbackData.slice(currentCard, currentCard + 1).map(i => {
                             const dataLength = mockFeedbackData.length
                             return <>
@@ -225,7 +225,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             return <SpecialistCardComponent specialist={specialist} key={specialist.id} />
                         })}
                     </div>}
-                    {screenWidth < 576 && <div className='service-specialists-cards'>
+                    {screenWidth <= 576 && <div className='service-specialists-cards'>
                         {mockSpecialists.slice(currentCard, currentCard + 1).map(specialist => {
                             const dataLength = mockSpecialists.length
                             return <>
