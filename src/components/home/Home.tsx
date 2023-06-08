@@ -22,7 +22,6 @@ import { mockFeedbackData } from '../../actions/feedback/feedback';
 import { getAllCategories } from '../../actions/categories/categories';
 import AddServicePopup from './AddServicePopup';
 import ServiceSelection from '../services/ServiceSelection';
-import { closePopup, openPopup } from '../utils';
 import Header from '../global/Header';
 
 interface IHomeProps {
@@ -132,7 +131,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
             <div className='loader'></div>
         </>}
 
-        {showServiceSelection && <ServiceSelection onClose={() => closePopup(setShowServiceSelection)} />}
+        {showServiceSelection && <ServiceSelection onClose={() => setShowServiceSelection(false)} />}
 
         <Header root />
 
@@ -147,7 +146,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <img src={Welcome} alt='' />
                 </div>
                 <div className='home-welcome-buttons'>
-                    <button className='blue-shadow-button' onClick={() => openPopup(setShowServiceSelection)}>
+                    <button className='blue-shadow-button' onClick={() => setShowServiceSelection(true)}>
                         <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>

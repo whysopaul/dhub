@@ -183,6 +183,94 @@ hr {
     cursor: auto;
 }
 
+.navbar-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0D1216;
+    padding: 16px 24px 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.navbar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar-mobile-header>img {
+    width: 114px;
+}
+
+.navbar-mobile-header-buttons {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.navbar-mobile-user-button {
+    width: 32px;
+    height: 32px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.navbar-mobile-user-button>i {
+    font-size: 14px;
+}
+
+.navbar-mobile-close-button {
+    font-size: 14px;
+    line-height: 14px;
+    color: #B3B7C1;
+    cursor: pointer;
+}
+
+.navbar-mobile-navigation {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 85px;
+    margin-bottom: auto;
+}
+
+.navbar-mobile-navigation>a {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration: none;
+    color: #B3B7C1;
+}
+
+.navbar-mobile-navigation>a:hover {
+    text-decoration-line: underline;
+    color: #386BEE;
+}
+
+.navbar-mobile-social-networks-buttons {
+    display: flex;
+    gap: 16px;
+}
+
+.navbar-mobile-social-networks-buttons>button {
+    width: 28px;
+    height: 28px;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px;
+    color: black;
+    mix-blend-mode: screen;
+    background-color: #FFFFFF;
+    cursor: pointer;
+}
+
 /* LOADER */
 
 .loader {

@@ -37,7 +37,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                     <img src={userState.photo} alt="" className='user-profile-photo' />
                     <h2 className='section-main-title'>{userState.name}</h2>
                 </div>
-                <div>
+                <div className='user-profile-edit-button-container'>
                     <Link to='/profile/edit' className='arrow-right-link'>
                         <span>Редактировать профиль</span>
                         <i className='fas fa-long-arrow-alt-right' />

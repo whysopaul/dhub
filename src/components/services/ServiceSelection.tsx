@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import CategoryTagInput from '../categories/CategoryTagInput';
+import { useOnPopup } from '../utils/HandleOnPopup';
 
 interface IServiceSelectionProps {
     onClose: () => void
@@ -57,6 +58,8 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
 
         return window.location.replace('/search?' + urlParams)
     }
+
+    useOnPopup()
 
     return <>
         <div className='backdrop-no-blur'></div>

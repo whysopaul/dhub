@@ -9,6 +9,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { mockArtData } from '../../actions/articles/articles';
 import { createServiceLink } from '../utils';
 import { useState } from 'react';
+import NavbarMobile from './NavbarMobile';
 
 interface IHeaderProps {
     root?: boolean
@@ -19,6 +20,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     const rootState = useSelector((state: RootStore) => state)
 
     const [showLoginPopup, setShowLoginPopup] = useState(false)
+    const [showNavbarMobile, setShowNavbarMobile] = useState(false)
 
     const navigate = useNavigate()
     const location = useLocation()
@@ -106,6 +108,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
     return <>
 
         {showLoginPopup && <Login onClose={() => setShowLoginPopup(false)} />}
+        {showNavbarMobile && <NavbarMobile onClose={() => setShowNavbarMobile(false)} />}
 
         <header className='header'>
             <div className='header-navbar'>
@@ -122,7 +125,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                 {rootState.auth.user && <UserHeader />}
                 <div className='header-navbar-navigation mobile'>
                     <button onClick={() => rootState.auth.user ? navigate('/profile') : setShowLoginPopup(true)}><i className='fas fa-user' /></button>
-                    <button className='bg-blue'><i className='fas fa-bars color-white' /></button>
+                    <button className='bg-blue' onClick={() => setShowNavbarMobile(true)}><i className='fas fa-bars color-white' /></button>
                 </div>
             </div>
             {!props.root && <>

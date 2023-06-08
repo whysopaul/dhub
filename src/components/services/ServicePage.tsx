@@ -7,7 +7,7 @@ import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
 import Banner from '../../static/images/service_banner.webp'
-import { closePopup, createServiceLink, openPopup } from '../utils';
+import { createServiceLink } from '../utils';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import { TServicesData } from '../../actions/services/types';
@@ -92,8 +92,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     return <>
 
-        {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => { setSelectedImageSource(null); document.body.style.overflow = '' }} />}
-        {showFeedbackPopup && <GiveFeedbackPopup service={currentService} onClose={() => closePopup(setShowFeedbackPopup)} />}
+        {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => setSelectedImageSource(null)} />}
+        {showFeedbackPopup && <GiveFeedbackPopup service={currentService} onClose={() => setShowFeedbackPopup(false)} />}
 
         {currentService && <>
             <div className='service-page-categories'>
@@ -110,7 +110,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 <div className='service-images'>
                     {currentService.images.screenshots?.slice(0, 4).map(i => {
                         return <>
-                            <div className='service-image-wrapper' onClick={() => { setSelectedImageSource(i.source); document.body.style.overflow = 'hidden' }} key={i.id}>
+                            <div className='service-image-wrapper' onClick={() => setSelectedImageSource(i.source)} key={i.id}>
                                 <img src={i.source} alt="" />
                             </div>
                         </>
@@ -191,7 +191,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 {mode === 1 && <>
                     <div className='section-header-container'>
                         <h2 className='section-main-title'>Отзывы</h2>
-                        <button className='feedback-button' onClick={() => openPopup(setShowFeedbackPopup)}>
+                        <button className='feedback-button' onClick={() => setShowFeedbackPopup(true)}>
                             <i className='far fa-edit' />
                             <span>Оставить отзыв</span>
                         </button>

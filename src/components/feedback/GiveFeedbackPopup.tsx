@@ -6,6 +6,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import ServiceRatingTag from '../services/ServiceRatingTag';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
+import { useOnPopup } from '../utils/HandleOnPopup';
 
 interface IGiveFeedbackPopupProps {
     service?: TServicesData,
@@ -51,6 +52,8 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
             return <button type='button' className={idx < state ? 'star-button active' : 'star-button'} onClick={() => setState(idx + 1)} key={idx}><i className='fas fa-star' /></button>
         })
     }
+
+    useOnPopup()
 
     return <>
         <div className='backdrop'></div>
