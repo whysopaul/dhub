@@ -11,7 +11,7 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes>)
     })
 
     axios.get(SERVER_URL + '/getServices').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: SERVICES_LOADING,

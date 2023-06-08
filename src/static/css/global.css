@@ -35,7 +35,7 @@ hr {
     position: fixed;
     top: 0;
     left: 0;
-    z-index: 99;
+    z-index: 100;
     background-color: rgba(0, 0, 0, 0.75);
     backdrop-filter: blur(8px);
 }
@@ -183,6 +183,8 @@ hr {
     cursor: auto;
 }
 
+/* NAVBAR MOBILE */
+
 .navbar-mobile {
     position: fixed;
     top: 0;
@@ -195,7 +197,21 @@ hr {
     flex-direction: column;
     justify-content: space-between;
     box-sizing: border-box;
-    z-index: 100;
+    z-index: 99;
+    animation-name: open-navbar-mobile;
+    animation-duration: 0.4s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-out;
+}
+
+@keyframes open-navbar-mobile {
+    from {
+        left: 100%;
+    }
+
+    to {
+        left: 0;
+    }
 }
 
 .navbar-mobile-header {
@@ -237,6 +253,7 @@ hr {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    width: max-content;
     margin-top: 85px;
     margin-bottom: auto;
 }

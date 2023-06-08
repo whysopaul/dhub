@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { connectVkAccount } from '../../actions/auth/auth';
 import LoginImg from '../../static/images/login.webp';
 import '../../static/css/login.less';
+import { useOnPopup } from '../utils/HandleOnPopup';
 
 interface ILoginProps {
     onClose: () => void
@@ -17,6 +18,8 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
     const ref = useRef(null)
 
     useOnClickOutside(ref, () => props.onClose())
+
+    useOnPopup()
 
     return <>
         <div className='backdrop'></div>

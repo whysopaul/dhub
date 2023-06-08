@@ -42,6 +42,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     }, [])
 
     const [showServiceSelection, setShowServiceSelection] = useState(false)
+    const [showAddServicePopup, setShowAddServicePopup] = useState(false)
 
     // const randomCategories = (qty: number): number[] => {
     //     let resultArr: number[] = []
@@ -132,6 +133,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         </>}
 
         {showServiceSelection && <ServiceSelection onClose={() => setShowServiceSelection(false)} />}
+        {showAddServicePopup && <AddServicePopup onClose={() => setShowAddServicePopup(false)} />}
 
         <Header root />
 
@@ -150,7 +152,12 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>
-                    <AddServicePopup />
+                    <button className='round-item-button' onClick={() => setShowAddServicePopup(true)}>
+                        <div>
+                            <i className='fas fa-plus' />
+                        </div>
+                        <span>Добавить сервис</span>
+                    </button>
                 </div>
             </div>
 
