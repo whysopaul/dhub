@@ -80,7 +80,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                                                 <img src={service.images.logo} />
                                                 <div>
                                                     <p>{service.name}</p>
-                                                    <span>{service.categories[0]?.name}</span>
+                                                    <span>{service.categories_3[0]?.name}</span>
                                                 </div>
                                                 <input type='radio' name='service' checked={selectedService?.id === service.id} onChange={() => setSelectedService(service)} />
                                             </label>

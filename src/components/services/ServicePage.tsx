@@ -96,76 +96,87 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
         {showFeedbackPopup && <GiveFeedbackPopup service={currentService} onClose={() => setShowFeedbackPopup(false)} />}
 
         {currentService && <>
-            <div className='service-page-categories'>
-                <ul className='categories-list'>
-                    {currentService.categories.map(i => {
-
-                        const categoriesQty = serviceState.filter(service => service.categories.find(category => category.id === i.id)).length
-
-                        return <CategoryTag name={i.name} qty={categoriesQty} key={i.id} />
-                    })}
-                </ul>
-            </div>
             <div className='service-main-container'>
-                <div className='service-images'>
-                    {currentService.images.screenshots?.slice(0, 4).map(i => {
-                        return <>
-                            <div className='service-image-wrapper' onClick={() => setSelectedImageSource(i.source)} key={i.id}>
-                                <img src={i.source} alt="" />
+                <div>
+                    <div className='service-info'>
+                        <div className='service-info-header'>
+                            <div className='service-title-section'>
+                                <a href='#'>
+                                    <h1 className='section-main-title'>{currentService.name}</h1>
+                                    <i className='fas fa-external-link-alt' />
+                                </a>
+                                <span>{currentService.categories_3[0]?.name}</span>
                             </div>
-                        </>
-                    })}
-                    {currentService.images.screenshots?.length === 0 && <p>Нет скриншотов для показа</p>}
-                </div>
-                <div className='service-info'>
-                    <div className='service-info-header'>
-                        <div className='service-title-section'>
-                            <h1 className='section-main-title'>{currentService.name}</h1>
-                            <span>{currentService.categories[0]?.name}</span>
+                            <div className='service-rating-section'>
+                                <ServiceRatingTag rating={currentService.rating} />
+                                <div className='service-rating-divider' />
+                                <div className='service-feedback-qty'>
+                                    <i className='fas fa-star' />
+                                    <span>34 отзыва</span>
+                                </div>
+                            </div>
                         </div>
-                        <div className='service-rating-section'>
-                            <ServiceRatingTag rating={currentService.rating} />
-                            <div className='service-rating-divider' />
-                            <div className='service-feedback-qty'>
-                                <i className='fas fa-star' />
-                                <span>34 отзыва</span>
+                        <hr />
+                        <p>{currentService.description.text}</p>
+                    </div>
+                    <div className='service-more-info'>
+                        <div className='service-banner-wrapper'>
+                            <div className='service-banner-container'>
+                                <div>
+                                    <h3>Специалист в этом сервисе?</h3>
+                                    <button className='arrow-right-button'>
+                                        <span>Подробнее</span>
+                                        <i className='fas fa-long-arrow-alt-right' />
+                                    </button>
+                                </div>
+                                <div>
+                                    <img src={Banner} alt="" />
+                                </div>
                             </div>
+                        </div>
+                        <hr />
+                        <div className='service-details'>
+                            <span>Бесплатная версия</span>
+                            <span className='service-details-data'>{currentService.description.isFree ? 'Да' : 'Нет'}</span>
+                            <span>Пробный период</span>
+                            <span className='service-details-data'>{currentService.description.hasTrial ? 'Да' : 'Нет'}</span>
+                            <span>Стоимость</span>
+                            <span className='service-details-data'>{currentService.description.price}</span>
+                            <span>Способ оплаты</span>
+                            <span className='service-details-data'>{currentService.description.paymentMethod}</span>
+                            <span>Дислокация</span>
+                            <span className='service-details-data'>{currentService.description.locations?.map(i => i.name).join(', ')}</span>
+                            <span>Платформа</span>
+                            <span className='service-details-data'>{currentService.description.platforms?.map(i => i.name).join(', ')}</span>
+                            <span>Партнерская программа</span>
+                            <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
                         </div>
                     </div>
-                    <hr />
-                    <p>{currentService.description.text}</p>
+                    <a href='#' className='arrow-right-link'>
+                        <span>Перейти в сервис</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </a>
                 </div>
-                <div className='service-more-info'>
-                    <div className='service-banner-wrapper'>
-                        <div className='service-banner-container'>
-                            <div>
-                                <h3>Специалист в этом сервисе?</h3>
-                                <button className='arrow-right-button'>
-                                    <span>Подробнее</span>
-                                    <i className='fas fa-long-arrow-alt-right' />
-                                </button>
-                            </div>
-                            <div>
-                                <img src={Banner} alt="" />
-                            </div>
-                        </div>
+                <div>
+                    <div className='service-images'>
+                        {currentService.images.screenshots?.slice(0, 4).map(i => {
+                            return <>
+                                <div className='service-image-wrapper' onClick={() => setSelectedImageSource(i.source)} key={i.id}>
+                                    <img src={i.source} alt="" />
+                                </div>
+                            </>
+                        })}
+                        {currentService.images.screenshots?.length === 0 && <p>Нет скриншотов для показа</p>}
                     </div>
-                    <hr />
-                    <div className='service-details'>
-                        <span>Бесплатная версия</span>
-                        <span className='service-details-data'>{currentService.description.isFree ? 'Да' : 'Нет'}</span>
-                        <span>Пробный период</span>
-                        <span className='service-details-data'>{currentService.description.hasTrial ? 'Да' : 'Нет'}</span>
-                        <span>Стоимость</span>
-                        <span className='service-details-data'>{currentService.description.price}</span>
-                        <span>Способ оплаты</span>
-                        <span className='service-details-data'>{currentService.description.paymentMethod}</span>
-                        <span>Дислокация</span>
-                        <span className='service-details-data'>{currentService.description.locations?.map(i => i.name).join(', ')}</span>
-                        <span>Платформа</span>
-                        <span className='service-details-data'>{currentService.description.platforms?.map(i => i.name).join(', ')}</span>
-                        <span>Партнерская программа</span>
-                        <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
+                    <div className='service-page-categories'>
+                        <ul className='categories-list'>
+                            {currentService.categories_3.map(i => {
+
+                                const categoriesQty = serviceState.filter(service => service.categories_3.find(category => category.id === i.id)).length
+
+                                return <CategoryTag name={i.name} qty={categoriesQty} key={i.id} />
+                            })}
+                        </ul>
                     </div>
                 </div>
             </div>

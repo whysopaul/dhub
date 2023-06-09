@@ -23,7 +23,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
             <div>
                 <ul className='categories-list'>
                     {rootState.categories.categories.length > 0 && rootState.categories.categories.slice(0, 16).map(i => {
-                        const servicesInCategory = rootState.services.services?.filter(service => service.categories.find(category => category.id === i.id)).length
+                        const servicesInCategory = rootState.services.services?.filter(service => service.categories_3.find(category => category.id === i.id)).length
                         return <CategoryTag name={i.name} qty={servicesInCategory} key={i.id} />
                     })}
                 </ul>

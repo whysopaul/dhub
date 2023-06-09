@@ -75,7 +75,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                     <ul className='categories-list'>
                         {rootState.categories.categories.slice(0, showCategories).map(i => {
                             // return <CategoryTag name={i.name} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
-                            return <CategoryTagInput category={i} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
+                            return <CategoryTagInput category={i} qty={rootState.services.services.filter(service => service.categories_3.find(category => category.id === i.id)).length} />
                         })}
                     </ul>
                     <div className='show-more-container'>

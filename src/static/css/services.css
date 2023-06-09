@@ -101,14 +101,14 @@
 
 /* SERVICE PAGE */
 
-.service-page-categories {
+/* .service-page-categories {
     margin-bottom: 40px;
-}
+} */
 
 .service-main-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    column-gap: 40px;
+    gap: 40px;
     margin-bottom: 64px;
 }
 
@@ -117,8 +117,9 @@
     grid-template-columns: auto auto auto;
     gap: 12px;
     grid-auto-rows: min-content;
-    grid-row-end: span 2;
+    /* grid-row-end: span 2; */
     color: #2D4379;
+    margin-bottom: 32px;
 }
 
 .service-image-wrapper {
@@ -145,10 +146,17 @@
 }
 
 .service-info-header {
-    display: block;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 32px;
 }
 
-.service-title-section>h1 {
+.service-title-section>a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
     margin-bottom: 12px;
 }
 
@@ -159,8 +167,11 @@
     color: #2D4379;
 }
 
+.service-title-section i {
+    color: #636E8D;
+}
+
 .service-rating-section {
-    margin: 32px 0;
     display: flex;
     align-items: center;
 }
@@ -170,6 +181,10 @@
     height: 30px;
     background: #E9EEFA;
     margin: 0 24px;
+}
+
+.service-more-info {
+    margin-bottom: 32px;
 }
 
 .service-feedback-qty {
@@ -542,20 +557,21 @@
         line-height: 10px;
     }
 
-    .service-page-categories {
+    /* .service-page-categories {
         margin-bottom: 24px;
-    }
+    } */
 
     .service-main-container {
         grid-template-columns: auto;
+        gap: 32px;
         margin-bottom: 32px;
     }
 
     .service-images {
         row-gap: 9px;
         column-gap: 7px;
-        grid-row-start: 2;
-        grid-row-end: initial;
+        /* grid-row-start: 2; */
+        /* grid-row-end: initial; */
     }
 
     .service-info {
@@ -563,9 +579,6 @@
     }
 
     .service-info-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
         margin-bottom: 24px;
     }
 
@@ -585,6 +598,10 @@
     .service-rating-divider {
         height: 14px;
         margin: 0 12px;
+    }
+
+    .service-more-info {
+        margin-bottom: 24px;
     }
 
     .service-feedback-qty {

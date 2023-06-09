@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from './CategoryTag';
-import { mockMainCategories } from '../../actions/categories/categories';
+// import { mockMainCategories } from '../../actions/categories/categories';
 import '../../static/css/categories.less';
 
 interface ICategoriesListPageProps {
@@ -30,7 +30,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 {rootState.categories.categories.map(category => {
                     return {
                         ...category,
-                        servicesInCategory: rootState.services.services.filter(service => service.categories.find(servicesCategory => servicesCategory.id === category.id)).length
+                        servicesInCategory: rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length
                     }
                 }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 16).map(popularCategory => {
                     return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} key={popularCategory.id} />
@@ -51,7 +51,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 <span>По сферам</span>
             </label>
         </div>
-        {mode === 1 && mockMainCategories.map(category => {
+        {/* {mode === 1 && mockMainCategories.map(category => {
             return <>
                 <div className='categories-list-main-category'>
                     <div className='categories-list-main-category-header'>
@@ -68,7 +68,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                     <hr />
                 </div>
             </>
-        })}
+        })} */}
     </>;
 };
 

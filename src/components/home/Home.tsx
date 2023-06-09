@@ -19,7 +19,7 @@ import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
 import { mockArtData } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
-import { getAllCategories } from '../../actions/categories/categories';
+import { getAllCategories, getCategoriesTree } from '../../actions/categories/categories';
 import AddServicePopup from './AddServicePopup';
 import ServiceSelection from '../services/ServiceSelection';
 import Header from '../global/Header';
@@ -38,6 +38,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         if (serviceState.services.length === 0 || categoriesState.length === 0) {
             dispatch(getServicesData())
             dispatch(getAllCategories())
+            dispatch(getCategoriesTree())
         }
     }, [])
 
@@ -169,7 +170,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                             {categoriesState.length > 0 && categoriesState.slice(0, 5).map(i => {
 
                                 // const categoryObj = categoriesState?.find(category => category.id === i)
-                                const servicesInCategory = serviceState.services?.filter(service => service.categories.find(category => category.id === i.id)).length
+                                const servicesInCategory = serviceState.services?.filter(service => service.categories_3.find(category => category.id === i.id)).length
 
                                 return <CategoryTag name={i.name} qty={servicesInCategory} key={i.id} />
                             })}

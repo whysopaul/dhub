@@ -17,7 +17,7 @@ export type TServicesData = {
         hasPartnership: boolean
     },
     rating: number,
-    categories: TCategory[],
+    categories_3: TCategory[],
     images: {
         logo: string,
         screenshots?: TServiceScreenshot[]
