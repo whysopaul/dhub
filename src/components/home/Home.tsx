@@ -68,11 +68,13 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         child_relation_id: child_category.id,
                         parent_id: child_category.parent,
                         child_id: child_category.child,
+                        ...categoriesState.categories.find(category => category.id === child_category.child),
                         grand_children: categoriesRelations.filter(g_c_c => g_c_c.parent === child_category.child).map(grand_child_category => {
                             return {
                                 grand_child_relation_id: grand_child_category.id,
                                 parent_id: grand_child_category.parent,
-                                child_id: grand_child_category.child
+                                child_id: grand_child_category.child,
+                                ...categoriesState.categories.find(category => category.id === grand_child_category.child)
                             }
                         })
                     }
@@ -84,8 +86,9 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     }
 
     console.log(createCategoriesTree())
+    // console.log(categoriesState.categories.filter(category => category.name.includes('Сервисы')))
 
-    // console.log(categoriesState.categories_relations.filter(category => category.parent === 1452))
+    // console.log(categoriesState.categories_relations.filter(category => category.child === 1451))
 
     // console.log(categoriesState.categories_relations.filter(category => category.parent === 1673).map(category => {
     //     return {

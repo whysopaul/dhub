@@ -73,7 +73,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                 <div className='categories-section'>
                     <p>Выберите категории (одну или несколько):</p>
                     <ul className='categories-list'>
-                        {rootState.categories.categories.slice(0, showCategories).map(i => {
+                        {rootState.categories.categories.filter(category => category.index === 3).slice(0, showCategories).map(i => {
                             // return <CategoryTag name={i.name} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
                             return <CategoryTagInput category={i} qty={rootState.services.services.filter(service => service.categories_3.find(category => category.id === i.id)).length} />
                         })}
