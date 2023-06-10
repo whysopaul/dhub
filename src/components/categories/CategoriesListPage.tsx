@@ -51,24 +51,54 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 <span>По сферам</span>
             </label>
         </div>
-        {/* {mode === 1 && mockMainCategories.map(category => {
+        {mode === 1 && rootState.categories.categories.filter(category => category.index === 1 && !category.name.includes('\t')).map(category => {
             return <>
                 <div className='categories-list-main-category'>
                     <div className='categories-list-main-category-header'>
-                        <h3>{category.name}</h3>
-                        <span>{category.subcategories.length}</span>
+                        <h3>{category.name.slice(0, category.name.indexOf('('))}</h3>
+                        {/* <span>{category.subcategories.length}</span> */}
                     </div>
                     <div>
                         <ul className='categories-list'>
-                            {category.subcategories.map(sub_c => {
+                            {/* {category.subcategories.map(sub_c => {
                                 return <CategoryTag name={sub_c.name} qty={sub_c.id} key={sub_c.id} />
-                            })}
+                            })} */}
                         </ul>
                     </div>
                     <hr />
                 </div>
             </>
-        })} */}
+        })}
+        {mode === 2 && <>
+            <div className='categories-list-main-category'>
+                <div className='categories-list-main-category-header'>
+                    <h3>Профессии</h3>
+                    {/* <span>{category.subcategories.length}</span> */}
+                </div>
+                <div>
+                    <ul className='categories-list'>
+                        {/* {category.subcategories.map(sub_c => {
+                                return <CategoryTag name={sub_c.name} qty={sub_c.id} key={sub_c.id} />
+                            })} */}
+                    </ul>
+                </div>
+            </div>
+        </>}
+        {mode === 3 && <>
+            <div className='categories-list-main-category'>
+                <div className='categories-list-main-category-header'>
+                    <h3>Сферы</h3>
+                    {/* <span>{category.subcategories.length}</span> */}
+                </div>
+                <div>
+                    <ul className='categories-list'>
+                        {/* {category.subcategories.map(sub_c => {
+                                return <CategoryTag name={sub_c.name} qty={sub_c.id} key={sub_c.id} />
+                            })} */}
+                    </ul>
+                </div>
+            </div>
+        </>}
     </>;
 };
 
