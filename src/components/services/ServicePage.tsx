@@ -15,6 +15,7 @@ import ServiceGallery from './ServiceGallery';
 import { mockSpecialists } from '../../actions/specialists/specialists';
 import SpecialistCardComponent from '../specialists/SpecialistCardComponent';
 import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
+import ServiceEditPopup from './ServiceEditPopup';
 
 interface IServicePageProps {
 }
@@ -22,8 +23,10 @@ interface IServicePageProps {
 const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     const { serviceName } = useParams()
+    const authState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services.services)
     const [currentService, setCurrentService] = useState<TServicesData>()
+    const [editMode, setEditMode] = useState(false)
 
     useEffect(() => {
         setCurrentService(serviceState.find(i => createServiceLink(i.name) === serviceName))
@@ -94,6 +97,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
         {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => setSelectedImageSource(null)} />}
         {showFeedbackPopup && <GiveFeedbackPopup service={currentService} onClose={() => setShowFeedbackPopup(false)} />}
+        {editMode && <ServiceEditPopup service={currentService} onClose={() => setEditMode(false)} />}
 
         {currentService && <>
             <div className='service-main-container'>
@@ -105,6 +109,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     <h1 className='section-main-title'>{currentService.name}</h1>
                                     <i className='fas fa-external-link-alt' />
                                 </a>
+                                {authState && <button onClick={() => setEditMode(true)}>Редактировать</button>}
                                 <span>{currentService.categories_3[0]?.name}</span>
                             </div>
                             <div className='service-rating-section'>
