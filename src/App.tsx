@@ -12,6 +12,8 @@ import ArticlesListPage from './components/articles/ArticlesListPage';
 import ArticlePage from './components/articles/ArticlePage';
 import CategoriesListPage from './components/categories/CategoriesListPage';
 import ScrollToTop from './components/utils/ScrollToTop';
+import GetData from './components/utils/GetData';
+import Loading from './components/global/Loading';
 
 interface IAppProps {
 }
@@ -19,6 +21,8 @@ interface IAppProps {
 const App: React.FunctionComponent<IAppProps> = (props) => {
     return <>
         <BrowserRouter>
+            <GetData />
+            <Loading />
             <ScrollToTop />
             <Routes>
                 <Route path='/' element={<Home />} />

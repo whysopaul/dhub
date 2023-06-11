@@ -11,6 +11,8 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
             type: GET_ALL_CATEGORIES,
             payload: res.data
         })
+    }).catch(error => {
+        console.log(error)
     })
 }
 
@@ -22,6 +24,8 @@ export const getCategoriesTree = () => (dispatch: Dispatch<categoriesDispatchTyp
             type: GET_CATEGORY_RELATIONS,
             payload: res.data
         })
+    }).catch(error => {
+        console.log(error)
     })
 }
 

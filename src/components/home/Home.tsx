@@ -1,9 +1,8 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useEffect, useState } from 'react';
-import { getServicesData } from '../../actions/services/services';
 import CategoryTag from '../categories/CategoryTag';
 import HomeServicesComponent from './HomeServicesComponent';
 import HomeArticlesComponent from './HomeArticlesComponent';
@@ -19,7 +18,6 @@ import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
 import { mockArtData } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
-import { getAllCategories, getCategoriesTree } from '../../actions/categories/categories';
 import AddServicePopup from './AddServicePopup';
 import ServiceSelection from '../services/ServiceSelection';
 import Header from '../global/Header';
@@ -29,18 +27,9 @@ interface IHomeProps {
 
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
-    const dispatch = useDispatch()
     const serviceState = useSelector((state: RootStore) => state.services)
     const categoriesState = useSelector((state: RootStore) => state.categories)
-    const authState = useSelector((state: RootStore) => state.auth.user)
-
-    useEffect(() => {
-        if (serviceState.services.length === 0 || categoriesState.categories.length === 0) {
-            dispatch(getServicesData())
-            dispatch(getAllCategories())
-            dispatch(getCategoriesTree())
-        }
-    }, [])
+    // const authState = useSelector((state: RootStore) => state.auth.user)
 
     const createCategoriesTree = () => {
         let categoriesRelations = categoriesState.categories_relations
@@ -184,11 +173,6 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     return <>
 
-        {serviceState.is_loading && <>
-            <div className='backdrop-no-blur'></div>
-            <div className='loader'></div>
-        </>}
-
         {showServiceSelection && <ServiceSelection onClose={() => setShowServiceSelection(false)} />}
         {showAddServicePopup && <AddServicePopup onClose={() => setShowAddServicePopup(false)} />}
 
@@ -228,7 +212,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                                 // const categoryObj = categoriesState?.find(category => category.id === i)
                                 const servicesInCategory = serviceState.services?.filter(service => service.categories_3.find(category => category.id === i.id)).length
 
-                                return <CategoryTag name={i.name} qty={servicesInCategory} key={i.id} />
+                                return <CategoryTag name={i.name} qty={servicesInCategory} onClick={() => window.location.replace('/search?categories=' + i.id)} key={i.id} />
                             })}
                         </ul>
                     </div>

@@ -36,5 +36,7 @@ export const extractToken = () => (dispatch: Dispatch<authDispatchTypes>) => {
         })
 
         window.location.replace('/')
+    }).catch(error => {
+        console.log(error)
     })
 }
