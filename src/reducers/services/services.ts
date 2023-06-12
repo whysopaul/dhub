@@ -1,4 +1,4 @@
-import { GET_ALL_SERVICES, SERVICES_LOADING, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
+import { GET_ALL_SERVICES, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
@@ -21,6 +21,18 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 is_loading: action.payload
+            }
+        case SERVICE_DATA_UPDATE:
+            return {
+                ...state,
+                services: [
+                    ...state.services.map(service => {
+                        if (service.id === action.payload.id) {
+                            return action.payload
+                        }
+                        return service
+                    })
+                ]
             }
         default:
             return state

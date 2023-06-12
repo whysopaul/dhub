@@ -146,6 +146,7 @@
     display: grid;
     grid-template-columns: auto auto;
     row-gap: 32px;
+    position: relative;
 }
 
 /* .home-section-common-container.extended {

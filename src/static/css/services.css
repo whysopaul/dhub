@@ -173,6 +173,7 @@
     color: #386BEE;
     background: #F4F7FF;
     border-radius: 12px;
+    font-family: 'Noto Sans', sans-serif;
     font-size: 14px;
     line-height: 14px;
     cursor: pointer;
@@ -183,6 +184,7 @@
     font-size: 16px;
     line-height: 16px;
     color: #2D4379;
+    grid-row-start: 2;
 }
 
 .service-title-section i {
@@ -341,6 +343,7 @@
 .service-section-header-buttons>button {
     background-color: rgb(115, 149, 231, 0.1);
     border-radius: 75px;
+    font-family: 'Noto Sans', sans-serif;
     font-weight: 500;
     font-size: 14px;
     line-height: 14px;
@@ -568,17 +571,41 @@
 
 .service-edit-info>textarea {
     border: 1px solid rgba(45, 67, 121, calc(0.6 * 0.4));
-    border-radius: 32px;
+    border-radius: 24px;
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 18px;
+    color: rgba(45, 67, 121, 0.6);
+    padding: 12px 20px;
+    box-sizing: border-box;
+    height: 86px;
+    resize: none;
+}
+
+.service-edit-details span {
+    margin-right: 12px;
+}
+
+.service-edit-details input[type="text"] {
+    border: 1px solid rgba(45, 67, 121, calc(0.6 * 0.4));
+    border-radius: 12px;
+    padding: 2px 8px;
     font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 16px;
     line-height: 16px;
     color: rgba(45, 67, 121, 0.6);
-    padding: 16px 20px;
-    box-sizing: border-box;
-    height: 86px;
-    resize: none;
+}
+
+.service-edit-details span,
+.service-edit-details p {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    color: #2D4379;
 }
 
 /* MOBILE */

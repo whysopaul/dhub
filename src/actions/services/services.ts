@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { GET_ALL_SERVICES, SERVICES_LOADING, TServicesData, servicesDispatchTypes } from "./types";
+import { GET_ALL_SERVICES, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -31,6 +31,15 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes>)
         })
     })
 
+}
+
+export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    dispatch({
+        type: SERVICE_DATA_UPDATE,
+        payload: serviceData
+    })
+
+    window.location.replace('/')
 }
 
 // export const mockdata: TServicesData[] = new Array(10).fill('').map((e, i) => { return { id: i + 1, name: 'Boost Like ' + (i + 1), description: { text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis diam nisi, vel mattis mi rhoncus sed.' } } })

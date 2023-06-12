@@ -2,6 +2,7 @@ import { TCategory } from "../categories/types"
 
 export const GET_ALL_SERVICES = 'GET_ALL_SERVICES'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
+export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
 
 export type TServicesData = {
     id: number,
@@ -52,4 +53,9 @@ interface IServicesLoading {
     payload: boolean
 }
 
-export type servicesDispatchTypes = IGetAllServices | IServicesLoading
+interface IServiceDataUpdate {
+    type: typeof SERVICE_DATA_UPDATE,
+    payload: TServicesData
+}
+
+export type servicesDispatchTypes = IGetAllServices | IServicesLoading | IServiceDataUpdate

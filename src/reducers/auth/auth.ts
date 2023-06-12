@@ -5,7 +5,13 @@ interface IDefaultState {
 }
 
 const defaultState: IDefaultState = {
-    user: null
+    // user: null
+    user: {
+        vk_id: 0,
+        name: 'Test User',
+        photo: '',
+        token: ''
+    }
 }
 
 const authReducer = (state: IDefaultState = defaultState, action: authDispatchTypes) => {

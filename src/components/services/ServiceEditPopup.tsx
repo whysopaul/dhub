@@ -3,6 +3,8 @@ import { useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServicesData } from '../../actions/services/types';
+import { useDispatch } from 'react-redux';
+import { serviceDataUpdate } from '../../actions/services/services';
 
 interface IServiceEditPopupProps {
     service: TServicesData,
@@ -24,6 +26,10 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const [hasPartnership, setHasPartnership] = useState(props.service.description.hasPartnership)
     const [price, setPrice] = useState(props.service.description.price)
     const [paymentMethod, setPaymentMethod] = useState(props.service.description.paymentMethod)
+    const locations = ['облако', 'сервер', 'приложение']
+    const platforms = ['Apple', 'Windows', 'Linux']
+
+    const dispatch = useDispatch()
 
     return <>
         <div className='backdrop'></div>
@@ -40,29 +46,41 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     <label><span>Способ оплаты:</span><input type='text' value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} /></label>
                     <p>Дислокация:</p>
                     <ul className='categories-list'>
-                        {props.service.description.locations.map(location => {
-                            return <li>{location.name}</li>
+                        {locations.map(location => {
+                            return <li><button className={props.service.description.locations.find(loc => loc.name.includes(location)) ? 'category-tag active' : 'category-tag'}>{location}</button></li>
                         })}
                     </ul>
                     <p>Платформа:</p>
                     <ul className='categories-list'>
-                        {props.service.description.platforms.map(platform => {
-                            return <li>{platform.name}</li>
+                        {platforms.map(platform => {
+                            return <li><button className={props.service.description.platforms.find(pl => pl.name.includes(platform)) ? 'category-tag active' : 'category-tag'}>{platform}</button></li>
                         })}
                     </ul>
-                </div>
-                <div>
                     <p>Категории:</p>
                     <ul className='categories-list'>
                         {props.service.categories_3.map(category => {
-                            return <li>{category.name}</li>
+                            return <li><button className='category-tag'>{category.name}</button></li>
                         })}
+                        <li><button className='category-tag'><i className='fas fa-plus' /></button></li>
                     </ul>
                 </div>
             </div>
             <div>
-                <button className='blue-shadow-button'>Сохранить изменения</button>
+                <button className='blue-shadow-button' onClick={() => dispatch(serviceDataUpdate({
+                    ...props.service,
+                    name: name,
+                    description: {
+                        ...props.service.description,
+                        text: description,
+                        isFree: isFree,
+                        hasTrial: hasTrial,
+                        hasPartnership: hasPartnership,
+                        price: price,
+                        paymentMethod: paymentMethod
+                    }
+                }))}>Сохранить изменения</button>
             </div>
+            <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
         </div>
     </>;
 };
