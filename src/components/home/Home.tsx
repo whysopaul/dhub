@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useEffect, useState } from 'react';
@@ -30,6 +30,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     const serviceState = useSelector((state: RootStore) => state.services)
     const categoriesState = useSelector((state: RootStore) => state.categories)
     // const authState = useSelector((state: RootStore) => state.auth.user)
+
+    const navigate = useNavigate()
 
     const createCategoriesTree = () => {
         let categoriesRelations = categoriesState.categories_relations
@@ -87,7 +89,6 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     //     }
     // }))
 
-    const [showServiceSelection, setShowServiceSelection] = useState(false)
     const [showAddServicePopup, setShowAddServicePopup] = useState(false)
 
     // const randomCategories = (qty: number): number[] => {
@@ -173,7 +174,6 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     return <>
 
-        {showServiceSelection && <ServiceSelection onClose={() => setShowServiceSelection(false)} />}
         {showAddServicePopup && <AddServicePopup onClose={() => setShowAddServicePopup(false)} />}
 
         <Header root />
@@ -189,7 +189,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <img src={Welcome} alt='' />
                 </div>
                 <div className='home-welcome-buttons'>
-                    <button className='blue-shadow-button' onClick={() => setShowServiceSelection(true)}>
+                    <button className='blue-shadow-button' onClick={() => navigate('/search')}>
                         <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>
@@ -217,7 +217,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         </ul>
                     </div>
                     <div className='home-categories-right-block'>
-                        <form action='/search'>
+                        <form action='/results'>
                             <div className='home-categories-search-field'>
                                 <input type='text' className={search.length > 0 ? 'home-categories-search-input active' : 'home-categories-search-input'} name='search' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} />
                                 {search.length > 0 ? <button type='submit'>Найти</button> : <i className='fas fa-search' />}

@@ -1,12 +1,16 @@
-import { GET_ALL_SERVICES, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
+import { GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
+    locations: TServiceLocation[],
+    platforms: TServicePlatform[],
     is_loading: boolean
 }
 
 const defaultState: IDefaultState = {
     services: [],
+    locations: [],
+    platforms: [],
     is_loading: false
 }
 
@@ -16,6 +20,16 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 services: action.payload
+            }
+        case GET_ALL_SERVICES_LOCATIONS:
+            return {
+                ...state,
+                locations: action.payload
+            }
+        case GET_ALL_SERVICES_PLATFORMS:
+            return {
+                ...state,
+                platforms: action.payload
             }
         case SERVICES_LOADING:
             return {

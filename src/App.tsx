@@ -14,6 +14,7 @@ import CategoriesListPage from './components/categories/CategoriesListPage';
 import ScrollToTop from './components/utils/ScrollToTop';
 import GetData from './components/utils/GetData';
 import Loading from './components/global/Loading';
+import ServiceSelection from './components/services/ServiceSelection';
 
 interface IAppProps {
 }
@@ -27,7 +28,8 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route element={<Layout />}>
-                    <Route path='/search' element={<ServicesSearchList />} />
+                    <Route path='/search' element={<ServiceSelection />} />
+                    <Route path='/results' element={<ServicesSearchList />} />
                     <Route path='/services' element={<CategoriesListPage />} />
                     <Route path='/service/:serviceName' element={<ServicePage />} />
                     <Route path='/feedback' element={<FeedbackListPage />} />

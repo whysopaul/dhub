@@ -19,7 +19,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
     return <>
         <div className='wide-search-container'>
             <h2 className='section-main-title mb-32'>Сервисы</h2>
-            <form action='/search'>
+            <form action='/results'>
                 <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} />
                 <i className='fas fa-search color-blue' />
             </form>

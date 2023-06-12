@@ -1,22 +1,16 @@
 import * as React from 'react';
 import { useRef, useState } from 'react';
-import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import CategoryTagInput from '../categories/CategoryTagInput';
-import { useOnPopup } from '../utils/HandleOnPopup';
 
 interface IServiceSelectionProps {
-    onClose: () => void
 }
 
 const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props) => {
 
     const rootState = useSelector((state: RootStore) => state)
-
-    const ref = useRef(null)
-    useOnClickOutside(ref, () => props.onClose())
 
     const [showCategories, setShowCategories] = useState(16)
 
@@ -56,15 +50,12 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
             urlParams.append('categories', categoriesValues)
         }
 
-        return window.location.replace('/search?' + urlParams)
+        return window.location.replace('/results?' + urlParams)
     }
 
-    useOnPopup()
-
     return <>
-        <div className='backdrop-no-blur'></div>
-        <div className='service-selection-container' ref={ref}>
-            <form action='/services' onSubmit={onSubmit}>
+        <div className='service-selection-container'>
+            <form onSubmit={onSubmit}>
                 <div className='service-selection-header'>
                     <h2 className='section-main-title'>Найти сервис</h2>
                     <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам найти для вас тот сервис, который вам нужен.</p>
@@ -118,7 +109,6 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                         <span>Обратиться за помощью</span>
                     </button>
                 </div>
-                <button type='button' className='service-selection-close' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
             </form>
         </div>
     </>;

@@ -91,6 +91,24 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 </select>
             </div>}
         </div>
+        <div className='wide-search-container'>
+            <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} />
+            <i className='fas fa-search color-blue' />
+        </div>
+        <div className='service-selection-advanced-inputs'>
+            <div>
+                <p>Функциональные особенности:</p>
+                <label><input type='checkbox' onChange={() => setIsNotFree(isNotFree === false ? null : false)} checked={isNotFree === false} />Бесплатная версия</label>
+                <label><input type='checkbox' onChange={() => setHasNoTrial(hasNoTrial === false ? null : false)} checked={hasNoTrial === false} />Пробный период</label>
+                <label><input type='checkbox' onChange={() => setHasNoPartnership(hasNoPartnership === false ? null : false)} checked={hasNoPartnership === false} />Партнёрская программа</label>
+            </div>
+            <div>
+                <p>Способ оплаты:</p>
+                <label><input type='radio' onChange={() => setPaymentMethod(1)} checked={paymentMethod === 1} />По подписке</label>
+                <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
+                <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
+            </div>
+        </div>
         {searchCondition.length > 0 && <>
             {/* <div className='services-list-categories-container categories-section'>
                 <p>Популярные категории:</p>

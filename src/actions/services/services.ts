@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { GET_ALL_SERVICES, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServicesData, servicesDispatchTypes } from "./types";
+import { GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -31,6 +31,32 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes>)
         })
     })
 
+}
+
+export const getAllServicesLocations = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getLocations').then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_ALL_SERVICES_LOCATIONS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const getAllServicesPlatforms = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getPlatforms').then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_ALL_SERVICES_PLATFORMS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
 }
 
 export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Dispatch<servicesDispatchTypes>) => {
