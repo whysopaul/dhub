@@ -80,7 +80,9 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                 </div>
                 <ul className='service-edit-popup-add-category-list'>
                     {showList && searchCategoryFilter.map(category => {
-                        return <li><button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-plus' /></button></li>
+                        return <li>
+                            <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-plus' /></button>
+                        </li>
                     })}
                 </ul>
                 <button className='popup-close-button' onClick={() => setShowAddCategoryPopup(false)}><i className='fas fa-times' /></button>

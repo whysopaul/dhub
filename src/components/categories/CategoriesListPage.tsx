@@ -5,6 +5,8 @@ import { RootStore } from '../../store';
 import CategoryTag from './CategoryTag';
 // import { mockMainCategories } from '../../actions/categories/categories';
 import '../../static/css/categories.less';
+import { useNavigate } from 'react-router-dom';
+import { createServiceLink } from '../utils';
 
 interface ICategoriesListPageProps {
 }
@@ -13,8 +15,12 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
 
     const rootState = useSelector((state: RootStore) => state)
 
+    const navigate = useNavigate()
+
     const [search, setSearch] = useState('')
     const [mode, setMode] = useState(1)
+
+    const searchCondition = rootState.services.services.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
 
     return <>
         <div className='wide-search-container'>
@@ -24,6 +30,16 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 <i className='fas fa-search color-blue' />
             </form>
         </div>
+        {search.trim().length > 0 && <div className='services-list-dropdown-container'>
+            <ul className='services-list-dropdown-list'>
+                {searchCondition.length > 0 && searchCondition.map(service => {
+                    return <li>
+                        <button className='category-tag' onClick={() => navigate('/service/' + createServiceLink(service.name))}>{service.name}</button>
+                    </li>
+                })}
+                {searchCondition.length === 0 && <li className='services-list-dropdown-no-match'>Не найдено</li>}
+            </ul>
+        </div>}
         <div className='services-list-categories-container categories-section'>
             <p>Популярные категории:</p>
             <ul className='categories-list'>

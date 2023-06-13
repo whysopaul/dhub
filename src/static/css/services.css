@@ -682,6 +682,35 @@
     margin-top: 16px;
 }
 
+/* SERVICES LIST DROPDOWN */
+
+.services-list-dropdown-container {
+    position: absolute;
+    margin-top: -16px;
+    width: 400px;
+    background: white;
+    border-radius: 24px;
+    padding: 16px;
+    box-shadow: 0 0 4px gainsboro;
+}
+
+.services-list-dropdown-list {
+    max-height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    row-gap: 12px;
+    column-gap: 16px;
+    list-style-type: none;
+    overflow: scroll;
+}
+
+.services-list-dropdown-no-match {
+    font-size: 14px;
+    line-height: 14px;
+    color: #636E8D;
+}
+
 /* MOBILE */
 
 @media screen and (max-width: 576px) {

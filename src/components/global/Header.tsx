@@ -51,6 +51,19 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                     case '':
                         return <li><Link to='/'>Главная</Link></li>
                     case 'search':
+                        return <li><span>Найти сервис</span></li>
+                    default:
+                        return null
+                }
+            })
+        }
+
+        if (path.includes('results')) {
+            return pathArray.map(link => {
+                switch (link) {
+                    case '':
+                        return <li><Link to='/'>Главная</Link></li>
+                    case 'results':
                         return <li><span>Поиск</span></li>
                     default:
                         return null
