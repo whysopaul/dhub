@@ -19,6 +19,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
 
     const [search, setSearch] = useState('')
     const [mode, setMode] = useState(1)
+    const [showDropdown, setShowDropdown] = useState(false)
 
     const searchCondition = rootState.services.services.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
 
@@ -26,11 +27,11 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
         <div className='wide-search-container'>
             <h2 className='section-main-title mb-32'>Сервисы</h2>
             <form action='/results'>
-                <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} />
-                <i className='fas fa-search color-blue' />
+                <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' onFocus={() => setShowDropdown(true)} onBlur={() => setShowDropdown(false)} />
+                <button type='submit' className='search-submit-button'><i className='fas fa-search color-blue' /></button>
             </form>
         </div>
-        {search.trim().length > 0 && <div className='services-list-dropdown-container'>
+        {search.length > 0 && showDropdown && <div className='services-list-dropdown-container'>
             <ul className='services-list-dropdown-list'>
                 {searchCondition.length > 0 && searchCondition.map(service => {
                     return <li>

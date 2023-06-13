@@ -15,7 +15,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
     return <>
         <div className='wide-search-container'>
             <h2 className='section-main-title mb-32'>Отзывы</h2>
-            <input type='text' placeholder='Введите название сервиса' />
+            <input type='text' placeholder='Введите название сервиса' autoComplete='off' />
             <i className='fas fa-search color-blue' />
         </div>
         <div className='categories-section'>

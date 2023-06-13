@@ -218,7 +218,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <div className='home-categories-right-block'>
                         <form action='/results'>
                             <div className='home-categories-search-field'>
-                                <input type='text' className={search.length > 0 ? 'home-categories-search-input active' : 'home-categories-search-input'} name='search' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} />
+                                <input type='text' className={search.length > 0 ? 'home-categories-search-input active' : 'home-categories-search-input'} name='search' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
                                 {search.length > 0 ? <button type='submit'>Найти</button> : <i className='fas fa-search' />}
                             </div>
                         </form>

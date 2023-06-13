@@ -84,6 +84,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     return <>
         <div className='section-header-container'>
             <h3 className='section-main-title'>Найденные сервисы:</h3>
+            <span className='services-list-services-number'>{searchCondition.length}</span>
             <button className='services-list-reset-button' onClick={() => window.location.replace('/results')}>
                 <span>Сбросить все фильтры</span>
                 <i className='fas fa-times' />
@@ -96,7 +97,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             </div>} */}
         </div>
         <div className='wide-search-container'>
-            <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} />
+            <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
             <i className='fas fa-search color-blue' />
         </div>
         <div className='service-selection-advanced-inputs'>
