@@ -41,7 +41,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         &&
         service.description.hasPartnership !== hasNoPartnership
         &&
-        (searchCategories ? service.categories_3.find(category => searchCategories?.split(',').map(c => Number(c)).indexOf(category.id) !== -1) : RegExp('/^[1-9]\d*$/'))
+        (searchCategories ? service.categories_3.find(category => searchCategories?.split(',').map(c => Number(c)).indexOf(category.id) !== -1) : true)
         &&
         (
             paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
@@ -84,12 +84,16 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     return <>
         <div className='section-header-container'>
             <h3 className='section-main-title'>Найденные сервисы:</h3>
-            {searchCondition.length > 0 && <div className='sort-selection'>
+            <button className='services-list-reset-button' onClick={() => window.location.replace('/results')}>
+                <span>Сбросить все фильтры</span>
+                <i className='fas fa-times' />
+            </button>
+            {/* {searchCondition.length > 0 && <div className='sort-selection'>
                 <span>Сортировать:</span>
                 <select className='color-blue'>
                     <option value="">по умолчанию</option>
                 </select>
-            </div>}
+            </div>} */}
         </div>
         <div className='wide-search-container'>
             <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} />

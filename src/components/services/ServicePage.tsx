@@ -171,7 +171,9 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 </div>
                             </>
                         })}
-                        {currentService.images.screenshots?.length === 0 && <p>Нет скриншотов для показа</p>}
+                        {currentService.images.screenshots?.length === 0 && <div className='service-image-wrapper empty'>
+                            <i className='fas fa-image' />
+                        </div>}
                     </div>
                     <div className='service-page-categories'>
                         <ul className='categories-list'>
