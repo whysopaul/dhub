@@ -41,7 +41,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         &&
         service.description.hasPartnership !== hasNoPartnership
         &&
-        service.categories_3.find(category => searchCategories?.split(',').map(c => Number(c)).indexOf(category.id) !== -1)
+        (searchCategories ? service.categories_3.find(category => searchCategories?.split(',').map(c => Number(c)).indexOf(category.id) !== -1) : RegExp('/^[1-9]\d*$/'))
         &&
         (
             paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
@@ -108,6 +108,16 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
                 <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
             </div>
+            {searchCategories && <div>
+                <p>Выбранные категории:</p>
+                <ul className='categories-list'>
+                    {rootState.categories.categories.filter(category => searchCategories.split(',').map(cat => Number(cat)).indexOf(category.id) !== -1).map(category => {
+                        return <li>
+                            <button className='category-tag' onClick={() => setSearchCategories(searchCategories.split(',').map(cat => Number(cat)).filter(cat => cat !== category.id).map(cat => cat.toString()).join(','))}>{category.name}<i className='fas fa-times' /></button>
+                        </li>
+                    })}
+                </ul>
+            </div>}
         </div>
         {searchCondition.length > 0 && <>
             {/* <div className='services-list-categories-container categories-section'>

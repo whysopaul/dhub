@@ -407,6 +407,7 @@
     flex-wrap: wrap;
     column-gap: calc((1280px - 245px * 5) / 4);
     row-gap: 16px;
+    margin-top: 32px;
 }
 
 .services-list-not-found {
@@ -481,7 +482,7 @@
 
 .service-selection-advanced-inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
 }
 
 .service-selection-advanced-inputs>div {

@@ -19,7 +19,6 @@ import Service from '../../static/images/service_banner.webp';
 import { mockArtData } from '../../actions/articles/articles';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import AddServicePopup from './AddServicePopup';
-import ServiceSelection from '../services/ServiceSelection';
 import Header from '../global/Header';
 
 interface IHomeProps {
@@ -212,7 +211,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                                 // const categoryObj = categoriesState?.find(category => category.id === i)
                                 const servicesInCategory = serviceState.services?.filter(service => service.categories_3.find(category => category.id === i.id)).length
 
-                                return <CategoryTag name={i.name} qty={servicesInCategory} onClick={() => window.location.replace('/search?categories=' + i.id)} key={i.id} />
+                                return <CategoryTag name={i.name} qty={servicesInCategory} onClick={() => window.location.replace('/results?categories=' + i.id)} key={i.id} />
                             })}
                         </ul>
                     </div>
