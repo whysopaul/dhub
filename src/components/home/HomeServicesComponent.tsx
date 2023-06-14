@@ -7,6 +7,7 @@ interface IHomeServicesComponentProps {
     title: string,
     data: TServicesData[],
     qty: number,
+    sortModeLink?: 'new' | 'free' | 'top',
     extended?: boolean
 }
 
@@ -22,7 +23,7 @@ const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps
                 })}
             </div>
             <div className='home-section-link'>
-                <Link to='/results' className='arrow-right-link'>
+                <Link to={props.sortModeLink ? props.sortModeLink === 'new' && '/results?recent=true' || props.sortModeLink === 'free' && '/results?isFree=true' || props.sortModeLink === 'top' && '/results?rating=top' : '/results'} className='arrow-right-link'>
                     <span>Показать все сервисы</span>
                     <i className='fas fa-long-arrow-alt-right' />
                 </Link>

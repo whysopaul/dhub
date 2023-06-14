@@ -60,6 +60,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const numberOfPages = new Array(Math.ceil(searchCondition.length / numberOfServices)).fill('').map((_, idx) => idx + 1)
 
     useEffect(() => {
+        // setSortMode(sortDefault())
+
         const urlParams = new URLSearchParams(window.location.search)
         if (urlParams.has('search')) {
             setSearch(urlParams.get('search'))
@@ -79,7 +81,27 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (urlParams.has('paymentMethod')) {
             setPaymentMethod(Number(urlParams.get('paymentMethod')))
         }
+        // if (urlParams.has('recent')) {
+        //     setSortMode(sortNew())
+        // }
+        // if (urlParams.has('rating') && urlParams.get('rating') === 'top') {
+        //     setSortMode(sortRatingTop())
+        // }
     }, [])
+
+    // const [sortMode, setSortMode] = useState<TServicesData[]>(null)
+
+    // const sortDefault = () => {
+    //     return searchCondition
+    // }
+
+    // const sortNew = () => {
+    //     return searchCondition.sort((a, b) => b.id - a.id)
+    // }
+
+    // const sortRatingTop = () => {
+    //     return searchCondition.sort((a, b) => b.rating - a.rating)
+    // }
 
     return <>
         <div className='section-header-container'>

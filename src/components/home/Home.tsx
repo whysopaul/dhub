@@ -226,7 +226,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Новые сервисы' data={serviceState.services} qty={servicesQty} />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState.services} qty={servicesQty} sortModeLink='new' />
 
             <div className='home-banners-wrapper'>
                 <div className='home-giftbox-container'>
@@ -260,7 +260,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState.services} qty={servicesQty} />
+            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState.services} qty={servicesQty} sortModeLink='free' />
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
@@ -289,7 +289,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>}
             </div>
 
-            <HomeServicesComponent title='Топ-сервисов' data={serviceState.services} qty={servicesQty} />
+            <HomeServicesComponent title='Топ-сервисов' data={serviceState.services} qty={servicesQty} sortModeLink='top' />
 
             <HomeArticlesComponent data={mockArtData} />
 
