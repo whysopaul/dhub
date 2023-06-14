@@ -22,7 +22,7 @@ const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps
                 })}
             </div>
             <div className='home-section-link'>
-                <Link to='/services' className='arrow-right-link'>
+                <Link to='/results' className='arrow-right-link'>
                     <span>Показать все сервисы</span>
                     <i className='fas fa-long-arrow-alt-right' />
                 </Link>

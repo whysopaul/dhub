@@ -87,16 +87,6 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 <h3 className='section-main-title'>Найденные сервисы:</h3>
                 <span className='services-list-services-number'>{searchCondition.length}</span>
             </div>
-            <button className='services-list-reset-button' onClick={() => window.location.replace('/results')}>
-                <span>Сбросить все фильтры</span>
-                <i className='fas fa-times' />
-            </button>
-            {/* {searchCondition.length > 0 && <div className='sort-selection'>
-                <span>Сортировать:</span>
-                <select className='color-blue'>
-                    <option value="">по умолчанию</option>
-                </select>
-            </div>} */}
         </div>
         <div className='wide-search-container'>
             <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
@@ -115,20 +105,28 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
                 <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
             </div>
-            {searchCategories && <div>
-                <p>Выбранные категории:</p>
-                <ul className='categories-list'>
-                    {rootState.categories.categories.filter(category => searchCategories.split(',').map(cat => Number(cat)).indexOf(category.id) !== -1).map(category => {
-                        return <li>
-                            <button className='category-tag' onClick={() => setSearchCategories(searchCategories.split(',').map(cat => Number(cat)).filter(cat => cat !== category.id).map(cat => cat.toString()).join(','))}>{category.name}<i className='fas fa-times' /></button>
-                        </li>
-                    })}
-                </ul>
-            </div>}
-            <button className='services-list-reset-button mobile' onClick={() => window.location.replace('/results')}>
+        </div>
+        {searchCategories && <div className='services-list-selected-categories'>
+            <p>Выбранные категории:</p>
+            <ul className='categories-list'>
+                {rootState.categories.categories.filter(category => searchCategories.split(',').map(cat => Number(cat)).indexOf(category.id) !== -1).map(category => {
+                    return <li>
+                        <button className='category-tag' onClick={() => setSearchCategories(searchCategories.split(',').map(cat => Number(cat)).filter(cat => cat !== category.id).map(cat => cat.toString()).join(','))}>{category.name}<i className='fas fa-times' /></button>
+                    </li>
+                })}
+            </ul>
+        </div>}
+        <div className='services-list-options'>
+            <button className='services-list-reset-button' onClick={() => window.location.replace('/results')}>
                 <span>Сбросить все фильтры</span>
                 <i className='fas fa-times' />
             </button>
+            {searchCondition.length > 0 && <div className='sort-selection'>
+                <span>Сортировать:</span>
+                <select className='color-blue'>
+                    <option value="">по умолчанию</option>
+                </select>
+            </div>}
         </div>
         {searchCondition.length > 0 && <>
             {/* <div className='services-list-categories-container categories-section'>
@@ -147,16 +145,16 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     })}
                 </ul>
             </div> */}
-            {numberOfPages.length > 1 && <div className='services-list-pagination'>
-                {numberOfPages.map(number => {
-                    return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => setCurrentPage(number)} key={number}>{number}</button>
-                })}
-            </div>}
             <div className='services-list-cards-container'>
                 {searchCondition.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(service => {
                     return <ServiceCardComponent service={service} key={service.id} />
                 })}
             </div>
+            {numberOfPages.length > 1 && <div className='services-list-pagination'>
+                {numberOfPages.map(number => {
+                    return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => setCurrentPage(number)} key={number}>{number}</button>
+                })}
+            </div>}
         </>}
 
         {searchCondition.length === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}

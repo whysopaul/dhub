@@ -444,29 +444,21 @@
 }
 
 .services-list-reset-button {
-    display: block;
+    padding: 6px 8px;
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
     color: #636E8D;
+    background: #eee;
+    border-radius: 12px;
     cursor: pointer;
 }
 
 .services-list-reset-button>i {
     margin-left: 6px;
     font-size: 12px;
-}
-
-.services-list-reset-button.mobile {
-    display: none;
-    font-size: 12px;
-    line-height: 12px;
-}
-
-.services-list-reset-button.mobile>i {
-    font-size: 10px;
 }
 
 .services-list-services-number {
@@ -477,6 +469,21 @@
     font-size: 18px;
     line-height: 32px;
     color: white;
+}
+
+.services-list-selected-categories {
+    margin-bottom: 24px;
+}
+
+.services-list-selected-categories p {
+    font-size: 14px;
+    margin-bottom: 16px;
+}
+
+.services-list-options {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 /* SERVICE SELECTION */
@@ -535,7 +542,8 @@
 
 .service-selection-advanced-inputs {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    margin-bottom: 24px;
 }
 
 .service-selection-advanced-inputs>div {
@@ -715,7 +723,8 @@
 .services-list-dropdown-container {
     position: absolute;
     margin-top: -16px;
-    width: 400px;
+    margin-right: 16px;
+    max-width: 400px;
     background: white;
     border-radius: 24px;
     padding: 16px;
@@ -953,11 +962,13 @@
     }
 
     .services-list-reset-button {
-        display: none;
+        padding: 4px 6px;
+        font-size: 10px;
+        line-height: 10px;
     }
 
-    .services-list-reset-button.mobile {
-        display: block;
+    .services-list-reset-button>i {
+        font-size: 10px;
     }
 
     .service-selection-container p {
@@ -990,6 +1001,7 @@
         font-weight: 400;
         font-size: 12px;
         line-height: 12px;
+        width: fit-content;
     }
 
     .service-selection-advanced-inputs input[type='radio'] {

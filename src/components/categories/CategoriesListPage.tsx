@@ -32,7 +32,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
             <h2 className='section-main-title mb-32'>Сервисы</h2>
             <form action='/results'>
                 <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' onFocus={() => setShowDropdown(true)} />
-                <button type='submit' className='search-submit-button'><i className='fas fa-search color-blue' /></button>
+                <button type={search.trim().length > 0 ? 'submit' : 'button'} className='search-submit-button'><i className='fas fa-search color-blue' /></button>
             </form>
         </div>
         {search.length > 0 && showDropdown && <div className='services-list-dropdown-container' ref={dropdownRef}>
