@@ -396,6 +396,11 @@
 
 /* SERVICES LIST PAGE */
 
+.services-list-search-title {
+    display: flex;
+    align-items: center;
+}
+
 .services-list-categories-container {
     padding: 24px;
     background: rgba(244, 247, 255, 0.5);
@@ -439,6 +444,7 @@
 }
 
 .services-list-reset-button {
+    display: block;
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -451,6 +457,16 @@
 .services-list-reset-button>i {
     margin-left: 6px;
     font-size: 12px;
+}
+
+.services-list-reset-button.mobile {
+    display: none;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.services-list-reset-button.mobile>i {
+    font-size: 10px;
 }
 
 .services-list-services-number {
@@ -523,13 +539,15 @@
 }
 
 .service-selection-advanced-inputs>div {
-    display: grid;
+    display: flex;
+    flex-direction: column;
     width: fit-content;
     gap: 16px;
 }
 
 .service-selection-advanced-inputs p {
     margin: 0;
+    font-size: 14px;
 }
 
 .service-selection-advanced-inputs input[type='radio'] {
@@ -928,6 +946,20 @@
         gap: 16px;
     }
 
+    .services-list-services-number {
+        padding: 0 6px;
+        font-size: 14px;
+        line-height: 24px;
+    }
+
+    .services-list-reset-button {
+        display: none;
+    }
+
+    .services-list-reset-button.mobile {
+        display: block;
+    }
+
     .service-selection-container p {
         font-size: 10px;
         /* margin-bottom: 20px; */
@@ -948,6 +980,10 @@
 
     .service-selection-advanced-inputs>div {
         width: auto;
+    }
+
+    .service-selection-advanced-inputs p {
+        font-size: 10px;
     }
 
     .service-selection-advanced-inputs label {

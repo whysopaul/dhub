@@ -83,8 +83,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
     return <>
         <div className='section-header-container'>
-            <h3 className='section-main-title'>Найденные сервисы:</h3>
-            <span className='services-list-services-number'>{searchCondition.length}</span>
+            <div className='services-list-search-title'>
+                <h3 className='section-main-title'>Найденные сервисы:</h3>
+                <span className='services-list-services-number'>{searchCondition.length}</span>
+            </div>
             <button className='services-list-reset-button' onClick={() => window.location.replace('/results')}>
                 <span>Сбросить все фильтры</span>
                 <i className='fas fa-times' />
@@ -123,6 +125,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     })}
                 </ul>
             </div>}
+            <button className='services-list-reset-button mobile' onClick={() => window.location.replace('/results')}>
+                <span>Сбросить все фильтры</span>
+                <i className='fas fa-times' />
+            </button>
         </div>
         {searchCondition.length > 0 && <>
             {/* <div className='services-list-categories-container categories-section'>

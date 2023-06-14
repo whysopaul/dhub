@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from './CategoryTag';
@@ -7,6 +7,7 @@ import CategoryTag from './CategoryTag';
 import '../../static/css/categories.less';
 import { useNavigate } from 'react-router-dom';
 import { createServiceLink } from '../utils';
+import { useOnClickOutside } from '../utils/HandleClickOutside';
 
 interface ICategoriesListPageProps {
 }
@@ -20,6 +21,9 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
     const [search, setSearch] = useState('')
     const [mode, setMode] = useState(1)
     const [showDropdown, setShowDropdown] = useState(false)
+    const dropdownRef = useRef(null)
+
+    useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
     const searchCondition = rootState.services.services.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
 
@@ -27,11 +31,11 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
         <div className='wide-search-container'>
             <h2 className='section-main-title mb-32'>Сервисы</h2>
             <form action='/results'>
-                <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' onFocus={() => setShowDropdown(true)} onBlur={() => setShowDropdown(false)} />
+                <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' onFocus={() => setShowDropdown(true)} />
                 <button type='submit' className='search-submit-button'><i className='fas fa-search color-blue' /></button>
             </form>
         </div>
-        {search.length > 0 && showDropdown && <div className='services-list-dropdown-container'>
+        {search.length > 0 && showDropdown && <div className='services-list-dropdown-container' ref={dropdownRef}>
             <ul className='services-list-dropdown-list'>
                 {searchCondition.length > 0 && searchCondition.map(service => {
                     return <li>
