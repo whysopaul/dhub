@@ -10,7 +10,7 @@ export type TCategory = {
     id: number,
     name: string,
     index: number,
-    parents: number[]
+    parent: TCategory
 }
 
 interface IGetCategories {
