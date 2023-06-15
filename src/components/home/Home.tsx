@@ -27,55 +27,55 @@ interface IHomeProps {
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const serviceState = useSelector((state: RootStore) => state.services)
-    const categoriesState = useSelector((state: RootStore) => state.categories)
+    const categoriesState = useSelector((state: RootStore) => state.categories.categories)
     // const authState = useSelector((state: RootStore) => state.auth.user)
 
     const navigate = useNavigate()
 
-    const createCategoriesTree = () => {
-        let categoriesRelations = categoriesState.categories_relations
-        let categoriesTree = []
+    // const createCategoriesTree = () => {
+    //     let categoriesRelations = categoriesState.categories_relations
+    //     let categoriesTree = []
 
-        // for (let i = 0; i < categoriesRelations.length; i++) {
-        //     categoriesTree.map(category => category.parent).includes(categoriesRelations[i].parent)
-        //         ? categoriesTree.map((main_category, idx) => {
-        //             if (main_category.parent === categoriesRelations[i].parent) {
-        //                 categoriesTree[idx].children = categoriesRelations.filter(p_c => p_c.parent === categoriesTree[idx].parent)
-        //             }
-        //         })
-        //         : categoriesTree.push({
-        //             ...categoriesRelations[i],
-        //             children: []
-        //         })
-        // }
+    //     // for (let i = 0; i < categoriesRelations.length; i++) {
+    //     //     categoriesTree.map(category => category.parent).includes(categoriesRelations[i].parent)
+    //     //         ? categoriesTree.map((main_category, idx) => {
+    //     //             if (main_category.parent === categoriesRelations[i].parent) {
+    //     //                 categoriesTree[idx].children = categoriesRelations.filter(p_c => p_c.parent === categoriesTree[idx].parent)
+    //     //             }
+    //     //         })
+    //     //         : categoriesTree.push({
+    //     //             ...categoriesRelations[i],
+    //     //             children: []
+    //     //         })
+    //     // }
 
-        categoriesTree = categoriesState.categories.filter(category => category.index === 1).map(main_category => {
-            let temp = categoriesRelations.filter(p_c => p_c.parent === main_category.id)
-            return {
-                ...main_category,
-                children: temp.map(child_category => {
-                    return {
-                        child_relation_id: child_category.id,
-                        parent_id: child_category.parent,
-                        child_id: child_category.child,
-                        ...categoriesState.categories.find(category => category.id === child_category.child),
-                        grand_children: categoriesRelations.filter(g_c_c => g_c_c.parent === child_category.child).map(grand_child_category => {
-                            return {
-                                grand_child_relation_id: grand_child_category.id,
-                                parent_id: grand_child_category.parent,
-                                child_id: grand_child_category.child,
-                                ...categoriesState.categories.find(category => category.id === grand_child_category.child)
-                            }
-                        })
-                    }
-                })
-            }
-        })
+    //     categoriesTree = categoriesState.categories.filter(category => category.index === 1).map(main_category => {
+    //         let temp = categoriesRelations.filter(p_c => p_c.parent === main_category.id)
+    //         return {
+    //             ...main_category,
+    //             children: temp.map(child_category => {
+    //                 return {
+    //                     child_relation_id: child_category.id,
+    //                     parent_id: child_category.parent,
+    //                     child_id: child_category.child,
+    //                     ...categoriesState.categories.find(category => category.id === child_category.child),
+    //                     grand_children: categoriesRelations.filter(g_c_c => g_c_c.parent === child_category.child).map(grand_child_category => {
+    //                         return {
+    //                             grand_child_relation_id: grand_child_category.id,
+    //                             parent_id: grand_child_category.parent,
+    //                             child_id: grand_child_category.child,
+    //                             ...categoriesState.categories.find(category => category.id === grand_child_category.child)
+    //                         }
+    //                     })
+    //                 }
+    //             })
+    //         }
+    //     })
 
-        return categoriesTree
-    }
+    //     return categoriesTree
+    // }
 
-    console.log(createCategoriesTree())
+    // console.log(createCategoriesTree())
     // console.log(categoriesState.categories.filter(category => category.name.includes('Сервисы')))
 
     // console.log(categoriesState.categories_relations.filter(category => category.child === 1451))
@@ -206,7 +206,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div>
                     <div className='home-categories-left-block'>
                         <ul className='categories-list'>
-                            {categoriesState.categories.length > 0 && categoriesState.categories.slice(0, 5).map(i => {
+                            {categoriesState.length > 0 && categoriesState.slice(0, 5).map(i => {
 
                                 // const categoryObj = categoriesState?.find(category => category.id === i)
                                 const servicesInCategory = serviceState.services?.filter(service => service.categories_3.find(category => category.id === i.id)).length

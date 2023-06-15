@@ -24,6 +24,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов']
     const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
+    const [sortMode, setSortMode] = useState<string>(null)
+
     const searchCondition: TServicesData[] = rootState.services.services.map(service => {
         return {
             ...service,
@@ -51,7 +53,15 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m))
                         : true
         )
-    )
+    ).sort((a, b) => {
+        if (sortMode === 'new') {
+            return b.id - a.id
+        }
+        if (sortMode === 'top') {
+            return b.rating - a.rating
+        }
+        return
+    })
 
     // console.log([...new Set(rootState.services.services.map(s => s.description.paymentMethod))])
 
@@ -60,7 +70,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const numberOfPages = new Array(Math.ceil(searchCondition.length / numberOfServices)).fill('').map((_, idx) => idx + 1)
 
     useEffect(() => {
-        // setSortMode(sortDefault())
+        setSortMode('default')
 
         const urlParams = new URLSearchParams(window.location.search)
         if (urlParams.has('search')) {
@@ -81,27 +91,13 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (urlParams.has('paymentMethod')) {
             setPaymentMethod(Number(urlParams.get('paymentMethod')))
         }
-        // if (urlParams.has('recent')) {
-        //     setSortMode(sortNew())
-        // }
-        // if (urlParams.has('rating') && urlParams.get('rating') === 'top') {
-        //     setSortMode(sortRatingTop())
-        // }
+        if (urlParams.has('recent')) {
+            setSortMode('new')
+        }
+        if (urlParams.has('rating') && urlParams.get('rating') === 'top') {
+            setSortMode('top')
+        }
     }, [])
-
-    // const [sortMode, setSortMode] = useState<TServicesData[]>(null)
-
-    // const sortDefault = () => {
-    //     return searchCondition
-    // }
-
-    // const sortNew = () => {
-    //     return searchCondition.sort((a, b) => b.id - a.id)
-    // }
-
-    // const sortRatingTop = () => {
-    //     return searchCondition.sort((a, b) => b.rating - a.rating)
-    // }
 
     return <>
         <div className='section-header-container'>
@@ -145,8 +141,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             </button>
             {searchCondition.length > 0 && <div className='sort-selection'>
                 <span>Сортировать:</span>
-                <select className='color-blue'>
-                    <option value="">по умолчанию</option>
+                <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
+                    <option value='default'>по умолчанию</option>
+                    <option value='new'>по новизне</option>
+                    <option value='top'>по рейтингу</option>
                 </select>
             </div>}
         </div>

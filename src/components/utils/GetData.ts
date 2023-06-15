@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux"
 import store from "../../store"
 import { useEffect } from "react"
-import { getAllCategories, getCategoriesTree } from "../../actions/categories/categories"
+import { getAllCategories } from "../../actions/categories/categories"
 import { getAllServicesLocations, getAllServicesPlatforms, getServicesData } from "../../actions/services/services"
 
 const GetData = () => {
@@ -15,7 +15,6 @@ const GetData = () => {
             dispatch(getAllServicesLocations())
             dispatch(getAllServicesPlatforms())
             dispatch(getAllCategories())
-            dispatch(getCategoriesTree())
         }
     }, [])
 

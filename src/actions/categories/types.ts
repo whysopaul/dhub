@@ -1,5 +1,4 @@
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
-export const GET_CATEGORY_RELATIONS = 'GET_CATEGORY_RELATIONS'
 
 export type TMainCategory = {
     id: number,
@@ -10,13 +9,8 @@ export type TMainCategory = {
 export type TCategory = {
     id: number,
     name: string,
-    index: number
-}
-
-export type TCategoryRelations = {
-    id: number,
-    child: number,
-    parent: number
+    index: number,
+    parents: number[]
 }
 
 interface IGetCategories {
@@ -24,9 +18,4 @@ interface IGetCategories {
     payload: TCategory[]
 }
 
-interface IGetCategoryRelations {
-    type: typeof GET_CATEGORY_RELATIONS,
-    payload: TCategoryRelations[]
-}
-
-export type categoriesDispatchTypes = IGetCategories | IGetCategoryRelations
+export type categoriesDispatchTypes = IGetCategories

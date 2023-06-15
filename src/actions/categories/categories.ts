@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { GET_ALL_CATEGORIES, GET_CATEGORY_RELATIONS, TMainCategory, categoriesDispatchTypes } from "./types";
+import { GET_ALL_CATEGORIES, TMainCategory, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -9,19 +9,6 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
 
         dispatch({
             type: GET_ALL_CATEGORIES,
-            payload: res.data
-        })
-    }).catch(error => {
-        console.log(error)
-    })
-}
-
-export const getCategoriesTree = () => (dispatch: Dispatch<categoriesDispatchTypes>) => {
-    axios.get(SERVER_URL + '/getCategoriesTree').then(res => {
-        console.log(res.data)
-
-        dispatch({
-            type: GET_CATEGORY_RELATIONS,
             payload: res.data
         })
     }).catch(error => {

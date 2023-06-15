@@ -81,9 +81,10 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                     </div>
                     <div>
                         <ul className='categories-list'>
-                            {/* {category.subcategories.map(sub_c => {
-                                return <CategoryTag name={sub_c.name} qty={sub_c.id} key={sub_c.id} />
-                            })} */}
+                            {rootState.categories.categories.filter(sub_category => sub_category.index === 2 && sub_category.parents.includes(category.id)).map(sub_category => {
+                                const qty = rootState.services.services.filter(service => service.categories_2.reduce((acc, value) => [...acc, value.id], []).includes(sub_category.id)).length
+                                return <CategoryTag name={sub_category.name.slice(0, sub_category.name.indexOf('('))} qty={qty} />
+                            })}
                         </ul>
                     </div>
                     <hr />
@@ -98,9 +99,10 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 </div>
                 <div>
                     <ul className='categories-list'>
-                        {/* {category.subcategories.map(sub_c => {
-                                return <CategoryTag name={sub_c.name} qty={sub_c.id} key={sub_c.id} />
-                            })} */}
+                        {rootState.categories.categories.filter(sub_category => sub_category.index === 2 && sub_category.parents.includes(rootState.categories.categories.find(category => category.name.includes('Профессии')).id) && sub_category.name.includes('Сервисы')).map(sub_category => {
+                            const qty = rootState.services.services.filter(service => service.categories_2.reduce((acc, value) => [...acc, value.id], []).includes(sub_category.id)).length
+                            return <CategoryTag name={sub_category.name.slice(0, sub_category.name.indexOf('('))} qty={qty} />
+                        })}
                     </ul>
                 </div>
             </div>
@@ -113,9 +115,10 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 </div>
                 <div>
                     <ul className='categories-list'>
-                        {/* {category.subcategories.map(sub_c => {
-                                return <CategoryTag name={sub_c.name} qty={sub_c.id} key={sub_c.id} />
-                            })} */}
+                        {rootState.categories.categories.filter(sub_category => sub_category.index === 2 && sub_category.parents.includes(rootState.categories.categories.find(category => category.name.includes('Сферы')).id)).map(sub_category => {
+                            const qty = rootState.services.services.filter(service => service.categories_2.reduce((acc, value) => [...acc, value.id], []).includes(sub_category.id)).length
+                            return <CategoryTag name={sub_category.name.slice(0, sub_category.name.indexOf('('))} qty={qty} />
+                        })}
                     </ul>
                 </div>
             </div>

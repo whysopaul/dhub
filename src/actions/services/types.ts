@@ -20,6 +20,7 @@ export type TServicesData = {
         hasPartnership: boolean
     },
     rating: number,
+    categories_2: TCategory[],
     categories_3: TCategory[],
     images: {
         logo: string,
