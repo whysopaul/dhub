@@ -22,6 +22,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
     const [mode, setMode] = useState(1)
     const [showDropdown, setShowDropdown] = useState(false)
     const dropdownRef = useRef(null)
+    const [sortMode, setSortMode] = useState('alphabetic')
 
     useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
@@ -71,13 +72,28 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 <input type='radio' name='category-type' checked={mode === 3} onChange={() => setMode(3)} />
                 <span>По сферам</span>
             </label>
+            <div className='sort-selection'>
+                <span>Сортировать:</span>
+                <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
+                    <option value='alphabetic'>по алфавиту</option>
+                    <option value='popularity'>по популярности</option>
+                </select>
+            </div>
         </div>
-        {mode === 1 && rootState.categories.categories.filter(category => category.index === 1 && !category.name.includes('\t')).map(category => {
+        {mode === 1 && rootState.categories.categories.filter(category => category.index === 1 && !category.name.includes('\t')).sort((a, b) => {
+            if (sortMode === 'alphabetic') {
+                return a.name.localeCompare(b.name)
+            }
+            if (sortMode === 'popularity') {
+                return rootState.categories.categories.filter(cat => cat.index === 2).filter(cat => cat.parent.id === b.id).length - rootState.categories.categories.filter(cat => cat.index === 2).filter(cat => cat.parent.id === a.id).length
+            }
+            return
+        }).map(category => {
             return <>
                 <div className='categories-list-main-category'>
                     <div className='categories-list-main-category-header'>
                         <h3>{category.name}</h3>
-                        {/* <span>{category.subcategories.length}</span> */}
+                        <span>{rootState.categories.categories.filter(cat => cat.index === 2).filter(cat => cat.parent.id === category.id).length}</span>
                     </div>
                     <div>
                         <ul className='categories-list'>

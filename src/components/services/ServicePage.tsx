@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { RootStore } from '../../store';
 import { useEffect, useState } from 'react';
 import '../../static/css/services.css';
@@ -93,6 +93,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
         setTouchPosition(null)
     }
 
+    const navigate = useNavigate()
+
     return <>
 
         {selectedImageSource && <ServiceGallery service={currentService} source={selectedImageSource} onClose={() => setSelectedImageSource(null)} />}
@@ -181,7 +183,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
                                 const categoriesQty = serviceState.filter(service => service.categories_3.find(category => category.id === i.id)).length
 
-                                return <CategoryTag name={i.name} qty={categoriesQty} key={i.id} />
+                                return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/results?categories=' + i.id)} key={i.id} />
                             })}
                         </ul>
                     </div>
