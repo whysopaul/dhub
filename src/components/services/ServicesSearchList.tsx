@@ -136,7 +136,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
                     <i className='fas fa-search color-blue' />
                 </div>
-                <div className='categories-section wide-search-container'>
+                <div className='wide-search-container'>
                     <p>Поиск по категориям:</p>
                     <input type='text' placeholder='Введите название категории' value={searchCategories} onChange={e => setSearchCategories(e.target.value)} autoComplete='off' onFocus={() => setShowDropdown(true)} />
                     <i className='fas fa-plus color-blue' />

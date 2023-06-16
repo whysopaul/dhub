@@ -105,7 +105,7 @@ hr {
     line-height: 14px;
     color: #2D4379;
     margin-top: 24px;
-    /* margin-bottom: 32px; */
+    margin-bottom: 32px;
 }
 
 .categories-section.wide-search-container>.services-list-dropdown-container {
@@ -169,6 +169,12 @@ hr {
     font-size: 18px;
     margin-top: -32px;
     margin-right: 18px;
+}
+
+.wide-search-container>.services-list-dropdown-container {
+    margin-top: 12px;
+    max-width: 900px;
+    width: max-content;
 }
 
 .cards-mobile-swipe-bar {
