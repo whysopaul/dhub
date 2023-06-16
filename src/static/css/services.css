@@ -396,6 +396,47 @@
 
 /* SERVICES LIST PAGE */
 
+.services-list-main-container {
+    display: grid;
+    grid-template-columns: 270px auto;
+    gap: 32px;
+    position: relative;
+}
+
+.services-list-filters-container {
+    height: fit-content;
+    position: sticky;
+    top: 32px;
+}
+
+.services-list-filters-container p {
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
+    margin-bottom: 16px;
+}
+
+.services-list-filters-container>.wide-search-container {
+    margin-bottom: 24px !important;
+}
+
+.services-list-filters-container>.wide-search-container>input {
+    height: 42px !important;
+}
+
+.services-list-filters-container>.wide-search-container>i {
+    margin-top: -29px !important;
+}
+
+.services-list-filters-container>.service-selection-advanced-inputs {
+    grid-template-columns: auto;
+    gap: 24px;
+}
+
+.services-list-cards-container>.service-card-container {
+    width: 235px !important;
+}
+
 .services-list-search-title {
     display: flex;
     align-items: center;
@@ -422,9 +463,8 @@
 .services-list-cards-container {
     display: flex;
     flex-wrap: wrap;
-    column-gap: calc((1280px - 245px * 5) / 4);
-    row-gap: 16px;
-    margin-top: 32px;
+    gap: 12px;
+    /*! margin-top: 32px; */
 }
 
 .services-list-not-found {

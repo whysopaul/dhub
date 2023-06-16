@@ -188,7 +188,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <img src={Welcome} alt='' />
                 </div>
                 <div className='home-welcome-buttons'>
-                    <button className='blue-shadow-button' onClick={() => navigate('/search')}>
+                    <button className='blue-shadow-button' onClick={() => navigate('/services')}>
                         <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>
@@ -201,7 +201,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <div className='home-categories-container'>
+            {/* <div className='home-categories-container'>
                 <p>Выберите категории:</p>
                 <div>
                     <div className='home-categories-left-block'>
@@ -224,7 +224,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
             <HomeServicesComponent title='Новые сервисы' data={serviceState.services} qty={servicesQty} sortModeLink='new' />
 

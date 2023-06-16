@@ -111,6 +111,7 @@ hr {
 .categories-section.wide-search-container>.services-list-dropdown-container {
     margin-top: 12px;
     max-width: 900px;
+    width: max-content;
 }
 
 .categories-list {

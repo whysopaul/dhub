@@ -45,31 +45,31 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             })
         }
 
-        if (path.includes('search')) {
+        if (path.includes('categories')) {
             return pathArray.map(link => {
                 switch (link) {
                     case '':
                         return <li><Link to='/'>Главная</Link></li>
-                    case 'search':
-                        return <li><span>Найти сервис</span></li>
+                    case 'categories':
+                        return <li><span>Категории</span></li>
                     default:
                         return null
                 }
             })
         }
 
-        if (path.includes('results')) {
-            return pathArray.map(link => {
-                switch (link) {
-                    case '':
-                        return <li><Link to='/'>Главная</Link></li>
-                    case 'results':
-                        return <li><span>Поиск</span></li>
-                    default:
-                        return null
-                }
-            })
-        }
+        // if (path.includes('results')) {
+        //     return pathArray.map(link => {
+        //         switch (link) {
+        //             case '':
+        //                 return <li><Link to='/'>Главная</Link></li>
+        //             case 'results':
+        //                 return <li><span>Поиск</span></li>
+        //             default:
+        //                 return null
+        //         }
+        //     })
+        // }
 
         if (path.includes('feedback')) {
             return pathArray.map(link => {
