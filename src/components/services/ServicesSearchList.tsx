@@ -185,7 +185,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     </div>
                 </div>
                 <div className='services-list-options'>
-                    <button className='services-list-reset-button' onClick={() => window.location.replace('/results')}>
+                    <button className='services-list-reset-button' onClick={() => window.location.replace('/services')}>
                         <span>Сбросить все фильтры</span>
                         <i className='fas fa-times' />
                     </button>

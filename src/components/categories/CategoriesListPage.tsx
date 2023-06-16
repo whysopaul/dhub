@@ -31,7 +31,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
     return <>
         <div className='wide-search-container'>
             <h2 className='section-main-title mb-32'>Категории</h2>
-            <form action='/results'>
+            <form action='/services'>
                 <input type='text' placeholder='Введите название сервиса' name='search' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' onFocus={() => setShowDropdown(true)} />
                 <button type={search.trim().length > 0 ? 'submit' : 'button'} className='search-submit-button'><i className='fas fa-search color-blue' /></button>
             </form>
@@ -55,7 +55,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                         servicesInCategory: rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length
                     }
                 }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 16).map(popularCategory => {
-                    return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => navigate('/results?categories=' + popularCategory.id)} key={popularCategory.id} />
+                    return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => navigate('/services?categories=' + popularCategory.id)} key={popularCategory.id} />
                 })}
             </ul>
         </div>
@@ -99,7 +99,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                         <ul className='categories-list'>
                             {rootState.categories.categories.filter(sub_category => sub_category.index === 2 && sub_category.parent.id === category.id).map(sub_category => {
                                 const qty = rootState.services.services.filter(service => service.categories_2.reduce((acc, value) => [...acc, value.id], []).includes(sub_category.id)).length
-                                return <CategoryTag name={sub_category.name} qty={qty} onClick={() => navigate('/results?categories=' + rootState.categories.categories.filter(cat => cat.index === 3).find(cat => cat.name.includes(sub_category.name)).id)} key={sub_category.id} />
+                                return <CategoryTag name={sub_category.name} qty={qty} onClick={() => navigate('/services?categories=' + rootState.categories.categories.filter(cat => cat.index === 3).find(cat => cat.name.includes(sub_category.name)).id)} key={sub_category.id} />
                             })}
                         </ul>
                     </div>

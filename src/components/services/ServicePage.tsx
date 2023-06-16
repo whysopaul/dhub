@@ -183,7 +183,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
                                 const categoriesQty = serviceState.filter(service => service.categories_3.find(category => category.id === i.id)).length
 
-                                return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/results?categories=' + i.id)} key={i.id} />
+                                return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
                             })}
                         </ul>
                     </div>
