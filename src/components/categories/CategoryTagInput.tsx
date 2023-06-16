@@ -3,7 +3,7 @@ import '../../static/css/categories.less';
 import { TCategory } from '../../actions/categories/types';
 
 interface ICategoryTagInputProps {
-    category: TCategory
+    category: TCategory,
     qty: number
 }
 

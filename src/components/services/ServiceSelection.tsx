@@ -4,6 +4,8 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import CategoryTagInput from '../categories/CategoryTagInput';
+import { TCategory } from '../../actions/categories/types';
+import { useOnClickOutside } from '../utils/HandleClickOutside';
 
 interface IServiceSelectionProps {
 }
@@ -12,7 +14,7 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
 
     const rootState = useSelector((state: RootStore) => state)
 
-    const [showCategories, setShowCategories] = useState(16)
+    // const [showCategories, setShowCategories] = useState(16)
 
     const [search, setSearch] = useState('')
     const isFreeRef = useRef<HTMLInputElement>(null)
@@ -20,6 +22,20 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
     const hasPartnershipRef = useRef<HTMLInputElement>(null)
     // 1 - по подписке; 2 - за действие; 3 - разовая
     const [paymentMethod, setPaymentMethod] = useState<number>(null)
+    const [searchCategories, setSearchCategories] = useState('')
+    const [selectedCategories, setSelectedCategories] = useState<TCategory[]>([])
+    const [showDropdown, setShowDropdown] = useState(false)
+    const dropdownRef = useRef(null)
+
+    useOnClickOutside(dropdownRef, () => setShowDropdown(false))
+
+    const searchCategoriesCondition = rootState.categories.categories.filter(category => category.index === 3).filter(category => category.name.toLocaleLowerCase().includes(searchCategories.toLocaleLowerCase()))
+
+    const toggleCategory = (category: TCategory) => {
+        selectedCategories.map(cat => cat.id).includes(category.id)
+            ? setSelectedCategories(selectedCategories.filter(cat => cat.id !== category.id))
+            : setSelectedCategories([...selectedCategories, category])
+    }
 
     const onSubmit = (e: React.FormEvent) => {
         e.preventDefault()
@@ -44,10 +60,14 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
             urlParams.append('paymentMethod', paymentMethod.toString())
         }
 
-        let checkedCategories = document.querySelectorAll('input[type="checkbox"][name="category"]:checked')
-        let categoriesValues = Array.from(checkedCategories, category => category.getAttribute('value')).join(',')
-        if (checkedCategories.length > 0) {
-            urlParams.append('categories', categoriesValues)
+        // let checkedCategories = document.querySelectorAll('input[type="checkbox"][name="category"]:checked')
+        // let categoriesValues = Array.from(checkedCategories, category => category.getAttribute('value')).join(',')
+        // if (checkedCategories.length > 0) {
+        //     urlParams.append('categories', categoriesValues)
+        // }
+
+        if (selectedCategories.length > 0) {
+            urlParams.append('categories', selectedCategories.map(cat => cat.id).join(','))
         }
 
         return window.location.replace('/results?' + urlParams)
@@ -61,20 +81,43 @@ const ServiceSelection: React.FunctionComponent<IServiceSelectionProps> = (props
                     <p>Пожалуйста, заполните и выберете поля ниже. Это поможет нам найти для вас тот сервис, который вам нужен.</p>
                 </div>
                 <hr />
-                <div className='categories-section'>
-                    <p>Выберите категории (одну или несколько):</p>
-                    <ul className='categories-list'>
-                        {rootState.categories.categories.filter(category => category.index === 3).slice(0, showCategories).map(i => {
-                            // return <CategoryTag name={i.name} qty={rootState.services.services.filter(service => service.categories.find(category => category.id === i.id)).length} />
-                            return <CategoryTagInput category={i} qty={rootState.services.services.filter(service => service.categories_3.find(category => category.id === i.id)).length} />
-                        })}
-                    </ul>
-                    <div className='show-more-container'>
+                <div className='categories-section wide-search-container'>
+                    <p>Найти категорию:</p>
+                    <input type='text' placeholder='Введите название категории' value={searchCategories} onChange={e => setSearchCategories(e.target.value)} autoComplete='off' onFocus={() => setShowDropdown(true)} />
+                    {showDropdown && <div className='services-list-dropdown-container' ref={dropdownRef}>
+                        {searchCategories.length === 0 && <p>Популярные категории:</p>}
+                        <ul className='services-list-dropdown-list'>
+                            {searchCategories.length > 0 && searchCategoriesCondition.length > 0 && searchCategoriesCondition.map(category => {
+                                return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length} onClick={() => toggleCategory(category)} checked={selectedCategories.map(cat => cat.id).includes(category.id)} key={category.id} />
+                            })}
+                            {searchCategories.length > 0 && searchCategoriesCondition.length === 0 && <li className='services-list-dropdown-no-match'>Не найдено</li>}
+                            {searchCategories.length === 0 && <>
+                                {rootState.categories.categories.map(category => {
+                                    return {
+                                        ...category,
+                                        servicesInCategory: rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length
+                                    }
+                                }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 15).map(popularCategory => {
+                                    return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => toggleCategory(popularCategory)} checked={selectedCategories.map(cat => cat.id).includes(popularCategory.id)} key={popularCategory.id} />
+                                })}
+                            </>}
+                        </ul>
+                    </div>}
+                    <i className='fas fa-search color-blue' />
+                    {selectedCategories.length > 0 && <>
+                        <p>Выбранные категории:</p>
+                        <ul className='categories-list'>
+                            {selectedCategories.map(category => {
+                                return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length} onClick={() => toggleCategory(category)} checked={true} key={category.id} />
+                            })}
+                        </ul>
+                    </>}
+                    {/* <div className='show-more-container'>
                         <button type='button' className='color-blue cursor-pointer' onClick={() => showCategories ? setShowCategories(undefined) : setShowCategories(16)}>
                             <span>{showCategories ? 'Показать все категории' : 'Скрыть все категории'}</span>
                             <i className={showCategories ? 'fas fa-chevron-down' : 'fas fa-chevron-up'} />
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <hr />
                 <div className='service-selection-advanced-inputs'>

@@ -104,7 +104,13 @@ hr {
     font-size: 14px;
     line-height: 14px;
     color: #2D4379;
-    margin-bottom: 32px;
+    margin-top: 24px;
+    /* margin-bottom: 32px; */
+}
+
+.categories-section.wide-search-container>.services-list-dropdown-container {
+    margin-top: 12px;
+    max-width: 900px;
 }
 
 .categories-list {
