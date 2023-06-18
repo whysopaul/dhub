@@ -396,6 +396,15 @@
 
 /* SERVICES LIST PAGE */
 
+.services-list-header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0;
+    margin-bottom: 32px;
+}
+
 .services-list-main-container {
     display: grid;
     grid-template-columns: 270px auto;
@@ -997,6 +1006,34 @@
 
     .service-specialists-cards {
         gap: 16px;
+    }
+
+    .services-list-header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .services-list-header-container .sort-selection>span {
+        display: inline;
+    }
+
+    .services-list-main-container {
+        grid-template-columns: auto;
+    }
+
+    .services-list-filters-container {
+        position: relative;
+        top: initial;
+    }
+
+    .services-list-filters-container p {
+        font-size: 10px;
+        line-height: 10px;
+    }
+
+    .services-list-cards-container>.service-card-container {
+        width: 100% !important;
     }
 
     .services-list-services-number {

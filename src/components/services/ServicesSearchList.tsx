@@ -115,7 +115,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     }, [])
 
     return <>
-        <div className='section-header-container'>
+        <div className='services-list-header-container'>
             <div className='services-list-search-title'>
                 <h3 className='section-main-title'>Найденные сервисы:</h3>
                 <span className='services-list-services-number'>{searchCondition.length}</span>

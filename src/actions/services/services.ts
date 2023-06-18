@@ -35,7 +35,7 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes>)
 
 export const getAllServicesLocations = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getLocations').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_ALL_SERVICES_LOCATIONS,
@@ -48,7 +48,7 @@ export const getAllServicesLocations = () => (dispatch: Dispatch<servicesDispatc
 
 export const getAllServicesPlatforms = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getPlatforms').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_ALL_SERVICES_PLATFORMS,

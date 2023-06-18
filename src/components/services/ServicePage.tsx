@@ -166,14 +166,14 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 </div>
                 <div>
                     <div className='service-images'>
-                        {currentService.images.screenshots?.slice(0, 4).map(i => {
+                        {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
                             return <>
                                 <div className='service-image-wrapper' onClick={() => setSelectedImageSource(i.source)} key={i.id}>
                                     <img src={i.source} alt="" />
                                 </div>
                             </>
                         })}
-                        {currentService.images.screenshots?.length === 0 && <div className='service-image-wrapper empty'>
+                        {currentService.images.screenshots.length === 0 && <div className='service-image-wrapper empty'>
                             <i className='fas fa-image' />
                         </div>}
                     </div>

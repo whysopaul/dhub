@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useEffect, useState } from 'react';
-import CategoryTag from '../categories/CategoryTag';
+// import CategoryTag from '../categories/CategoryTag';
 import HomeServicesComponent from './HomeServicesComponent';
 import HomeArticlesComponent from './HomeArticlesComponent';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
@@ -27,7 +27,7 @@ interface IHomeProps {
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const serviceState = useSelector((state: RootStore) => state.services)
-    const categoriesState = useSelector((state: RootStore) => state.categories.categories)
+    // const categoriesState = useSelector((state: RootStore) => state.categories.categories)
     // const authState = useSelector((state: RootStore) => state.auth.user)
 
     const navigate = useNavigate()
