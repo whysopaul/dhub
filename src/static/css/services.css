@@ -458,6 +458,7 @@
 }
 
 .services-list-categories-container>p {
+    margin-top: 0 !important;
     margin-bottom: 24px !important;
 }
 
@@ -875,6 +876,7 @@
     }
 
     .service-image-wrapper.empty {
+        width: auto;
         height: 160px;
         font-size: 24px;
     }
@@ -1040,6 +1042,10 @@
         padding: 0 6px;
         font-size: 14px;
         line-height: 24px;
+    }
+
+    .services-list-categories-container .categories-list>li:nth-child(8)~li {
+        display: none;
     }
 
     .services-list-reset-button {

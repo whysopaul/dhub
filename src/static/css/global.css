@@ -371,6 +371,11 @@ hr {
         margin-bottom: 12px;
     }
 
+    .categories-list {
+        row-gap: 8px;
+        column-gap: 12px;
+    }
+
     .sort-selection>* {
         font-size: 10px;
         line-height: 10px;

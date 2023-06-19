@@ -99,7 +99,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                         <ul className='categories-list'>
                             {rootState.categories.categories.filter(sub_category => sub_category.index === 2 && sub_category.parent.id === category.id).map(sub_category => {
                                 const qty = rootState.services.services.filter(service => service.categories_2.reduce((acc, value) => [...acc, value.id], []).includes(sub_category.id)).length
-                                return <CategoryTag name={sub_category.name} qty={qty} onClick={() => navigate('/services?categories=' + rootState.categories.categories.filter(cat => cat.index === 3).find(cat => cat.name.includes(sub_category.name)).id)} key={sub_category.id} />
+                                return <CategoryTag name={sub_category.name} qty={qty} onClick={() => navigate('/services?categories=' + sub_category.id)} key={sub_category.id} />
                             })}
                         </ul>
                     </div>
@@ -117,7 +117,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                     <ul className='categories-list'>
                         {rootState.categories.categories.filter(sub_category => sub_category.index === 2 && sub_category.parent.id === rootState.categories.categories.find(category => category.name.includes('Профессии')).id).map(sub_category => {
                             const qty = rootState.services.services.filter(service => service.categories_2.reduce((acc, value) => [...acc, value.id], []).includes(sub_category.id)).length
-                            return <CategoryTag name={sub_category.name} qty={qty} />
+                            return <CategoryTag name={sub_category.name} qty={qty} onClick={() => navigate('/services?categories=' + sub_category.id)} key={sub_category.id} />
                         })}
                     </ul>
                 </div>
@@ -133,7 +133,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                     <ul className='categories-list'>
                         {rootState.categories.categories.filter(sub_category => sub_category.index === 2 && sub_category.parent.id === rootState.categories.categories.find(category => category.name.includes('Сферы')).id).map(sub_category => {
                             const qty = rootState.services.services.filter(service => service.categories_2.reduce((acc, value) => [...acc, value.id], []).includes(sub_category.id)).length
-                            return <CategoryTag name={sub_category.name} qty={qty} />
+                            return <CategoryTag name={sub_category.name} qty={qty} onClick={() => navigate('/services?categories=' + sub_category.id)} key={sub_category.id} />
                         })}
                     </ul>
                 </div>

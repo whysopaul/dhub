@@ -50,7 +50,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         &&
         service.description.hasPartnership !== hasNoPartnership
         &&
-        (selectedCategories.length > 0 ? service.categories_3.find(category => selectedCategories.map(cat => cat.id).includes(category.id)) : true)
+        (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.map(cat => cat.id).includes(category.id)) || service.categories_3.find(category => selectedCategories.map(cat => cat.id).includes(category.id)) : true)
         &&
         (
             paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))

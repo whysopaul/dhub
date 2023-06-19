@@ -7,7 +7,11 @@ import { useEffect, useState } from 'react';
 import HomeServicesComponent from './HomeServicesComponent';
 import HomeArticlesComponent from './HomeArticlesComponent';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
+import Header from '../global/Header';
 import Footer from '../global/Footer';
+import AddServicePopup from './AddServicePopup';
+import { mockArtData } from '../../actions/articles/articles';
+import { mockFeedbackData } from '../../actions/feedback/feedback';
 
 import '../../static/css/home.css';
 import Welcome from '../../static/images/welcome.webp';
@@ -16,10 +20,6 @@ import Taskboard from '../../static/images/taskboard.webp';
 import Subscribe from '../../static/images/subscribe.webp';
 import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
-import { mockArtData } from '../../actions/articles/articles';
-import { mockFeedbackData } from '../../actions/feedback/feedback';
-import AddServicePopup from './AddServicePopup';
-import Header from '../global/Header';
 
 interface IHomeProps {
 }
@@ -98,7 +98,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     //     return resultArr
     // }
 
-    const [search, setSearch] = useState('')
+    // const [search, setSearch] = useState('')
 
     const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
     const [servicesQty, setServicesQty] = useState<number>(8)
