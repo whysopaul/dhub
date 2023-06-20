@@ -31,7 +31,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                     {/* <Route path='/search' element={<ServiceSelection />} /> */}
                     <Route path='/services' element={<ServicesSearchList />} />
                     <Route path='/categories' element={<CategoriesListPage />} />
-                    <Route path='/service/:serviceName' element={<ServicePage />} />
+                    <Route path='/service/:serviceId' element={<ServicePage />} />
                     <Route path='/feedback' element={<FeedbackListPage />} />
                     <Route path='/articles' element={<ArticlesListPage />} />
                     <Route path='/article/:articleId' element={<ArticlePage />} />

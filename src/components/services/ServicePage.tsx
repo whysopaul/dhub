@@ -7,7 +7,6 @@ import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
 import Banner from '../../static/images/service_banner.webp'
-import { createServiceLink } from '../utils';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import { TServicesData } from '../../actions/services/types';
@@ -16,21 +15,32 @@ import { mockSpecialists } from '../../actions/specialists/specialists';
 import SpecialistCardComponent from '../specialists/SpecialistCardComponent';
 import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 import ServiceEditPopup from './ServiceEditPopup';
+import { useDispatch } from 'react-redux';
+import { getService } from '../../actions/services/services';
+import { getScreen } from '../utils';
 
 interface IServicePageProps {
 }
 
 const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
-    const { serviceName } = useParams()
+    const { serviceId } = useParams()
     const authState = useSelector((state: RootStore) => state.auth.user)
-    const serviceState = useSelector((state: RootStore) => state.services.services)
+    const serviceState = useSelector((state: RootStore) => state.services)
     const [currentService, setCurrentService] = useState<TServicesData>()
     const [editMode, setEditMode] = useState(false)
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
-        setCurrentService(serviceState.find(i => createServiceLink(i.name) === serviceName))
-    }, [, serviceState])
+        dispatch(getService(parseInt(serviceId)))
+    }, [, serviceState.services])
+
+    useEffect(() => {
+        if (serviceState.currentService?.id === parseInt(serviceId)) {
+            setCurrentService(serviceState.currentService)
+        }
+    }, [, serviceState.currentService])
 
     const [selectedImageSource, setSelectedImageSource] = useState(null)
 
@@ -168,8 +178,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <div className='service-images'>
                         {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
                             return <>
-                                <div className='service-image-wrapper' onClick={() => setSelectedImageSource(i.source)} key={i.id}>
-                                    <img src={i.source} alt="" />
+                                <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getScreen(i.link))} key={i.id}>
+                                    <img src={getScreen(i.link)} alt="" />
                                 </div>
                             </>
                         })}
@@ -181,7 +191,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         <ul className='categories-list'>
                             {currentService.categories_3.map(i => {
 
-                                const categoriesQty = serviceState.filter(service => service.categories_3.find(category => category.id === i.id)).length
+                                const categoriesQty = serviceState.services.filter(service => service.categories_3.find(category => category.id === i.id)).length
 
                                 return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
                             })}

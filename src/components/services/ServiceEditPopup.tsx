@@ -126,22 +126,24 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                 </div>
             </div>
             <div>
-                <button className='blue-shadow-button' onClick={() => dispatch(serviceDataUpdate({
-                    ...props.service,
-                    name: name,
-                    categories_3: categories,
-                    description: {
-                        ...props.service.description,
-                        text: description,
-                        isFree: isFree,
-                        hasTrial: hasTrial,
-                        hasPartnership: hasPartnership,
-                        price: price,
-                        paymentMethod: paymentMethod,
-                        locations: locations,
-                        platforms: platforms
-                    }
-                }))}>Сохранить изменения</button>
+                <button className='blue-shadow-button' onClick={() => {
+                    dispatch(serviceDataUpdate({
+                        ...props.service,
+                        name: name,
+                        categories_3: categories,
+                        description: {
+                            ...props.service.description,
+                            text: description,
+                            isFree: isFree,
+                            hasTrial: hasTrial,
+                            hasPartnership: hasPartnership,
+                            price: price,
+                            paymentMethod: paymentMethod,
+                            locations: locations,
+                            platforms: platforms
+                        }
+                    })); props.onClose()
+                }}>Сохранить изменения</button>
             </div>
             <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
         </div>

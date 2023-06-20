@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { GET_ALL_CATEGORIES, TMainCategory, categoriesDispatchTypes } from "./types";
+import { GET_ALL_CATEGORIES, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 

@@ -40,7 +40,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                     case 'services':
                         return <li><span>Сервисы</span></li>
                     default:
-                        return <li><span>{rootState.services.services.find(service => createServiceLink(service.name) === decodeURI(link))?.name}</span></li>
+                        return <li><span>{rootState.services.services.find(service => service.id === parseInt(link))?.name}</span></li>
                 }
             })
         }

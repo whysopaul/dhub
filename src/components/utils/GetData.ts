@@ -12,9 +12,9 @@ const GetData = () => {
     useEffect(() => {
         if (state.services.services.length === 0 || state.categories.categories.length === 0) {
             dispatch(getServicesData())
-            dispatch(getAllServicesLocations())
-            dispatch(getAllServicesPlatforms())
-            dispatch(getAllCategories())
+            // dispatch(getAllServicesLocations())
+            // dispatch(getAllServicesPlatforms())
+            // dispatch(getAllCategories())
         }
     }, [])
 
