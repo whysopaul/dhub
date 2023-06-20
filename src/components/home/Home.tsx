@@ -171,6 +171,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         setTouchPosition(null)
     }
 
+    console.log('Test')
+
     return <>
 
         {showAddServicePopup && <AddServicePopup onClose={() => setShowAddServicePopup(false)} />}
