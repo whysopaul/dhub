@@ -11,6 +11,8 @@ import './src/static/css/global.css';
 import './src/static/css/ui.css';
 import './src/static/css/layout.less';
 
+localStorage.clear()
+
 const persistor = persistStore(store);
 
 const container = document.getElementById('root')
