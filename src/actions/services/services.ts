@@ -156,7 +156,7 @@ export const getService = (service_id: number) => (dispatch: Dispatch<servicesDi
 
 export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/updateService', JSON.stringify({ service: serviceData })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: SERVICE_DATA_UPDATE,

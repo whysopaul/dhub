@@ -80,7 +80,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                 </div>
                 <ul className='service-edit-popup-add-category-list'>
                     {showList && searchCategoryFilter.map(category => {
-                        return <li>
+                        return <li key={category.id}>
                             <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-plus' /></button>
                         </li>
                     })}
@@ -103,7 +103,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     <p>Дислокация:</p>
                     <ul className='categories-list'>
                         {serviceState.locations?.map(location => {
-                            return <li>
+                            return <li key={location.id}>
                                 <button className={locations.find(loc => loc.id === location.id) ? 'category-tag active' : 'category-tag'} onClick={() => toggleLocation(location)}>{location.name}</button>
                             </li>
                         })}
@@ -111,7 +111,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     <p>Платформа:</p>
                     <ul className='categories-list'>
                         {serviceState.platforms?.map(platform => {
-                            return <li>
+                            return <li key={platform.id}>
                                 <button className={platforms.find(pl => pl.id === platform.id) ? 'category-tag active' : 'category-tag'} onClick={() => togglePlatform(platform)}>{platform.name}</button>
                             </li>
                         })}
@@ -119,7 +119,9 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     <p>Категории:</p>
                     <ul className='categories-list'>
                         {categories.map(category => {
-                            return <li><button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-times' /></button></li>
+                            return <li key={category.id}>
+                                <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-times' /></button>
+                            </li>
                         })}
                         <li><button className='category-tag-add-category' onClick={() => setShowAddCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
                     </ul>
