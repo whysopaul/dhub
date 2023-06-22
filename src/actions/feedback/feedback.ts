@@ -1,4 +1,4 @@
-import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, TFeedback, TFeedbackComment, feedbackDispatchTypes } from "./types";
+import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, TFeedback, feedbackDispatchTypes } from "./types";
 import MockFeedbackUserPhoto from '../../static/images/feedback_user_mock_photo.webp';
 import { Dispatch } from "react";
 import axios from "axios";
@@ -43,4 +43,4 @@ export const feedbackDeleteFeedback = (d_token: string, id: number) => (dispatch
     })
 }
 
-export const mockFeedbackData: TFeedbackComment[] = new Array(4).fill({}).map((i, idx) => { return { ...i, id: idx + 1, author: { firstName: 'Константин', lastName: 'Коваленко', profilePhoto: MockFeedbackUserPhoto }, text: 'Я использую подобные сервисы для накрутки в телеграм. Решил и этот попробовать. Отзывам я не верю никаким, пока сам не проверю. Перво наперво смотрел по стоимости, услуга подписчики с гарантией немного дороже но она лучше работает, здесь нормально, подписчики.', points: { functionality: 5, usability: 3, customerService: 1 }, likes: 30 + idx } })
+export const mockFeedbackData: TFeedback[] = new Array(4).fill({}).map((i, idx) => { return { ...i, id: idx + 1, user: { id: -1, vk_id: -1, name: 'Константин Коваленко', photo: MockFeedbackUserPhoto, token: '', is_admin: false, d_token: '', history: [] }, service: 0, text: 'Я использую подобные сервисы для накрутки в телеграм. Решил и этот попробовать. Отзывам я не верю никаким, пока сам не проверю. Перво наперво смотрел по стоимости, услуга подписчики с гарантией немного дороже но она лучше работает, здесь нормально, подписчики.', functionality: 5, usability: 3, customer_service: 1, likes: [...new Array(30 + idx)], total_rating: 5 } })

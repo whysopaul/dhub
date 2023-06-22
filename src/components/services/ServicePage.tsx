@@ -44,7 +44,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     }, [, serviceState.currentService])
 
     useEffect(() => {
-        if (authState.d_token !== '') {
+        if (authState) {
             dispatch(userAddHistory(authState.d_token, parseInt(serviceId)))
         }
     }, [])

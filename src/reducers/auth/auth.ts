@@ -1,21 +1,23 @@
-import { USER_LOGIN, TUserData, authDispatchTypes, USER_ADD_HISTORY } from "../../actions/auth/types"
+import { USER_LOGIN, TUserData, authDispatchTypes, USER_ADD_HISTORY, USER_LOGIN_POPUP_STATE } from "../../actions/auth/types"
 
 interface IDefaultState {
-    user: TUserData
+    user: TUserData,
+    showLoginPopup: boolean
 }
 
 const defaultState: IDefaultState = {
-    // user: null
-    user: {
-        id: 1,
-        vk_id: 0,
-        name: 'Test User',
-        photo: '',
-        token: '',
-        is_admin: true,
-        d_token: '',
-        history: []
-    }
+    user: null,
+    showLoginPopup: false
+    // user: {
+    //     id: 1,
+    //     vk_id: 0,
+    //     name: 'Test User',
+    //     photo: '',
+    //     token: '',
+    //     is_admin: true,
+    //     d_token: '',
+    //     history: []
+    // }
 }
 
 const authReducer = (state: IDefaultState = defaultState, action: authDispatchTypes) => {
@@ -29,6 +31,11 @@ const authReducer = (state: IDefaultState = defaultState, action: authDispatchTy
             return {
                 ...state,
                 user: action.payload
+            }
+        case USER_LOGIN_POPUP_STATE:
+            return {
+                ...state,
+                showLoginPopup: action.payload
             }
         default:
             return state

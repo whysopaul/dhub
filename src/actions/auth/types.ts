@@ -1,6 +1,8 @@
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_ADD_HISTORY = 'USER_ADD_HISTORY'
 
+export const USER_LOGIN_POPUP_STATE = 'USER_LOGIN_POPUP_STATE'
+
 export type TUserData = {
     id: number,
     vk_id: number,
@@ -22,4 +24,9 @@ interface IUserAddHistory {
     payload: TUserData
 }
 
-export type authDispatchTypes = IUserLogin | IUserAddHistory
+interface IUserLoginPopupState {
+    type: typeof USER_LOGIN_POPUP_STATE,
+    payload: boolean
+}
+
+export type authDispatchTypes = IUserLogin | IUserAddHistory | IUserLoginPopupState

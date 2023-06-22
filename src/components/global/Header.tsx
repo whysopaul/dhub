@@ -7,9 +7,10 @@ import { RootStore } from '../../store';
 import UserHeader from './UserHeader';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { mockArtData } from '../../actions/articles/articles';
-import { createServiceLink } from '../utils';
 import { useState } from 'react';
 import NavbarMobile from './NavbarMobile';
+import { useDispatch } from 'react-redux';
+import { userHideLoginPopup, userShowLoginPopup } from '../../actions/auth/auth';
 
 interface IHeaderProps {
     root?: boolean
@@ -19,7 +20,8 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
 
     const rootState = useSelector((state: RootStore) => state)
 
-    const [showLoginPopup, setShowLoginPopup] = useState(false)
+    const dispatch = useDispatch()
+
     const [showNavbarMobile, setShowNavbarMobile] = useState(false)
 
     const navigate = useNavigate()
@@ -120,7 +122,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
 
     return <>
 
-        {showLoginPopup && <Login onClose={() => setShowLoginPopup(false)} />}
+        {rootState.auth.showLoginPopup && <Login onClose={() => dispatch(userHideLoginPopup())} />}
         {showNavbarMobile && <NavbarMobile onClose={() => setShowNavbarMobile(false)} />}
 
         <header className='header'>
@@ -130,14 +132,14 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                     <Navigation />
                 </div>
                 {!rootState.auth.user && <>
-                    <button className='header-navbar-login-button' onClick={() => setShowLoginPopup(true)}>
+                    <button className='header-navbar-login-button' onClick={() => dispatch(userShowLoginPopup())}>
                         <i className='fas fa-user' />
                         <span>Войти в аккаунт</span>
                     </button>
                 </>}
                 {rootState.auth.user && <UserHeader />}
                 <div className='header-navbar-navigation mobile'>
-                    <button onClick={() => rootState.auth.user ? navigate('/profile') : setShowLoginPopup(true)}><i className='fas fa-user' /></button>
+                    <button onClick={() => rootState.auth.user ? navigate('/profile') : dispatch(userShowLoginPopup())}><i className='fas fa-user' /></button>
                     <button className='bg-blue' onClick={() => setShowNavbarMobile(true)}><i className='fas fa-bars color-white' /></button>
                 </div>
             </div>

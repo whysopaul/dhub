@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { USER_ADD_HISTORY, USER_LOGIN, authDispatchTypes } from "./types";
+import { USER_ADD_HISTORY, USER_LOGIN, USER_LOGIN_POPUP_STATE, authDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL, URL } from '../../components/utils'
 
@@ -51,5 +51,19 @@ export const userAddHistory = (d_token: string, service_id: number) => (dispatch
         })
     }).catch(error => {
         console.log(error)
+    })
+}
+
+export const userShowLoginPopup = () => (dispatch: Dispatch<authDispatchTypes>) => {
+    dispatch({
+        type: USER_LOGIN_POPUP_STATE,
+        payload: true
+    })
+}
+
+export const userHideLoginPopup = () => (dispatch: Dispatch<authDispatchTypes>) => {
+    dispatch({
+        type: USER_LOGIN_POPUP_STATE,
+        payload: false
     })
 }
