@@ -18,6 +18,7 @@ import ServiceEditPopup from './ServiceEditPopup';
 import { useDispatch } from 'react-redux';
 import { getService } from '../../actions/services/services';
 import { getScreen } from '../utils';
+import { userAddHistory } from '../../actions/auth/auth';
 
 interface IServicePageProps {
 }
@@ -41,6 +42,12 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
             setCurrentService(serviceState.currentService)
         }
     }, [, serviceState.currentService])
+
+    useEffect(() => {
+        if (authState.d_token !== '') {
+            dispatch(userAddHistory(authState.d_token, parseInt(serviceId)))
+        }
+    }, [])
 
     const [selectedImageSource, setSelectedImageSource] = useState(null)
 

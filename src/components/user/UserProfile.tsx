@@ -24,6 +24,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
         }
     }, [])
 
+    // 1 - отзывы, 2 - история просмотров
     const [mode, setMode] = useState<number>(1)
     const [showFeedbackPopup, setShowFeedbackPopup] = useState(false)
 
@@ -78,8 +79,8 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             </>}
             {mode === 2 && <>
                 <div className='home-services-cards extended'>
-                    {serviceState.slice(0, 10).map(i => {
-                        return <ServiceCardComponent service={i} key={i.id} />
+                    {userState.history?.slice(0, 10).map(i => {
+                        return <ServiceCardComponent service={serviceState.find(service => service.id === i)} key={i} />
                     })}
                 </div>
             </>}

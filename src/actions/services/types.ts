@@ -1,4 +1,5 @@
 import { TCategory } from "../categories/types"
+import { TFeedback } from "../feedback/types"
 
 export const GET_ALL_SERVICES = 'GET_ALL_SERVICES'
 export const GET_ALL_SERVICES_LOCATIONS = 'GET_ALL_SERVICES_LOCATIONS'
@@ -27,6 +28,7 @@ export type TServicesData = {
         logo: string,
         screenshots?: TServiceScreenshot[]
     },
+    feedbacks: TFeedback[],
     isNew?: boolean
 }
 

@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { LOGIN, authDispatchTypes } from "./types";
+import { USER_ADD_HISTORY, USER_LOGIN, authDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL, URL } from '../../components/utils'
 
@@ -31,11 +31,24 @@ export const extractToken = () => (dispatch: Dispatch<authDispatchTypes>) => {
         console.log(res.data)
 
         dispatch({
-            type: LOGIN,
+            type: USER_LOGIN,
             payload: res.data
         })
 
         window.location.replace('/')
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const userAddHistory = (d_token: string, service_id: number) => (dispatch: Dispatch<authDispatchTypes>) => {
+    axios.post(SERVER_URL + '/addHistory', JSON.stringify({ d_token, service_id })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: USER_ADD_HISTORY,
+            payload: res.data
+        })
     }).catch(error => {
         console.log(error)
     })

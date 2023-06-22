@@ -1,22 +1,31 @@
-import { LOGIN, TUserData, authDispatchTypes } from "../../actions/auth/types"
+import { USER_LOGIN, TUserData, authDispatchTypes, USER_ADD_HISTORY } from "../../actions/auth/types"
 
 interface IDefaultState {
     user: TUserData
 }
 
 const defaultState: IDefaultState = {
-    user: null
-    // user: {
-    //     vk_id: 0,
-    //     name: 'Test User',
-    //     photo: '',
-    //     token: ''
-    // }
+    // user: null
+    user: {
+        id: 1,
+        vk_id: 0,
+        name: 'Test User',
+        photo: '',
+        token: '',
+        is_admin: true,
+        d_token: '',
+        history: []
+    }
 }
 
 const authReducer = (state: IDefaultState = defaultState, action: authDispatchTypes) => {
     switch (action.type) {
-        case LOGIN:
+        case USER_LOGIN:
+            return {
+                ...state,
+                user: action.payload
+            }
+        case USER_ADD_HISTORY:
             return {
                 ...state,
                 user: action.payload

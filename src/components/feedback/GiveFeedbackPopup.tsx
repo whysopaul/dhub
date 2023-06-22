@@ -7,6 +7,8 @@ import ServiceRatingTag from '../services/ServiceRatingTag';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useOnPopup } from '../utils/HandleOnPopup';
+import { useDispatch } from 'react-redux';
+import { feedbackCreateFeedback } from '../../actions/feedback/feedback';
 
 interface IGiveFeedbackPopupProps {
     service?: TServicesData,
@@ -15,7 +17,10 @@ interface IGiveFeedbackPopupProps {
 
 const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (props) => {
 
+    const userState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services.services)
+
+    const dispatch = useDispatch()
 
     const [search, setSearch] = useState('')
     const searchRef = useRef<HTMLInputElement>(null)
@@ -112,10 +117,27 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                         </div>
                     </div>
                     {!selectService && <textarea placeholder='Опишите ваш опыт использования' value={textarea} onChange={e => setTextarea(e.target.value)} />}
-                    <button type='button' className='blue-shadow-button' onClick={() => selectedService ? setSelectService(false) : alert('Выберите сервис из списка')}>
-                        <span>{selectService ? 'Далее' : 'Отправить'}</span>
+                    {selectService && <button type='button' className='blue-shadow-button' onClick={() => selectedService ? setSelectService(false) : alert('Выберите сервис из списка')}>
+                        <span>Далее</span>
                         <i className='fas fa-long-arrow-alt-right' />
-                    </button>
+                    </button>}
+                    {!selectService && <button type='button' className='blue-shadow-button' onClick={() => {
+                        dispatch(feedbackCreateFeedback(userState.d_token, {
+                            id: -1,
+                            user: userState,
+                            service: selectedService.id,
+                            text: textarea,
+                            functionality: functionality,
+                            usability: usability,
+                            customer_service: customerService,
+                            likes: [],
+                            total_rating: Number(((functionality + usability + customerService) / 3).toFixed(1))
+                        }));
+                        props.onClose()
+                    }}>
+                        <span>Отправить</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </button>}
                 </div>
             </form>
             <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
