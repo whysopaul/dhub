@@ -11,7 +11,7 @@ import './src/static/css/global.css';
 import './src/static/css/ui.css';
 import './src/static/css/layout.less';
 
-localStorage.clear()
+// localStorage.clear()
 
 const persistor = persistStore(store);
 

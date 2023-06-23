@@ -85,10 +85,10 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                 </div>
             </>}
             <div className='show-more-container'>
-                <button className='color-blue cursor-pointer'>
+                {userState.history?.length > 10 && <button className='color-blue cursor-pointer'>
                     <span>Показать еще</span>
                     <i className='fas fa-chevron-down' />
-                </button>
+                </button>}
             </div>
         </>}
     </>;

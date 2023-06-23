@@ -27,7 +27,7 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
             <img src={LoginImg} alt="" />
             <h3>Войти в аккаунт</h3>
             <p>Войдите в аккаунт, чтобы сохранять историю просмотров и делиться своим опытом использования сервисов</p>
-            <button className='login-popup-login-button' onClick={() => dispatch(connectVkAccount())}>
+            <button className='login-popup-login-button' onClick={() => { dispatch(connectVkAccount()); props.onClose() }}>
                 <i className='fab fa-vk' />
                 <span>Войти через ВКонтакте</span>
             </button>

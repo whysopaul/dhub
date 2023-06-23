@@ -7,7 +7,6 @@ import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
 import Banner from '../../static/images/service_banner.webp'
-import { mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import { TServicesData } from '../../actions/services/types';
 import ServiceGallery from './ServiceGallery';
@@ -17,7 +16,7 @@ import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 import ServiceEditPopup from './ServiceEditPopup';
 import { useDispatch } from 'react-redux';
 import { getService } from '../../actions/services/services';
-import { getScreen } from '../utils';
+import { feedbacksLength, getScreen } from '../utils';
 import { userAddHistory } from '../../actions/auth/auth';
 
 interface IServicePageProps {
@@ -128,7 +127,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     <h1 className='section-main-title'>{currentService.name}</h1>
                                     <i className='fas fa-external-link-alt' />
                                 </a>
-                                {authState && <button onClick={() => setEditMode(true)}>Редактировать</button>}
+                                {authState?.is_admin && <button onClick={() => setEditMode(true)}>Редактировать</button>}
                                 <span>{currentService.categories_3[0]?.name}</span>
                             </div>
                             <div className='service-rating-section'>
@@ -136,7 +135,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 <div className='service-rating-divider' />
                                 <div className='service-feedback-qty'>
                                     <i className='fas fa-star' />
-                                    <span>34 отзыва</span>
+                                    <span>{feedbacksLength(currentService.feedbacks.length)}</span>
                                 </div>
                             </div>
                         </div>
@@ -211,7 +210,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <div className='service-section-header-buttons'>
                         <button className={mode === 1 ? 'active' : null} onClick={() => setMode(1)}>
                             <p>Отзывы</p>
-                            <span>30</span>
+                            <span>{currentService.feedbacks.length}</span>
                         </button>
                         <button className={mode === 2 ? 'active' : null} onClick={() => setMode(2)}>
                             <p>Специалисты</p>
@@ -234,13 +233,13 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         </button>
                     </div>
                     {screenWidth > 576 && <div className='feedback-cards'>
-                        {mockFeedbackData.map(i => {
+                        {currentService.feedbacks.length > 0 && currentService.feedbacks.map(i => {
                             return <FeedbackCardComponent comment={i} key={i.id} />
                         })}
                     </div>}
                     {screenWidth <= 576 && <div className='feedback-cards'>
-                        {mockFeedbackData.slice(currentCard, currentCard + 1).map(i => {
-                            const dataLength = mockFeedbackData.length
+                        {currentService.feedbacks.length > 0 && currentService.feedbacks.slice(currentCard, currentCard + 1).map(i => {
+                            const dataLength = currentService.feedbacks.length
                             return <>
                                 <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
                                 <div className='cards-mobile-swipe-bar'>

@@ -82,7 +82,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                                     {showList && searchFilterName.map(service => {
                                         return <>
                                             <label className='feedback-popup-services-list-item' key={service.id}>
-                                                <img src={service.images.logo} />
+                                                <img src={service.images.logo} loading='lazy' />
                                                 <div>
                                                     <p>{service.name}</p>
                                                     <span>{service.categories_3[0]?.name}</span>

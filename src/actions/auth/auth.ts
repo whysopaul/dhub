@@ -43,7 +43,7 @@ export const extractToken = () => (dispatch: Dispatch<authDispatchTypes>) => {
 
 export const userAddHistory = (d_token: string, service_id: number) => (dispatch: Dispatch<authDispatchTypes>) => {
     axios.post(SERVER_URL + '/addHistory', JSON.stringify({ d_token, service_id })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: USER_ADD_HISTORY,

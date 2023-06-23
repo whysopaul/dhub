@@ -4,7 +4,7 @@ import '../../static/css/feedback.css';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useDispatch } from 'react-redux';
-import { feedbackToggleFeedbackUpvote } from '../../actions/feedback/feedback';
+import { feedbackDeleteFeedback, feedbackToggleFeedbackUpvote } from '../../actions/feedback/feedback';
 import { userShowLoginPopup } from '../../actions/auth/auth';
 
 interface IFeedbackCardComponentProps {
@@ -55,13 +55,16 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                     <p>BoostLike</p>
                     <span>Накрутка в социальных сетях</span>
                 </div>
-                <button className='feedback-service-likes' onClick={() => rootState.auth.user ? dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.service)) : dispatch(userShowLoginPopup())}>
+                <button className='feedback-service-likes' onClick={() => rootState.auth.user ? dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.id)) : dispatch(userShowLoginPopup())}>
                     <i className='fas fa-thumbs-up' />
                     <div>
                         <span>{comment.likes.length}</span>
                     </div>
                 </button>
             </div>
+            {comment.user.vk_id === rootState.auth.user?.vk_id && <div className='feedback-card-delete-container'>
+                <button onClick={() => dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))}>Удалить отзыв</button>
+            </div>}
         </div>
     </>;
 };
