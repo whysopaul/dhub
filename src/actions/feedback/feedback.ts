@@ -6,7 +6,7 @@ import { SERVER_URL } from "../../components/utils";
 
 export const feedbackCreateFeedback = (d_token: string, feedback: TFeedback) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
     axios.post(SERVER_URL + '/createFeedback', JSON.stringify({ d_token, feedback })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: FEEDBACK_CREATE_FEEDBACK,
@@ -19,7 +19,7 @@ export const feedbackCreateFeedback = (d_token: string, feedback: TFeedback) => 
 
 export const feedbackToggleFeedbackUpvote = (d_token: string, id: number) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
     axios.post(SERVER_URL + '/toggleFeedbackUpvote', JSON.stringify({ d_token, id })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: FEEDBACK_TOGGLE_FEEDBACK_UPVOTE,
@@ -32,7 +32,7 @@ export const feedbackToggleFeedbackUpvote = (d_token: string, id: number) => (di
 
 export const feedbackDeleteFeedback = (d_token: string, id: number) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteFeedback', { params: { d_token, id } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: FEEDBACK_DELETE_FEEDBACK,

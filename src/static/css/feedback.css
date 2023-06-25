@@ -100,14 +100,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: lightgray;
+    /* color: lightgray; */
+}
+
+.feedback-service-logo>a {
+    line-height: 0;
+    text-decoration: none;
+    border-radius: 50%;
+}
+
+.feedback-service-logo img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    border-radius: 50%;
 }
 
 .feedback-service-name {
     margin: 0 auto 0 16px;
 }
 
-.feedback-service-name>p {
+.feedback-service-name>a {
+    text-decoration: none;
+}
+
+.feedback-service-name p {
     font-weight: 400;
     font-size: 16px;
     line-height: 16px;
@@ -115,7 +132,7 @@
     margin-bottom: 6px;
 }
 
-.feedback-service-name>span {
+.feedback-service-name span {
     font-family: 'Montserrat', sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -127,7 +144,7 @@
 .feedback-service-likes {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     border: none;
     background: none;
     border-radius: 16px;
@@ -148,6 +165,23 @@
     align-items: center;
     justify-content: center;
     box-sizing: border-box;
+}
+
+.feedback-service-likes.active {
+    padding: 6px 8px;
+    background: #1FB663;
+}
+
+.feedback-service-likes.active>i {
+    color: #FFFFFF;
+    font-size: 14px;
+}
+
+.feedback-service-likes.active>div {
+    width: 24px;
+    height: 16px;
+    border: none;
+    background: #FFFFFF;
 }
 
 .feedback-service-likes span {

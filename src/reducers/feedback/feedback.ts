@@ -31,7 +31,7 @@ const feedbackReducer = (state: IDefaultState = defaultState, action: feedbackDi
             return {
                 ...state,
                 feedbacks: [
-                    ...state.feedbacks.filter(feedback => feedback.id !== action.payload)
+                    ...state.feedbacks.filter(feedback => feedback.id !== parseInt(action.payload))
                 ]
             }
         default:

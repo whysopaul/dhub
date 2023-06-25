@@ -49,7 +49,7 @@ interface IFeedbackToggleFeedbackUpvote {
 
 interface IFeedbackDeleteFeedback {
     type: typeof FEEDBACK_DELETE_FEEDBACK,
-    payload: number
+    payload: string
 }
 
 export type feedbackDispatchTypes = IFeedbackCreateFeedback | IFeedbackToggleFeedbackUpvote | IFeedbackDeleteFeedback

@@ -6,6 +6,7 @@ import { RootStore } from '../../store';
 import { useDispatch } from 'react-redux';
 import { feedbackDeleteFeedback, feedbackToggleFeedbackUpvote } from '../../actions/feedback/feedback';
 import { userShowLoginPopup } from '../../actions/auth/auth';
+import { Link } from 'react-router-dom';
 
 interface IFeedbackCardComponentProps {
     comment: TFeedback,
@@ -25,6 +26,8 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
             return <i style={{ color: idx < points ? '#FFC517' : '#D3DAEA' }} className='fas fa-star' key={idx} />
         })
     }
+
+    const feedbackServiceData = rootState.services.services.find(service => service.id === comment.service)
 
     return <>
         <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
@@ -49,13 +52,14 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
             <hr />
             <div className='feedback-card-footer'>
                 <div className='feedback-service-logo'>
-                    <i className='fas fa-icons' />
+                    <Link to={'/service/' + comment.service}><img src={feedbackServiceData?.images?.logo} /></Link>
+                    {/* <i className='fas fa-icons' /> */}
                 </div>
                 <div className='feedback-service-name'>
-                    <p>BoostLike</p>
-                    <span>Накрутка в социальных сетях</span>
+                    <Link to={'/service/' + comment.service}><p>{feedbackServiceData?.name}</p></Link>
+                    <Link to={'/services?categories=' + feedbackServiceData?.categories_3[0]?.id}><span>{feedbackServiceData?.categories_3[0]?.name}</span></Link>
                 </div>
-                <button className='feedback-service-likes' onClick={() => rootState.auth.user ? dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.id)) : dispatch(userShowLoginPopup())}>
+                <button className={comment.likes.includes(rootState.auth.user?.vk_id) ? 'feedback-service-likes active' : 'feedback-service-likes'} onClick={() => rootState.auth.user ? dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.id)) : dispatch(userShowLoginPopup())}>
                     <i className='fas fa-thumbs-up' />
                     <div>
                         <span>{comment.likes.length}</span>
