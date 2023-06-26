@@ -59,7 +59,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                     <Link to={'/service/' + comment.service}><p>{feedbackServiceData?.name}</p></Link>
                     <Link to={'/services?categories=' + feedbackServiceData?.categories_3[0]?.id}><span>{feedbackServiceData?.categories_3[0]?.name}</span></Link>
                 </div>
-                <button className={comment.likes.includes(rootState.auth.user?.vk_id) ? 'feedback-service-likes active' : 'feedback-service-likes'} onClick={() => rootState.auth.user ? dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.id)) : dispatch(userShowLoginPopup())}>
+                <button className={rootState.auth.user && comment.likes.includes(rootState.auth.user?.vk_id) ? 'feedback-service-likes active' : 'feedback-service-likes'} onClick={() => rootState.auth.user ? dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.id)) : dispatch(userShowLoginPopup())}>
                     <i className='fas fa-thumbs-up' />
                     <div>
                         <span>{comment.likes.length}</span>

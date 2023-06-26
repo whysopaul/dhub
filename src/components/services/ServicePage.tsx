@@ -17,7 +17,7 @@ import ServiceEditPopup from './ServiceEditPopup';
 import { useDispatch } from 'react-redux';
 import { getService } from '../../actions/services/services';
 import { feedbacksLength, getScreen } from '../utils';
-import { userAddHistory } from '../../actions/auth/auth';
+import { userAddHistory, userShowLoginPopup } from '../../actions/auth/auth';
 
 interface IServicePageProps {
 }
@@ -227,7 +227,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 {mode === 1 && <>
                     <div className='section-header-container'>
                         <h2 className='section-main-title'>Отзывы</h2>
-                        <button className='feedback-button' onClick={() => setShowFeedbackPopup(true)}>
+                        <button className='feedback-button' onClick={() => authState ? setShowFeedbackPopup(true) : dispatch(userShowLoginPopup())}>
                             <i className='far fa-edit' />
                             <span>Оставить отзыв</span>
                         </button>
@@ -244,7 +244,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
                                 <div className='cards-mobile-swipe-bar'>
                                     {[...new Array(dataLength)].map((_, idx) => {
-                                        return <button className={i.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
+                                        return <button className={currentCard === idx ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
                                     })}
                                 </div>
                             </>

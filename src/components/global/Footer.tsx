@@ -37,7 +37,7 @@ const Footer: React.FunctionComponent<IFooterProps> = (props) => {
                     </div>
                 </div>
                 <div className='footer-copyright'>
-                    <p>Санкт-Петербург, 2023. Все права защищены.</p>
+                    <p>Москва, 2023. Все права защищены.</p>
                 </div>
             </div>
         </footer>

@@ -1,5 +1,10 @@
 /* SERVICE CARD */
 
+.service-card-link {
+    text-decoration: none;
+    border-radius: 12px;
+}
+
 .service-card-container {
     width: 245px;
     height: 310px;
@@ -442,7 +447,7 @@
     gap: 24px;
 }
 
-.services-list-cards-container>.service-card-container {
+.services-list-cards-container .service-card-container {
     width: 235px !important;
 }
 
