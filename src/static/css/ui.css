@@ -101,6 +101,12 @@
 .page-number-button.active {
     background: #386BEE;
     color: #FFFFFF;
+    cursor: auto;
+}
+
+.page-number-button.disabled {
+    pointer-events: none;
+    filter: grayscale();
 }
 
 .popup-close-button {

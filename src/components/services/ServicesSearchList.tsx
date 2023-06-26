@@ -98,7 +98,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         return Array.from({ length }, (_, idx) => idx + start);
     };
 
-    const paginationRange = React.useMemo(() => {
+    const paginationRange = () => {
         const totalPageCount = Math.ceil(totalCount / numberOfServices);
 
         // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
@@ -161,7 +161,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             let middleRange = range(leftSiblingIndex, rightSiblingIndex);
             return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
         }
-    }, [totalCount, numberOfServices, siblingCount, currentPage]);
+    };
 
     useEffect(() => {
         setSortMode('default')
@@ -278,13 +278,21 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             {searchCondition.length === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}
         </div>
         {searchCondition.length > 0 && numberOfPages.length > 1 && <div className='services-list-pagination'>
-            <button className='page-number-button' onClick={() => { currentPage > 1 && setCurrentPage(currentPage - 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }}>
+            <button className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage > 1 && setCurrentPage(currentPage - 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }} disabled={currentPage === 1}>
                 <i className='fas fa-chevron-left' />
             </button>
-            {paginationRange.map(number => {
-                return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => { typeof number === 'number' && setCurrentPage(number); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }} key={number}>{number}</button>
+            {paginationRange().map(number => {
+
+                const changePage = (number: number) => {
+                    setCurrentPage(number)
+                    titleRef.current.scrollIntoView({ behavior: 'smooth' })
+                }
+
+                return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => { typeof number === 'number' && currentPage !== number ? changePage(number) : null }} key={number}>
+                    {number}
+                </button>
             })}
-            <button className='page-number-button' onClick={() => { currentPage < numberOfPages.length && setCurrentPage(currentPage + 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }}>
+            <button className={currentPage === numberOfPages.length ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage < numberOfPages.length && setCurrentPage(currentPage + 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }} disabled={currentPage === numberOfPages.length}>
                 <i className='fas fa-chevron-right' />
             </button>
         </div>}

@@ -1042,7 +1042,7 @@
         line-height: 10px;
     }
 
-    .services-list-cards-container>.service-card-container {
+    .services-list-cards-container .service-card-container {
         width: 100% !important;
     }
 
