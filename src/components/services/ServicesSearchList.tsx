@@ -86,7 +86,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [numberOfServices] = useState(20)
     const [currentPage, setCurrentPage] = useState(1)
     const numberOfPages = new Array(Math.ceil(totalCount / numberOfServices)).fill('').map((_, idx) => idx + 1)
-    const siblingCount = 2
+    const siblingCount = 1
     const DOTS = '...'
 
     const range = (start: number, end: number): number[] => {
@@ -288,7 +288,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     titleRef.current.scrollIntoView({ behavior: 'smooth' })
                 }
 
-                return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => { typeof number === 'number' && currentPage !== number ? changePage(number) : null }} key={number}>
+                return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => { typeof number === 'number' && currentPage !== number && changePage(number) }} key={number}>
                     {number}
                 </button>
             })}
