@@ -106,7 +106,8 @@
 
 .page-number-button.disabled {
     pointer-events: none;
-    filter: grayscale();
+    background: none;
+    color: #636E8D;
 }
 
 .popup-close-button {

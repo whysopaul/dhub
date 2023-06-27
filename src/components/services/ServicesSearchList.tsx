@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import ServiceCardComponent from './ServiceCardComponent';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { TServicesData } from '../../actions/services/types';
 import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
@@ -98,7 +98,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         return Array.from({ length }, (_, idx) => idx + start);
     };
 
-    const paginationRange = () => {
+    const paginationRange = useMemo(() => {
         const totalPageCount = Math.ceil(totalCount / numberOfServices);
 
         // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
@@ -161,7 +161,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             let middleRange = range(leftSiblingIndex, rightSiblingIndex);
             return [firstPageIndex, DOTS, ...middleRange, DOTS, lastPageIndex];
         }
-    };
+    }, [currentPage, numberOfPages, totalCount]);
 
     useEffect(() => {
         setSortMode('default')
@@ -281,11 +281,15 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             <button className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage > 1 && setCurrentPage(currentPage - 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }} disabled={currentPage === 1}>
                 <i className='fas fa-chevron-left' />
             </button>
-            {paginationRange().map(number => {
+            {paginationRange.map(number => {
 
                 const changePage = (number: number) => {
                     setCurrentPage(number)
                     titleRef.current.scrollIntoView({ behavior: 'smooth' })
+                }
+
+                if (number === DOTS) {
+                    return <button className='page-number-button disabled' disabled>&#8230;</button>
                 }
 
                 return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => { typeof number === 'number' && currentPage !== number && changePage(number) }} key={number}>
