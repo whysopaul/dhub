@@ -5,6 +5,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    gap: 32px;
     margin-bottom: 32px;
 }
 
@@ -12,6 +13,25 @@
     display: flex;
     align-items: center;
     gap: 24px;
+}
+
+.user-profile-admin-button-container {
+    margin-right: auto;
+}
+
+.user-profile-admin-button {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 16px;
+    padding: 16px 24px;
+    background: rgba(115, 149, 231, 0.1);
+    border-radius: 24px;
+    color: #386BEE;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
 }
 
 .user-profile-edit-button-container {
@@ -146,6 +166,40 @@
     width: 120px;
     height: 120px;
     border-radius: 50%;
+}
+
+/* USER ADMIN PANEL */
+
+.user-admin-panel {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin-bottom: 200px;
+}
+
+.user-admin-panel-button {
+    width: 100%;
+    min-width: 120px;
+    height: 120px;
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    background: #F4F7FF;
+    border-radius: 24px;
+    color: #386BEE;
+    box-shadow: 0 0 4px #F4F7FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.user-admin-panel-button>i {
+    font-size: 24px;
 }
 
 /* MOBILE */

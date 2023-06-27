@@ -118,6 +118,19 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                 }
             })
         }
+
+        if (path === '/admin') {
+            return pathArray.map(link => {
+                switch (link) {
+                    case '':
+                        return <li><Link to='/'>Главная</Link></li>
+                    case 'admin':
+                        return <li><span>Панель администратора</span></li>
+                    default:
+                        return null
+                }
+            })
+        }
     }
 
     return <>

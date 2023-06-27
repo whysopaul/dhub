@@ -7,6 +7,7 @@ export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
 export const GET_SERVICE = 'GET_SERVICE'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
+export const CREATE_SERVICE = 'CREATE_SERVICE'
 
 export type TServicesData = {
     id: number,
@@ -90,4 +91,9 @@ interface IServiceDataUpdate {
     payload: TServicesData
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate
+interface ICreateService {
+    type: typeof CREATE_SERVICE,
+    payload: TServicesData
+}
+
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | ICreateService

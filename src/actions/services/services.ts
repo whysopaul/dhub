@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -47,7 +47,7 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes |
             })
         })
 
-        services = services.map(s => {
+        services = services.filter(service => service.id !== 3837 && service.id !== 3838).map(s => {
             return {
                 ...s,
                 categories_2: s_c_2[s.id],
@@ -160,6 +160,42 @@ export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Disp
 
         dispatch({
             type: SERVICE_DATA_UPDATE,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const createService = (serviceData: TServicesData) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createService', JSON.stringify({ service: serviceData })).then(res => {
+        console.log(res.data)
+
+        // {
+        //     "id": 3838,
+        //     "name": "Не указано",
+        //     "description": {
+        //         "text": "Не указано",
+        //         "isFree": false,
+        //         "hasTrial": false,
+        //         "paymentMethod": "Не указано",
+        //         "price": "Не указано",
+        //         "locations": [],
+        //         "platforms": [],
+        //         "hasPartnership": false
+        //     },
+        //     "rating": 0,
+        //     "categories_3": [],
+        //     "categories_2": [],
+        //     "images": {
+        //         "logo": "",
+        //         "screenshots": []
+        //     },
+        //     "feedbacks": []
+        // }
+
+        dispatch({
+            type: CREATE_SERVICE,
             payload: res.data
         })
     }).catch(error => {

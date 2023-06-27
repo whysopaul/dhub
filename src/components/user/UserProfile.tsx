@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
@@ -17,6 +17,8 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
 
     const userState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services.services)
+
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (!userState) {
@@ -38,6 +40,12 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                     <img src={userState.photo} alt="" className='user-profile-photo' />
                     <h2 className='section-main-title'>{userState.name}</h2>
                 </div>
+                {userState?.is_admin && <div className='user-profile-admin-button-container'>
+                    <button className='user-profile-admin-button' onClick={() => navigate('/admin')}>
+                        <i className='fas fa-tools' />
+                        <span>Панель администратора</span>
+                    </button>
+                </div>}
                 <div className='user-profile-edit-button-container'>
                     <Link to='/profile/edit' className='arrow-right-link'>
                         <span>Редактировать профиль</span>

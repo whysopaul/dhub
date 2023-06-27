@@ -20,7 +20,7 @@ const ServiceCardComponent: React.FunctionComponent<IServiceCardComponentProps> 
                 </div>
                 <div>
                     <p className='service-card-name'>{props.service.name}</p>
-                    <span className='service-card-category'>{props.service.categories_3[0]?.name}</span>
+                    <span className='service-card-category'>{props.service.categories_3.length > 0 && props.service.categories_3[0]?.name}</span>
                     <p className='service-card-description'>{props.service.description?.text?.slice(0, 100) + '...'}</p>
                 </div>
             </div>
