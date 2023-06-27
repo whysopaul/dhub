@@ -59,19 +59,19 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
         case FEEDBACK_CREATE_FEEDBACK:
             return {
                 ...state,
-                currentService: {
+                currentService: !state.currentService ? null : {
                     ...state.currentService,
-                    feedbacks: state.currentService?.id === action.payload.service
+                    feedbacks: state.currentService.id === action.payload.service
                         ? [...state.currentService.feedbacks, action.payload]
-                        : [...state.currentService?.feedbacks]
+                        : [...state.currentService.feedbacks]
                 }
             }
         case FEEDBACK_TOGGLE_FEEDBACK_UPVOTE:
             return {
                 ...state,
-                currentService: {
+                currentService: !state.currentService ? null : {
                     ...state.currentService,
-                    feedbacks: state.currentService?.id === action.payload.service
+                    feedbacks: state.currentService.id === action.payload.service
                         ? [
                             ...state.currentService.feedbacks.map(feedback => {
                                 if (feedback.id === action.payload.id) {
@@ -80,13 +80,13 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
                                 return feedback
                             })
                         ]
-                        : [...state.currentService?.feedbacks]
+                        : [...state.currentService.feedbacks]
                 }
             }
         case FEEDBACK_DELETE_FEEDBACK:
             return {
                 ...state,
-                currentService: {
+                currentService: !state.currentService ? null : {
                     ...state.currentService,
                     feedbacks: [...state.currentService.feedbacks.filter(feedback => feedback.id !== parseInt(action.payload))]
                 }

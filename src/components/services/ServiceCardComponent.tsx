@@ -10,7 +10,7 @@ interface IServiceCardComponentProps {
 
 const ServiceCardComponent: React.FunctionComponent<IServiceCardComponentProps> = (props) => {
     return <>
-        <Link to={'/service/' + props.service.id} className='service-card-link'>
+        {props.service && <Link to={'/service/' + props.service.id} className='service-card-link'>
             <div className='service-card-container'>
                 <div className='service-card-header'>
                     <div className='service-card-logo'>
@@ -24,7 +24,7 @@ const ServiceCardComponent: React.FunctionComponent<IServiceCardComponentProps> 
                     <p className='service-card-description'>{props.service.description?.text?.slice(0, 100) + '...'}</p>
                 </div>
             </div>
-        </Link>
+        </Link>}
     </>;
 };
 
