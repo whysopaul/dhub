@@ -162,7 +162,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div> */}
 
-            <HomeServicesComponent title='Новые сервисы' data={serviceState.services} qty={servicesQty} sortModeLink='new' />
+            <HomeServicesComponent title='Новые сервисы' data={[...serviceState.services].sort((a, b) => b.id - a.id)} qty={servicesQty} sortModeLink='new' />
 
             <div className='home-banners-wrapper'>
                 <div className='home-giftbox-container'>
@@ -196,7 +196,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState.services} qty={servicesQty} sortModeLink='free' />
+            <HomeServicesComponent title='Бесплатные сервисы' data={[...serviceState.services].filter(service => service.description.isFree)} qty={servicesQty} sortModeLink='free' />
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
@@ -225,7 +225,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>}
             </div>
 
-            <HomeServicesComponent title='Топ-сервисов' data={serviceState.services} qty={servicesQty} sortModeLink='top' />
+            <HomeServicesComponent title='Топ-сервисов' data={[...serviceState.services].sort((a, b) => b.rating - a.rating)} qty={servicesQty} sortModeLink='top' />
 
             <HomeArticlesComponent data={mockArtData} />
 
