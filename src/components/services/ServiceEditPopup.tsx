@@ -28,12 +28,19 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const [paymentMethod, setPaymentMethod] = useState(props.service.description.paymentMethod)
     const [locations, setLocations] = useState(props.service.description.locations)
     const [platforms, setPlatforms] = useState(props.service.description.platforms)
+    const [mainCategories, setMainCategories] = useState(props.service.categories_2)
     const [categories, setCategories] = useState(props.service.categories_3)
 
+    const [showAddMainCategoryPopup, setShowAddMainCategoryPopup] = useState(false)
     const [showAddCategoryPopup, setShowAddCategoryPopup] = useState(false)
     const [searchCategory, setSearchCategory] = useState('')
     const searchRef = useRef<HTMLInputElement>(null)
     const [showList, setShowList] = useState(false)
+
+    const searchMainCategoryFilter = useMemo(() => {
+        return categoriesState.filter(category => category.index === 2).filter(category => !mainCategories.map(cat => cat.id).includes(category.id)).filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
+    }, [searchCategory, mainCategories, categoriesState])
+
     const searchCategoryFilter = useMemo(() => {
         return categoriesState.filter(category => category.index === 3).filter(category => !categories.map(cat => cat.id).includes(category.id)).filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
     }, [searchCategory, categories, categoriesState])
@@ -50,6 +57,12 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             : setPlatforms([...platforms, platform])
     }
 
+    const toggleMainCategories = (category: TCategory) => {
+        mainCategories.map(cat => cat.id).includes(category.id)
+            ? setMainCategories(mainCategories.filter(cat => cat.id !== category.id))
+            : setMainCategories([...mainCategories, category])
+    }
+
     const toggleCategories = (category: TCategory) => {
         categories.map(cat => cat.id).includes(category.id)
             ? setCategories(categories.filter(cat => cat.id !== category.id))
@@ -61,12 +74,33 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const refOne = useRef(null)
     const refTwo = useRef(null)
 
-    useOnClickOutside(showAddCategoryPopup ? refTwo : refOne, () => showAddCategoryPopup ? setShowAddCategoryPopup(false) : props.onClose())
+    useOnClickOutside((showAddMainCategoryPopup || showAddCategoryPopup) ? refTwo : refOne, () => showAddMainCategoryPopup ? setShowAddMainCategoryPopup(false) : showAddCategoryPopup ? setShowAddCategoryPopup(false) : props.onClose())
 
     useOnPopup()
 
     return <>
         <div className='backdrop' />
+
+        {showAddMainCategoryPopup && <>
+            <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
+            <div className='service-edit-popup-add-category-popup' ref={refTwo}>
+                <h3>Добавить категорию</h3>
+                <div className='service-edit-popup-add-category-search'>
+                    <input type='text' placeholder='Выберите категорию из списка' value={searchCategory} onChange={e => setSearchCategory(e.target.value)} onFocus={() => setShowList(true)} ref={searchRef} />
+                    <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}>
+                        <i className={`fas fa-caret-${showList ? 'up' : 'down'} color-blue cursor-pointer`} />
+                    </button>
+                </div>
+                <ul className='service-edit-popup-add-category-list'>
+                    {showList && searchMainCategoryFilter.map(category => {
+                        return <li key={category.id}>
+                            <button className='category-tag' onClick={() => toggleMainCategories(category)}>{category.name}<i className='fas fa-plus' /></button>
+                        </li>
+                    })}
+                </ul>
+                <button className='popup-close-button' onClick={() => setShowAddMainCategoryPopup(false)}><i className='fas fa-times' /></button>
+            </div>
+        </>}
 
         {showAddCategoryPopup && <>
             <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
@@ -118,6 +152,15 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     </ul>
                     <p>Категории:</p>
                     <ul className='categories-list'>
+                        {mainCategories.map(category => {
+                            return <li key={category.id}>
+                                <button className='category-tag' onClick={() => toggleMainCategories(category)}>{category.name}<i className='fas fa-times' /></button>
+                            </li>
+                        })}
+                        <li><button className='category-tag-add-category' onClick={() => setShowAddMainCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
+                    </ul>
+                    <p>Подкатегории:</p>
+                    <ul className='categories-list'>
                         {categories.map(category => {
                             return <li key={category.id}>
                                 <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-times' /></button>
@@ -132,6 +175,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     dispatch(serviceDataUpdate({
                         ...props.service,
                         name: name,
+                        categories_2: mainCategories,
                         categories_3: categories,
                         description: {
                             ...props.service.description,
