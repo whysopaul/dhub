@@ -51,6 +51,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     feedbacks: [],
                 }}
                 onClose={() => setCreateService(false)}
+                add
             />}
 
             <div>

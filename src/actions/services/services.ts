@@ -47,7 +47,7 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes |
             })
         })
 
-        services = services.filter(service => service.id !== 3837 && service.id !== 3838).map(s => {
+        services = services.filter(service => service.id !== 3837 && service.id !== 3838 && service.id !== 3840).map(s => {
             return {
                 ...s,
                 categories_2: s_c_2[s.id],

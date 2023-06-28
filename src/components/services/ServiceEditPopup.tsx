@@ -11,7 +11,8 @@ import { TCategory } from '../../actions/categories/types';
 
 interface IServiceEditPopupProps {
     service: TServicesData,
-    onClose: () => void
+    onClose: () => void,
+    add?: boolean
 }
 
 const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props) => {
@@ -69,6 +70,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             : setCategories([...categories, category])
     }
 
+    const [showAlert, setShowAlert] = useState(false)
+
     const dispatch = useDispatch()
 
     const refOne = useRef(null)
@@ -105,7 +108,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
         {showAddCategoryPopup && <>
             <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
             <div className='service-edit-popup-add-category-popup' ref={refTwo}>
-                <h3>Добавить категорию</h3>
+                <h3>Добавить подкатегорию</h3>
                 <div className='service-edit-popup-add-category-search'>
                     <input type='text' placeholder='Выберите категорию из списка' value={searchCategory} onChange={e => setSearchCategory(e.target.value)} onFocus={() => setShowList(true)} ref={searchRef} />
                     <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}>
@@ -124,7 +127,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
         </>}
 
         <div className='service-edit-popup-container' ref={refOne}>
-            <h2>Редактирование сервиса</h2>
+            <h2>{props.add ? 'Добавить сервис' : 'Редактирование сервиса'}</h2>
             <div className='service-edit-info'>
                 <input type='text' placeholder='Название сервиса' value={name} onChange={e => setName(e.target.value)} />
                 <textarea placeholder='Описание сервиса' value={description} onChange={e => setDescription(e.target.value)} />
@@ -170,25 +173,36 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     </ul>
                 </div>
             </div>
+
+            {showAlert && <div>
+                <p className='service-edit-alert'>Пожалуйста, заполните все поля ввода и выберите минимум одну категорию и подкатегорию</p>
+            </div>}
+
             <div>
                 <button className='blue-shadow-button' onClick={() => {
-                    dispatch(serviceDataUpdate({
-                        ...props.service,
-                        name: name,
-                        categories_2: mainCategories,
-                        categories_3: categories,
-                        description: {
-                            ...props.service.description,
-                            text: description,
-                            isFree: isFree,
-                            hasTrial: hasTrial,
-                            hasPartnership: hasPartnership,
-                            price: price,
-                            paymentMethod: paymentMethod,
-                            locations: locations,
-                            platforms: platforms
-                        }
-                    })); props.onClose()
+                    if (name && mainCategories.length > 0 && categories.length > 0 && description && price && paymentMethod && locations.length > 0 && platforms.length > 0) {
+                        dispatch(serviceDataUpdate({
+                            ...props.service,
+                            name: name,
+                            categories_2: mainCategories,
+                            categories_3: categories,
+                            description: {
+                                ...props.service.description,
+                                text: description,
+                                isFree: isFree,
+                                hasTrial: hasTrial,
+                                hasPartnership: hasPartnership,
+                                price: price,
+                                paymentMethod: paymentMethod,
+                                locations: locations,
+                                platforms: platforms
+                            }
+                        }))
+                        setShowAlert(false)
+                        props.onClose()
+                    } else {
+                        setShowAlert(true)
+                    }
                 }}>Сохранить изменения</button>
             </div>
             <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
