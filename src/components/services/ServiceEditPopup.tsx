@@ -92,14 +92,14 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
         <div className='service-edit-popup-container' ref={refOne}>
             <h2>Редактирование сервиса</h2>
             <div className='service-edit-info'>
-                <input type='text' value={name} onChange={e => setName(e.target.value)} />
-                <textarea value={description} onChange={e => setDescription(e.target.value)} />
+                <input type='text' placeholder='Название сервиса' value={name} onChange={e => setName(e.target.value)} />
+                <textarea placeholder='Описание сервиса' value={description} onChange={e => setDescription(e.target.value)} />
                 <div className='service-edit-details'>
                     <label><span>Бесплатная версия:</span><input type='checkbox' checked={isFree} onChange={() => setIsFree(!isFree)} /></label>
                     <label><span>Пробный период:</span><input type='checkbox' checked={hasTrial} onChange={() => setHasTrial(!hasTrial)} /></label>
                     <label><span>Партнерская программа:</span><input type='checkbox' checked={hasPartnership} onChange={() => setHasPartnership(!hasPartnership)} /></label>
-                    <label><span>Стоимость:</span><input type='text' value={price} onChange={e => setPrice(e.target.value)} /></label>
-                    <label><span>Способ оплаты:</span><input type='text' value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} /></label>
+                    <label><span>Стоимость:</span><input type='text' placeholder='напр.: от 1000 р. в месяц' value={price} onChange={e => setPrice(e.target.value)} /></label>
+                    <label><span>Способ оплаты:</span><input type='text' placeholder='напр.: ежемесячно, по подписке' value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} /></label>
                     <p>Дислокация:</p>
                     <ul className='categories-list'>
                         {serviceState.locations?.map(location => {

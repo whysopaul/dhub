@@ -52,7 +52,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
             <hr />
             <div className='feedback-card-footer'>
                 <div className='feedback-service-logo'>
-                    <Link to={'/service/' + comment.service}><img src={feedbackServiceData?.images?.logo} /></Link>
+                    <Link to={'/service/' + comment.service}><img src={feedbackServiceData?.images?.logo} alt={feedbackServiceData?.name} /></Link>
                     {/* <i className='fas fa-icons' /> */}
                 </div>
                 <div className='feedback-service-name'>

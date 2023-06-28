@@ -167,38 +167,38 @@ export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Disp
     })
 }
 
-export const createService = (serviceData: TServicesData) => (dispatch: Dispatch<servicesDispatchTypes>) => {
-    axios.post(SERVER_URL + '/createService', JSON.stringify({ service: serviceData })).then(res => {
-        console.log(res.data)
+// export const createService = (serviceData: TServicesData) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+//     axios.post(SERVER_URL + '/createService', JSON.stringify({ ...serviceData })).then(res => {
+//         console.log(res.data)
 
-        // {
-        //     "id": 3838,
-        //     "name": "Не указано",
-        //     "description": {
-        //         "text": "Не указано",
-        //         "isFree": false,
-        //         "hasTrial": false,
-        //         "paymentMethod": "Не указано",
-        //         "price": "Не указано",
-        //         "locations": [],
-        //         "platforms": [],
-        //         "hasPartnership": false
-        //     },
-        //     "rating": 0,
-        //     "categories_3": [],
-        //     "categories_2": [],
-        //     "images": {
-        //         "logo": "",
-        //         "screenshots": []
-        //     },
-        //     "feedbacks": []
-        // }
+//         // {
+//         //     "id": 3838,
+//         //     "name": "Не указано",
+//         //     "description": {
+//         //         "text": "Не указано",
+//         //         "isFree": false,
+//         //         "hasTrial": false,
+//         //         "paymentMethod": "Не указано",
+//         //         "price": "Не указано",
+//         //         "locations": [],
+//         //         "platforms": [],
+//         //         "hasPartnership": false
+//         //     },
+//         //     "rating": 0,
+//         //     "categories_3": [],
+//         //     "categories_2": [],
+//         //     "images": {
+//         //         "logo": "",
+//         //         "screenshots": []
+//         //     },
+//         //     "feedbacks": []
+//         // }
 
-        dispatch({
-            type: CREATE_SERVICE,
-            payload: res.data
-        })
-    }).catch(error => {
-        console.log(error)
-    })
-}
+//         dispatch({
+//             type: CREATE_SERVICE,
+//             payload: res.data
+//         })
+//     }).catch(error => {
+//         console.log(error)
+//     })
+// }

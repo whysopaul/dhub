@@ -91,9 +91,9 @@ interface IServiceDataUpdate {
     payload: TServicesData
 }
 
-interface ICreateService {
-    type: typeof CREATE_SERVICE,
-    payload: TServicesData
-}
+// interface ICreateService {
+//     type: typeof CREATE_SERVICE,
+//     payload: TServicesData
+// }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | ICreateService
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate

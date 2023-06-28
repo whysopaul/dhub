@@ -107,6 +107,8 @@
     line-height: 0;
     text-decoration: none;
     border-radius: 50%;
+    font-size: 8px;
+    color: #386BEE;
 }
 
 .feedback-service-logo img {

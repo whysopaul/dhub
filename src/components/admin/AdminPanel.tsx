@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { URL } from '../utils';
 import { useDispatch } from 'react-redux';
-import { createService } from '../../actions/services/services';
+// import { createService } from '../../actions/services/services';
+import ServiceEditPopup from '../services/ServiceEditPopup';
 
 interface IAdminPanelProps {
 }
@@ -15,6 +16,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     const dispatch = useDispatch()
 
+    const [createService, setCreateService] = useState(false)
+
     useEffect(() => {
         if (!userState || !userState?.is_admin) {
             window.location.replace(URL)
@@ -23,15 +26,13 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     return <>
         {userState?.is_admin && <>
-            <div>
-                <h2 className='section-main-title'>Панель администратора</h2>
-            </div>
-            <div className='user-admin-panel'>
-                <button className='user-admin-panel-button' /*onClick={() => dispatch(createService({
+
+            {createService && <ServiceEditPopup
+                service={{
                     id: -1,
-                    name: 'Test',
+                    name: '',
                     description: {
-                        text: 'Test description',
+                        text: '',
                         isFree: false,
                         hasTrial: false,
                         paymentMethod: '',
@@ -48,7 +49,15 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                         screenshots: []
                     },
                     feedbacks: [],
-                }))}*/>
+                }}
+                onClose={() => setCreateService(false)}
+            />}
+
+            <div>
+                <h2 className='section-main-title'>Панель администратора</h2>
+            </div>
+            <div className='user-admin-panel'>
+                <button className='user-admin-panel-button' onClick={() => setCreateService(true)}>
                     <i className='fas fa-plus' />
                     <span>Добавить сервис</span>
                 </button>

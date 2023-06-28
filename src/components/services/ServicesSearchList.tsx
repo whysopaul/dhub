@@ -31,7 +31,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов']
     const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
-    const [sortMode, setSortMode] = useState<string>(null)
+    const [sortMode, setSortMode] = useState<string>('default')
 
     const searchCondition: TServicesData[] = rootState.services.services.map(service => {
         return {
