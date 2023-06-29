@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -202,3 +202,29 @@ export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Disp
 //         console.log(error)
 //     })
 // }
+
+export const createLocation = (name: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createLocation', JSON.stringify({ name })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_LOCATION,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const createPlatform = (name: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createPlatform', JSON.stringify({ name })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_PLATFORM,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}

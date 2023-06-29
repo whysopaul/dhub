@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { GET_ALL_CATEGORIES, categoriesDispatchTypes } from "./types";
+import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, GET_ALL_CATEGORIES, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -9,6 +9,32 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
 
         dispatch({
             type: GET_ALL_CATEGORIES,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const createCategory = (name: string, index: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createCategory', JSON.stringify({ name, index })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_CATEGORY,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const createCategoryRelations = (cat_id: number, parent_id: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createCategoryRelations', JSON.stringify({ cat_id, parent_id })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_CATEGORY_RELATIONS,
             payload: res.data
         })
     }).catch(error => {

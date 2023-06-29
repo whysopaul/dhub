@@ -8,6 +8,9 @@ export const GET_SERVICE = 'GET_SERVICE'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
 export const CREATE_SERVICE = 'CREATE_SERVICE'
+export const CREATE_LOCATION = 'CREATE_LOCATION'
+export const CREATE_PLATFORM = 'CREATE_PLATFORM'
+export const CREATE_SCREENSHOT = 'CREATE_SCREENSHOT'
 
 export type TServicesData = {
     id: number,
@@ -96,4 +99,19 @@ interface IServiceDataUpdate {
 //     payload: TServicesData
 // }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate
+interface ICreateLocation {
+    type: typeof CREATE_LOCATION,
+    payload: any
+}
+
+interface ICreatePlatform {
+    type: typeof CREATE_PLATFORM,
+    payload: any
+}
+
+interface ICreateScreenshot {
+    type: typeof CREATE_SCREENSHOT,
+    payload: any
+}
+
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | ICreateLocation | ICreatePlatform | ICreateScreenshot

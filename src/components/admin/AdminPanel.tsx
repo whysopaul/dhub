@@ -6,6 +6,7 @@ import { URL } from '../utils';
 import { useDispatch } from 'react-redux';
 // import { createService } from '../../actions/services/services';
 import ServiceEditPopup from '../services/ServiceEditPopup';
+import CategoryAddPopup from '../categories/CategoryAddPopup';
 
 interface IAdminPanelProps {
 }
@@ -17,6 +18,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const dispatch = useDispatch()
 
     const [createService, setCreateService] = useState(false)
+    const [createCategory, setCreateCategory] = useState(false)
 
     useEffect(() => {
         if (!userState || !userState?.is_admin) {
@@ -54,6 +56,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 add
             />}
 
+            {createCategory && <CategoryAddPopup onClose={() => setCreateCategory(false)} />}
+
             <div>
                 <h2 className='section-main-title'>Панель администратора</h2>
             </div>
@@ -62,7 +66,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     <i className='fas fa-plus' />
                     <span>Добавить сервис</span>
                 </button>
-                <button className='user-admin-panel-button'>
+                <button className='user-admin-panel-button' onClick={() => setCreateCategory(true)}>
                     <i className='fas fa-plus' />
                     <span>Добавить категорию</span>
                 </button>

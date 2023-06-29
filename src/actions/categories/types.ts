@@ -1,4 +1,6 @@
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
+export const CREATE_CATEGORY = 'CREATE_CATEGORY'
+export const CREATE_CATEGORY_RELATIONS = 'CREATE_CATEGORY_RELATIONS'
 
 // export type TMainCategory = {
 //     id: number,
@@ -23,4 +25,14 @@ interface IGetCategories {
     payload: TCategory[]
 }
 
-export type categoriesDispatchTypes = IGetCategories
+interface ICreateCategory {
+    type: typeof CREATE_CATEGORY,
+    payload: any
+}
+
+interface ICreateCategoryRelations {
+    type: typeof CREATE_CATEGORY_RELATIONS,
+    payload: any
+}
+
+export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations
