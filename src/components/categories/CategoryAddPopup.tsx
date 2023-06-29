@@ -28,7 +28,7 @@ const CategoryAddPopup: React.FunctionComponent<ICategoryAddPopupProps> = (props
         <div className='backdrop' />
         <div className='popup-container' ref={ref}>
             <h2>Добавить категорию</h2>
-            <div className='popup-add-category-form'>
+            <div className='popup-add-form'>
                 <label>
                     <span>Название:</span>
                     <input type='text' placeholder='Введите название категории' value={name} onChange={e => setName(e.target.value)} />

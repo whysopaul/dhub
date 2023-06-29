@@ -203,7 +203,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     } else {
                         setShowAlert(true)
                     }
-                }}>Сохранить изменения</button>
+                }}>{props.add ? 'Добавить сервис' : 'Сохранить изменения'}</button>
             </div>
             <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
         </div>

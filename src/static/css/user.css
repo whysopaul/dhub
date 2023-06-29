@@ -171,11 +171,16 @@
 /* USER ADMIN PANEL */
 
 .user-admin-panel {
-    margin-top: 32px;
+    margin: 32px 0;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: 220px auto;
     gap: 24px;
-    margin-bottom: 200px;
+}
+
+.user-admin-panel-add-buttons {
+    display: grid;
+    align-content: flex-start;
+    gap: 24px;
 }
 
 .user-admin-panel-button {
@@ -200,6 +205,97 @@
 
 .user-admin-panel-button>i {
     font-size: 24px;
+}
+
+.user-admin-panel-table {
+    display: grid;
+    gap: 16px;
+}
+
+.user-admin-panel-table-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.user-admin-panel-table-header>.wide-search-container {
+    margin: 0;
+}
+
+.user-admin-panel-table-header>.wide-search-container>input {
+    padding: 0 16px 0 48px;
+}
+
+.user-admin-panel-table-header>.wide-search-container>i {
+    float: left;
+    margin-left: 18px;
+    margin-right: 0;
+    color: #386BEE;
+}
+
+.user-admin-panel-table-content {
+    height: 505px;
+    overflow: auto;
+}
+
+.user-admin-panel-table-row-head {
+    display: grid;
+    grid-template-columns: 5% 15% 50% 5% 14% 11%;
+    background: #eee;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 12px;
+}
+
+.user-admin-panel-table-row-head>* {
+    padding: 8px 0;
+    border-right: 1px solid white;
+    text-align: center;
+}
+
+.user-admin-panel-table-row-head>*:last-child {
+    border: none;
+}
+
+.user-admin-panel-table-row {
+    display: grid;
+    grid-template-columns: 5% 15% 50% 5% 14% 11%;
+}
+
+.user-admin-panel-table-row>* {
+    padding: 4px;
+    border-right: 1px solid #eee;
+}
+
+.user-admin-panel-table-row>*:last-child {
+    border: none;
+}
+
+.user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {
+    background: #F4F7FF;
+}
+
+.user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n)>* {
+    border-right: 1px solid white;
+}
+
+.user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n)>*:last-child {
+    border: none;
+}
+
+.user-admin-panel-table-edit-button {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #777;
+    text-decoration: underline dashed 1px;
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
+
+.user-admin-panel-table-edit-button:hover {
+    color: #444;
 }
 
 /* MOBILE */
