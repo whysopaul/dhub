@@ -3,20 +3,23 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { mockFeedbackData } from '../../actions/feedback/feedback';
+import { feedbackGetUserFeedback, mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import ServiceCardComponent from '../services/ServiceCardComponent';
 import '../../static/css/user.css';
 import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 import { URL } from '../utils';
+import { useDispatch } from 'react-redux';
 
 interface IUserProfileProps {
 }
 
 const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
 
-    const userState = useSelector((state: RootStore) => state.auth.user)
+    const userState = useSelector((state: RootStore) => state.auth)
     const serviceState = useSelector((state: RootStore) => state.services.services)
+
+    const dispatch = useDispatch()
 
     const navigate = useNavigate()
 
@@ -24,6 +27,10 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
         if (!userState) {
             window.location.replace(URL)
         }
+    }, [])
+
+    useEffect(() => {
+        dispatch(feedbackGetUserFeedback(userState.user?.d_token))
     }, [])
 
     // 1 - отзывы, 2 - история просмотров
@@ -34,13 +41,13 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
 
         {showFeedbackPopup && <GiveFeedbackPopup onClose={() => setShowFeedbackPopup(false)} />}
 
-        {userState && <>
+        {userState.user && <>
             <div className='user-profile-header-container'>
                 <div className='user-profile-subheader'>
-                    <img src={userState.photo} alt="" className='user-profile-photo' />
-                    <h2 className='section-main-title'>{userState.name}</h2>
+                    <img src={userState.user.photo} alt="" className='user-profile-photo' />
+                    <h2 className='section-main-title'>{userState.user.name}</h2>
                 </div>
-                {userState?.is_admin && <div className='user-profile-admin-button-container'>
+                {userState.user?.is_admin && <div className='user-profile-admin-button-container'>
                     <button className='user-profile-admin-button' onClick={() => navigate('/admin')}>
                         <i className='fas fa-tools' />
                         <span>Панель администратора</span>
@@ -80,20 +87,20 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             </div>
             {mode === 1 && <>
                 <div className='feedback-cards'>
-                    {mockFeedbackData.map(i => {
+                    {userState.userFeedbacks?.map(i => {
                         return <FeedbackCardComponent comment={i} owner key={i.id} />
                     })}
                 </div>
             </>}
             {mode === 2 && <>
                 <div className='home-services-cards extended'>
-                    {userState.history?.slice(0, 10).map(i => {
+                    {userState.user.history?.slice(0, 10).map(i => {
                         return <ServiceCardComponent service={serviceState.find(service => service.id === i)} key={i} />
                     })}
                 </div>
             </>}
             <div className='show-more-container'>
-                {userState.history?.length > 10 && <button className='color-blue cursor-pointer'>
+                {userState.user.history?.length > 10 && <button className='color-blue cursor-pointer'>
                     <span>Показать еще</span>
                     <i className='fas fa-chevron-down' />
                 </button>}

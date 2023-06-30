@@ -1,4 +1,4 @@
-import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, TFeedback, feedbackDispatchTypes } from "./types";
+import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_GET_USER_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, TFeedback, feedbackDispatchTypes } from "./types";
 import MockFeedbackUserPhoto from '../../static/images/feedback_user_mock_photo.webp';
 import { Dispatch } from "react";
 import axios from "axios";
@@ -36,6 +36,19 @@ export const feedbackDeleteFeedback = (d_token: string, id: number) => (dispatch
 
         dispatch({
             type: FEEDBACK_DELETE_FEEDBACK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const feedbackGetUserFeedback = (d_token: string) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getUserFeedback', { params: { d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: FEEDBACK_GET_USER_FEEDBACK,
             payload: res.data
         })
     }).catch(error => {

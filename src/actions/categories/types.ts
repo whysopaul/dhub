@@ -1,6 +1,9 @@
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
+
 export const CREATE_CATEGORY = 'CREATE_CATEGORY'
 export const CREATE_CATEGORY_RELATIONS = 'CREATE_CATEGORY_RELATIONS'
+
+export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 
 // export type TMainCategory = {
 //     id: number,
@@ -35,4 +38,9 @@ interface ICreateCategoryRelations {
     payload: any
 }
 
-export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations
+interface IDeleteCategory {
+    type: typeof DELETE_CATEGORY,
+    payload: number
+}
+
+export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations | IDeleteCategory

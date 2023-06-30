@@ -8,6 +8,7 @@ import { URL } from '../utils';
 import ServiceEditPopup from '../services/ServiceEditPopup';
 import CategoryAddPopup from '../categories/CategoryAddPopup';
 import { TServicesData } from '../../actions/services/types';
+import Loading from '../global/Loading';
 
 interface IAdminPanelProps {
 }
@@ -15,7 +16,7 @@ interface IAdminPanelProps {
 const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     const userState = useSelector((state: RootStore) => state.auth.user)
-    const serviceState = useSelector((state: RootStore) => state.services.services)
+    const serviceState = useSelector((state: RootStore) => state.services)
 
     // const dispatch = useDispatch()
 
@@ -114,7 +115,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                             <span>Редактирование</span>
                         </div>
                         <div className='user-admin-panel-table-content'>
-                            {serviceState?.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(service => {
+                            {serviceState.is_loading ? <Loading height={505} /> : serviceState.services?.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(service => {
                                 return <div className='user-admin-panel-table-row'>
                                     <span>{service.id}</span>
                                     <span>{service.name}</span>

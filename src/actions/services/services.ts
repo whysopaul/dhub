@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SERVICE, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -222,6 +222,32 @@ export const createPlatform = (name: string) => (dispatch: Dispatch<servicesDisp
 
         dispatch({
             type: CREATE_PLATFORM,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const createScreenshot = (name: string, source: string, service_id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createScreenshot', JSON.stringify({ name, source, service_id })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_SCREENSHOT,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteService = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteService', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_SERVICE,
             payload: res.data
         })
     }).catch(error => {

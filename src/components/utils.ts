@@ -6,7 +6,7 @@ export const createServiceLink = (name: string): string => {
 }
 
 export const getScreen = (path: string): string => {
-    return 'https://api.vtargete.pro' + path
+    return path
 }
 
 export const feedbacksLength = (feedbacks_length: number): string => {

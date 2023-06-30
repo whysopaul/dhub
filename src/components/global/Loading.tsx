@@ -1,19 +1,14 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
-import { RootStore } from '../../store';
 
 interface ILoadingProps {
+    height: number
 }
 
 const Loading: React.FunctionComponent<ILoadingProps> = (props) => {
-
-    const serviceState = useSelector((state: RootStore) => state.services)
-
     return <>
-        {serviceState.is_loading && <>
-            <div className='backdrop-no-blur'></div>
+        <div className='loader-container' style={{ height: props.height }}>
             <div className='loader'></div>
-        </>}
+        </div>
     </>;
 };
 

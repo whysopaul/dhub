@@ -7,10 +7,16 @@ export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
 export const GET_SERVICE = 'GET_SERVICE'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
+
 export const CREATE_SERVICE = 'CREATE_SERVICE'
 export const CREATE_LOCATION = 'CREATE_LOCATION'
 export const CREATE_PLATFORM = 'CREATE_PLATFORM'
 export const CREATE_SCREENSHOT = 'CREATE_SCREENSHOT'
+
+export const DELETE_SERVICE = 'DELETE_SERVICE'
+export const DELETE_LOCATION = 'DELETE_LOCATION'
+export const DELETE_PLATFORM = 'DELETE_PLATFORM'
+export const DELETE_SCREENSHOT = 'DELETE_SCREENSHOT'
 
 export type TServicesData = {
     id: number,
@@ -114,4 +120,9 @@ interface ICreateScreenshot {
     payload: any
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | ICreateLocation | ICreatePlatform | ICreateScreenshot
+interface IDeleteAction {
+    type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT,
+    payload: number
+}
+
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | ICreateLocation | ICreatePlatform | ICreateScreenshot | IDeleteAction

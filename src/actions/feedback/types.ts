@@ -4,6 +4,8 @@ export const FEEDBACK_CREATE_FEEDBACK = 'FEEDBACK_CREATE_FEEDBACK'
 export const FEEDBACK_TOGGLE_FEEDBACK_UPVOTE = 'FEEDBACK_TOGGLE_FEEDBACK_UPVOTE'
 export const FEEDBACK_DELETE_FEEDBACK = 'FEEDBACK_DELETE_FEEDBACK'
 
+export const FEEDBACK_GET_USER_FEEDBACK = 'FEEDBACK_GET_USER_FEEDBACK'
+
 type TFeedbackPoints = 1 | 2 | 3 | 4 | 5
 
 export type TFeedbackComment = {
@@ -52,4 +54,9 @@ interface IFeedbackDeleteFeedback {
     payload: string
 }
 
-export type feedbackDispatchTypes = IFeedbackCreateFeedback | IFeedbackToggleFeedbackUpvote | IFeedbackDeleteFeedback
+interface IFeedbackGetUserFeedback {
+    type: typeof FEEDBACK_GET_USER_FEEDBACK,
+    payload: TFeedback[]
+}
+
+export type feedbackDispatchTypes = IFeedbackCreateFeedback | IFeedbackToggleFeedbackUpvote | IFeedbackDeleteFeedback | IFeedbackGetUserFeedback

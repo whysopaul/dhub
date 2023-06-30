@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, GET_ALL_CATEGORIES, categoriesDispatchTypes } from "./types";
+import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, DELETE_CATEGORY, GET_ALL_CATEGORIES, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -35,6 +35,19 @@ export const createCategoryRelations = (cat_id: number, parent_id: number) => (d
 
         dispatch({
             type: CREATE_CATEGORY_RELATIONS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteCategory = (id: number, d_token: string) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteCategory', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_CATEGORY,
             payload: res.data
         })
     }).catch(error => {

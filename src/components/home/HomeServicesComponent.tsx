@@ -2,6 +2,9 @@ import * as React from 'react';
 import { TServicesData } from '../../actions/services/types';
 import ServiceCardComponent from '../services/ServiceCardComponent';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../store';
+import Loading from '../global/Loading';
 
 interface IHomeServicesComponentProps {
     title: string,
@@ -12,13 +15,16 @@ interface IHomeServicesComponentProps {
 }
 
 const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps> = (props) => {
+
+    const servicesLoading = useSelector((state: RootStore) => state.services.is_loading)
+
     return <>
         <div className='home-section-common-container'>
             <div className='home-section-title'>
                 <h2>{props.title}</h2>
             </div>
             <div className={props.extended ? 'home-services-cards extended' : 'home-services-cards'}>
-                {props.data.slice(0, props.qty).map(i => {
+                {servicesLoading ? <Loading height={310} /> : props.data.slice(0, props.qty).map(i => {
                     return <ServiceCardComponent service={i} key={i.id} />
                 })}
             </div>

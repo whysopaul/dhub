@@ -18,6 +18,7 @@ import { useDispatch } from 'react-redux';
 import { getService } from '../../actions/services/services';
 import { feedbacksLength, getScreen } from '../utils';
 import { userAddHistory, userShowLoginPopup } from '../../actions/auth/auth';
+import Loading from '../global/Loading';
 
 interface IServicePageProps {
 }
@@ -27,7 +28,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     const { serviceId } = useParams()
     const authState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services)
-    const [currentService, setCurrentService] = useState<TServicesData>()
+    const [currentService, setCurrentService] = useState<TServicesData>(null)
     const [editMode, setEditMode] = useState(false)
 
     const dispatch = useDispatch()
@@ -110,6 +111,10 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     }
 
     const navigate = useNavigate()
+
+    if (currentService === null) return <>
+        <Loading height={400} />
+    </>
 
     return <>
 
