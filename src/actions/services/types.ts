@@ -122,7 +122,7 @@ interface ICreateScreenshot {
 
 interface IDeleteAction {
     type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT,
-    payload: number
+    payload: string
 }
 
 export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | ICreateLocation | ICreatePlatform | ICreateScreenshot | IDeleteAction

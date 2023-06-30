@@ -207,7 +207,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     </Link>
                 </div>
                 {screenWidth > 576 && <div className='home-feedback-cards'>
-                    {mockFeedbackData.map(i => {
+                    {mockFeedbackData.slice(0, 4).map(i => {
                         return <FeedbackCardComponent comment={i} key={i.id} />
                     })}
                 </div>}

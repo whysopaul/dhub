@@ -144,16 +144,6 @@
     margin-top: 24px;
 }
 
-.user-profile-edit-delete {
-    font-family: 'Noto Sans';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 14px;
-    line-height: 14px;
-    color: #FF2038;
-    cursor: pointer;
-}
-
 /* MISC */
 
 .user-profile-photo {
@@ -216,6 +206,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 12px;
 }
 
 .user-admin-panel-table-header>.wide-search-container {
@@ -231,6 +222,23 @@
     margin-left: 18px;
     margin-right: 0;
     color: #386BEE;
+}
+
+.user-admin-panel-search-length {
+    margin-right: auto;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #636E8D;
+}
+
+.user-admin-panel-search-length span {
+    background: #386BEE;
+    color: #FFFFFF;
+    border-radius: 12px;
+    font-weight: 500;
+    padding: 2px 4px;
 }
 
 .user-admin-panel-table-content {

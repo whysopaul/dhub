@@ -164,6 +164,16 @@
     margin: 0;
 }
 
+.delete-button {
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #FF2038;
+    cursor: pointer;
+}
+
 /* MOBILE */
 
 @media screen and (max-width: 576px) {

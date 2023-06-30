@@ -1,5 +1,5 @@
 import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, feedbackDispatchTypes } from "../../actions/feedback/types"
-import { GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
+import { DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
@@ -55,6 +55,11 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
                         return service
                     })
                 ]
+            }
+        case DELETE_SERVICE:
+            return {
+                ...state,
+                services: [...state.services.filter(service => service.id !== parseInt(action.payload))]
             }
         case FEEDBACK_CREATE_FEEDBACK:
             return {

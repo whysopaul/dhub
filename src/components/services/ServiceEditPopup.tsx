@@ -4,7 +4,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
 import { useDispatch } from 'react-redux';
-import { serviceDataUpdate } from '../../actions/services/services';
+import { deleteService, serviceDataUpdate } from '../../actions/services/services';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
@@ -17,6 +17,7 @@ interface IServiceEditPopupProps {
 
 const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props) => {
 
+    const userState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services)
     const categoriesState = useSelector((state: RootStore) => state.categories.categories)
 
@@ -205,6 +206,9 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     }
                 }}>{props.add ? 'Добавить сервис' : 'Сохранить изменения'}</button>
             </div>
+            {!props.add && <div>
+                <button className='delete-button' onClick={() => dispatch(deleteService(props.service.id, userState?.d_token))}>Удалить сервис</button>
+            </div>}
             <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
         </div>
     </>;

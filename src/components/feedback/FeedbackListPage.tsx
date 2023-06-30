@@ -13,12 +13,20 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
     const rootState = useSelector((state: RootStore) => state)
 
     return <>
+        <div className='section-header-container'>
+            <h3 className='section-main-title'>Отзывы</h3>
+            <div className='sort-selection'>
+                <span>Сортировать:</span>
+                <select className='color-blue'>
+                    <option value="">по умолчанию</option>
+                </select>
+            </div>
+        </div>
         <div className='wide-search-container'>
-            <h2 className='section-main-title mb-32'>Отзывы</h2>
             <input type='text' placeholder='Введите название сервиса' autoComplete='off' />
             <i className='fas fa-search color-blue' />
         </div>
-        <div className='categories-section'>
+        {/* <div className='categories-section'>
             <p>Выберите категории:</p>
             <div>
                 <ul className='categories-list'>
@@ -28,16 +36,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
                     })}
                 </ul>
             </div>
-        </div>
-        <div className='section-header-container'>
-            <h3 className='section-main-title'>Новые отзывы</h3>
-            <div className='sort-selection'>
-                <span>Сортировать:</span>
-                <select className='color-blue'>
-                    <option value="">по умолчанию</option>
-                </select>
-            </div>
-        </div>
+        </div> */}
         <div className='feedback-cards'>
             {mockFeedbackData.map(i => {
                 return <FeedbackCardComponent comment={i} key={i.id} />

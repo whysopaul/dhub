@@ -67,7 +67,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                 </button>
             </div>
             {((comment.user.vk_id === rootState.auth.user?.vk_id) || rootState.auth.user?.is_admin) && <div className='feedback-card-delete-container'>
-                <button onClick={() => dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))}>Удалить отзыв</button>
+                <button className='delete-button' onClick={() => dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))}>Удалить отзыв</button>
             </div>}
         </div>
     </>;

@@ -3,13 +3,11 @@ import { FEEDBACK_GET_USER_FEEDBACK, TFeedback, feedbackDispatchTypes } from "..
 
 interface IDefaultState {
     user: TUserData,
-    userFeedbacks: TFeedback[],
     showLoginPopup: boolean
 }
 
 const defaultState: IDefaultState = {
     user: null,
-    userFeedbacks: [],
     showLoginPopup: false
     // user: {
     //     id: 1,
@@ -39,11 +37,6 @@ const authReducer = (state: IDefaultState = defaultState, action: authDispatchTy
             return {
                 ...state,
                 showLoginPopup: action.payload
-            }
-        case FEEDBACK_GET_USER_FEEDBACK:
-            return {
-                ...state,
-                userFeedbacks: [...action.payload]
             }
         default:
             return state

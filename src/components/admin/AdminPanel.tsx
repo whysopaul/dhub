@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { URL } from '../utils';
 // import { useDispatch } from 'react-redux';
 // import { createService } from '../../actions/services/services';
@@ -27,6 +27,10 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     const [search, setSearch] = useState('')
     const [sortMode, setSortMode] = useState<string>('default')
+
+    const searchQuery = useMemo(() => {
+        return serviceState.services?.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    }, [, search, serviceState.services])
 
     useEffect(() => {
         if (!userState || !userState?.is_admin) {
@@ -96,6 +100,9 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                             <input type='text' placeholder='Поиск по названию' value={search} onChange={e => setSearch(e.target.value)} />
                             <i className='fas fa-search' />
                         </div>
+                        <div className='user-admin-panel-search-length'>
+                            <p>Найдено: <span>{searchQuery.length}</span></p>
+                        </div>
                         <div className='sort-selection'>
                             <span>Сортировать:</span>
                             <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
@@ -115,7 +122,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                             <span>Редактирование</span>
                         </div>
                         <div className='user-admin-panel-table-content'>
-                            {serviceState.is_loading ? <Loading height={505} /> : serviceState.services?.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).map(service => {
+                            {serviceState.is_loading ? <Loading height={505} /> : searchQuery.map(service => {
                                 return <div className='user-admin-panel-table-row'>
                                     <span>{service.id}</span>
                                     <span>{service.name}</span>

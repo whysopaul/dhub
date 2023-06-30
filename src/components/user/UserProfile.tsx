@@ -16,8 +16,9 @@ interface IUserProfileProps {
 
 const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
 
-    const userState = useSelector((state: RootStore) => state.auth)
+    const userState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services.services)
+    const feedbackState = useSelector((state: RootStore) => state.feedback.feedbacks)
 
     const dispatch = useDispatch()
 
@@ -30,7 +31,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
     }, [])
 
     useEffect(() => {
-        dispatch(feedbackGetUserFeedback(userState.user?.d_token))
+        dispatch(feedbackGetUserFeedback(userState?.d_token))
     }, [])
 
     // 1 - отзывы, 2 - история просмотров
@@ -41,13 +42,13 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
 
         {showFeedbackPopup && <GiveFeedbackPopup onClose={() => setShowFeedbackPopup(false)} />}
 
-        {userState.user && <>
+        {userState && <>
             <div className='user-profile-header-container'>
                 <div className='user-profile-subheader'>
-                    <img src={userState.user.photo} alt="" className='user-profile-photo' />
-                    <h2 className='section-main-title'>{userState.user.name}</h2>
+                    <img src={userState.photo} alt="" className='user-profile-photo' />
+                    <h2 className='section-main-title'>{userState.name}</h2>
                 </div>
-                {userState.user?.is_admin && <div className='user-profile-admin-button-container'>
+                {userState.is_admin && <div className='user-profile-admin-button-container'>
                     <button className='user-profile-admin-button' onClick={() => navigate('/admin')}>
                         <i className='fas fa-tools' />
                         <span>Панель администратора</span>
@@ -87,20 +88,20 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             </div>
             {mode === 1 && <>
                 <div className='feedback-cards'>
-                    {userState.userFeedbacks?.map(i => {
+                    {feedbackState?.map(i => {
                         return <FeedbackCardComponent comment={i} owner key={i.id} />
                     })}
                 </div>
             </>}
             {mode === 2 && <>
                 <div className='home-services-cards extended'>
-                    {userState.user.history?.slice(0, 10).map(i => {
+                    {userState.history?.slice(0, 10).map(i => {
                         return <ServiceCardComponent service={serviceState.find(service => service.id === i)} key={i} />
                     })}
                 </div>
             </>}
             <div className='show-more-container'>
-                {userState.user.history?.length > 10 && <button className='color-blue cursor-pointer'>
+                {userState.history?.length > 10 && <button className='color-blue cursor-pointer'>
                     <span>Показать еще</span>
                     <i className='fas fa-chevron-down' />
                 </button>}

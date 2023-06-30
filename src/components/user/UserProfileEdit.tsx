@@ -50,7 +50,7 @@ const UserProfileEdit: React.FunctionComponent<IUserProfileEditProps> = (props) 
                     </button>
                 </div>
                 <div>
-                    <button className='user-profile-edit-delete'>Удалить аккаунт</button>
+                    <button className='delete-button'>Удалить аккаунт</button>
                 </div>
             </div>
         </>}

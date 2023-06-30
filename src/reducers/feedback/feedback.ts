@@ -1,4 +1,4 @@
-import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, TFeedback, feedbackDispatchTypes } from "../../actions/feedback/types";
+import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_GET_USER_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, TFeedback, feedbackDispatchTypes } from "../../actions/feedback/types";
 
 interface IDefaultState {
     feedbacks: TFeedback[]
@@ -33,6 +33,11 @@ const feedbackReducer = (state: IDefaultState = defaultState, action: feedbackDi
                 feedbacks: [
                     ...state.feedbacks.filter(feedback => feedback.id !== parseInt(action.payload))
                 ]
+            }
+        case FEEDBACK_GET_USER_FEEDBACK:
+            return {
+                ...state,
+                feedbacks: [...action.payload]
             }
         default:
             return state

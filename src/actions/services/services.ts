@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SERVICE, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SERVICE, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -47,7 +47,7 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes |
             })
         })
 
-        services = services.filter(service => service.id !== 3837 && service.id !== 3838 && service.id !== 3840).map(s => {
+        services = services.map(s => {
             return {
                 ...s,
                 categories_2: s_c_2[s.id],
@@ -248,6 +248,47 @@ export const deleteService = (id: number, d_token: string) => (dispatch: Dispatc
 
         dispatch({
             type: DELETE_SERVICE,
+            payload: res.data
+        })
+
+        window.location.replace('/')
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteLocation = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteLocation', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_LOCATION,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deletePlatform = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deletePlatform', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_PLATFORM,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteScreenshot = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteScreenshot', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_SCREENSHOT,
             payload: res.data
         })
     }).catch(error => {
