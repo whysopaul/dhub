@@ -95,17 +95,17 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             </>}
             {mode === 2 && <>
                 <div className='home-services-cards extended'>
-                    {userState.history?.slice(0, 10).map(i => {
+                    {userState.history?.map(i => {
                         return <ServiceCardComponent service={serviceState.find(service => service.id === i)} key={i} />
                     })}
                 </div>
+                <div className='show-more-container'>
+                    {userState.history?.length > 10 && <button className='color-blue cursor-pointer'>
+                        <span>Показать еще</span>
+                        <i className='fas fa-chevron-down' />
+                    </button>}
+                </div>
             </>}
-            <div className='show-more-container'>
-                {userState.history?.length > 10 && <button className='color-blue cursor-pointer'>
-                    <span>Показать еще</span>
-                    <i className='fas fa-chevron-down' />
-                </button>}
-            </div>
         </>}
     </>;
 };
