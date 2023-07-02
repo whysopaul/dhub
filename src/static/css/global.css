@@ -87,6 +87,10 @@ hr {
     color: #386BEE !important;
 }
 
+.color-green {
+    color: #1FB663 !important;
+}
+
 .cursor-pointer {
     cursor: pointer;
 }

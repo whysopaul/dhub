@@ -7,6 +7,8 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { TServicesData } from '../../actions/services/types';
 import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
+import Loading from '../global/Loading';
+import { URL } from '../utils';
 
 interface IServicesSearchListProps {
 }
@@ -21,7 +23,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [hasNoPartnership, setHasNoPartnership] = useState<boolean>(null)
     const [paymentMethod, setPaymentMethod] = useState<number>(null)
     const [searchCategories, setSearchCategories] = useState('')
-    const [selectedCategories, setSelectedCategories] = useState<TCategory[]>([])
+    const [selectedCategories, setSelectedCategories] = useState<number[]>([])
     const [showDropdown, setShowDropdown] = useState(false)
     const dropdownRef = useRef(null)
 
@@ -50,7 +52,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         &&
         service.description.hasPartnership !== hasNoPartnership
         &&
-        (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.map(cat => cat.id).includes(category.id)) || service.categories_3.find(category => selectedCategories.map(cat => cat.id).includes(category.id)) : true)
+        (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.includes(category.id)) || service.categories_3.find(category => selectedCategories.includes(category.id)) : true)
         &&
         (
             paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
@@ -73,14 +75,53 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const searchCategoriesCondition = rootState.categories.categories.filter(category => category.index === 3).filter(category => category.name.toLocaleLowerCase().includes(searchCategories.toLocaleLowerCase()))
 
     const toggleCategory = (category: TCategory) => {
-        selectedCategories.map(cat => cat.id).includes(category.id)
-            ? setSelectedCategories(selectedCategories.filter(cat => cat.id !== category.id))
-            : setSelectedCategories([...selectedCategories, category])
+        selectedCategories.includes(category.id)
+            ? setSelectedCategories(selectedCategories.filter(cat => cat !== category.id))
+            : setSelectedCategories([...selectedCategories, category.id])
     }
 
     // console.log([...new Set(rootState.services.services.map(s => s.description.paymentMethod))])
 
+    const searchParamsInputRef = useRef<HTMLInputElement>(null)
+
+    const createSearchParamsLink = () => {
+        const urlParams = new URLSearchParams()
+
+        if (search) {
+            urlParams.append('search', search.trim())
+        }
+
+        if (isNotFree === false) {
+            urlParams.append('isFree', 'true')
+        }
+        if (hasNoTrial === false) {
+            urlParams.append('hasTrial', 'true')
+        }
+        if (hasNoPartnership === false) {
+            urlParams.append('hasPartnership', 'true')
+        }
+
+        if (paymentMethod) {
+            urlParams.append('paymentMethod', paymentMethod.toString())
+        }
+
+        if (selectedCategories.length > 0) {
+            urlParams.append('categories', selectedCategories.join(','))
+        }
+
+        if (sortMode === 'new') {
+            urlParams.append('recent', 'new')
+        }
+
+        if (sortMode === 'top') {
+            urlParams.append('rating', 'top')
+        }
+
+        return URL + '/services?' + urlParams
+    }
+
     const titleRef = useRef<HTMLHeadingElement>(null)
+    const [copied, setCopied] = useState(false)
 
     const totalCount = searchCondition.length
     const [numberOfServices] = useState(20)
@@ -180,7 +221,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             setHasNoPartnership(false)
         }
         if (urlParams.has('categories')) {
-            setSelectedCategories(urlParams.get('categories').split(',').map(category => Number(category)).map(category => rootState.categories.categories.find(cat => cat.id === category)))
+            setSelectedCategories(urlParams.get('categories').split(',').map(category => Number(category)))
         }
         if (urlParams.has('paymentMethod')) {
             setPaymentMethod(Number(urlParams.get('paymentMethod')))
@@ -223,7 +264,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         {searchCategories.length === 0 && <p>Популярные категории:</p>}
                         <ul className='services-list-dropdown-list'>
                             {searchCategories.length > 0 && searchCategoriesCondition.length > 0 && searchCategoriesCondition.map(category => {
-                                return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length} onClick={() => toggleCategory(category)} checked={selectedCategories.map(cat => cat.id).includes(category.id)} key={category.id} />
+                                return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length} onClick={() => toggleCategory(category)} checked={selectedCategories.includes(category.id)} key={category.id} />
                             })}
                             {searchCategories.length > 0 && searchCategoriesCondition.length === 0 && <li className='services-list-dropdown-no-match'>Не найдено</li>}
                             {searchCategories.length === 0 && <>
@@ -233,7 +274,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                                         servicesInCategory: rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length
                                     }
                                 }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 15).map(popularCategory => {
-                                    return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => toggleCategory(popularCategory)} checked={selectedCategories.map(cat => cat.id).includes(popularCategory.id)} key={popularCategory.id} />
+                                    return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => toggleCategory(popularCategory)} checked={selectedCategories.includes(popularCategory.id)} key={popularCategory.id} />
                                 })}
                             </>}
                         </ul>
@@ -242,9 +283,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 {selectedCategories.length > 0 && <div className='services-list-selected-categories'>
                     {/* <p>Выбранные категории:</p> */}
                     <ul className='categories-list'>
-                        {rootState.categories.categories.filter(category => selectedCategories.map(cat => cat.id).includes(category.id)).map(category => {
+                        {rootState.categories.categories.filter(category => selectedCategories.includes(category.id)).map(category => {
                             return <li>
-                                <button className='category-tag' onClick={() => setSelectedCategories(selectedCategories.filter(cat => cat.id !== category.id))}>{category.name.length > 23 ? category.name.slice(0, 23) + '...' : category.name}<i className='fas fa-times' /></button>
+                                <button className='category-tag' onClick={() => setSelectedCategories(selectedCategories.filter(cat => cat !== category.id))}>{category.name.length > 23 ? category.name.slice(0, 23) + '...' : category.name}<i className='fas fa-times' /></button>
                             </li>
                         })}
                     </ul>
@@ -269,13 +310,34 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <i className='fas fa-times' />
                     </button>
                 </div>
+                <div className='wide-search-container'>
+                    <input
+                        type='text'
+                        ref={searchParamsInputRef}
+                        value={createSearchParamsLink()}
+                        onFocus={() => {
+                            searchParamsInputRef.current.select()
+                            navigator.clipboard.writeText(searchParamsInputRef.current.value)
+                            setCopied(true)
+                        }}
+                        onBlur={() => setCopied(false)}
+                        readOnly
+                    />
+                    <i className={copied ? 'fas fa-check-circle color-green' : 'far fa-copy color-blue'} />
+                </div>
+                <div className='services-list-social-networks-buttons'>
+                    <button><i className='fab fa-vk' /></button>
+                    <button><i className='fab fa-telegram-plane' /></button>
+                    <button><i className='fab fa-whatsapp' /></button>
+                </div>
             </div>
             {searchCondition.length > 0 && <div className='services-list-cards-container'>
                 {searchCondition.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(service => {
                     return <ServiceCardComponent service={service} key={service.id} />
                 })}
             </div>}
-            {searchCondition.length === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}
+            {!rootState.services.is_loading && searchCondition.length === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}
+            {rootState.services.is_loading && <Loading height={505} />}
         </div>
         {searchCondition.length > 0 && numberOfPages.length > 1 && <div className='services-list-pagination'>
             <button className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage > 1 && setCurrentPage(currentPage - 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }} disabled={currentPage === 1}>
