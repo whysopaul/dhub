@@ -12,6 +12,13 @@
     backdrop-filter: none;
 }
 
+.feedback-no-feedbacks {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
+}
+
 /* FEEDBACK CARD */
 
 .feedback-card-container {

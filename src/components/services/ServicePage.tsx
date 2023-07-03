@@ -133,7 +133,11 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     <i className='fas fa-external-link-alt' />
                                 </a>
                                 {authState?.is_admin && <button onClick={() => setEditMode(true)}>Редактировать</button>}
-                                <span>{currentService.categories_3[0]?.name}</span>
+                                <div className='service-promocode'>
+                                    <a title='Промокод дает возможность использования сервиса...'>Промокод:</a>
+                                    <span>ABCDEF1234</span>
+                                </div>
+                                {/* <span>{currentService.categories_3[0]?.name}</span> */}
                             </div>
                             <div className='service-rating-section'>
                                 <ServiceRatingTag rating={currentService.rating} />
@@ -178,6 +182,11 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <span className='service-details-data'>{currentService.description.platforms?.map(i => i.name).join(', ')}</span>
                             <span>Партнерская программа</span>
                             <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
+                        </div>
+                        <div className='service-promocode'>
+                            <i className='fas fa-tag' />
+                            <a title='Промокод дает возможность использования сервиса...'>Промокод:</a>
+                            <span>ABCDEF1234</span>
                         </div>
                     </div>
                     <a href='#' className='arrow-right-link'>
@@ -254,6 +263,9 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 </div>
                             </>
                         })}
+                    </div>}
+                    {currentService.feedbacks.length === 0 && <div className='feedback-no-feedbacks'>
+                        <p>Отзывов пока нет. Оставьте отзыв первым!</p>
                     </div>}
                 </>}
 
