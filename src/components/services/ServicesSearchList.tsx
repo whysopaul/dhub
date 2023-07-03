@@ -326,9 +326,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     <i className={copied ? 'fas fa-check-circle color-green' : 'far fa-copy color-blue'} />
                 </div>
                 <div className='services-list-social-networks-buttons'>
-                    <button><i className='fab fa-vk' /></button>
-                    <button><i className='fab fa-telegram-plane' /></button>
-                    <button><i className='fab fa-whatsapp' /></button>
+                    <button onClick={() => window.open('https://vk.com/share.php?url=' + encodeURI(createSearchParamsLink()), '_blank')}><i className='fab fa-vk' /></button>
+                    <button onClick={() => window.open('https://t.me/share/url?url=' + encodeURI(createSearchParamsLink()), '_blank')}><i className='fab fa-telegram-plane' /></button>
+                    <button onClick={() => window.open('whatsapp://send?text=' + encodeURI(createSearchParamsLink()), '_blank')}><i className='fab fa-whatsapp' /></button>
                 </div>
             </div>
             {searchCondition.length > 0 && <div className='services-list-cards-container'>

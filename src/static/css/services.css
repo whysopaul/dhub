@@ -550,6 +550,7 @@
 
 .services-list-social-networks-buttons {
     display: flex;
+    justify-self: center;
     gap: 16px;
 }
 
@@ -838,6 +839,10 @@
 /* MOBILE */
 
 @media screen and (max-width: 576px) {
+    .service-card-link {
+        width: 100%;
+    }
+
     .service-card-container {
         width: 100%;
         height: auto;
@@ -1067,6 +1072,10 @@
         line-height: 10px;
     }
 
+    .services-list-pagination {
+        gap: 8px;
+    }
+
     .services-list-cards-container .service-card-container {
         width: 100% !important;
     }
@@ -1089,6 +1098,11 @@
 
     .services-list-reset-button>i {
         font-size: 10px;
+    }
+
+    .services-list-social-networks-buttons>button {
+        width: 28px;
+        height: 28px;
     }
 
     .service-selection-container p {

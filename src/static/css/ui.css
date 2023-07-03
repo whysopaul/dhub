@@ -215,6 +215,7 @@
     .page-number-button {
         font-size: 10px;
         line-height: 10px;
+        padding: 5px 10px;
     }
 
     .popup-close-button {
