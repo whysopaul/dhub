@@ -220,6 +220,8 @@
     display: flex;
     align-items: center;
     gap: 12px;
+    grid-row-start: 2;
+    grid-column-end: span 2;
 }
 
 .service-promocode>a {
