@@ -463,6 +463,21 @@
     gap: 24px;
 }
 
+.services-list-search-params {
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.services-list-search-params input {
+    width: initial !important;
+    height: initial !important;
+}
+
 .services-list-filters-container p {
     font-size: 14px;
     line-height: 14px;
@@ -485,6 +500,11 @@
 .services-list-filters-container>.service-selection-advanced-inputs {
     grid-template-columns: auto;
     gap: 24px;
+}
+
+.services-list-filters-container-copied {
+    text-align: center;
+    margin-bottom: 0 !important;
 }
 
 .services-list-cards-container .service-card-container {

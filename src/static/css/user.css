@@ -244,19 +244,25 @@
 .user-admin-panel-table-content {
     height: 505px;
     overflow: auto;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
 }
 
 .user-admin-panel-table-row-head {
     display: grid;
-    grid-template-columns: 5% 15% 50% 5% 14% 11%;
-    background: #eee;
+    grid-template-columns: 5% 25% 7% auto 13%;
+    background: #386BEE;
+    color: #FFFFFF;
     font-weight: 400;
     font-size: 12px;
-    line-height: 12px;
+    line-height: 30px;
+    border-radius: 12px 12px 0 0;
 }
 
 .user-admin-panel-table-row-head>* {
-    padding: 8px 0;
+    padding: 10px;
     border-right: 1px solid white;
     text-align: center;
 }
@@ -267,7 +273,7 @@
 
 .user-admin-panel-table-row {
     display: grid;
-    grid-template-columns: 5% 15% 50% 5% 14% 11%;
+    grid-template-columns: 5% 25% 7% auto 13%;
 }
 
 .user-admin-panel-table-row>* {

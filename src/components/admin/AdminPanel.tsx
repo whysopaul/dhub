@@ -63,6 +63,9 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                         screenshots: []
                     },
                     feedbacks: [],
+                    promocode: '',
+                    admin_notes: '',
+                    is_hidden: false
                 }}
                 onClose={() => setCreateService(false)}
                 add
@@ -116,9 +119,9 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                         <div className='user-admin-panel-table-row-head'>
                             <span>ID</span>
                             <span>Название</span>
-                            <span>Описание</span>
+                            {/* <span>Описание</span> */}
                             <span>Рейтинг</span>
-                            <span>Данные для входа</span>
+                            <span>Заметки</span>
                             <span>Редактирование</span>
                         </div>
                         <div className='user-admin-panel-table-content'>
@@ -126,7 +129,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                                 return <div className='user-admin-panel-table-row'>
                                     <span>{service.id}</span>
                                     <span>{service.name}</span>
-                                    <span>{service.description.text}</span>
+                                    {/* <span>{service.description.text}</span> */}
                                     <span>{service.rating}</span>
                                     <span>#</span>
                                     <div>

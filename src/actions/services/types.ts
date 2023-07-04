@@ -39,6 +39,9 @@ export type TServicesData = {
         screenshots?: TServiceScreenshot[]
     },
     feedbacks: TFeedback[],
+    promocode: string,
+    admin_notes: string,
+    is_hidden: boolean,
     isNew?: boolean
 }
 

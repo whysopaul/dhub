@@ -11,7 +11,9 @@ export type TUserData = {
     token: string,
     is_admin: boolean,
     d_token: string,
-    history: number[] // service_id array
+    history: number[], // service_id array
+    is_specialist: boolean,
+    specialist_description: string
 }
 
 interface IUserLogin {

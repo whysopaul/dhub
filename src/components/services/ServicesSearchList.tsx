@@ -26,6 +26,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [selectedCategories, setSelectedCategories] = useState<number[]>([])
     const [showDropdown, setShowDropdown] = useState(false)
     const dropdownRef = useRef(null)
+    const [searchByName, setSearchByName] = useState(true)
+    const [searchByText, setSearchByText] = useState(false)
 
     useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
@@ -44,7 +46,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             }
         }
     }).filter(service =>
-        service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())
+        (searchByName ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+        &&
+        (searchByText ? service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
         &&
         service.description.isFree !== isNotFree
         &&
@@ -68,6 +72,16 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         }
         if (sortMode === 'top') {
             return b.rating - a.rating
+        }
+        if (sortMode === 'a-z') {
+            if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return -1
+            if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return 1
+            return 0
+        }
+        if (sortMode === 'z-a') {
+            if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return 1
+            if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return -1
+            return 0
         }
         return
     })
@@ -115,6 +129,14 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
         if (sortMode === 'top') {
             urlParams.append('rating', 'top')
+        }
+
+        if (searchByName) {
+            urlParams.append('searchbyname', 'true')
+        }
+
+        if (searchByText) {
+            urlParams.append('searchbytext', 'true')
         }
 
         return URL + '/services?' + urlParams
@@ -232,6 +254,12 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (urlParams.has('rating') && urlParams.get('rating') === 'top') {
             setSortMode('top')
         }
+        if (urlParams.has('searchbyname')) {
+            setSearchByName(true)
+        }
+        if (urlParams.has('searchbytext')) {
+            setSearchByText(true)
+        }
     }, [])
 
     return <>
@@ -246,14 +274,20 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     <option value='default'>по умолчанию</option>
                     <option value='new'>по новизне</option>
                     <option value='top'>по рейтингу</option>
+                    <option value='a-z'>по алфавиту: А-Я</option>
+                    <option value='z-a'>по алфавиту: Я-А</option>
                 </select>
             </div>}
         </div>
         <div className='services-list-main-container'>
             <div className='services-list-filters-container'>
                 <div className='wide-search-container'>
-                    <p>Поиск по названию:</p>
-                    <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
+                    <div className='services-list-search-params'>
+                        <span>Поиск по:</span>
+                        <label><input type='checkbox' onChange={() => setSearchByName(!searchByName)} checked={searchByName} /> названию</label>
+                        <label><input type='checkbox' onChange={() => setSearchByText(!searchByText)} checked={searchByText} /> описанию</label>
+                    </div>
+                    <input type='text' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
                     <i className='fas fa-search color-blue' />
                 </div>
                 <div className='wide-search-container'>
@@ -310,7 +344,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <i className='fas fa-times' />
                     </button>
                 </div>
-                <div className='wide-search-container'>
+                {/* <div className='wide-search-container'>
                     <input
                         type='text'
                         ref={searchParamsInputRef}
@@ -324,7 +358,15 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         readOnly
                     />
                     <i className={copied ? 'fas fa-check-circle color-green' : 'far fa-copy color-blue'} />
-                </div>
+                </div> */}
+                <button className='blue-shadow-button' onClick={() => {
+                    navigator.clipboard.writeText(createSearchParamsLink())
+                    setCopied(true)
+                }}>
+                    <span>Поделиться сервисами</span>
+                    <i className='fas fa-share' />
+                </button>
+                {copied && <p className='services-list-filters-container-copied'>Скопировано в буфер обмена!</p>}
                 <div className='services-list-social-networks-buttons'>
                     <button onClick={() => window.open('https://vk.com/share.php?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-vk' /></button>
                     <button onClick={() => window.open('https://t.me/share/url?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-telegram-plane' /></button>
