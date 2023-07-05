@@ -131,7 +131,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                                     <span>{service.name}</span>
                                     {/* <span>{service.description.text}</span> */}
                                     <span>{service.rating}</span>
-                                    <span>#</span>
+                                    <span>{service.admin_notes}</span>
                                     <div>
                                         <button className='user-admin-panel-table-edit-button' onClick={() => setEditService(service)}>Редактировать</button>
                                     </div>

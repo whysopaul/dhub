@@ -46,9 +46,11 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             }
         }
     }).filter(service =>
-        (searchByName ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+        (searchByName && !searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
         &&
-        (searchByText ? service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+        (!searchByName && searchByText ? service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+        &&
+        (searchByName && searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
         &&
         service.description.isFree !== isNotFree
         &&

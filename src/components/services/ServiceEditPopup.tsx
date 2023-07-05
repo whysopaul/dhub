@@ -206,9 +206,13 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                     }
                 }}>{props.add ? 'Добавить сервис' : 'Сохранить изменения'}</button>
             </div>
+
             {!props.add && <div>
-                <button className='delete-button' onClick={() => dispatch(deleteService(props.service.id, userState?.d_token))}>Удалить сервис</button>
+                <button className='delete-button' onClick={() => {
+                    if (confirm('Подтвердите удаление сервиса')) dispatch(deleteService(props.service.id, userState?.d_token))
+                }}>Удалить сервис</button>
             </div>}
+
             <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
         </div>
     </>;

@@ -190,7 +190,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <span>Партнерская программа</span>
                             <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
                         </div>
-                        {screenWidth <= 576 && <div className='service-dropdown-container' onClick={() => setOpenScreenshots(!openScreenshots)}>
+                        {screenWidth <= 576 && currentService.images.screenshots?.length > 0 && <div className='service-dropdown-container' onClick={() => setOpenScreenshots(!openScreenshots)}>
                             <div className='service-dropdown-header'>
                                 <p>Скриншоты</p>
                                 <i className={openScreenshots ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />

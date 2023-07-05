@@ -26,8 +26,9 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
             <p>Оставьте заявку на его добавление. Мы свяжемся с вами для получения информации о вашем сервисе, после чего пользователи смогут найти его на страницах сайта</p>
             <form>
                 <input type="text" placeholder='Имя*' required />
-                <input type="text" placeholder='Название сервиса' />
                 <input type="text" placeholder='Контакт для обратной связи (email или телефон)*' required />
+                <input type="text" placeholder='Название сервиса' />
+                <input type="text" placeholder='Ссылка на сервис*' required />
                 <textarea placeholder='Краткое описание сервиса'></textarea>
                 <div className='add-service-privacy'>
                     <input type="checkbox" id='privacy' />

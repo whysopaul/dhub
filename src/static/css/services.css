@@ -72,7 +72,7 @@
     color: #2D4379;
     margin-top: 16px;
     display: -webkit-box;
-    -webkit-line-clamp: 3;
+    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -206,7 +206,7 @@
 }
 
 .service-title-section i {
-    color: #636E8D;
+    color: #386BEE;
 }
 
 .service-promocode {
@@ -335,10 +335,6 @@
 
 .service-dropdown-content>.service-promocode {
     background: none;
-}
-
-.service-dropdown-content>.service-images {
-    margin-bottom: 0;
 }
 
 /* SERVICE BANNER */
@@ -1001,10 +997,17 @@
     }
 
     .service-images {
+        grid-template-columns: auto auto;
         row-gap: 9px;
         column-gap: 7px;
         /* grid-row-start: 2; */
         /* grid-row-end: initial; */
+        margin-bottom: 0;
+    }
+
+    .service-image-wrapper:first-child {
+        grid-column-start: initial;
+        grid-column-end: initial;
     }
 
     .service-image-wrapper.empty {
@@ -1147,8 +1150,8 @@
     }
 
     .service-section-header-buttons>button {
-        font-size: 10px;
-        line-height: 10px;
+        font-size: 12px;
+        line-height: 12px;
         padding: 10px 16px;
         gap: 6px;
     }
