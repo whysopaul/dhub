@@ -142,7 +142,7 @@ hr {
 }
 
 .sort-selection>* {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
@@ -168,9 +168,9 @@ hr {
     margin-bottom: 32px;
 }
 
-.wide-search-container input {
+.wide-search-container input[type='text'] {
     width: 100%;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;

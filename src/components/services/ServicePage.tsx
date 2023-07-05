@@ -34,6 +34,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     const [openDiscounts, setOpenDiscounts] = useState(false)
     const [openScreenshots, setOpenScreenshots] = useState(false)
     const [openCategories, setOpenCategories] = useState(false)
+    const [openSpecialistInfo, setOpenSpecialistInfo] = useState(false)
 
     const dispatch = useDispatch()
 
@@ -159,7 +160,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         <p>{currentService.description.text}</p>
                     </div>
                     <div className='service-more-info'>
-                        <div className='service-banner-wrapper'>
+                        {/* <div className='service-banner-wrapper'>
                             <div className='service-banner-container'>
                                 <div>
                                     <h3>Специалист в этом сервисе?</h3>
@@ -172,7 +173,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     <img src={Banner} alt="" />
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <hr />
                         <div className='service-details'>
                             <span>Бесплатная версия</span>
@@ -241,6 +242,17 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 </div>
                             </div>}
                         </div>}
+                        <div className='service-dropdown-container'>
+                            <div className='service-dropdown-header' onClick={() => setOpenSpecialistInfo(!openSpecialistInfo)}>
+                                <p>Специалист в этом сервисе?</p>
+                                <i className={openCategories ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                            </div>
+                            {openSpecialistInfo && <div className='service-dropdown-content'>
+                                <div>
+                                    <p>Специалист в этом сервисе? Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae amet, a ipsa, non dolores culpa, delectus explicabo repellat quo laboriosam possimus vero ex! Quasi perferendis asperiores repellendus, animi nesciunt iure dolorem quis magnam blanditiis voluptates, placeat esse error est corrupti ut deleniti? Magnam eos, eligendi similique obcaecati harum laboriosam suscipit officiis fugit, molestias animi, adipisci quos excepturi? Quae maiores autem ipsum ratione doloremque illum necessitatibus, nesciunt voluptatum tempora odit ipsam, rerum quos distinctio veritatis corrupti fuga facilis optio deserunt laborum at delectus? Sit, iusto explicabo? Aperiam, blanditiis qui perspiciatis numquam molestiae voluptate, ullam distinctio eligendi dolorem, laboriosam magni vitae fuga.</p>
+                                </div>
+                            </div>}
+                        </div>
                     </div>
                 </div>
 
