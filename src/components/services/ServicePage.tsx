@@ -31,6 +31,10 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     const [currentService, setCurrentService] = useState<TServicesData>(null)
     const [editMode, setEditMode] = useState(false)
 
+    const [openDiscounts, setOpenDiscounts] = useState(false)
+    const [openScreenshots, setOpenScreenshots] = useState(false)
+    const [openCategories, setOpenCategories] = useState(false)
+
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -134,8 +138,11 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 </a>
                                 {authState?.is_admin && <button onClick={() => setEditMode(true)}>Редактировать</button>}
                                 <div className='service-promocode'>
-                                    <a title='Промокод дает возможность использования сервиса...'>Промокод:</a>
+                                    <p>Промокод:</p>
                                     <span>ABCDEF1234</span>
+                                    <a title='Промокод дает возможность использования сервиса...'>
+                                        <i className='far fa-question-circle' />
+                                    </a>
                                 </div>
                                 {/* <span>{currentService.categories_3[0]?.name}</span> */}
                             </div>
@@ -183,18 +190,61 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <span>Партнерская программа</span>
                             <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
                         </div>
-                        <div className='service-promocode'>
-                            <i className='fas fa-tag' />
-                            <a title='Промокод дает возможность использования сервиса...'>Промокод:</a>
-                            <span>ABCDEF1234</span>
+                        {screenWidth <= 576 && <div className='service-dropdown-container' onClick={() => setOpenScreenshots(!openScreenshots)}>
+                            <div className='service-dropdown-header'>
+                                <p>Скриншоты</p>
+                                <i className={openScreenshots ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                            </div>
+                            {openScreenshots && <div className='service-dropdown-content'>
+                                <div className='service-images'>
+                                    {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
+                                        return <>
+                                            <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getScreen(i.link))} key={i.id}>
+                                                <img src={getScreen(i.link)} alt="" />
+                                            </div>
+                                        </>
+                                    })}
+                                    {currentService.images.screenshots.length === 0 && <div className='service-image-wrapper empty'>
+                                        <i className='fas fa-image' />
+                                    </div>}
+                                </div>
+                            </div>}
+                        </div>}
+                        <div className='service-dropdown-container'>
+                            <div className='service-dropdown-header' onClick={() => setOpenDiscounts(!openDiscounts)}>
+                                <p>Промокоды и скидки</p>
+                                <i className={openDiscounts ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                            </div>
+                            {openDiscounts && <div className='service-dropdown-content'>
+                                <div className='service-promocode'>
+                                    {/* <i className='fas fa-tag' /> */}
+                                    <p>Промокод:</p>
+                                    <span>ABCDEF1234</span>
+                                </div>
+                            </div>}
                         </div>
+                        {screenWidth <= 576 && <div className='service-dropdown-container'>
+                            <div className='service-dropdown-header' onClick={() => setOpenCategories(!openCategories)}>
+                                <p>Категории</p>
+                                <i className={openCategories ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                            </div>
+                            {openCategories && <div className='service-dropdown-content'>
+                                <div className='service-page-categories'>
+                                    <ul className='categories-list'>
+                                        {currentService.categories_3.map(i => {
+
+                                            const categoriesQty = serviceState.services.filter(service => service.categories_3.find(category => category.id === i.id)).length
+
+                                            return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
+                                        })}
+                                    </ul>
+                                </div>
+                            </div>}
+                        </div>}
                     </div>
-                    <a href='#' className='arrow-right-link'>
-                        <span>Перейти в сервис</span>
-                        <i className='fas fa-long-arrow-alt-right' />
-                    </a>
                 </div>
-                <div>
+
+                {screenWidth > 576 && <div>
                     <div className='service-images'>
                         {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
                             return <>
@@ -217,7 +267,12 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             })}
                         </ul>
                     </div>
-                </div>
+                </div>}
+
+                <a href='#' className='arrow-right-link'>
+                    <span>Перейти в сервис</span>
+                    <i className='fas fa-long-arrow-alt-right' />
+                </a>
             </div>
             <section>
                 <div className='service-section-header-options'>

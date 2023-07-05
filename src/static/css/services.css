@@ -114,7 +114,7 @@
 .service-main-container {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    column-gap: 40px;
     margin-bottom: 64px;
 }
 
@@ -211,7 +211,7 @@
 
 .service-promocode {
     padding: 8px 10px;
-    color: #386BEE;
+    color: #636E8D;
     background: #F4F7FF;
     border-radius: 12px;
     font-family: 'Noto Sans', sans-serif;
@@ -224,23 +224,24 @@
     grid-column-end: span 2;
 }
 
-.service-promocode>a {
-    color: #636E8D;
-    text-decoration: underline dashed;
-    text-underline-offset: 2px;
+.service-promocode>a>i {
+    /* color: #636E8D; */
+    /* text-decoration: underline dashed; */
+    /* text-underline-offset: 2px; */
     cursor: help;
 }
 
-.service-promocode>a:hover {
+.service-promocode>a:hover>i {
     color: #B3BBC2;
 }
 
 .service-promocode>span {
     font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+    color: #386BEE;
 }
 
-.service-promocode>i {
+.service-promocode i {
     color: #636E8D;
     font-size: 16px;
 }
@@ -305,6 +306,39 @@
 .service-details .service-details-data {
     font-weight: 400;
     text-align: right;
+}
+
+.service-dropdown-container {
+    margin-bottom: 2px;
+}
+
+.service-dropdown-header {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #386BEE;
+    background: #F4F7FF;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    user-select: none;
+}
+
+.service-dropdown-content {
+    padding: 8px;
+    border-left: 1px solid #F4F7FF;
+    border-right: 1px solid #F4F7FF;
+    border-bottom: 1px solid #F4F7FF;
+}
+
+.service-dropdown-content>.service-promocode {
+    background: none;
+}
+
+.service-dropdown-content>.service-images {
+    margin-bottom: 0;
 }
 
 /* SERVICE BANNER */
@@ -962,7 +996,7 @@
 
     .service-main-container {
         grid-template-columns: auto;
-        gap: 32px;
+        /* gap: 32px; */
         margin-bottom: 32px;
     }
 
@@ -991,8 +1025,17 @@
         grid-template-columns: auto;
     }
 
-    .service-title-section>h1 {
-        margin-bottom: 10px;
+    .service-title-section h1 {
+        font-size: 18px;
+        line-height: 18px;
+    }
+
+    .service-title-section i {
+        font-size: 12px;
+    }
+
+    .service-title-section>button {
+        display: none;
     }
 
     .service-title-section>span {
@@ -1023,14 +1066,21 @@
     }
 
     .service-feedback-qty>span {
-        font-size: 10px;
-        line-height: 10px;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .service-promocode {
+        padding: 6px 8px;
+        font-size: 12px;
+        line-height: 12px;
+        gap: 8px;
     }
 
     .service-info>p {
         margin-top: 24px;
-        font-size: 10px;
-        line-height: 14px;
+        font-size: 12px;
+        line-height: 16px;
     }
 
     .service-details {
@@ -1039,8 +1089,13 @@
     }
 
     .service-details>span {
-        font-size: 10px;
+        font-size: 12px;
         line-height: 10px;
+    }
+
+    .service-dropdown-header {
+        font-size: 12px;
+        line-height: 12px;
     }
 
     .service-banner-wrapper {
