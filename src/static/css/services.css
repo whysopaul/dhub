@@ -1208,8 +1208,13 @@
     }
 
     .services-list-filters-container p {
-        font-size: 10px;
-        line-height: 10px;
+        font-size: 12px;
+        line-height: 12px;
+    }
+
+    .services-list-search-params {
+        font-size: 12px;
+        line-height: 12px;
     }
 
     .services-list-pagination {
@@ -1232,8 +1237,8 @@
 
     .services-list-reset-button {
         padding: 4px 6px;
-        font-size: 10px;
-        line-height: 10px;
+        font-size: 12px;
+        line-height: 12px;
     }
 
     .services-list-reset-button>i {
@@ -1268,7 +1273,7 @@
     }
 
     .service-selection-advanced-inputs p {
-        font-size: 10px;
+        font-size: 12px;
     }
 
     .service-selection-advanced-inputs label {
