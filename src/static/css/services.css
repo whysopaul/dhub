@@ -281,7 +281,7 @@
 }
 
 .service-info>p {
-    margin-top: 32px;
+    margin: 32px 0;
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;
@@ -331,9 +331,15 @@
     border-left: 1px solid #F4F7FF;
     border-right: 1px solid #F4F7FF;
     border-bottom: 1px solid #F4F7FF;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    color: #2D4379;
+    display: grid;
+    gap: 16px;
 }
 
-.service-dropdown-content>.service-promocode {
+.service-dropdown-content .service-promocode {
     background: none;
 }
 
@@ -1092,7 +1098,7 @@
     }
 
     .service-info>p {
-        margin-top: 24px;
+        margin: 24px 0;
         font-size: 12px;
         line-height: 16px;
     }
@@ -1110,6 +1116,11 @@
     .service-dropdown-header {
         font-size: 12px;
         line-height: 12px;
+    }
+
+    .service-dropdown-content {
+        font-size: 12px;
+        line-height: 16px;
     }
 
     .service-banner-wrapper {

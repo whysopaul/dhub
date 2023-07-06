@@ -39,9 +39,10 @@ export type TServicesData = {
         screenshots?: TServiceScreenshot[]
     },
     feedbacks: TFeedback[],
-    promocode: string,
+    promocode: string, // outdated
     admin_notes: string,
     is_hidden: boolean,
+    discounts: TDiscount[],
     isNew?: boolean
 }
 
@@ -71,6 +72,15 @@ export type TServiceScreenshot = {
     service: number,
     source: string,
     link: string
+}
+
+export type TDiscount = {
+    id: number,
+    service: number,
+    code: string,
+    description: string,
+    is_sale: boolean,
+    is_promocode: boolean
 }
 
 interface IGetAllServices {

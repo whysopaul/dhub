@@ -138,13 +138,13 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     <i className='fas fa-external-link-alt' />
                                 </a>
                                 {authState?.is_admin && <button onClick={() => setEditMode(true)}>Редактировать</button>}
-                                <div className='service-promocode'>
+                                {currentService.discounts.find(d => d.is_promocode) && <div className='service-promocode'>
                                     <p>Промокод:</p>
-                                    <span>ABCDEF1234</span>
-                                    <a title='Промокод дает возможность использования сервиса...'>
+                                    <span>{currentService.discounts.find(d => d.is_promocode).code}</span>
+                                    <a title={currentService.discounts.find(d => d.is_promocode).description}>
                                         <i className='far fa-question-circle' />
                                     </a>
-                                </div>
+                                </div>}
                                 {/* <span>{currentService.categories_3[0]?.name}</span> */}
                             </div>
                             <div className='service-rating-section'>
@@ -211,19 +211,32 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 </div>
                             </div>}
                         </div>}
-                        <div className='service-dropdown-container'>
+                        {currentService.discounts.length > 0 && <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenDiscounts(!openDiscounts)}>
                                 <p>Промокоды и скидки</p>
                                 <i className={openDiscounts ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
                             </div>
                             {openDiscounts && <div className='service-dropdown-content'>
-                                <div className='service-promocode'>
-                                    {/* <i className='fas fa-tag' /> */}
-                                    <p>Промокод:</p>
-                                    <span>ABCDEF1234</span>
-                                </div>
+                                {currentService.discounts.map(d => {
+                                    if (d.is_promocode) {
+                                        return <div key={d.id}>
+                                            <div className='service-promocode'>
+                                                {/* <i className='fas fa-tag' /> */}
+                                                <p>Промокод:</p>
+                                                <span>{d.code}</span>
+                                            </div>
+                                            <p>{d.description}</p>
+                                        </div>
+                                    }
+                                    if (d.is_sale) {
+                                        return <div key={d.id}>
+                                            <p>Скидка:</p>
+                                            <p>{d.description}</p>
+                                        </div>
+                                    }
+                                })}
                             </div>}
-                        </div>
+                        </div>}
                         {screenWidth <= 576 && <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenCategories(!openCategories)}>
                                 <p>Категории</p>
@@ -245,7 +258,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenSpecialistInfo(!openSpecialistInfo)}>
                                 <p>Специалист в этом сервисе?</p>
-                                <i className={openCategories ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                                <i className={openSpecialistInfo ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
                             </div>
                             {openSpecialistInfo && <div className='service-dropdown-content'>
                                 <div>

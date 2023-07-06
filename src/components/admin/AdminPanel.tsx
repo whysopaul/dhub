@@ -65,7 +65,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     feedbacks: [],
                     promocode: '',
                     admin_notes: '',
-                    is_hidden: false
+                    is_hidden: false,
+                    discounts: []
                 }}
                 onClose={() => setCreateService(false)}
                 add
