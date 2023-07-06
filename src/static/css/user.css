@@ -213,7 +213,7 @@
     margin: 0;
 }
 
-.user-admin-panel-table-header>.wide-search-container>input {
+.user-admin-panel-table-header>.wide-search-container>input[type='text'] {
     padding: 0 16px 0 48px;
 }
 

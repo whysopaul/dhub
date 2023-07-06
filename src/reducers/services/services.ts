@@ -3,6 +3,7 @@ import { DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_S
 
 interface IDefaultState {
     services: TServicesData[],
+    services_hidden: TServicesData[],
     locations: TServiceLocation[],
     platforms: TServicePlatform[],
     currentService: TServicesData,
@@ -11,6 +12,7 @@ interface IDefaultState {
 
 const defaultState: IDefaultState = {
     services: [],
+    services_hidden: [],
     locations: [],
     platforms: [],
     currentService: null,
@@ -22,7 +24,8 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
         case GET_ALL_SERVICES:
             return {
                 ...state,
-                services: action.payload
+                services: action.payload.filter(s => !s.is_hidden),
+                services_hidden: action.payload.filter(s => s.is_hidden)
             }
         case GET_ALL_SERVICES_LOCATIONS:
             return {

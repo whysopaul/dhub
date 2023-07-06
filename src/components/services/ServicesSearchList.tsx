@@ -98,7 +98,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
     // console.log([...new Set(rootState.services.services.map(s => s.description.paymentMethod))])
 
-    const searchParamsInputRef = useRef<HTMLInputElement>(null)
+    const [openMobileFuncInputs, setOpenMobileFuncInputs] = useState(false)
+    const [openMobilePaymentInputs, setOpenMobilePaymentInputs] = useState(false)
+
+    // const searchParamsInputRef = useRef<HTMLInputElement>(null)
 
     const createSearchParamsLink = () => {
         const urlParams = new URLSearchParams()
@@ -270,7 +273,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 <h3 className='section-main-title' ref={titleRef}>Найденные сервисы:</h3>
                 <span className='services-list-services-number'>{searchCondition.length}</span>
             </div>
-            {searchCondition.length > 0 && <div className='sort-selection'>
+            {searchCondition.length > 0 && <div className='sort-selection view-desktop'>
                 <span>Сортировать:</span>
                 <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
                     <option value='default'>по умолчанию</option>
@@ -326,7 +329,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         })}
                     </ul>
                 </div>}
-                <div className='service-selection-advanced-inputs'>
+
+                <div className='service-selection-advanced-inputs view-desktop'>
                     <div>
                         <p>Функциональные особенности:</p>
                         <label><input type='checkbox' onChange={() => setIsNotFree(isNotFree === false ? null : false)} checked={isNotFree === false} />Бесплатная версия</label>
@@ -340,12 +344,48 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
                     </div>
                 </div>
+
+                <div className='service-selection-advanced-inputs view-mobile'>
+                    <div className='service-dropdown-container'>
+                        <div className='service-dropdown-header' onClick={() => setOpenMobileFuncInputs(!openMobileFuncInputs)}>
+                            <p>Функциональные особенности</p>
+                            <i className={openMobileFuncInputs ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                        </div>
+                        {openMobileFuncInputs && <div className='service-dropdown-content'>
+                            <label><input type='checkbox' onChange={() => setIsNotFree(isNotFree === false ? null : false)} checked={isNotFree === false} />Бесплатная версия</label>
+                            <label><input type='checkbox' onChange={() => setHasNoTrial(hasNoTrial === false ? null : false)} checked={hasNoTrial === false} />Пробный период</label>
+                            <label><input type='checkbox' onChange={() => setHasNoPartnership(hasNoPartnership === false ? null : false)} checked={hasNoPartnership === false} />Партнёрская программа</label>
+                        </div>}
+                    </div>
+                    <div className='service-dropdown-container'>
+                        <div className='service-dropdown-header' onClick={() => setOpenMobilePaymentInputs(!openMobilePaymentInputs)}>
+                            <p>Способ оплаты</p>
+                            <i className={openMobilePaymentInputs ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                        </div>
+                        {openMobilePaymentInputs && <div className='service-dropdown-content'>
+                            <label><input type='radio' onChange={() => setPaymentMethod(1)} checked={paymentMethod === 1} />По подписке</label>
+                            <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
+                            <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
+                        </div>}
+                    </div>
+                </div>
+
                 <div className='services-list-options'>
                     <button className='services-list-reset-button' onClick={() => window.location.replace('/services')}>
                         <span>Сбросить все фильтры</span>
                         <i className='fas fa-times' />
                     </button>
                 </div>
+                {searchCondition.length > 0 && <div className='sort-selection view-mobile'>
+                    <span>Сортировать:</span>
+                    <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
+                        <option value='default'>по умолчанию</option>
+                        <option value='new'>по новизне</option>
+                        <option value='top'>по рейтингу</option>
+                        <option value='a-z'>по алфавиту: А-Я</option>
+                        <option value='z-a'>по алфавиту: Я-А</option>
+                    </select>
+                </div>}
                 {/* <div className='wide-search-container'>
                     <input
                         type='text'
@@ -361,18 +401,20 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     />
                     <i className={copied ? 'fas fa-check-circle color-green' : 'far fa-copy color-blue'} />
                 </div> */}
-                <button className='blue-shadow-button' onClick={() => {
-                    navigator.clipboard.writeText(createSearchParamsLink())
-                    setCopied(true)
-                }}>
-                    <span>Поделиться сервисами</span>
-                    <i className='fas fa-share' />
-                </button>
-                {copied && <p className='services-list-filters-container-copied'>Скопировано в буфер обмена!</p>}
-                <div className='services-list-social-networks-buttons'>
-                    <button onClick={() => window.open('https://vk.com/share.php?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-vk' /></button>
-                    <button onClick={() => window.open('https://t.me/share/url?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-telegram-plane' /></button>
-                    <button onClick={() => window.open('whatsapp://send?text=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-whatsapp' /></button>
+                <div className='services-list-sharing view-desktop'>
+                    <button className='blue-shadow-button' onClick={() => {
+                        navigator.clipboard.writeText(createSearchParamsLink())
+                        setCopied(true)
+                    }}>
+                        <span>Поделиться сервисами</span>
+                        <i className='fas fa-share' />
+                    </button>
+                    {copied && <p className='services-list-filters-container-copied'>Скопировано в буфер обмена!</p>}
+                    <div className='services-list-social-networks-buttons'>
+                        <button onClick={() => window.open('https://vk.com/share.php?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-vk' /></button>
+                        <button onClick={() => window.open('https://t.me/share/url?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-telegram-plane' /></button>
+                        <button onClick={() => window.open('whatsapp://send?text=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-whatsapp' /></button>
+                    </div>
                 </div>
             </div>
             {searchCondition.length > 0 && <div className='services-list-cards-container'>
@@ -406,6 +448,21 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 <i className='fas fa-chevron-right' />
             </button>
         </div>}
+        <div className='services-list-sharing view-mobile'>
+            <button className='blue-shadow-button' onClick={() => {
+                navigator.clipboard.writeText(createSearchParamsLink())
+                setCopied(true)
+            }}>
+                <span>Поделиться сервисами</span>
+                <i className='fas fa-share' />
+            </button>
+            {copied && <p className='services-list-filters-container-copied'>Скопировано в буфер обмена!</p>}
+            <div className='services-list-social-networks-buttons'>
+                <button onClick={() => window.open('https://vk.com/share.php?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-vk' /></button>
+                <button onClick={() => window.open('https://t.me/share/url?url=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-telegram-plane' /></button>
+                <button onClick={() => window.open('whatsapp://send?text=' + encodeURIComponent(createSearchParamsLink()), '_blank')}><i className='fab fa-whatsapp' /></button>
+            </div>
+        </div>
     </>;
 };
 

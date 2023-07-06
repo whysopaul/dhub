@@ -29,8 +29,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const [sortMode, setSortMode] = useState<string>('default')
 
     const searchQuery = useMemo(() => {
-        return serviceState.services?.filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-    }, [, search, serviceState.services])
+        return serviceState.services?.concat(serviceState.services_hidden).filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
+    }, [, search, serviceState.services, serviceState.services_hidden])
 
     useEffect(() => {
         if (!userState || !userState?.is_admin) {
