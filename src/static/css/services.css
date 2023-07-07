@@ -986,8 +986,8 @@
     }
 
     .service-card-name {
-        font-size: 16px;
-        line-height: 16px;
+        font-size: 18px;
+        line-height: 18px;
         margin-bottom: 6px;
     }
 
@@ -999,20 +999,20 @@
     }
 
     .service-card-description {
-        font-size: 10px;
-        line-height: 14px;
+        font-size: 12px;
+        line-height: 16px;
         margin-top: 12px;
     }
 
     .service-rating-tag {
         padding: 6px 8px;
-        gap: 4px;
+        /* gap: 4px; */
     }
 
-    .service-rating-tag>span {
+    /* .service-rating-tag>span {
         font-size: 10px;
         line-height: 10px;
-    }
+    } */
 
     /* .service-page-categories {
         margin-bottom: 24px;
@@ -1049,6 +1049,7 @@
     }
 
     .service-info-header {
+        align-items: center;
         margin-bottom: 24px;
     }
 
@@ -1056,13 +1057,17 @@
         grid-template-columns: auto;
     }
 
+    .service-title-section>a {
+        max-width: 160px;
+    }
+
     .service-title-section h1 {
-        font-size: 18px;
-        line-height: 18px;
+        font-size: 20px;
+        line-height: 20px;
     }
 
     .service-title-section i {
-        font-size: 12px;
+        font-size: 14px;
     }
 
     .service-title-section>button {
@@ -1097,8 +1102,8 @@
     }
 
     .service-feedback-qty>span {
-        font-size: 12px;
-        line-height: 12px;
+        font-size: 14px;
+        line-height: 14px;
     }
 
     .service-promocode {
@@ -1110,19 +1115,19 @@
 
     .service-info>p {
         margin: 24px 0;
-        font-size: 12px;
-        line-height: 16px;
+        /* font-size: 12px; */
+        /* line-height: 16px; */
     }
 
     .service-details {
         margin-top: 24px;
-        gap: 18px;
+        gap: 16px;
     }
 
-    .service-details>span {
+    /* .service-details>span {
         font-size: 12px;
         line-height: 10px;
-    }
+    } */
 
     /* .service-dropdown-header {
         font-size: 12px;
@@ -1183,15 +1188,15 @@
     }
 
     .service-section-header-buttons>button {
-        font-size: 12px;
-        line-height: 12px;
-        padding: 10px 16px;
-        gap: 6px;
+        /* font-size: 12px; */
+        /* line-height: 12px; */
+        /* padding: 10px 16px; */
+        gap: 8px;
     }
 
     .service-section-header-buttons>button>span {
-        font-size: 10px;
-        line-height: 10px;
+        /* font-size: 10px; */
+        /* line-height: 10px; */
         padding: 4px 6px;
     }
 

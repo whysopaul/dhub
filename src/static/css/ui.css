@@ -178,14 +178,15 @@
 
 @media screen and (max-width: 576px) {
     .arrow-right-button {
-        font-size: 12px;
-        line-height: 12px;
+        font-size: 14px;
+        line-height: 14px;
         gap: 10px;
     }
 
     .arrow-right-link {
-        font-size: 12px;
-        line-height: 12px;
+        font-size: 14px;
+        line-height: 14px;
+        text-align: center;
     }
 
     .arrow-right-link>span {
@@ -197,19 +198,24 @@
         font-size: 14px;
         line-height: 14px;
         gap: 6px;
+        padding: 0 16px;
     }
 
     .round-item-button {
-        height: 32px;
-        font-size: 10px;
-        line-height: 10px;
+        height: 42px;
+        font-size: 14px;
+        line-height: 14px;
     }
 
     .round-item-button>div {
-        width: 32px;
-        height: 32px;
-        font-size: 12px;
-        line-height: 32px;
+        width: 42px;
+        height: 42px;
+        font-size: 16px;
+        line-height: 42px;
+    }
+
+    .round-item-button span {
+        margin: 0 10px 0 6px;
     }
 
     .page-number-button {
@@ -227,13 +233,13 @@
         line-height: 12px;
     }
 
-    .feedback-button {
+    /* .feedback-button {
         font-size: 12px;
         line-height: 12px;
-    }
+    } */
 
     .feedback-button>i {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .search-submit-button {

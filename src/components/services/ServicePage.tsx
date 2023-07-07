@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
-import Banner from '../../static/images/service_banner.webp'
+// import Banner from '../../static/images/service_banner.webp'
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import { TServicesData } from '../../actions/services/types';
 import ServiceGallery from './ServiceGallery';
@@ -267,6 +267,10 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             </div>}
                         </div>
                     </div>
+                    {screenWidth > 576 && <a href='#' className='arrow-right-link'>
+                        <span>Перейти в сервис</span>
+                        <i className='fas fa-long-arrow-alt-right' />
+                    </a>}
                 </div>
 
                 {screenWidth > 576 && <div>
@@ -294,10 +298,10 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>
                 </div>}
 
-                <a href='#' className='arrow-right-link'>
+                {screenWidth <= 576 && <a href='#' className='arrow-right-link'>
                     <span>Перейти в сервис</span>
                     <i className='fas fa-long-arrow-alt-right' />
-                </a>
+                </a>}
             </div>
             <section>
                 <div className='service-section-header-options'>
