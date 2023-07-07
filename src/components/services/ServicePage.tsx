@@ -237,7 +237,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 })}
                             </div>}
                         </div>}
-                        {screenWidth <= 576 && <div className='service-dropdown-container'>
+                        <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenCategories(!openCategories)}>
                                 <p>Категории</p>
                                 <i className={openCategories ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
@@ -254,7 +254,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     </ul>
                                 </div>
                             </div>}
-                        </div>}
+                        </div>
                         <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenSpecialistInfo(!openSpecialistInfo)}>
                                 <p>Специалист в этом сервисе?</p>
@@ -285,16 +285,6 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         {currentService.images.screenshots.length === 0 && <div className='service-image-wrapper empty'>
                             <i className='fas fa-image' />
                         </div>}
-                    </div>
-                    <div className='service-page-categories'>
-                        <ul className='categories-list'>
-                            {currentService.categories_3.map(i => {
-
-                                const categoriesQty = serviceState.services.filter(service => service.categories_3.find(category => category.id === i.id)).length
-
-                                return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
-                            })}
-                        </ul>
                     </div>
                 </div>}
 

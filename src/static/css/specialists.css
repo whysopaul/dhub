@@ -68,14 +68,14 @@
     }
 
     .specialist-card-info p {
-        font-size: 16px;
-        line-height: 20px;
+        font-size: 18px;
+        line-height: 22px;
         margin-bottom: 6px;
     }
 
     .specialist-card-info span {
-        font-size: 10px;
-        line-height: 14px;
+        font-size: 12px;
+        line-height: 16px;
     }
 
     .specialist-card-container>.arrow-right-button {

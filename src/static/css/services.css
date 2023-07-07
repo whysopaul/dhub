@@ -275,8 +275,8 @@
 
 .service-feedback-qty>span {
     font-weight: 400;
-    font-size: 16px;
-    line-height: 16px;
+    font-size: 14px;
+    line-height: 14px;
     color: #2D4379;
 }
 
@@ -1099,11 +1099,6 @@
 
     .service-feedback-qty>i {
         font-size: 12px;
-    }
-
-    .service-feedback-qty>span {
-        font-size: 14px;
-        line-height: 14px;
     }
 
     .service-promocode {
