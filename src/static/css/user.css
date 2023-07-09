@@ -199,7 +199,7 @@
 }
 
 .user-admin-panel-button>i {
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .user-admin-panel-table {
@@ -246,6 +246,13 @@
     padding: 2px 4px;
 }
 
+.user-admin-panel-table-header>.user-admin-panel-button {
+    width: 200px;
+    height: 48px;
+    box-shadow: none;
+    /* margin-right: auto; */
+}
+
 .user-admin-panel-table-content {
     height: 505px;
     overflow: auto;
@@ -257,7 +264,7 @@
 
 .user-admin-panel-table-row-head {
     display: grid;
-    grid-template-columns: 5% 25% 7% auto 7% 13% 7%;
+    grid-template-columns: 5% 25% 7% auto 5% 13% 5%;
     background: #386BEE;
     color: #FFFFFF;
     font-weight: 400;
@@ -276,9 +283,13 @@
     border: none;
 }
 
+.user-admin-panel-table-row-head i {
+    font-size: 14px;
+}
+
 .user-admin-panel-table-row {
     display: grid;
-    grid-template-columns: 5% 25% 7% auto 7% 13% 7%;
+    grid-template-columns: 5% 25% 7% auto 5% 13% 5%;
 }
 
 .user-admin-panel-table-row>* {
@@ -288,6 +299,11 @@
 
 .user-admin-panel-table-row>*:last-child {
     border: none;
+}
+
+.user-admin-panel-table-row i {
+    font-size: 14px;
+    color: #2D4379;
 }
 
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {
@@ -300,6 +316,23 @@
 
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n)>*:last-child {
     border: none;
+}
+
+.user-admin-panel-table-row>#service-name>a {
+    font-weight: 400;
+    font-size: inherit;
+    line-height: 14px;
+    color: inherit;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: fit-content;
+}
+
+.user-admin-panel-table-row>#service-name i {
+    font-size: 12px;
+    color: #386BEE;
 }
 
 .user-admin-panel-table-edit-button {

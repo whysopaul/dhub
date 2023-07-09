@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { URL } from '../utils';
 // import { useDispatch } from 'react-redux';
 // import { createService } from '../../actions/services/services';
@@ -96,7 +96,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 </div>
                 <div className='user-admin-panel-workspace'>
 
-                    {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} />}
+                    {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
 
                 </div>
             </div>

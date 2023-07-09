@@ -755,6 +755,10 @@
     color: inherit;
 }
 
+.service-selection-advanced-inputs.view-desktop p {
+    color: #2D4379;
+}
+
 .service-selection-advanced-inputs input[type='radio'] {
     width: 16px;
     height: 16px;

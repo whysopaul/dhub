@@ -4,14 +4,18 @@ import { RootStore } from '../../../store';
 import { useMemo, useState } from 'react';
 import Loading from '../../global/Loading';
 import { useDispatch } from 'react-redux';
-import { serviceDataUpdate } from '../../../actions/services/services';
+import { deleteService, serviceDataUpdate } from '../../../actions/services/services';
+import { Link } from 'react-router-dom';
+import { TServicesData } from '../../../actions/services/types';
 
 interface IAdminWorkspaceServicesProps {
-    onEdit: (_) => void
+    onEdit: (_: TServicesData) => void,
+    onCreate: () => void
 }
 
 const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesProps> = (props) => {
 
+    const userState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services)
 
     const [search, setSearch] = useState('')
@@ -33,6 +37,10 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                 <div className='user-admin-panel-search-length'>
                     <p>Найдено: <span>{searchQuery.length}</span></p>
                 </div>
+                <button className='user-admin-panel-button' onClick={() => props.onCreate()}>
+                    <i className='fas fa-plus' />
+                    <span>Добавить сервис</span>
+                </button>
                 <div className='sort-selection'>
                     <span>Сортировать:</span>
                     <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
@@ -49,15 +57,24 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                     {/* <span>Описание</span> */}
                     <span>Рейтинг</span>
                     <span>Заметки</span>
-                    <span>Скрытый</span>
+                    <div>
+                        <i className='fas fa-eye-slash' />
+                    </div>
                     <span>Редактирование</span>
-                    <span>Удалить</span>
+                    <div>
+                        <i className='fas fa-trash-alt' />
+                    </div>
                 </div>
                 <div className='user-admin-panel-table-content'>
                     {serviceState.is_loading ? <Loading height={505} /> : searchQuery.map(service => {
                         return <div className='user-admin-panel-table-row' key={service.id}>
                             <span>{service.id}</span>
-                            <span>{service.name}</span>
+                            <div id='service-name'>
+                                <Link to={'/service/' + service.id} target='_blank' rel='noopener noreferrer'>
+                                    <span>{service.name}</span>
+                                    <i className='fas fa-external-link-alt' />
+                                </Link>
+                            </div>
                             {/* <span>{service.description.text}</span> */}
                             <span>{service.rating}</span>
                             <span>{service.admin_notes}</span>
@@ -71,7 +88,9 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                                 <button className='user-admin-panel-table-edit-button' onClick={() => props.onEdit(service)}>Редактировать</button>
                             </div>
                             <div>
-                                <button><i className='fas fa-times' /></button>
+                                <button className='cursor-pointer' onClick={() => {
+                                    if (confirm('Подтвердите удаление сервиса')) dispatch(deleteService(service.id, userState?.d_token))
+                                }}><i className='fas fa-times' /></button>
                             </div>
                         </div>
                     })}
