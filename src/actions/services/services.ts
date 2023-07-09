@@ -162,6 +162,8 @@ export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Disp
             type: SERVICE_DATA_UPDATE,
             payload: res.data
         })
+
+        window.location.reload()
     }).catch(error => {
         console.log(error)
     })

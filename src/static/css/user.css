@@ -167,18 +167,18 @@
     gap: 24px;
 }
 
-.user-admin-panel-add-buttons {
+.user-admin-panel-section-buttons {
     display: grid;
     align-content: flex-start;
-    gap: 24px;
+    gap: 16px;
 }
 
 .user-admin-panel-button {
     width: 100%;
     min-width: 120px;
-    height: 120px;
+    height: 60px;
     font-family: 'Noto Sans', sans-serif;
-    font-weight: 400;
+    font-weight: 500;
     font-size: 14px;
     line-height: 14px;
     background: #F4F7FF;
@@ -186,11 +186,16 @@
     color: #386BEE;
     box-shadow: 0 0 4px #F4F7FF;
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     align-items: center;
     justify-content: center;
     gap: 8px;
     cursor: pointer;
+}
+
+.user-admin-panel-button.active {
+    background: #386BEE;
+    color: #FFFFFF;
 }
 
 .user-admin-panel-button>i {
@@ -252,7 +257,7 @@
 
 .user-admin-panel-table-row-head {
     display: grid;
-    grid-template-columns: 5% 25% 7% auto 13%;
+    grid-template-columns: 5% 25% 7% auto 7% 13% 7%;
     background: #386BEE;
     color: #FFFFFF;
     font-weight: 400;
@@ -273,7 +278,7 @@
 
 .user-admin-panel-table-row {
     display: grid;
-    grid-template-columns: 5% 25% 7% auto 13%;
+    grid-template-columns: 5% 25% 7% auto 7% 13% 7%;
 }
 
 .user-admin-panel-table-row>* {
