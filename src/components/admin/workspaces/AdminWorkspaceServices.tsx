@@ -22,8 +22,26 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
     const [sortMode, setSortMode] = useState<string>('default')
 
     const searchQuery = useMemo(() => {
-        return serviceState.services?.concat(serviceState.services_hidden).filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()))
-    }, [, search, serviceState.services, serviceState.services_hidden])
+        return serviceState.services?.concat(serviceState.services_hidden).filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).sort((a, b) => {
+            if (sortMode === 'new') {
+                return b.id - a.id
+            }
+            if (sortMode === 'top') {
+                return b.rating - a.rating
+            }
+            if (sortMode === 'a-z') {
+                if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return -1
+                if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return 1
+                return 0
+            }
+            if (sortMode === 'z-a') {
+                if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return 1
+                if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return -1
+                return 0
+            }
+            return a.id - b.id
+        })
+    }, [, search, serviceState.services, serviceState.services_hidden, sortMode])
 
     const dispatch = useDispatch()
 
@@ -37,21 +55,19 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                 <div className='user-admin-panel-search-length'>
                     <p>Найдено: <span>{searchQuery.length}</span></p>
                 </div>
-                <button className='user-admin-panel-button' onClick={() => props.onCreate()}>
-                    <i className='fas fa-plus' />
-                    <span>Добавить сервис</span>
-                </button>
                 <div className='sort-selection'>
                     <span>Сортировать:</span>
                     <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
                         <option value='default'>по умолчанию</option>
                         <option value='new'>по новизне</option>
                         <option value='top'>по рейтингу</option>
+                        <option value='a-z'>по алфавиту: А-Я</option>
+                        <option value='z-a'>по алфавиту: Я-А</option>
                     </select>
                 </div>
             </div>
             <div>
-                <div className='user-admin-panel-table-row-head'>
+                <div className='user-admin-panel-table-row-head' id='services'>
                     <span>ID</span>
                     <span>Название</span>
                     {/* <span>Описание</span> */}
@@ -67,7 +83,7 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                 </div>
                 <div className='user-admin-panel-table-content'>
                     {serviceState.is_loading ? <Loading height={505} /> : searchQuery.map(service => {
-                        return <div className='user-admin-panel-table-row' key={service.id}>
+                        return <div className='user-admin-panel-table-row' id='services' key={service.id}>
                             <span>{service.id}</span>
                             <div id='service-name'>
                                 <Link to={'/service/' + service.id} target='_blank' rel='noopener noreferrer'>
@@ -96,6 +112,10 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                     })}
                 </div>
             </div>
+            <button className='user-admin-panel-button' onClick={() => props.onCreate()}>
+                <i className='fas fa-plus' />
+                <span>Добавить сервис</span>
+            </button>
         </div>
     </>;
 };

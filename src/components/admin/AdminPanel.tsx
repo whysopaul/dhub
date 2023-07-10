@@ -9,6 +9,7 @@ import ServiceEditPopup from '../services/ServiceEditPopup';
 import CategoryAddPopup from '../categories/CategoryAddPopup';
 import { TServicesData } from '../../actions/services/types';
 import AdminWorkspaceServices from './workspaces/AdminWorkspaceServices';
+import AdminWorkspaceCategories from './workspaces/AdminWorkspaceCategories';
 
 interface IAdminPanelProps {
 }
@@ -97,6 +98,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 <div className='user-admin-panel-workspace'>
 
                     {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
+                    {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} />}
 
                 </div>
             </div>

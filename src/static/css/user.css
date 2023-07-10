@@ -264,7 +264,6 @@
 
 .user-admin-panel-table-row-head {
     display: grid;
-    grid-template-columns: 5% 25% 7% auto 5% 13% 5%;
     background: #386BEE;
     color: #FFFFFF;
     font-weight: 400;
@@ -289,7 +288,6 @@
 
 .user-admin-panel-table-row {
     display: grid;
-    grid-template-columns: 5% 25% 7% auto 5% 13% 5%;
 }
 
 .user-admin-panel-table-row>* {
@@ -304,6 +302,16 @@
 .user-admin-panel-table-row i {
     font-size: 14px;
     color: #2D4379;
+}
+
+.user-admin-panel-table-row-head#services,
+.user-admin-panel-table-row#services {
+    grid-template-columns: 5% 25% 7% auto 5% 13% 5%;
+}
+
+.user-admin-panel-table-row-head#categories,
+.user-admin-panel-table-row#categories {
+    grid-template-columns: 5% auto 7% 13% 5%;
 }
 
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {
