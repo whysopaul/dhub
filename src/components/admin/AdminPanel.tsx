@@ -10,6 +10,7 @@ import CategoryAddPopup from '../categories/CategoryAddPopup';
 import { TServicesData } from '../../actions/services/types';
 import AdminWorkspaceServices from './workspaces/AdminWorkspaceServices';
 import AdminWorkspaceCategories from './workspaces/AdminWorkspaceCategories';
+import CategoryRelationsAddPopup from '../categories/CategoryRelationsAddPopup';
 
 interface IAdminPanelProps {
 }
@@ -20,10 +21,11 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     // const dispatch = useDispatch()
 
-    const [adminWorkspace, setAdminWorkspace] = useState<'services' | 'categories' | 'locations' | 'platforms' | 'discounts' | 'users'>('services')
+    const [adminWorkspace, setAdminWorkspace] = useState<'services' | 'categories' | 'locations_platforms' | 'discounts' | 'users'>('services')
 
     const [createService, setCreateService] = useState(false)
     const [createCategory, setCreateCategory] = useState(false)
+    const [createCategoryRelations, setCreateCategoryRelations] = useState(false)
 
     const [editService, setEditService] = useState<TServicesData>(null)
 
@@ -68,6 +70,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
             />}
 
             {createCategory && <CategoryAddPopup onClose={() => setCreateCategory(false)} />}
+            {createCategoryRelations && <CategoryRelationsAddPopup onClose={() => setCreateCategoryRelations(false)} />}
 
             {editService && <ServiceEditPopup service={editService} onClose={() => setEditService(null)} />}
 
@@ -82,11 +85,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     <button className={adminWorkspace === 'categories' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('categories')}>
                         <span>Категории</span>
                     </button>
-                    <button className={adminWorkspace === 'locations' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('locations')}>
-                        <span>Дислокации</span>
-                    </button>
-                    <button className={adminWorkspace === 'platforms' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('platforms')}>
-                        <span>Платформы</span>
+                    <button className={adminWorkspace === 'locations_platforms' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('locations_platforms')}>
+                        <span>Дислокации и платформы</span>
                     </button>
                     <button className={adminWorkspace === 'discounts' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('discounts')}>
                         <span>Скидки</span>
@@ -98,7 +98,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 <div className='user-admin-panel-workspace'>
 
                     {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
-                    {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => null} />}
+                    {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
 
                 </div>
             </div>
