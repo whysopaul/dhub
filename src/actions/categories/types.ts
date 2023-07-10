@@ -16,7 +16,7 @@ export type TCategory = {
     name: string,
     index: number,
     parent: number,
-    connections: {
+    connections?: {
         id: number,
         service: number,
         category: number
@@ -30,7 +30,7 @@ interface IGetCategories {
 
 interface ICreateCategory {
     type: typeof CREATE_CATEGORY,
-    payload: any
+    payload: TCategory
 }
 
 interface ICreateCategoryRelations {
@@ -40,7 +40,7 @@ interface ICreateCategoryRelations {
 
 interface IDeleteCategory {
     type: typeof DELETE_CATEGORY,
-    payload: number
+    payload: string
 }
 
 export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations | IDeleteCategory

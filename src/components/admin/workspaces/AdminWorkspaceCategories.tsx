@@ -6,7 +6,8 @@ import Loading from '../../global/Loading';
 import { deleteCategory } from '../../../actions/categories/categories';
 
 interface IAdminWorkspaceCategoriesProps {
-    onCreate: () => void
+    onCreate: () => void,
+    onCreateRelations: () => void
 }
 
 const AdminWorkspaceCategories: React.FunctionComponent<IAdminWorkspaceCategoriesProps> = (props) => {
@@ -83,10 +84,16 @@ const AdminWorkspaceCategories: React.FunctionComponent<IAdminWorkspaceCategorie
                     })}
                 </div>
             </div>
-            <button className='user-admin-panel-button' onClick={() => props.onCreate()}>
-                <i className='fas fa-plus' />
-                <span>Добавить категорию</span>
-            </button>
+            <div className='user-admin-panel-add-buttons'>
+                <button className='user-admin-panel-button' onClick={() => props.onCreate()}>
+                    <i className='fas fa-plus' />
+                    <span>Добавить категорию</span>
+                </button>
+                <button className='user-admin-panel-button' onClick={() => props.onCreateRelations()}>
+                    <i className='fas fa-link' />
+                    <span>Привязать категорию</span>
+                </button>
+            </div>
         </div>
     </>;
 };

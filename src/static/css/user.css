@@ -358,6 +358,11 @@
     color: #444;
 }
 
+.user-admin-panel-add-buttons {
+    display: flex;
+    gap: 24px;
+}
+
 /* MOBILE */
 
 @media screen and (max-width: 576px) {

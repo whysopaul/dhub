@@ -98,7 +98,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 <div className='user-admin-panel-workspace'>
 
                     {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
-                    {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} />}
+                    {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => null} />}
 
                 </div>
             </div>

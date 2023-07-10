@@ -18,12 +18,14 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
 
 export const createCategory = (name: string, index: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createCategory', JSON.stringify({ name, index })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_CATEGORY,
             payload: res.data
         })
+
+        window.location.reload()
     }).catch(error => {
         console.log(error)
     })
@@ -44,12 +46,14 @@ export const createCategoryRelations = (cat_id: number, parent_id: number) => (d
 
 export const deleteCategory = (id: number, d_token: string) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteCategory', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_CATEGORY,
             payload: res.data
         })
+
+        window.location.reload()
     }).catch(error => {
         console.log(error)
     })
