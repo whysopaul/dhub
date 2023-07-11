@@ -21,6 +21,7 @@ export const DELETE_SCREENSHOT = 'DELETE_SCREENSHOT'
 export type TServicesData = {
     id: number,
     name: string,
+    link: string,
     description: {
         text: string,
         isFree: boolean,

@@ -246,14 +246,14 @@ export const createScreenshot = (name: string, source: string, service_id: numbe
 
 export const deleteService = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteService', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_SERVICE,
             payload: res.data
         })
 
-        window.location.replace('/')
+        window.location.pathname.includes('admin') ? window.location.reload() : window.location.replace('/')
     }).catch(error => {
         console.log(error)
     })

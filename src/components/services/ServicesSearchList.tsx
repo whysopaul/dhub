@@ -267,6 +267,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         }
     }, [])
 
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText])
+
     return <>
         <div className='services-list-header-container'>
             <div className='services-list-search-title'>

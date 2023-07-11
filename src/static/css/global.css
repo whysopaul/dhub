@@ -20,6 +20,7 @@ ul {
 body {
     font-family: 'Noto Sans', sans-serif;
     font-style: normal;
+    font-size: 14px;
     line-height: 1;
     scrollbar-color: #AAD1FC #E9E7EA;
     scrollbar-width: thin;
@@ -99,9 +100,9 @@ hr {
     margin-bottom: 32px;
 }
 
-.view-desktop {
+/* .view-desktop {
     display: inherit;
-}
+} */
 
 .view-mobile {
     display: none;

@@ -11,6 +11,8 @@ import { TServicesData } from '../../actions/services/types';
 import AdminWorkspaceServices from './workspaces/AdminWorkspaceServices';
 import AdminWorkspaceCategories from './workspaces/AdminWorkspaceCategories';
 import CategoryRelationsAddPopup from '../categories/CategoryRelationsAddPopup';
+import AdminWorkspaceLocationsPlatforms from './workspaces/AdminWorkspaceLocationsPlatforms';
+import LocationsPlatformsAddPopup from './workspaces/LocationsPlatformsAddPopup';
 
 interface IAdminPanelProps {
 }
@@ -26,6 +28,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const [createService, setCreateService] = useState(false)
     const [createCategory, setCreateCategory] = useState(false)
     const [createCategoryRelations, setCreateCategoryRelations] = useState(false)
+    const [createLocation, setCreateLocation] = useState(false)
+    const [createPlatform, setCreatePlatform] = useState(false)
 
     const [editService, setEditService] = useState<TServicesData>(null)
 
@@ -42,6 +46,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 service={{
                     id: -1,
                     name: '',
+                    link: '',
                     description: {
                         text: '',
                         isFree: false,
@@ -69,10 +74,13 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 add
             />}
 
+            {editService && <ServiceEditPopup service={editService} onClose={() => setEditService(null)} />}
+
             {createCategory && <CategoryAddPopup onClose={() => setCreateCategory(false)} />}
             {createCategoryRelations && <CategoryRelationsAddPopup onClose={() => setCreateCategoryRelations(false)} />}
 
-            {editService && <ServiceEditPopup service={editService} onClose={() => setEditService(null)} />}
+            {createLocation && <LocationsPlatformsAddPopup onClose={() => setCreateLocation(false)} action='location' />}
+            {createPlatform && <LocationsPlatformsAddPopup onClose={() => setCreatePlatform(false)} action='platform' />}
 
             <div>
                 <h2 className='section-main-title'>Панель администратора</h2>
@@ -99,6 +107,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
                     {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
+                    {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
 
                 </div>
             </div>
