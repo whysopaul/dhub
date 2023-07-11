@@ -133,7 +133,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <div className='service-info'>
                         <div className='service-info-header'>
                             <div className='service-title-section'>
-                                <a href='#'>
+                                <a href={currentService.link} target='_blank' rel='noopener noreferrer'>
                                     <h1 className='section-main-title'>{currentService.name}</h1>
                                     <i className='fas fa-external-link-alt' />
                                 </a>
@@ -267,7 +267,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             </div>}
                         </div>
                     </div>
-                    {screenWidth > 576 && <a href='#' className='arrow-right-link'>
+                    {screenWidth > 576 && <a href={currentService.link} target='_blank' rel='noopener noreferrer' className='arrow-right-link'>
                         <span>Перейти в сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </a>}
@@ -288,7 +288,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>
                 </div>}
 
-                {screenWidth <= 576 && <a href='#' className='arrow-right-link'>
+                {screenWidth <= 576 && <a href={currentService.link} target='_blank' rel='noopener noreferrer' className='arrow-right-link'>
                     <span>Перейти в сервис</span>
                     <i className='fas fa-long-arrow-alt-right' />
                 </a>}
