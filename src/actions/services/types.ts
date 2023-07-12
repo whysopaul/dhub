@@ -7,6 +7,7 @@ export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
 export const GET_SERVICE = 'GET_SERVICE'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
+export const SERVICE_UPDATE_LINK = 'SERVICE_UPDATE_LINK'
 
 export const CREATE_SERVICE = 'CREATE_SERVICE'
 export const CREATE_LOCATION = 'CREATE_LOCATION'
@@ -114,6 +115,11 @@ interface IServiceDataUpdate {
     payload: TServicesData
 }
 
+interface IServiceUpdateLink {
+    type: typeof SERVICE_UPDATE_LINK,
+    payload: boolean
+}
+
 // interface ICreateService {
 //     type: typeof CREATE_SERVICE,
 //     payload: TServicesData
@@ -139,4 +145,4 @@ interface IDeleteAction {
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | ICreateLocation | ICreatePlatform | ICreateScreenshot | IDeleteAction
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | ICreateLocation | ICreatePlatform | ICreateScreenshot | IDeleteAction

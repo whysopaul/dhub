@@ -4,7 +4,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
 import { useDispatch } from 'react-redux';
-import { deleteService, serviceDataUpdate } from '../../actions/services/services';
+import { deleteService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
@@ -22,6 +22,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const categoriesState = useSelector((state: RootStore) => state.categories.categories)
 
     const [name, setName] = useState(props.service.name)
+    const [link, setLink] = useState(props.service.link)
     const [description, setDescription] = useState(props.service.description.text)
     const [isFree, setIsFree] = useState(props.service.description.isFree)
     const [hasTrial, setHasTrial] = useState(props.service.description.hasTrial)
@@ -172,6 +173,13 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         })}
                         <li><button className='category-tag-add-category' onClick={() => setShowAddCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
                     </ul>
+                    <div className='service-edit-link-container'>
+                        <label>
+                            <span>Ссылка:</span>
+                            <input type='text' placeholder='http://' value={link} onChange={e => setLink(e.target.value)} />
+                        </label>
+                        <button className='blue-shadow-button' onClick={() => dispatch(serviceUpdateLink(link, props.service.id))}>Обновить ссылку</button>
+                    </div>
                 </div>
             </div>
 

@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SERVICE, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SERVICE, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_LINK, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -164,6 +164,19 @@ export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Disp
         })
 
         window.location.reload()
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const serviceUpdateLink = (link: string, service_id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/updateLink', JSON.stringify({ link, service_id })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: SERVICE_UPDATE_LINK,
+            payload: res.data
+        })
     }).catch(error => {
         console.log(error)
     })

@@ -922,6 +922,37 @@
     margin-top: 16px;
 }
 
+.service-edit-link-container {
+    display: grid;
+    grid-template-columns: auto max-content;
+    align-items: center;
+    gap: 12px;
+    background: #F6F7FB;
+    padding: 8px;
+    border-radius: 24px;
+    width: 100%;
+}
+
+.service-edit-link-container label {
+    display: flex;
+    align-items: center;
+}
+
+.service-edit-link-container span {
+    color: #386BEE;
+}
+
+.service-edit-link-container input[type="text"] {
+    background: #FFFFFF;
+    width: 100%;
+}
+
+.service-edit-link-container .blue-shadow-button {
+    padding: 0 12px;
+    height: 42px;
+    box-shadow: none;
+}
+
 .service-edit-alert {
     font-size: 14px;
     line-height: 14px;
