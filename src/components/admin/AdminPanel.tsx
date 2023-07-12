@@ -13,6 +13,7 @@ import AdminWorkspaceCategories from './workspaces/AdminWorkspaceCategories';
 import CategoryRelationsAddPopup from '../categories/CategoryRelationsAddPopup';
 import AdminWorkspaceLocationsPlatforms from './workspaces/AdminWorkspaceLocationsPlatforms';
 import LocationsPlatformsAddPopup from './workspaces/LocationsPlatformsAddPopup';
+import AdminWorkspaceDiscounts from './workspaces/AdminWorkspaceDiscounts';
 
 interface IAdminPanelProps {
 }
@@ -108,6 +109,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
+                    {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={() => null} onCreate={() => null} />}
 
                 </div>
             </div>

@@ -33,6 +33,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const [platforms, setPlatforms] = useState(props.service.description.platforms)
     const [mainCategories, setMainCategories] = useState(props.service.categories_2)
     const [categories, setCategories] = useState(props.service.categories_3)
+    const [adminNotes, setAdminNotes] = useState(props.service.admin_notes)
 
     const [showAddMainCategoryPopup, setShowAddMainCategoryPopup] = useState(false)
     const [showAddCategoryPopup, setShowAddCategoryPopup] = useState(false)
@@ -180,6 +181,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         </label>
                         <button className='blue-shadow-button' onClick={() => dispatch(serviceUpdateLink(link, props.service.id))}>Обновить ссылку</button>
                     </div>
+                    <p>Заметки:</p>
+                    <textarea value={adminNotes} onChange={e => setAdminNotes(e.target.value)}></textarea>
                 </div>
             </div>
 
@@ -189,7 +192,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
 
             <div>
                 <button className='blue-shadow-button' onClick={() => {
-                    if (name && mainCategories.length > 0 && categories.length > 0 && description && price && paymentMethod && locations.length > 0 && platforms.length > 0) {
+                    if (name && link && mainCategories.length > 0 && categories.length > 0 && description && price && paymentMethod && locations.length > 0 && platforms.length > 0) {
                         dispatch(serviceDataUpdate({
                             ...props.service,
                             name: name,
@@ -205,7 +208,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 paymentMethod: paymentMethod,
                                 locations: locations,
                                 platforms: platforms
-                            }
+                            },
+                            admin_notes: adminNotes
                         }))
                         setShowAlert(false)
                         props.onClose()

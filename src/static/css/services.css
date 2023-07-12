@@ -835,7 +835,7 @@
     box-sizing: border-box;
 }
 
-.service-edit-info>textarea {
+.service-edit-info textarea {
     border: 1px solid rgba(45, 67, 121, calc(0.6 * 0.4));
     border-radius: 24px;
     font-family: 'Noto Sans', sans-serif;
@@ -874,6 +874,11 @@
     font-size: 14px;
     line-height: 14px;
     color: rgba(45, 67, 121, 0.6);
+}
+
+.service-edit-details textarea {
+    width: 100%;
+    height: 120px;
 }
 
 .service-edit-popup-add-category-popup {

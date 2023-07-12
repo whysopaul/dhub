@@ -326,6 +326,11 @@
     grid-template-columns: 10% auto 10%;
 }
 
+.user-admin-panel-table-row-head#discounts,
+.user-admin-panel-table-row#discounts {
+    grid-template-columns: 5% 25% 7% 13% auto 13% 5%;
+}
+
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {
     background: #F4F7FF;
 }
