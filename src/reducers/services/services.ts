@@ -1,5 +1,5 @@
 import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, feedbackDispatchTypes } from "../../actions/feedback/types"
-import { DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
+import { CREATE_LOCATION, CREATE_PLATFORM, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
@@ -59,10 +59,30 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
                     })
                 ]
             }
+        case CREATE_LOCATION:
+            return {
+                ...state,
+                locations: [...state.locations, action.payload]
+            }
+        case CREATE_PLATFORM:
+            return {
+                ...state,
+                platforms: [...state.platforms, action.payload]
+            }
         case DELETE_SERVICE:
             return {
                 ...state,
                 services: [...state.services.filter(service => service.id !== parseInt(action.payload))]
+            }
+        case DELETE_LOCATION:
+            return {
+                ...state,
+                locations: [...state.locations.filter(location => location.id !== parseInt(action.payload))]
+            }
+        case DELETE_PLATFORM:
+            return {
+                ...state,
+                platforms: [...state.platforms.filter(platform => platform.id !== parseInt(action.payload))]
             }
         case FEEDBACK_CREATE_FEEDBACK:
             return {

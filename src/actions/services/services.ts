@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SERVICE, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_LINK, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SERVICE, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -171,10 +171,23 @@ export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Disp
 
 export const serviceUpdateLink = (link: string, service_id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/updateLink', JSON.stringify({ link, service_id })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: SERVICE_UPDATE_LINK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const serviceUpdateDiscount = (d_token: string, discount: TDiscount) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/updateDiscount', JSON.stringify({ d_token, discount })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: SERVICE_UPDATE_DISCOUNT,
             payload: res.data
         })
     }).catch(error => {
@@ -257,6 +270,19 @@ export const createScreenshot = (name: string, source: string, service_id: numbe
     })
 }
 
+export const createDiscount = (d_token: string, discount: TDiscount) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createDiscount', JSON.stringify({ d_token, discount })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_DISCOUNT,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
 export const deleteService = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteService', { params: { id, d_token } }).then(res => {
         // console.log(res.data)
@@ -304,6 +330,19 @@ export const deleteScreenshot = (id: number, d_token: string) => (dispatch: Disp
 
         dispatch({
             type: DELETE_SCREENSHOT,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteDiscount = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteDiscount', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_DISCOUNT,
             payload: res.data
         })
     }).catch(error => {

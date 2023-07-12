@@ -8,16 +8,19 @@ export const GET_SERVICE = 'GET_SERVICE'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
 export const SERVICE_UPDATE_LINK = 'SERVICE_UPDATE_LINK'
+export const SERVICE_UPDATE_DISCOUNT = 'SERVICE_UPDATE_DISCOUNT'
 
 export const CREATE_SERVICE = 'CREATE_SERVICE'
 export const CREATE_LOCATION = 'CREATE_LOCATION'
 export const CREATE_PLATFORM = 'CREATE_PLATFORM'
 export const CREATE_SCREENSHOT = 'CREATE_SCREENSHOT'
+export const CREATE_DISCOUNT = 'CREATE_DISCOUNT'
 
 export const DELETE_SERVICE = 'DELETE_SERVICE'
 export const DELETE_LOCATION = 'DELETE_LOCATION'
 export const DELETE_PLATFORM = 'DELETE_PLATFORM'
 export const DELETE_SCREENSHOT = 'DELETE_SCREENSHOT'
+export const DELETE_DISCOUNT = 'DELETE_DISCOUNT'
 
 export type TServicesData = {
     id: number,
@@ -51,7 +54,7 @@ export type TServicesData = {
 export type TServiceLocation = {
     id: number,
     name: string,
-    connections: {
+    connections?: {
         id: number,
         service: number,
         location: number
@@ -61,7 +64,7 @@ export type TServiceLocation = {
 export type TServicePlatform = {
     id: number,
     name: string,
-    connections: {
+    connections?: {
         id: number,
         service: number,
         platform: number
@@ -120,6 +123,11 @@ interface IServiceUpdateLink {
     payload: boolean
 }
 
+interface IServiceUpdateDiscount {
+    type: typeof SERVICE_UPDATE_DISCOUNT,
+    payload: TDiscount
+}
+
 // interface ICreateService {
 //     type: typeof CREATE_SERVICE,
 //     payload: TServicesData
@@ -127,12 +135,12 @@ interface IServiceUpdateLink {
 
 interface ICreateLocation {
     type: typeof CREATE_LOCATION,
-    payload: any
+    payload: TServiceLocation
 }
 
 interface ICreatePlatform {
     type: typeof CREATE_PLATFORM,
-    payload: any
+    payload: TServicePlatform
 }
 
 interface ICreateScreenshot {
@@ -140,9 +148,14 @@ interface ICreateScreenshot {
     payload: any
 }
 
+interface ICreateDiscount {
+    type: typeof CREATE_DISCOUNT,
+    payload: TDiscount
+}
+
 interface IDeleteAction {
-    type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT,
+    type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT | typeof DELETE_DISCOUNT,
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | ICreateLocation | ICreatePlatform | ICreateScreenshot | IDeleteAction
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateDiscount | IDeleteAction
