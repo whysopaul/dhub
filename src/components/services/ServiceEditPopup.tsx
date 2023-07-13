@@ -8,6 +8,7 @@ import { deleteService, getService, serviceDataUpdate, serviceUpdateLink } from 
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
+import Loading from '../global/Loading';
 
 interface IServiceEditPopupProps {
     service: TServicesData,
@@ -33,23 +34,37 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     useEffect(() => {
         if (serviceState.currentService?.id === props.service.id) {
             setCurrentService(serviceState.currentService)
-            console.log(serviceState.currentService)
+            // console.log(serviceState.currentService)
+
+            setName(serviceState.currentService.name)
+            setLink(serviceState.currentService.link)
+            setDescription(serviceState.currentService.description.text)
+            setIsFree(serviceState.currentService.description.isFree)
+            setHasTrial(serviceState.currentService.description.hasTrial)
+            setHasPartnership(serviceState.currentService.description.hasPartnership)
+            setPrice(serviceState.currentService.description.price)
+            setPaymentMethod(serviceState.currentService.description.paymentMethod)
+            setLocations(serviceState.currentService.description.locations)
+            setPlatforms(serviceState.currentService.description.platforms)
+            setMainCategories(serviceState.currentService.categories_2)
+            setCategories(serviceState.currentService.categories_3)
+            setAdminNotes(serviceState.currentService.admin_notes)
         }
     }, [, serviceState.currentService])
 
-    const [name, setName] = useState(props.service.name)
-    const [link, setLink] = useState(props.service.link)
-    const [description, setDescription] = useState(props.service.description.text)
-    const [isFree, setIsFree] = useState(props.service.description.isFree)
-    const [hasTrial, setHasTrial] = useState(props.service.description.hasTrial)
-    const [hasPartnership, setHasPartnership] = useState(props.service.description.hasPartnership)
-    const [price, setPrice] = useState(props.service.description.price)
-    const [paymentMethod, setPaymentMethod] = useState(props.service.description.paymentMethod)
-    const [locations, setLocations] = useState(props.service.description.locations)
-    const [platforms, setPlatforms] = useState(props.service.description.platforms)
-    const [mainCategories, setMainCategories] = useState(props.service.categories_2)
-    const [categories, setCategories] = useState(props.service.categories_3)
-    const [adminNotes, setAdminNotes] = useState(props.service.admin_notes)
+    const [name, setName] = useState('')
+    const [link, setLink] = useState('')
+    const [description, setDescription] = useState('')
+    const [isFree, setIsFree] = useState(null)
+    const [hasTrial, setHasTrial] = useState(null)
+    const [hasPartnership, setHasPartnership] = useState(null)
+    const [price, setPrice] = useState('')
+    const [paymentMethod, setPaymentMethod] = useState('')
+    const [locations, setLocations] = useState([])
+    const [platforms, setPlatforms] = useState([])
+    const [mainCategories, setMainCategories] = useState([])
+    const [categories, setCategories] = useState([])
+    const [adminNotes, setAdminNotes] = useState('')
 
     const [showAddMainCategoryPopup, setShowAddMainCategoryPopup] = useState(false)
     const [showAddCategoryPopup, setShowAddCategoryPopup] = useState(false)
@@ -146,102 +161,104 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
         </>}
 
         <div className='service-edit-popup-container' ref={refOne}>
-            <h2>{props.add ? 'Добавить сервис' : 'Редактирование сервиса'}</h2>
-            <div className='service-edit-info'>
-                <input type='text' placeholder='Название сервиса' value={name} onChange={e => setName(e.target.value)} />
-                <textarea placeholder='Описание сервиса' value={description} onChange={e => setDescription(e.target.value)} />
-                <div className='service-edit-details'>
-                    <label><span>Бесплатная версия:</span><input type='checkbox' checked={isFree} onChange={() => setIsFree(!isFree)} /></label>
-                    <label><span>Пробный период:</span><input type='checkbox' checked={hasTrial} onChange={() => setHasTrial(!hasTrial)} /></label>
-                    <label><span>Партнерская программа:</span><input type='checkbox' checked={hasPartnership} onChange={() => setHasPartnership(!hasPartnership)} /></label>
-                    <label><span>Стоимость:</span><input type='text' placeholder='напр.: от 1000 р. в месяц' value={price} onChange={e => setPrice(e.target.value)} /></label>
-                    <label><span>Способ оплаты:</span><input type='text' placeholder='напр.: ежемесячно, по подписке' value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} /></label>
-                    <p>Дислокация:</p>
-                    <ul className='categories-list'>
-                        {serviceState.locations?.map(location => {
-                            return <li key={location.id}>
-                                <button className={locations.find(loc => loc.id === location.id) ? 'category-tag active' : 'category-tag'} onClick={() => toggleLocation(location)}>{location.name}</button>
-                            </li>
-                        })}
-                    </ul>
-                    <p>Платформа:</p>
-                    <ul className='categories-list'>
-                        {serviceState.platforms?.map(platform => {
-                            return <li key={platform.id}>
-                                <button className={platforms.find(pl => pl.id === platform.id) ? 'category-tag active' : 'category-tag'} onClick={() => togglePlatform(platform)}>{platform.name}</button>
-                            </li>
-                        })}
-                    </ul>
-                    <p>Категории:</p>
-                    <ul className='categories-list'>
-                        {mainCategories.map(category => {
-                            return <li key={category.id}>
-                                <button className='category-tag' onClick={() => toggleMainCategories(category)}>{category.name}<i className='fas fa-times' /></button>
-                            </li>
-                        })}
-                        <li><button className='category-tag-add-category' onClick={() => setShowAddMainCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
-                    </ul>
-                    <p>Подкатегории:</p>
-                    <ul className='categories-list'>
-                        {categories.map(category => {
-                            return <li key={category.id}>
-                                <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-times' /></button>
-                            </li>
-                        })}
-                        <li><button className='category-tag-add-category' onClick={() => setShowAddCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
-                    </ul>
-                    <div className='service-edit-link-container'>
-                        <label>
-                            <span>Ссылка:</span>
-                            <input type='text' placeholder='http://' value={link} onChange={e => setLink(e.target.value)} />
-                        </label>
-                        <button className='blue-shadow-button' onClick={() => dispatch(serviceUpdateLink(link, props.service.id))}>Обновить ссылку</button>
+            {currentService ? <>
+                <h2>{props.add ? 'Добавить сервис' : 'Редактирование сервиса'}</h2>
+                <div className='service-edit-info'>
+                    <input type='text' placeholder='Название сервиса' value={name} onChange={e => setName(e.target.value)} />
+                    <textarea placeholder='Описание сервиса' value={description} onChange={e => setDescription(e.target.value)} />
+                    <div className='service-edit-details'>
+                        <label><span>Бесплатная версия:</span><input type='checkbox' checked={isFree} onChange={() => setIsFree(!isFree)} /></label>
+                        <label><span>Пробный период:</span><input type='checkbox' checked={hasTrial} onChange={() => setHasTrial(!hasTrial)} /></label>
+                        <label><span>Партнерская программа:</span><input type='checkbox' checked={hasPartnership} onChange={() => setHasPartnership(!hasPartnership)} /></label>
+                        <label><span>Стоимость:</span><input type='text' placeholder='напр.: от 1000 р. в месяц' value={price} onChange={e => setPrice(e.target.value)} /></label>
+                        <label><span>Способ оплаты:</span><input type='text' placeholder='напр.: ежемесячно, по подписке' value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} /></label>
+                        <p>Дислокация:</p>
+                        <ul className='categories-list'>
+                            {serviceState.locations?.map(location => {
+                                return <li key={location.id}>
+                                    <button className={locations.find(loc => loc.id === location.id) ? 'category-tag active' : 'category-tag'} onClick={() => toggleLocation(location)}>{location.name}</button>
+                                </li>
+                            })}
+                        </ul>
+                        <p>Платформа:</p>
+                        <ul className='categories-list'>
+                            {serviceState.platforms?.map(platform => {
+                                return <li key={platform.id}>
+                                    <button className={platforms.find(pl => pl.id === platform.id) ? 'category-tag active' : 'category-tag'} onClick={() => togglePlatform(platform)}>{platform.name}</button>
+                                </li>
+                            })}
+                        </ul>
+                        <p>Категории:</p>
+                        <ul className='categories-list'>
+                            {mainCategories.map(category => {
+                                return <li key={category.id}>
+                                    <button className='category-tag' onClick={() => toggleMainCategories(category)}>{category.name}<i className='fas fa-times' /></button>
+                                </li>
+                            })}
+                            <li><button className='category-tag-add-category' onClick={() => setShowAddMainCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
+                        </ul>
+                        <p>Подкатегории:</p>
+                        <ul className='categories-list'>
+                            {categories.map(category => {
+                                return <li key={category.id}>
+                                    <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-times' /></button>
+                                </li>
+                            })}
+                            <li><button className='category-tag-add-category' onClick={() => setShowAddCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
+                        </ul>
+                        <div className='service-edit-link-container'>
+                            <label>
+                                <span>Ссылка:</span>
+                                <input type='text' placeholder='http://' value={link} onChange={e => setLink(e.target.value)} />
+                            </label>
+                            <button className='blue-shadow-button' onClick={() => dispatch(serviceUpdateLink(link, props.service.id))}>Обновить ссылку</button>
+                        </div>
+                        <p>Заметки:</p>
+                        <textarea value={adminNotes} onChange={e => setAdminNotes(e.target.value)}></textarea>
                     </div>
-                    <p>Заметки:</p>
-                    <textarea value={adminNotes} onChange={e => setAdminNotes(e.target.value)}></textarea>
                 </div>
-            </div>
 
-            {showAlert && <div>
-                <p className='service-edit-alert'>Пожалуйста, заполните все поля ввода и выберите минимум одну категорию и подкатегорию</p>
-            </div>}
+                {showAlert && <div>
+                    <p className='service-edit-alert'>Пожалуйста, заполните все поля ввода и выберите минимум одну категорию и подкатегорию</p>
+                </div>}
 
-            <div>
-                <button className='blue-shadow-button' onClick={() => {
-                    if (name && link && mainCategories.length > 0 && categories.length > 0 && description && price && paymentMethod && locations.length > 0 && platforms.length > 0) {
-                        dispatch(serviceDataUpdate({
-                            ...props.service,
-                            name: name,
-                            categories_2: mainCategories,
-                            categories_3: categories,
-                            description: {
-                                ...props.service.description,
-                                text: description,
-                                isFree: isFree,
-                                hasTrial: hasTrial,
-                                hasPartnership: hasPartnership,
-                                price: price,
-                                paymentMethod: paymentMethod,
-                                locations: locations,
-                                platforms: platforms
-                            },
-                            admin_notes: adminNotes
-                        }))
-                        setShowAlert(false)
-                        props.onClose()
-                    } else {
-                        setShowAlert(true)
-                    }
-                }}>{props.add ? 'Добавить сервис' : 'Сохранить изменения'}</button>
-            </div>
+                <div>
+                    <button className='blue-shadow-button' onClick={() => {
+                        if (name && link && mainCategories.length > 0 && categories.length > 0 && description && price && paymentMethod && locations.length > 0 && platforms.length > 0) {
+                            dispatch(serviceDataUpdate({
+                                ...props.service,
+                                name: name,
+                                categories_2: mainCategories,
+                                categories_3: categories,
+                                description: {
+                                    ...props.service.description,
+                                    text: description,
+                                    isFree: isFree,
+                                    hasTrial: hasTrial,
+                                    hasPartnership: hasPartnership,
+                                    price: price,
+                                    paymentMethod: paymentMethod,
+                                    locations: locations,
+                                    platforms: platforms
+                                },
+                                admin_notes: adminNotes
+                            }))
+                            setShowAlert(false)
+                            props.onClose()
+                        } else {
+                            setShowAlert(true)
+                        }
+                    }}>{props.add ? 'Добавить сервис' : 'Сохранить изменения'}</button>
+                </div>
 
-            {!props.add && <div>
-                <button className='delete-button' onClick={() => {
-                    if (confirm('Подтвердите удаление сервиса')) dispatch(deleteService(props.service.id, userState?.d_token))
-                }}>Удалить сервис</button>
-            </div>}
+                {!props.add && <div>
+                    <button className='delete-button' onClick={() => {
+                        if (confirm('Подтвердите удаление сервиса')) dispatch(deleteService(props.service.id, userState?.d_token))
+                    }}>Удалить сервис</button>
+                </div>}
 
-            <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
+                <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
+            </> : <Loading height={505} />}
         </div>
     </>;
 };

@@ -7,15 +7,18 @@ import { useDispatch } from 'react-redux';
 import { feedbackDeleteFeedback, feedbackToggleFeedbackUpvote } from '../../actions/feedback/feedback';
 import { userShowLoginPopup } from '../../actions/auth/auth';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
+import FeedbackCardPopup from './FeedbackCardPopup';
 
 interface IFeedbackCardComponentProps {
     comment: TFeedback,
     owner?: boolean,
+    show_full?: boolean,
     onTouchStart?: (e: React.TouchEvent) => void,
     onTouchMove?: (e: React.TouchEvent, cardsQty?: number) => void
 }
 
-const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner, onTouchStart, onTouchMove }) => {
+const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner, show_full, onTouchStart, onTouchMove }) => {
 
     const rootState = useSelector((state: RootStore) => state)
 
@@ -29,7 +32,12 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
 
     const feedbackServiceData = rootState.services.services.find(service => service.id === comment.service)
 
+    const [showFullFeedback, setShowFullFeedback] = useState(false)
+
     return <>
+
+        {showFullFeedback && <FeedbackCardPopup comment={comment} onClose={() => setShowFullFeedback(false)} />}
+
         <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
             <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
                 {!owner && <>
@@ -48,10 +56,10 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                 </div>
             </div>
             <hr />
-            <p>
-                {comment.text.split(' ').length > 30 ? comment.text.split(' ').slice(0, 30).join(' ') + '...' : comment.text}
-                {comment.text.split(' ').length > 30 && <button className='feedback-card-read-more'>Читать далее</button>}
-            </p>
+            <div className='feedback-card-description'>
+                <p>{comment.text.split(' ').length > 30 && !show_full ? comment.text.split(' ').slice(0, 30).join(' ') + '...' : comment.text}</p>
+                {comment.text.split(' ').length > 30 && !show_full && <button className='feedback-card-read-more' onClick={() => setShowFullFeedback(true)}>Читать далее</button>}
+            </div>
             <hr />
             <div className='feedback-card-footer'>
                 <div className='feedback-service-logo'>
