@@ -33,9 +33,9 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
         <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
             <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
                 {!owner && <>
-                    <img src={comment.user.photo} alt="" />
+                    {comment.is_soup ? <div className='feedback-card-anonym'><i className='fas fa-user-circle' /></div> : <img src={comment.user.photo} alt="" />}
                     <div className='feedback-card-username'>
-                        <p>{comment.user.name}</p>
+                        <p>{comment.is_soup ? comment.soup_name : comment.user.name}</p>
                     </div>
                 </>}
                 <div className='feedback-card-rating'>
@@ -48,7 +48,10 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                 </div>
             </div>
             <hr />
-            <p>{comment.text}</p>
+            <p>
+                {comment.text.split(' ').length > 30 ? comment.text.split(' ').slice(0, 30).join(' ') + '...' : comment.text}
+                {comment.text.split(' ').length > 30 && <button className='feedback-card-read-more'>Читать далее</button>}
+            </p>
             <hr />
             <div className='feedback-card-footer'>
                 <div className='feedback-service-logo'>
@@ -66,7 +69,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                     </div>
                 </button>
             </div>
-            {((comment.user.vk_id === rootState.auth.user?.vk_id) || rootState.auth.user?.is_admin) && <div className='feedback-card-delete-container'>
+            {(comment.user && (comment.user.vk_id === rootState.auth.user?.vk_id) || rootState.auth.user?.is_admin) && <div className='feedback-card-delete-container'>
                 <button className='delete-button' onClick={() => dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))}>Удалить отзыв</button>
             </div>}
         </div>

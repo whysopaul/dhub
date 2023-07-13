@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
 import { useDispatch } from 'react-redux';
-import { deleteService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
+import { deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
@@ -12,7 +12,8 @@ import { TCategory } from '../../actions/categories/types';
 interface IServiceEditPopupProps {
     service: TServicesData,
     onClose: () => void,
-    add?: boolean
+    add?: boolean,
+    is_empty?: boolean
 }
 
 const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props) => {
@@ -20,6 +21,21 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const userState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services)
     const categoriesState = useSelector((state: RootStore) => state.categories.categories)
+
+    const [currentService, setCurrentService] = useState<TServicesData>(props.is_empty ? null : props.service)
+
+    useEffect(() => {
+        if (props.is_empty) {
+            dispatch(getService(props.service.id))
+        }
+    }, [])
+
+    useEffect(() => {
+        if (serviceState.currentService?.id === props.service.id) {
+            setCurrentService(serviceState.currentService)
+            console.log(serviceState.currentService)
+        }
+    }, [, serviceState.currentService])
 
     const [name, setName] = useState(props.service.name)
     const [link, setLink] = useState(props.service.link)

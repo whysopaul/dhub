@@ -45,6 +45,22 @@
     border-radius: 50%;
 }
 
+.feedback-card-anonym {
+    width: 64px;
+    height: 64px;
+    background: #386BEE;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.feedback-card-anonym>i {
+    font-size: 42px;
+    line-height: 42px;
+    color: #FFFFFF;
+}
+
 .feedback-card-username {
     margin: 0 auto 0 20px;
     font-family: 'Montserrat', sans-serif;
@@ -92,6 +108,17 @@
     font-size: 14px;
     line-height: 20px;
     color: #2D4379;
+    min-height: 60px;
+}
+
+.feedback-card-read-more {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #386BEE;
+    margin-left: 8px;
+    cursor: pointer;
 }
 
 .feedback-card-footer {

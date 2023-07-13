@@ -36,7 +36,9 @@ export type TFeedback = {
     usability: number,
     customer_service: number,
     likes: number[], // vk_id array
-    total_rating: number
+    total_rating: number,
+    is_soup?: boolean,
+    soup_name?: string
 }
 
 interface IFeedbackCreateFeedback {
