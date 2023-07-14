@@ -34,37 +34,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     useEffect(() => {
         if (serviceState.currentService?.id === props.service.id) {
             setCurrentService(serviceState.currentService)
-            // console.log(serviceState.currentService)
-
-            setName(serviceState.currentService.name)
-            setLink(serviceState.currentService.link)
-            setDescription(serviceState.currentService.description.text)
-            setIsFree(serviceState.currentService.description.isFree)
-            setHasTrial(serviceState.currentService.description.hasTrial)
-            setHasPartnership(serviceState.currentService.description.hasPartnership)
-            setPrice(serviceState.currentService.description.price)
-            setPaymentMethod(serviceState.currentService.description.paymentMethod)
-            setLocations(serviceState.currentService.description.locations)
-            setPlatforms(serviceState.currentService.description.platforms)
-            setMainCategories(serviceState.currentService.categories_2)
-            setCategories(serviceState.currentService.categories_3)
-            setAdminNotes(serviceState.currentService.admin_notes)
         }
     }, [, serviceState.currentService])
-
-    const [name, setName] = useState('')
-    const [link, setLink] = useState('')
-    const [description, setDescription] = useState('')
-    const [isFree, setIsFree] = useState(null)
-    const [hasTrial, setHasTrial] = useState(null)
-    const [hasPartnership, setHasPartnership] = useState(null)
-    const [price, setPrice] = useState('')
-    const [paymentMethod, setPaymentMethod] = useState('')
-    const [locations, setLocations] = useState([])
-    const [platforms, setPlatforms] = useState([])
-    const [mainCategories, setMainCategories] = useState([])
-    const [categories, setCategories] = useState([])
-    const [adminNotes, setAdminNotes] = useState('')
 
     const [showAddMainCategoryPopup, setShowAddMainCategoryPopup] = useState(false)
     const [showAddCategoryPopup, setShowAddCategoryPopup] = useState(false)
@@ -73,35 +44,77 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const [showList, setShowList] = useState(false)
 
     const searchMainCategoryFilter = useMemo(() => {
-        return categoriesState.filter(category => category.index === 2).filter(category => !mainCategories.map(cat => cat.id).includes(category.id)).filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
-    }, [searchCategory, mainCategories, categoriesState])
+        return categoriesState
+            .filter(category => category.index === 2)
+            .filter(category => !currentService?.categories_2.map(cat => cat.id).includes(category.id))
+            .filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
+    }, [searchCategory, currentService?.categories_2, categoriesState])
 
     const searchCategoryFilter = useMemo(() => {
-        return categoriesState.filter(category => category.index === 3).filter(category => !categories.map(cat => cat.id).includes(category.id)).filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
-    }, [searchCategory, categories, categoriesState])
+        return categoriesState
+            .filter(category => category.index === 3)
+            .filter(category => !currentService?.categories_3.map(cat => cat.id).includes(category.id))
+            .filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
+    }, [searchCategory, currentService?.categories_3, categoriesState])
 
     const toggleLocation = (location: TServiceLocation) => {
-        locations.map(loc => loc.id).includes(location.id)
-            ? setLocations(locations.filter(loc => loc.id !== location.id))
-            : setLocations([...locations, location])
+        currentService.description.locations.map(loc => loc.id).includes(location.id)
+            ? setCurrentService({
+                ...currentService,
+                description: {
+                    ...currentService.description,
+                    locations: currentService.description.locations.filter(loc => loc.id !== location.id)
+                }
+            })
+            : setCurrentService({
+                ...currentService,
+                description: {
+                    ...currentService.description,
+                    locations: [...currentService.description.locations, location]
+                }
+            })
     }
 
     const togglePlatform = (platform: TServicePlatform) => {
-        platforms.map(pl => pl.id).includes(platform.id)
-            ? setPlatforms(platforms.filter(pl => pl.id !== platform.id))
-            : setPlatforms([...platforms, platform])
+        currentService.description.platforms.map(pl => pl.id).includes(platform.id)
+            ? setCurrentService({
+                ...currentService,
+                description: {
+                    ...currentService.description,
+                    platforms: currentService.description.platforms.filter(pl => pl.id !== platform.id)
+                }
+            })
+            : setCurrentService({
+                ...currentService,
+                description: {
+                    ...currentService.description,
+                    platforms: [...currentService.description.platforms, platform]
+                }
+            })
     }
 
     const toggleMainCategories = (category: TCategory) => {
-        mainCategories.map(cat => cat.id).includes(category.id)
-            ? setMainCategories(mainCategories.filter(cat => cat.id !== category.id))
-            : setMainCategories([...mainCategories, category])
+        currentService.categories_2.map(cat => cat.id).includes(category.id)
+            ? setCurrentService({
+                ...currentService,
+                categories_2: currentService.categories_2.filter(cat => cat.id !== category.id)
+            })
+            : setCurrentService({
+                ...currentService,
+                categories_2: [...currentService.categories_2, category]
+            })
     }
 
     const toggleCategories = (category: TCategory) => {
-        categories.map(cat => cat.id).includes(category.id)
-            ? setCategories(categories.filter(cat => cat.id !== category.id))
-            : setCategories([...categories, category])
+        currentService.categories_3.map(cat => cat.id).includes(category.id)
+            ? setCurrentService({
+                ...currentService,
+                categories_3: currentService.categories_3.filter(cat => cat.id !== category.id)
+            })
+            : setCurrentService({
+                ...currentService,
+                categories_3: [...currentService.categories_3, category]
+            })
     }
 
     const [showAlert, setShowAlert] = useState(false)
@@ -123,19 +136,40 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             <div className='service-edit-popup-add-category-popup' ref={refTwo}>
                 <h3>Добавить категорию</h3>
                 <div className='service-edit-popup-add-category-search'>
-                    <input type='text' placeholder='Выберите категорию из списка' value={searchCategory} onChange={e => setSearchCategory(e.target.value)} onFocus={() => setShowList(true)} ref={searchRef} />
-                    <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}>
+                    <input
+                        type='text'
+                        placeholder='Выберите категорию из списка'
+                        value={searchCategory}
+                        onChange={e => setSearchCategory(e.target.value)}
+                        onFocus={() => setShowList(true)}
+                        ref={searchRef}
+                    />
+                    <button
+                        type='button'
+                        onClick={() => showList ? setShowList(false) : searchRef.current.focus()}
+                    >
                         <i className={`fas fa-caret-${showList ? 'up' : 'down'} color-blue cursor-pointer`} />
                     </button>
                 </div>
                 <ul className='service-edit-popup-add-category-list'>
                     {showList && searchMainCategoryFilter.map(category => {
                         return <li key={category.id}>
-                            <button className='category-tag' onClick={() => toggleMainCategories(category)}>{category.name}<i className='fas fa-plus' /></button>
+                            <button
+                                className='category-tag'
+                                onClick={() => toggleMainCategories(category)}
+                            >
+                                {category.name}
+                                <i className='fas fa-plus' />
+                            </button>
                         </li>
                     })}
                 </ul>
-                <button className='popup-close-button' onClick={() => setShowAddMainCategoryPopup(false)}><i className='fas fa-times' /></button>
+                <button
+                    className='popup-close-button'
+                    onClick={() => setShowAddMainCategoryPopup(false)}
+                >
+                    <i className='fas fa-times' />
+                </button>
             </div>
         </>}
 
@@ -144,19 +178,40 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             <div className='service-edit-popup-add-category-popup' ref={refTwo}>
                 <h3>Добавить подкатегорию</h3>
                 <div className='service-edit-popup-add-category-search'>
-                    <input type='text' placeholder='Выберите категорию из списка' value={searchCategory} onChange={e => setSearchCategory(e.target.value)} onFocus={() => setShowList(true)} ref={searchRef} />
-                    <button type='button' onClick={() => showList ? setShowList(false) : searchRef.current.focus()}>
+                    <input
+                        type='text'
+                        placeholder='Выберите категорию из списка'
+                        value={searchCategory}
+                        onChange={e => setSearchCategory(e.target.value)}
+                        onFocus={() => setShowList(true)}
+                        ref={searchRef}
+                    />
+                    <button
+                        type='button'
+                        onClick={() => showList ? setShowList(false) : searchRef.current.focus()}
+                    >
                         <i className={`fas fa-caret-${showList ? 'up' : 'down'} color-blue cursor-pointer`} />
                     </button>
                 </div>
                 <ul className='service-edit-popup-add-category-list'>
                     {showList && searchCategoryFilter.map(category => {
                         return <li key={category.id}>
-                            <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-plus' /></button>
+                            <button
+                                className='category-tag'
+                                onClick={() => toggleCategories(category)}
+                            >
+                                {category.name}
+                                <i className='fas fa-plus' />
+                            </button>
                         </li>
                     })}
                 </ul>
-                <button className='popup-close-button' onClick={() => setShowAddCategoryPopup(false)}><i className='fas fa-times' /></button>
+                <button
+                    className='popup-close-button'
+                    onClick={() => setShowAddCategoryPopup(false)}
+                >
+                    <i className='fas fa-times' />
+                </button>
             </div>
         </>}
 
@@ -164,19 +219,109 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             {currentService ? <>
                 <h2>{props.add ? 'Добавить сервис' : 'Редактирование сервиса'}</h2>
                 <div className='service-edit-info'>
-                    <input type='text' placeholder='Название сервиса' value={name} onChange={e => setName(e.target.value)} />
-                    <textarea placeholder='Описание сервиса' value={description} onChange={e => setDescription(e.target.value)} />
+                    <input
+                        type='text'
+                        placeholder='Название сервиса'
+                        value={currentService.name}
+                        onChange={e => setCurrentService({
+                            ...currentService,
+                            name: e.target.value
+                        })}
+                    />
+                    <textarea
+                        placeholder='Описание сервиса'
+                        value={currentService.description.text}
+                        onChange={e => setCurrentService({
+                            ...currentService,
+                            description: {
+                                ...currentService.description,
+                                text: e.target.value
+                            }
+                        })}
+                    />
                     <div className='service-edit-details'>
-                        <label><span>Бесплатная версия:</span><input type='checkbox' checked={isFree} onChange={() => setIsFree(!isFree)} /></label>
-                        <label><span>Пробный период:</span><input type='checkbox' checked={hasTrial} onChange={() => setHasTrial(!hasTrial)} /></label>
-                        <label><span>Партнерская программа:</span><input type='checkbox' checked={hasPartnership} onChange={() => setHasPartnership(!hasPartnership)} /></label>
-                        <label><span>Стоимость:</span><input type='text' placeholder='напр.: от 1000 р. в месяц' value={price} onChange={e => setPrice(e.target.value)} /></label>
-                        <label><span>Способ оплаты:</span><input type='text' placeholder='напр.: ежемесячно, по подписке' value={paymentMethod} onChange={e => setPaymentMethod(e.target.value)} /></label>
+                        <label>
+                            <span>Бесплатная версия:</span>
+                            <input
+                                type='checkbox'
+                                checked={currentService.description.isFree}
+                                onChange={() => setCurrentService({
+                                    ...currentService,
+                                    description: {
+                                        ...currentService.description,
+                                        isFree: !currentService.description.isFree
+                                    }
+                                })}
+                            />
+                        </label>
+                        <label>
+                            <span>Пробный период:</span>
+                            <input
+                                type='checkbox'
+                                checked={currentService.description.hasTrial}
+                                onChange={() => setCurrentService({
+                                    ...currentService,
+                                    description: {
+                                        ...currentService.description,
+                                        hasTrial: !currentService.description.hasTrial
+                                    }
+                                })}
+                            />
+                        </label>
+                        <label>
+                            <span>Партнерская программа:</span>
+                            <input
+                                type='checkbox'
+                                checked={currentService.description.hasPartnership}
+                                onChange={() => setCurrentService({
+                                    ...currentService,
+                                    description: {
+                                        ...currentService.description,
+                                        hasPartnership: !currentService.description.hasPartnership
+                                    }
+                                })}
+                            />
+                        </label>
+                        <label>
+                            <span>Стоимость:</span>
+                            <input
+                                type='text'
+                                placeholder='напр.: от 1000 р. в месяц'
+                                value={currentService.description.price}
+                                onChange={e => setCurrentService({
+                                    ...currentService,
+                                    description: {
+                                        ...currentService.description,
+                                        price: e.target.value
+                                    }
+                                })}
+                            />
+                        </label>
+                        <label>
+                            <span>Способ оплаты:</span>
+                            <input
+                                type='text'
+                                placeholder='напр.: ежемесячно, по подписке'
+                                value={currentService.description.paymentMethod}
+                                onChange={e => setCurrentService({
+                                    ...currentService,
+                                    description: {
+                                        ...currentService.description,
+                                        paymentMethod: e.target.value
+                                    }
+                                })}
+                            />
+                        </label>
                         <p>Дислокация:</p>
                         <ul className='categories-list'>
                             {serviceState.locations?.map(location => {
                                 return <li key={location.id}>
-                                    <button className={locations.find(loc => loc.id === location.id) ? 'category-tag active' : 'category-tag'} onClick={() => toggleLocation(location)}>{location.name}</button>
+                                    <button
+                                        className={currentService.description.locations.find(loc => loc.id === location.id) ? 'category-tag active' : 'category-tag'}
+                                        onClick={() => toggleLocation(location)}
+                                    >
+                                        {location.name}
+                                    </button>
                                 </li>
                             })}
                         </ul>
@@ -184,37 +329,87 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         <ul className='categories-list'>
                             {serviceState.platforms?.map(platform => {
                                 return <li key={platform.id}>
-                                    <button className={platforms.find(pl => pl.id === platform.id) ? 'category-tag active' : 'category-tag'} onClick={() => togglePlatform(platform)}>{platform.name}</button>
+                                    <button
+                                        className={currentService.description.platforms.find(pl => pl.id === platform.id) ? 'category-tag active' : 'category-tag'}
+                                        onClick={() => togglePlatform(platform)}
+                                    >
+                                        {platform.name}
+                                    </button>
                                 </li>
                             })}
                         </ul>
                         <p>Категории:</p>
                         <ul className='categories-list'>
-                            {mainCategories.map(category => {
+                            {currentService.categories_2.map(category => {
                                 return <li key={category.id}>
-                                    <button className='category-tag' onClick={() => toggleMainCategories(category)}>{category.name}<i className='fas fa-times' /></button>
+                                    <button
+                                        className='category-tag'
+                                        onClick={() => toggleMainCategories(category)}
+                                    >
+                                        {category.name}
+                                        <i className='fas fa-times' />
+                                    </button>
                                 </li>
                             })}
-                            <li><button className='category-tag-add-category' onClick={() => setShowAddMainCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
+                            <li>
+                                <button
+                                    className='category-tag-add-category'
+                                    onClick={() => setShowAddMainCategoryPopup(true)}
+                                >
+                                    <i className='fas fa-plus' />
+                                </button>
+                            </li>
                         </ul>
                         <p>Подкатегории:</p>
                         <ul className='categories-list'>
-                            {categories.map(category => {
+                            {currentService.categories_3.map(category => {
                                 return <li key={category.id}>
-                                    <button className='category-tag' onClick={() => toggleCategories(category)}>{category.name}<i className='fas fa-times' /></button>
+                                    <button
+                                        className='category-tag'
+                                        onClick={() => toggleCategories(category)}
+                                    >
+                                        {category.name}
+                                        <i className='fas fa-times' />
+                                    </button>
                                 </li>
                             })}
-                            <li><button className='category-tag-add-category' onClick={() => setShowAddCategoryPopup(true)}><i className='fas fa-plus' /></button></li>
+                            <li>
+                                <button
+                                    className='category-tag-add-category'
+                                    onClick={() => setShowAddCategoryPopup(true)}
+                                >
+                                    <i className='fas fa-plus' />
+                                </button>
+                            </li>
                         </ul>
                         <div className='service-edit-link-container'>
                             <label>
                                 <span>Ссылка:</span>
-                                <input type='text' placeholder='http://' value={link} onChange={e => setLink(e.target.value)} />
+                                <input
+                                    type='text'
+                                    placeholder='http://'
+                                    value={currentService.link}
+                                    onChange={e => setCurrentService({
+                                        ...currentService,
+                                        link: e.target.value
+                                    })}
+                                />
                             </label>
-                            <button className='blue-shadow-button' onClick={() => dispatch(serviceUpdateLink(link, props.service.id))}>Обновить ссылку</button>
+                            <button
+                                className='blue-shadow-button'
+                                onClick={() => dispatch(serviceUpdateLink(currentService.link, props.service.id))}
+                            >
+                                Обновить ссылку
+                            </button>
                         </div>
                         <p>Заметки:</p>
-                        <textarea value={adminNotes} onChange={e => setAdminNotes(e.target.value)}></textarea>
+                        <textarea
+                            value={currentService.admin_notes}
+                            onChange={e => setCurrentService({
+                                ...currentService,
+                                admin_notes: e.target.value
+                            })}
+                        />
                     </div>
                 </div>
 
@@ -223,41 +418,55 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                 </div>}
 
                 <div>
-                    <button className='blue-shadow-button' onClick={() => {
-                        if (name && link && mainCategories.length > 0 && categories.length > 0 && description && price && paymentMethod && locations.length > 0 && platforms.length > 0) {
-                            dispatch(serviceDataUpdate({
-                                ...props.service,
-                                name: name,
-                                categories_2: mainCategories,
-                                categories_3: categories,
-                                description: {
-                                    ...props.service.description,
-                                    text: description,
-                                    isFree: isFree,
-                                    hasTrial: hasTrial,
-                                    hasPartnership: hasPartnership,
-                                    price: price,
-                                    paymentMethod: paymentMethod,
-                                    locations: locations,
-                                    platforms: platforms
-                                },
-                                admin_notes: adminNotes
-                            }))
-                            setShowAlert(false)
-                            props.onClose()
-                        } else {
-                            setShowAlert(true)
-                        }
-                    }}>{props.add ? 'Добавить сервис' : 'Сохранить изменения'}</button>
+                    <button
+                        className='blue-shadow-button'
+                        onClick={() => {
+                            if (currentService.name
+                                &&
+                                currentService.link
+                                &&
+                                currentService.categories_2.length > 0
+                                &&
+                                currentService.categories_3.length > 0
+                                &&
+                                currentService.description.text
+                                &&
+                                currentService.description.price
+                                &&
+                                currentService.description.paymentMethod
+                                &&
+                                currentService.description.locations.length > 0
+                                &&
+                                currentService.description.platforms.length > 0) {
+                                dispatch(serviceDataUpdate(currentService))
+                                setShowAlert(false)
+                                props.onClose()
+                            } else {
+                                setShowAlert(true)
+                            }
+                        }}
+                    >
+                        {props.add ? 'Добавить сервис' : 'Сохранить изменения'}
+                    </button>
                 </div>
 
                 {!props.add && <div>
-                    <button className='delete-button' onClick={() => {
-                        if (confirm('Подтвердите удаление сервиса')) dispatch(deleteService(props.service.id, userState?.d_token))
-                    }}>Удалить сервис</button>
+                    <button
+                        className='delete-button'
+                        onClick={() => {
+                            if (confirm('Подтвердите удаление сервиса')) dispatch(deleteService(props.service.id, userState?.d_token))
+                        }}
+                    >
+                        Удалить сервис
+                    </button>
                 </div>}
 
-                <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
+                <button
+                    className='popup-close-button'
+                    onClick={() => props.onClose()}
+                >
+                    <i className='fas fa-times' />
+                </button>
             </> : <Loading height={505} />}
         </div>
     </>;
