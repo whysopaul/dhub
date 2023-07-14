@@ -263,7 +263,7 @@ hr {
 }
 
 .navbar-mobile-header>img {
-    width: 114px;
+    width: 148px;
 }
 
 .navbar-mobile-header-buttons {
@@ -387,8 +387,9 @@ hr {
     }
 
     .categories-section>p {
-        font-size: 10px;
-        line-height: 10px;
+        font-size: 12px;
+        line-height: 12px;
+        margin-top: 0;
         margin-bottom: 12px;
     }
 

@@ -490,9 +490,28 @@
         margin: 16px 0;
     }
 
-    .feedback-card-container>p {
-        font-size: 12px;
-        line-height: 16px;
+    .feedback-card-description>p,
+    .feedback-card-read-more {
+        font-size: 10pt;
+        line-height: 14pt;
+    }
+
+    .feedback-card-popup-container {
+        top: auto;
+        left: 0;
+        bottom: 0;
+        transform: none;
+        min-width: 100%;
+        max-width: 100%;
+    }
+
+    .feedback-card-popup-container>.feedback-card-container {
+        border-radius: 16px 16px 0 0;
+    }
+
+    .feedback-card-popup-close-button {
+        top: -36px;
+        right: 4px;
     }
 
     .feedback-service-name {
@@ -556,8 +575,8 @@
     .feedback-popup-search input {
         padding: 12px 28px 12px 0;
         font-weight: 400;
-        font-size: 12px;
-        line-height: 12px;
+        font-size: 14px;
+        line-height: 14px;
     }
 
     .feedback-popup-search button {
@@ -585,8 +604,8 @@
     }
 
     .feedback-popup-rating>span {
-        font-size: 10px;
-        line-height: 10px;
+        font-size: 12px;
+        line-height: 12px;
     }
 
     .feedback-popup-stars {

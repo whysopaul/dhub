@@ -185,8 +185,7 @@
     }
 
     .article-page-content>p {
-        font-size: 10px;
-        line-height: 16px;
+        font-size: 12px;
     }
 
     .article-page-content>img {
@@ -195,9 +194,9 @@
     }
 
     .article-page-category {
-        font-size: 8px;
-        line-height: 8px;
-        padding: 5px 8px;
+        font-size: 10px;
+        line-height: 10px;
+        padding: 6px 10px;
         border-radius: 12px;
     }
 
@@ -205,8 +204,8 @@
         justify-content: space-between;
         border-radius: 12px;
         padding: 16px;
-        font-size: 12px;
-        line-height: 12px;
+        font-size: 14px;
+        line-height: 14px;
         width: auto;
     }
 
