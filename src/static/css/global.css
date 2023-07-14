@@ -273,20 +273,20 @@ hr {
 }
 
 .navbar-mobile-user-button {
-    width: 32px;
-    height: 32px;
+    width: 42px;
+    height: 42px;
     background: white;
     border-radius: 50%;
     cursor: pointer;
 }
 
 .navbar-mobile-user-button>i {
-    font-size: 14px;
+    font-size: 18px;
 }
 
 .navbar-mobile-close-button {
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 18px;
+    line-height: 18px;
     color: #B3B7C1;
     cursor: pointer;
 }

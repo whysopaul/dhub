@@ -1273,6 +1273,10 @@
         line-height: 12px;
     } */
 
+    .services-list-sharing {
+        margin-top: 32px;
+    }
+
     .services-list-sharing.view-mobile {
         display: grid;
     }
