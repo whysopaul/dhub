@@ -145,7 +145,7 @@ interface ICreatePlatform {
 
 interface ICreateScreenshot {
     type: typeof CREATE_SCREENSHOT,
-    payload: any
+    payload: TServiceScreenshot
 }
 
 interface ICreateDiscount {

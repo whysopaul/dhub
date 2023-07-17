@@ -233,7 +233,7 @@ export const serviceUpdateDiscount = (d_token: string, discount: TDiscount) => (
 
 export const createLocation = (name: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createLocation', JSON.stringify({ name })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_LOCATION,
@@ -246,7 +246,7 @@ export const createLocation = (name: string) => (dispatch: Dispatch<servicesDisp
 
 export const createPlatform = (name: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createPlatform', JSON.stringify({ name })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_PLATFORM,
@@ -259,7 +259,7 @@ export const createPlatform = (name: string) => (dispatch: Dispatch<servicesDisp
 
 export const createScreenshot = (name: string, source: string, service_id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createScreenshot', JSON.stringify({ name, source, service_id })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_SCREENSHOT,

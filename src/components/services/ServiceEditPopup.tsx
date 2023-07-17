@@ -4,7 +4,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
 import { useDispatch } from 'react-redux';
-import { deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
+import { createScreenshot, deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
@@ -25,7 +25,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
 
     const [currentService, setCurrentService] = useState<TServicesData>(props.is_empty ? null : props.service)
 
-    const [screenshots, setScreenshots] = useState<{ id: number, name: string, source: string, service_id: number }[]>([])
+    // const [screenshots, setScreenshots] = useState<{ id: number, name: string, source: string, service_id: number }[]>([])
 
     useEffect(() => {
         if (props.is_empty) {
@@ -405,41 +405,66 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         {!props.add && <>
                             <p>Скриншоты:</p>
                             <div className='service-edit-screenshots-container'>
-                                {screenshots.map(s => {
+                                {currentService.images.screenshots.map((s, idx) => {
                                     return <>
+                                        <span>{idx + 1}.</span>
                                         <input
                                             type='text'
                                             placeholder='Ссылка на скриншот'
                                             value={s.source}
-                                            onChange={e => setScreenshots(screenshots.map(screen => {
-                                                if (screen.id === s.id) {
-                                                    return {
-                                                        ...screen,
-                                                        source: e.target.value
-                                                    }
+                                            onChange={e => setCurrentService({
+                                                ...currentService,
+                                                images: {
+                                                    ...currentService.images,
+                                                    screenshots: currentService.images.screenshots.map(screen => {
+                                                        if (screen.id === s.id) {
+                                                            return {
+                                                                ...screen,
+                                                                source: e.target.value
+                                                            }
+                                                        }
+                                                        return screen
+                                                    })
                                                 }
-                                                return screen
-                                            }))}
+                                            })}
                                         />
                                         <button
-                                            className='blue-shadow-button'
-                                            onClick={() => setScreenshots(screenshots.filter(screen => screen.id !== s.id))}
+                                            className='service-edit-secondary-button'
+                                            onClick={() => setCurrentService({
+                                                ...currentService,
+                                                images: {
+                                                    ...currentService.images,
+                                                    screenshots: currentService.images.screenshots.filter(screen => screen.id !== s.id)
+                                                }
+                                            })}
                                         >
                                             <i className='fas fa-minus' />
+                                        </button>
+                                        <button
+                                            className='blue-shadow-button'
+                                            onClick={() => dispatch(createScreenshot(s.name, s.source, s.service))}
+                                        >
+                                            <i className='fas fa-save' />
                                         </button>
                                     </>
                                 })}
                                 <button
-                                    className='blue-shadow-button'
-                                    onClick={() => setScreenshots([
-                                        ...screenshots,
-                                        {
-                                            id: screenshots.length > 0 ? screenshots[screenshots.length - 1].id + 1 : 1,
-                                            name: '',
-                                            source: '',
-                                            service_id: currentService?.id
+                                    className='service-edit-secondary-button add-screenshot'
+                                    onClick={() => setCurrentService({
+                                        ...currentService,
+                                        images: {
+                                            ...currentService.images,
+                                            screenshots: [
+                                                ...currentService.images.screenshots,
+                                                {
+                                                    id: currentService.images.screenshots.length > 0 ? currentService.images.screenshots[currentService.images.screenshots.length - 1].id + 1 : 1,
+                                                    source: '',
+                                                    link: '',
+                                                    service: currentService.id
+                                                }
+                                            ]
                                         }
-                                    ])}>
+                                    })}>
                                     <i className='fas fa-plus' />
                                     Добавить поле
                                 </button>

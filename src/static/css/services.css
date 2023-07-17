@@ -930,14 +930,21 @@
 .service-edit-link-container,
 .service-edit-screenshots-container {
     display: grid;
-    grid-template-columns: auto max-content;
     align-items: center;
     gap: 12px;
-    background: #F6F7FB;
-    padding: 8px;
+    /* background: #F6F7FB; */
+    /* padding: 8px; */
     border-radius: 24px;
     width: 100%;
     box-sizing: border-box;
+}
+
+.service-edit-link-container {
+    grid-template-columns: auto max-content;
+}
+
+.service-edit-screenshots-container {
+    grid-template-columns: min-content auto min-content min-content;
 }
 
 .service-edit-link-container label {
@@ -962,6 +969,33 @@
     padding: 0 12px;
     height: 36px;
     box-shadow: none;
+}
+
+.service-edit-screenshots-container span {
+    margin: 0;
+}
+
+.service-edit-secondary-button {
+    padding: 0 12px;
+    height: 36px;
+    background-color: #F6F7FB;
+    border: none;
+    border-radius: 75px;
+    font-family: 'Noto Sans';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 20px;
+    color: #386BEE;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.service-edit-secondary-button.add-screenshot {
+    grid-column-end: span 4;
 }
 
 .service-edit-alert {
