@@ -927,7 +927,8 @@
     margin-top: 16px;
 }
 
-.service-edit-link-container {
+.service-edit-link-container,
+.service-edit-screenshots-container {
     display: grid;
     grid-template-columns: auto max-content;
     align-items: center;
@@ -936,6 +937,7 @@
     padding: 8px;
     border-radius: 24px;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .service-edit-link-container label {
@@ -947,14 +949,18 @@
     color: #386BEE;
 }
 
-.service-edit-link-container input[type="text"] {
+.service-edit-link-container input[type="text"],
+.service-edit-screenshots-container input[type="text"] {
     background: #FFFFFF;
     width: 100%;
+    height: 36px;
+    box-sizing: border-box;
 }
 
-.service-edit-link-container .blue-shadow-button {
+.service-edit-link-container .blue-shadow-button,
+.service-edit-screenshots-container .blue-shadow-button {
     padding: 0 12px;
-    height: 42px;
+    height: 36px;
     box-shadow: none;
 }
 

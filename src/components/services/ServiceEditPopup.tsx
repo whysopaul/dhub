@@ -25,6 +25,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
 
     const [currentService, setCurrentService] = useState<TServicesData>(props.is_empty ? null : props.service)
 
+    const [screenshots, setScreenshots] = useState<{ id: number, name: string, source: string, service_id: number }[]>([])
+
     useEffect(() => {
         if (props.is_empty) {
             dispatch(getService(props.service.id))
@@ -382,19 +384,17 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 </button>
                             </li>
                         </ul>
+                        <p>Ссылка:</p>
                         <div className='service-edit-link-container'>
-                            <label>
-                                <span>Ссылка:</span>
-                                <input
-                                    type='text'
-                                    placeholder='http://'
-                                    value={currentService.link}
-                                    onChange={e => setCurrentService({
-                                        ...currentService,
-                                        link: e.target.value
-                                    })}
-                                />
-                            </label>
+                            <input
+                                type='text'
+                                placeholder='http://'
+                                value={currentService.link}
+                                onChange={e => setCurrentService({
+                                    ...currentService,
+                                    link: e.target.value
+                                })}
+                            />
                             <button
                                 className='blue-shadow-button'
                                 onClick={() => dispatch(serviceUpdateLink(currentService.link, props.service.id))}
@@ -402,6 +402,49 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 Обновить ссылку
                             </button>
                         </div>
+                        {!props.add && <>
+                            <p>Скриншоты:</p>
+                            <div className='service-edit-screenshots-container'>
+                                {screenshots.map(s => {
+                                    return <>
+                                        <input
+                                            type='text'
+                                            placeholder='Ссылка на скриншот'
+                                            value={s.source}
+                                            onChange={e => setScreenshots(screenshots.map(screen => {
+                                                if (screen.id === s.id) {
+                                                    return {
+                                                        ...screen,
+                                                        source: e.target.value
+                                                    }
+                                                }
+                                                return screen
+                                            }))}
+                                        />
+                                        <button
+                                            className='blue-shadow-button'
+                                            onClick={() => setScreenshots(screenshots.filter(screen => screen.id !== s.id))}
+                                        >
+                                            <i className='fas fa-minus' />
+                                        </button>
+                                    </>
+                                })}
+                                <button
+                                    className='blue-shadow-button'
+                                    onClick={() => setScreenshots([
+                                        ...screenshots,
+                                        {
+                                            id: screenshots.length > 0 ? screenshots[screenshots.length - 1].id + 1 : 1,
+                                            name: '',
+                                            source: '',
+                                            service_id: currentService?.id
+                                        }
+                                    ])}>
+                                    <i className='fas fa-plus' />
+                                    Добавить поле
+                                </button>
+                            </div>
+                        </>}
                         <p>Заметки:</p>
                         <textarea
                             value={currentService.admin_notes}
