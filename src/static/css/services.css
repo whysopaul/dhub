@@ -881,7 +881,7 @@
     height: 120px;
 }
 
-.service-edit-popup-add-category-popup {
+.service-edit-popup-add-popup {
     position: fixed;
     top: 50%;
     left: 50%;
@@ -894,6 +894,8 @@
     box-shadow: 0 0 4px gainsboro;
     z-index: 101;
     text-align: center;
+    display: grid;
+    gap: 24px;
 }
 
 .service-edit-popup-add-category-search input {
@@ -944,7 +946,7 @@
 }
 
 .service-edit-screenshots-container {
-    grid-template-columns: min-content auto min-content min-content;
+    grid-template-columns: auto;
 }
 
 .service-edit-link-container label {
@@ -971,10 +973,6 @@
     box-shadow: none;
 }
 
-.service-edit-screenshots-container span {
-    margin: 0;
-}
-
 .service-edit-secondary-button {
     padding: 0 12px;
     height: 36px;
@@ -994,8 +992,72 @@
     gap: 8px;
 }
 
-.service-edit-secondary-button.add-screenshot {
-    grid-column-end: span 4;
+.service-edit-secondary-button.add-screenshot span {
+    font-weight: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    color: inherit;
+    margin: 0;
+}
+
+.service-edit-screenshots-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 6px;
+}
+
+.service-edit-screenshot-wrapper {
+    padding: 4px;
+    background: #F6F7FB;
+    border-radius: 6px;
+}
+
+.service-edit-screenshot-wrapper>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.service-edit-add-screenshot-mode {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+}
+
+.service-edit-add-screenshot-mode input {
+    margin-right: 12px;
+}
+
+.service-edit-add-screenshot-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.service-edit-add-screenshot-input-container {
+    border: 1px solid #B3B7C1;
+    border-radius: 12px;
+    width: 100%;
+    text-align: left;
+}
+
+.service-edit-add-screenshot-input-container input[type='file'] {
+    margin: 8px 12px;
+}
+
+.service-edit-add-screenshot-input-container input[type='text'] {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px;
+    border-radius: 12px;
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
+    box-sizing: border-box;
 }
 
 .service-edit-alert {

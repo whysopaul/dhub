@@ -4,7 +4,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
 import { useDispatch } from 'react-redux';
-import { createScreenshot, deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
+import { createScreenshot, createScreenshotWithFile, deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
@@ -119,6 +119,11 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             })
     }
 
+    const [screenshots, setScreenshots] = useState<File[]>([])
+    const [screenshotLink, setScreenshotLink] = useState<string>('')
+    const [showAddScreenshotPopup, setShowAddScreenshotPopup] = useState<boolean>(false)
+    const [screenshotUploadMode, setScreenshotUploadMode] = useState<number>(0)
+
     const [showAlert, setShowAlert] = useState(false)
 
     const dispatch = useDispatch()
@@ -126,7 +131,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const refOne = useRef(null)
     const refTwo = useRef(null)
 
-    useOnClickOutside((showAddMainCategoryPopup || showAddCategoryPopup) ? refTwo : refOne, () => showAddMainCategoryPopup ? setShowAddMainCategoryPopup(false) : showAddCategoryPopup ? setShowAddCategoryPopup(false) : props.onClose())
+    useOnClickOutside((showAddMainCategoryPopup || showAddCategoryPopup || showAddScreenshotPopup) ? refTwo : refOne, () => showAddMainCategoryPopup ? setShowAddMainCategoryPopup(false) : showAddCategoryPopup ? setShowAddCategoryPopup(false) : showAddScreenshotPopup ? setShowAddScreenshotPopup(false) : props.onClose())
 
     useOnPopup()
 
@@ -135,7 +140,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
 
         {showAddMainCategoryPopup && <>
             <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
-            <div className='service-edit-popup-add-category-popup' ref={refTwo}>
+            <div className='service-edit-popup-add-popup' ref={refTwo}>
                 <h3>Добавить категорию</h3>
                 <div className='service-edit-popup-add-category-search'>
                     <input
@@ -177,7 +182,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
 
         {showAddCategoryPopup && <>
             <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
-            <div className='service-edit-popup-add-category-popup' ref={refTwo}>
+            <div className='service-edit-popup-add-popup' ref={refTwo}>
                 <h3>Добавить подкатегорию</h3>
                 <div className='service-edit-popup-add-category-search'>
                     <input
@@ -211,6 +216,85 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                 <button
                     className='popup-close-button'
                     onClick={() => setShowAddCategoryPopup(false)}
+                >
+                    <i className='fas fa-times' />
+                </button>
+            </div>
+        </>}
+
+        {showAddScreenshotPopup && <>
+            <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
+            <div className='service-edit-popup-add-popup' ref={refTwo}>
+                <h3>Добавить скриншот</h3>
+                <div className='service-edit-add-screenshot-mode'>
+                    <label>
+                        <input
+                            type='radio'
+                            onChange={() => setScreenshotUploadMode(0)}
+                            checked={screenshotUploadMode === 0}
+                        />
+                        <span>Загрузить файл</span>
+                    </label>
+                    <label>
+                        <input
+                            type='radio'
+                            onChange={() => setScreenshotUploadMode(1)}
+                            checked={screenshotUploadMode === 1}
+                        />
+                        <span>По ссылке</span>
+                    </label>
+                </div>
+                {screenshotUploadMode === 0 && <div className='service-edit-add-screenshot-container'>
+                    <div className='service-edit-add-screenshot-input-container'>
+                        <input
+                            type='file'
+                            multiple
+                            accept='image/png, image/jpg, image/jpeg, image/webp'
+                            onChange={e => {
+                                let localScreenshots: File[] = []
+
+                                for (let i = 0; i < e.target.files.length; i++) {
+                                    let screenshot: File = e.target.files[i]
+                                    localScreenshots.push(screenshot)
+                                }
+
+                                setScreenshots(localScreenshots)
+                            }}
+                        />
+                    </div>
+                    <button
+                        className='blue-shadow-button'
+                        onClick={() => {
+                            dispatch(createScreenshotWithFile(screenshots, currentService.id))
+                            setShowAddScreenshotPopup(false)
+                        }}
+                    >
+                        <span>Загрузить</span>
+                        <i className='fas fa-file-upload' />
+                    </button>
+                </div>}
+                {screenshotUploadMode === 1 && <div className='service-edit-add-screenshot-container'>
+                    <div className='service-edit-add-screenshot-input-container'>
+                        <input
+                            type='text'
+                            placeholder='Ссылка на скриншот'
+                            value={screenshotLink}
+                            onChange={e => setScreenshotLink(e.target.value)} />
+                    </div>
+                    <button
+                        className='blue-shadow-button'
+                        onClick={() => {
+                            dispatch(createScreenshot('', screenshotLink, currentService.id))
+                            setShowAddScreenshotPopup(false)
+                        }}
+                    >
+                        <span>Загрузить</span>
+                        <i className='fas fa-file-upload' />
+                    </button>
+                </div>}
+                <button
+                    className='popup-close-button'
+                    onClick={() => setShowAddScreenshotPopup(false)}
                 >
                     <i className='fas fa-times' />
                 </button>
@@ -455,21 +539,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 </div>
                                 <button
                                     className='service-edit-secondary-button add-screenshot'
-                                    onClick={() => setCurrentService({
-                                        ...currentService,
-                                        images: {
-                                            ...currentService.images,
-                                            screenshots: [
-                                                ...currentService.images.screenshots,
-                                                {
-                                                    id: currentService.images.screenshots.length > 0 ? currentService.images.screenshots[currentService.images.screenshots.length - 1].id + 1 : 1,
-                                                    source: '',
-                                                    link: '',
-                                                    service: currentService.id
-                                                }
-                                            ]
-                                        }
-                                    })}>
+                                    onClick={() => setShowAddScreenshotPopup(true)}
+                                >
                                     <i className='fas fa-plus' />
                                     <span>Добавить скриншот</span>
                                 </button>
