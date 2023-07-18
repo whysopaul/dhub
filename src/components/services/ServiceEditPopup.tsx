@@ -405,9 +405,10 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         {!props.add && <>
                             <p>Скриншоты:</p>
                             <div className='service-edit-screenshots-container'>
-                                {currentService.images.screenshots.map((s, idx) => {
-                                    return <>
-                                        <span>{idx + 1}.</span>
+                                <div className='service-edit-screenshots-gallery'>
+                                    {currentService.images.screenshots.map((s, idx) => {
+                                        return <>
+                                            {/* <span>{idx + 1}.</span>
                                         <input
                                             type='text'
                                             placeholder='Ссылка на скриншот'
@@ -445,9 +446,13 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                             onClick={() => dispatch(createScreenshot(s.name, s.source, s.service))}
                                         >
                                             <i className='fas fa-save' />
-                                        </button>
-                                    </>
-                                })}
+                                        </button> */}
+                                            <div className='service-edit-screenshot-wrapper'>
+                                                <img src={s.link} />
+                                            </div>
+                                        </>
+                                    })}
+                                </div>
                                 <button
                                     className='service-edit-secondary-button add-screenshot'
                                     onClick={() => setCurrentService({
@@ -466,7 +471,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                         }
                                     })}>
                                     <i className='fas fa-plus' />
-                                    Добавить поле
+                                    <span>Добавить скриншот</span>
                                 </button>
                             </div>
                         </>}

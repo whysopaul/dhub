@@ -14,6 +14,7 @@ export const CREATE_SERVICE = 'CREATE_SERVICE'
 export const CREATE_LOCATION = 'CREATE_LOCATION'
 export const CREATE_PLATFORM = 'CREATE_PLATFORM'
 export const CREATE_SCREENSHOT = 'CREATE_SCREENSHOT'
+export const CREATE_SCREENSHOT_WITH_FILE = 'CREATE_SCREENSHOT_WITH_FILE'
 export const CREATE_DISCOUNT = 'CREATE_DISCOUNT'
 
 export const DELETE_SERVICE = 'DELETE_SERVICE'
@@ -148,6 +149,11 @@ interface ICreateScreenshot {
     payload: TServiceScreenshot
 }
 
+interface ICreateScreenshotWithFile {
+    type: typeof CREATE_SCREENSHOT_WITH_FILE,
+    payload: any
+}
+
 interface ICreateDiscount {
     type: typeof CREATE_DISCOUNT,
     payload: TDiscount
@@ -158,4 +164,4 @@ interface IDeleteAction {
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateDiscount | IDeleteAction
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | IDeleteAction
