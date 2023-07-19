@@ -331,7 +331,7 @@
 
 .user-admin-panel-table-row-head#discounts,
 .user-admin-panel-table-row#discounts {
-    grid-template-columns: 5% 25% 7% 13% auto 13% 5%;
+    grid-template-columns: 5% 25% 8% 12% auto 13% 5%;
 }
 
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {

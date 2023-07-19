@@ -43,10 +43,16 @@ const AdminWorkspaceDiscounts: React.FunctionComponent<IAdminWorkspaceDiscountsP
                             <span>{d.code}</span>
                             <span>{d.description}</span>
                             <div>
-                                <button>Редактировать</button>
+                                <button
+                                    className='user-admin-panel-table-edit-button'
+                                >
+                                    Редактировать
+                                </button>
                             </div>
                             <div>
-                                <button>
+                                <button
+                                    className='cursor-pointer'
+                                >
                                     <i className='fas fa-times' />
                                 </button>
                             </div>

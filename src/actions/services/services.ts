@@ -143,7 +143,7 @@ export const getAllServicesPlatforms = () => (dispatch: Dispatch<servicesDispatc
 
 export const getAllServicesDiscounts = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getDiscounts').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_ALL_SERVICES_DISCOUNTS,
