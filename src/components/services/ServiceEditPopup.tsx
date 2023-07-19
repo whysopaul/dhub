@@ -4,7 +4,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
 import { useDispatch } from 'react-redux';
-import { createScreenshot, createScreenshotWithFile, deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
+import { createScreenshot, createScreenshotWithFile, deleteScreenshot, deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
@@ -533,6 +533,13 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                         </button> */}
                                             <div className='service-edit-screenshot-wrapper'>
                                                 <img src={s.link} />
+                                                <button onClick={() => {
+                                                    if (confirm('Подтвердите удаление скриншота')) {
+                                                        dispatch(deleteScreenshot(s.id, userState.d_token))
+                                                    }
+                                                }}>
+                                                    <i className='fas fa-times' />
+                                                </button>
                                             </div>
                                         </>
                                     })}

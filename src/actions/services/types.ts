@@ -4,6 +4,7 @@ import { TFeedback } from "../feedback/types"
 export const GET_ALL_SERVICES = 'GET_ALL_SERVICES'
 export const GET_ALL_SERVICES_LOCATIONS = 'GET_ALL_SERVICES_LOCATIONS'
 export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
+export const GET_ALL_SERVICES_DISCOUNTS = 'GET_ALL_SERVICES_DISCOUNTS'
 export const GET_SERVICE = 'GET_SERVICE'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
@@ -49,6 +50,7 @@ export type TServicesData = {
     admin_notes: string,
     is_hidden: boolean,
     discounts: TDiscount[],
+    country: string,
     isNew?: boolean
 }
 
@@ -104,6 +106,11 @@ interface IGetAllServicesPlatforms {
     payload: TServicePlatform[]
 }
 
+interface IGetAllServicesDiscounts {
+    type: typeof GET_ALL_SERVICES_DISCOUNTS,
+    payload: TDiscount[]
+}
+
 interface IGetService {
     type: typeof GET_SERVICE,
     payload: TServicesData
@@ -151,7 +158,7 @@ interface ICreateScreenshot {
 
 interface ICreateScreenshotWithFile {
     type: typeof CREATE_SCREENSHOT_WITH_FILE,
-    payload: any
+    payload: TServiceScreenshot[]
 }
 
 interface ICreateDiscount {
@@ -164,4 +171,4 @@ interface IDeleteAction {
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | IDeleteAction
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | IDeleteAction

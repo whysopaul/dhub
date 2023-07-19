@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -134,6 +134,19 @@ export const getAllServicesPlatforms = () => (dispatch: Dispatch<servicesDispatc
 
         dispatch({
             type: GET_ALL_SERVICES_PLATFORMS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const getAllServicesDiscounts = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getDiscounts').then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_ALL_SERVICES_DISCOUNTS,
             payload: res.data
         })
     }).catch(error => {

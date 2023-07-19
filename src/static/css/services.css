@@ -386,7 +386,8 @@
     transform: translate(-50%, -50%);
     z-index: 100;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: min-content auto min-content;
+    justify-content: space-between;
     width: 80%;
 }
 
@@ -1010,13 +1011,31 @@
     padding: 4px;
     background: #F6F7FB;
     border-radius: 6px;
+    position: relative;
 }
 
 .service-edit-screenshot-wrapper>img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    /* cursor: pointer; */
+}
+
+.service-edit-screenshot-wrapper>button {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    width: 20px;
+    height: 20px;
+    background: #386BEE;
+    color: #FFFFFF;
+    border-radius: 50%;
     cursor: pointer;
+    display: none;
+}
+
+.service-edit-screenshot-wrapper:hover>button {
+    display: block;
 }
 
 .service-edit-add-screenshot-mode {

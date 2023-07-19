@@ -1,11 +1,12 @@
 import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, feedbackDispatchTypes } from "../../actions/feedback/types"
-import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
+import { CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, TDiscount, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
     services_hidden: TServicesData[],
     locations: TServiceLocation[],
     platforms: TServicePlatform[],
+    discounts: TDiscount[],
     currentService: TServicesData,
     is_loading: boolean
 }
@@ -15,6 +16,7 @@ const defaultState: IDefaultState = {
     services_hidden: [],
     locations: [],
     platforms: [],
+    discounts: [],
     currentService: null,
     is_loading: false
 }
@@ -36,6 +38,11 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 platforms: action.payload
+            }
+        case GET_ALL_SERVICES_DISCOUNTS:
+            return {
+                ...state,
+                discounts: action.payload
             }
         case GET_SERVICE:
             return {
@@ -87,6 +94,20 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
                         }
                 }
             }
+        case CREATE_SCREENSHOT_WITH_FILE:
+            return {
+                ...state,
+                currentService: {
+                    ...state.currentService,
+                    images: {
+                        ...state.currentService.images,
+                        screenshots: [
+                            ...state.currentService.images.screenshots,
+                            ...action.payload
+                        ]
+                    }
+                }
+            }
         case DELETE_SERVICE:
             return {
                 ...state,
@@ -101,6 +122,17 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 platforms: [...state.platforms.filter(platform => platform.id !== parseInt(action.payload))]
+            }
+        case DELETE_SCREENSHOT:
+            return {
+                ...state,
+                currentService: {
+                    ...state.currentService,
+                    images: {
+                        ...state.currentService.images,
+                        screenshots: state.currentService.images.screenshots.filter(s => s.id !== parseInt(action.payload))
+                    }
+                }
             }
         case FEEDBACK_CREATE_FEEDBACK:
             return {

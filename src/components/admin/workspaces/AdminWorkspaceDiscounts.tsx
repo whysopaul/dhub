@@ -2,6 +2,8 @@ import * as React from 'react';
 import { TDiscount } from '../../../actions/services/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../../../store';
+import { useEffect } from 'react';
+import { getAllServicesDiscounts } from '../../../actions/services/services';
 
 interface IAdminWorkspaceDiscountsProps {
     onEdit: (_: TDiscount) => void,
@@ -13,6 +15,10 @@ const AdminWorkspaceDiscounts: React.FunctionComponent<IAdminWorkspaceDiscountsP
     const rootState = useSelector((state: RootStore) => state)
 
     const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(getAllServicesDiscounts())
+    }, [])
 
     return <>
         <div className='user-admin-panel-table'>
@@ -29,6 +35,23 @@ const AdminWorkspaceDiscounts: React.FunctionComponent<IAdminWorkspaceDiscountsP
                     </div>
                 </div>
                 <div className='user-admin-panel-table-content'>
+                    {rootState.services.discounts.map(d => {
+                        return <div className='user-admin-panel-table-row' id='discounts'>
+                            <span>{d.id}</span>
+                            <span>{rootState.services.services.find(s => s.id === d.service).name}</span>
+                            <span>{d.is_promocode ? 'Промокод' : 'Скидка'}</span>
+                            <span>{d.code}</span>
+                            <span>{d.description}</span>
+                            <div>
+                                <button>Редактировать</button>
+                            </div>
+                            <div>
+                                <button>
+                                    <i className='fas fa-times' />
+                                </button>
+                            </div>
+                        </div>
+                    })}
                 </div>
             </div>
             <button className='user-admin-panel-button' onClick={() => props.onCreate()}>
