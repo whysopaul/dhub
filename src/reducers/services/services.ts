@@ -79,19 +79,15 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
         case CREATE_SCREENSHOT:
             return {
                 ...state,
-                currentService: !state.currentService ? null : {
+                currentService: {
                     ...state.currentService,
-                    images: state.currentService.id === action.payload.service
-                        ? {
-                            ...state.currentService.images,
-                            screenshots: [
-                                ...state.currentService.images.screenshots,
-                                action.payload
-                            ]
-                        }
-                        : {
-                            ...state.currentService.images
-                        }
+                    images: {
+                        ...state.currentService.images,
+                        screenshots: [
+                            ...state.currentService.images.screenshots,
+                            action.payload
+                        ]
+                    }
                 }
             }
         case CREATE_SCREENSHOT_WITH_FILE:

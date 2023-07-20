@@ -3,7 +3,7 @@ import { TDiscount } from '../../../actions/services/types';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootStore } from '../../../store';
 import { useEffect } from 'react';
-import { getAllServicesDiscounts } from '../../../actions/services/services';
+import { deleteDiscount, getAllServicesDiscounts } from '../../../actions/services/services';
 
 interface IAdminWorkspaceDiscountsProps {
     onEdit: (_: TDiscount) => void,
@@ -45,6 +45,7 @@ const AdminWorkspaceDiscounts: React.FunctionComponent<IAdminWorkspaceDiscountsP
                             <div>
                                 <button
                                     className='user-admin-panel-table-edit-button'
+                                    onClick={() => props.onEdit(d)}
                                 >
                                     Редактировать
                                 </button>
@@ -52,6 +53,9 @@ const AdminWorkspaceDiscounts: React.FunctionComponent<IAdminWorkspaceDiscountsP
                             <div>
                                 <button
                                     className='cursor-pointer'
+                                    onClick={() => {
+                                        if (confirm('Подтвердите удаление')) dispatch(deleteDiscount(d.id, rootState.auth.user.d_token))
+                                    }}
                                 >
                                     <i className='fas fa-times' />
                                 </button>

@@ -7,13 +7,14 @@ import { URL } from '../utils';
 // import { createService } from '../../actions/services/services';
 import ServiceEditPopup from '../services/ServiceEditPopup';
 import CategoryAddPopup from '../categories/CategoryAddPopup';
-import { TServicesData } from '../../actions/services/types';
+import { TDiscount, TServicesData } from '../../actions/services/types';
 import AdminWorkspaceServices from './workspaces/AdminWorkspaceServices';
 import AdminWorkspaceCategories from './workspaces/AdminWorkspaceCategories';
 import CategoryRelationsAddPopup from '../categories/CategoryRelationsAddPopup';
 import AdminWorkspaceLocationsPlatforms from './workspaces/AdminWorkspaceLocationsPlatforms';
 import LocationsPlatformsAddPopup from './workspaces/LocationsPlatformsAddPopup';
 import AdminWorkspaceDiscounts from './workspaces/AdminWorkspaceDiscounts';
+import DiscountPopup from './workspaces/DiscountPopup';
 
 interface IAdminPanelProps {
 }
@@ -31,8 +32,10 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const [createCategoryRelations, setCreateCategoryRelations] = useState(false)
     const [createLocation, setCreateLocation] = useState(false)
     const [createPlatform, setCreatePlatform] = useState(false)
+    const [createDiscount, setCreateDiscount] = useState(false)
 
     const [editService, setEditService] = useState<TServicesData>(null)
+    const [editDiscount, setEditDiscount] = useState<TDiscount>(null)
 
     useEffect(() => {
         if (!userState || !userState?.is_admin) {
@@ -84,6 +87,20 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
             {createLocation && <LocationsPlatformsAddPopup onClose={() => setCreateLocation(false)} action='location' />}
             {createPlatform && <LocationsPlatformsAddPopup onClose={() => setCreatePlatform(false)} action='platform' />}
 
+            {createDiscount && <DiscountPopup
+                discount={{
+                    id: -1,
+                    code: '',
+                    service: -1,
+                    description: '',
+                    is_promocode: false,
+                    is_sale: false
+                }}
+                onClose={() => setCreateDiscount(false)}
+                action='create'
+            />}
+            {editDiscount && <DiscountPopup discount={editDiscount} onClose={() => setEditDiscount(null)} action='edit' />}
+
             <div>
                 <h2 className='section-main-title'>Панель администратора</h2>
             </div>
@@ -110,7 +127,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
-                    {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={() => null} onCreate={() => null} />}
+                    {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
 
                 </div>
             </div>
