@@ -36,7 +36,8 @@ export type TServicesData = {
         price: string,
         locations: TServiceLocation[],
         platforms: TServicePlatform[],
-        hasPartnership: boolean
+        hasPartnership: boolean,
+        country: string
     },
     rating: number,
     categories_2: TCategory[],
@@ -50,7 +51,6 @@ export type TServicesData = {
     admin_notes: string,
     is_hidden: boolean,
     discounts: TDiscount[],
-    country: string,
     isNew?: boolean
 }
 

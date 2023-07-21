@@ -334,6 +334,11 @@
     grid-template-columns: 5% 25% 8% 12% auto 13% 5%;
 }
 
+.user-admin-panel-table-row-head#users,
+.user-admin-panel-table-row#users {
+    grid-template-columns: 5% auto 10% 10% 13% 5%;
+}
+
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {
     background: #F4F7FF;
 }
@@ -346,7 +351,8 @@
     border: none;
 }
 
-.user-admin-panel-table-row>#service-name>a {
+.user-admin-panel-table-row>#service-name>a,
+.user-admin-panel-table-row>#user-name>a {
     font-weight: 400;
     font-size: inherit;
     line-height: 14px;

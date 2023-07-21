@@ -427,8 +427,18 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         </ul>
                         <label>
                             <span>Страна разработчика:</span>
-                            <select className='service-edit-country-select'>
-                                <option value="-1">--------</option>
+                            <select
+                                className='service-edit-country-select'
+                                value={currentService.description.country}
+                                onChange={e => setCurrentService({
+                                    ...currentService,
+                                    description: {
+                                        ...currentService.description,
+                                        country: e.target.value
+                                    }
+                                })}
+                            >
+                                <option value=''>--------</option>
                                 {Object.values(countriesList).map(c => {
                                     return c.map(cn => {
                                         return <option value={cn.countryName} key={cn.countryName}>{cn.countryName}</option>

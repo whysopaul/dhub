@@ -15,6 +15,7 @@ import AdminWorkspaceLocationsPlatforms from './workspaces/AdminWorkspaceLocatio
 import LocationsPlatformsAddPopup from './workspaces/LocationsPlatformsAddPopup';
 import AdminWorkspaceDiscounts from './workspaces/AdminWorkspaceDiscounts';
 import DiscountPopup from './workspaces/DiscountPopup';
+import AdminWorkspaceUsers from './workspaces/AdminWorkspaceUsers';
 
 interface IAdminPanelProps {
 }
@@ -59,7 +60,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                         price: '',
                         locations: [],
                         platforms: [],
-                        hasPartnership: false
+                        hasPartnership: false,
+                        country: ''
                     },
                     rating: 0,
                     categories_2: [],
@@ -72,8 +74,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     promocode: '',
                     admin_notes: '',
                     is_hidden: false,
-                    discounts: [],
-                    country: ''
+                    discounts: []
                 }}
                 onClose={() => setCreateService(false)}
                 add
@@ -127,6 +128,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
                     {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
+                    {adminWorkspace === 'users' && <AdminWorkspaceUsers />}
 
                 </div>
             </div>

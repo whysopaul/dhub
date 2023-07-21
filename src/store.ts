@@ -9,7 +9,7 @@ import autoMergeLevel2 from "redux-persist/es/stateReconciler/autoMergeLevel2";
 export const config = {
     key: 'root',
     storage: storage,
-    blacklist: ['services', 'categories', 'feedback'],
+    blacklist: ['admin', 'services', 'categories', 'feedback'],
     stateReconciler: autoMergeLevel2
 }
 
