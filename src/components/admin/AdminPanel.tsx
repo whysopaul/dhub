@@ -93,13 +93,12 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     code: '',
                     service: -1,
                     description: '',
-                    is_promocode: false,
+                    is_promocode: true,
                     is_sale: false
                 }}
                 onClose={() => setCreateDiscount(false)}
-                action='create'
             />}
-            {editDiscount && <DiscountPopup discount={editDiscount} onClose={() => setEditDiscount(null)} action='edit' />}
+            {editDiscount && <DiscountPopup discount={editDiscount} onClose={() => setEditDiscount(null)} />}
 
             <div>
                 <h2 className='section-main-title'>Панель администратора</h2>

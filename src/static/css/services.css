@@ -882,6 +882,17 @@
     height: 120px;
 }
 
+.service-edit-country-select {
+    padding: 6px 8px;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #636E8D;
+    background: #eee;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
 .service-edit-popup-add-popup {
     position: fixed;
     top: 50%;

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
 import Loading from '../global/Loading';
+import { countriesList } from '../utils';
 
 interface IServiceEditPopupProps {
     service: TServicesData,
@@ -424,6 +425,17 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 </li>
                             })}
                         </ul>
+                        <label>
+                            <span>Страна разработчика:</span>
+                            <select className='service-edit-country-select'>
+                                <option value="-1">--------</option>
+                                {Object.values(countriesList).map(c => {
+                                    return c.map(cn => {
+                                        return <option value={cn.countryName} key={cn.countryName}>{cn.countryName}</option>
+                                    })
+                                })}
+                            </select>
+                        </label>
                         <p>Категории:</p>
                         <ul className='categories-list'>
                             {currentService.categories_2.map(category => {

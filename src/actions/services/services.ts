@@ -294,7 +294,7 @@ export const createScreenshotWithFile = (files: File[], service_id: number) => (
     formData.append('body', body)
 
     axios.post(SERVER_URL + '/createScreenshotWithFile', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_SCREENSHOT_WITH_FILE,
@@ -335,7 +335,7 @@ export const deleteService = (id: number, d_token: string) => (dispatch: Dispatc
 
 export const deleteLocation = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteLocation', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_LOCATION,
@@ -348,7 +348,7 @@ export const deleteLocation = (id: number, d_token: string) => (dispatch: Dispat
 
 export const deletePlatform = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deletePlatform', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_PLATFORM,
@@ -361,7 +361,7 @@ export const deletePlatform = (id: number, d_token: string) => (dispatch: Dispat
 
 export const deleteScreenshot = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteScreenshot', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_SCREENSHOT,
@@ -374,7 +374,7 @@ export const deleteScreenshot = (id: number, d_token: string) => (dispatch: Disp
 
 export const deleteDiscount = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteDiscount', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_DISCOUNT,
