@@ -10,6 +10,7 @@ export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
 export const SERVICE_UPDATE_LINK = 'SERVICE_UPDATE_LINK'
 export const SERVICE_UPDATE_DISCOUNT = 'SERVICE_UPDATE_DISCOUNT'
+export const SERVICE_TOGGLE_HIDDEN_STATUS = 'SERVICE_TOGGLE_HIDDEN_STATUS'
 
 export const CREATE_SERVICE = 'CREATE_SERVICE'
 export const CREATE_LOCATION = 'CREATE_LOCATION'
@@ -136,6 +137,11 @@ interface IServiceUpdateDiscount {
     payload: TDiscount
 }
 
+interface IServiceToggleHiddenStatus {
+    type: typeof SERVICE_TOGGLE_HIDDEN_STATUS,
+    payload: string
+}
+
 // interface ICreateService {
 //     type: typeof CREATE_SERVICE,
 //     payload: TServicesData
@@ -171,4 +177,4 @@ interface IDeleteAction {
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | IDeleteAction
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | IDeleteAction

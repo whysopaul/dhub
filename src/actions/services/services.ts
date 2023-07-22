@@ -197,12 +197,20 @@ export const serviceUpdateLink = (link: string, service_id: number) => (dispatch
 
 export const serviceUpdateDiscount = (d_token: string, discount: TDiscount) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/updateDiscount', JSON.stringify({ d_token, discount })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: SERVICE_UPDATE_DISCOUNT,
             payload: res.data
         })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const serviceToggleHiddenStatus = (d_token: string, service_id: number, is_hidden: boolean) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/toggleServiceHiddenStatus', JSON.stringify({ d_token, service_id, is_hidden })).then(res => {
+        window.location.reload()
     }).catch(error => {
         console.log(error)
     })
@@ -307,7 +315,7 @@ export const createScreenshotWithFile = (files: File[], service_id: number) => (
 
 export const createDiscount = (d_token: string, discount: TDiscount) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createDiscount', JSON.stringify({ d_token, discount })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_DISCOUNT,

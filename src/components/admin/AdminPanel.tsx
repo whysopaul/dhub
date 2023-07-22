@@ -16,6 +16,8 @@ import LocationsPlatformsAddPopup from './workspaces/LocationsPlatformsAddPopup'
 import AdminWorkspaceDiscounts from './workspaces/AdminWorkspaceDiscounts';
 import DiscountPopup from './workspaces/DiscountPopup';
 import AdminWorkspaceUsers from './workspaces/AdminWorkspaceUsers';
+import { TUserData } from '../../actions/auth/types';
+import AdminUserEditPopup from './workspaces/AdminUserEditPopup';
 
 interface IAdminPanelProps {
 }
@@ -37,6 +39,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     const [editService, setEditService] = useState<TServicesData>(null)
     const [editDiscount, setEditDiscount] = useState<TDiscount>(null)
+    const [editUser, setEditUser] = useState<TUserData>(null)
 
     useEffect(() => {
         if (!userState || !userState?.is_admin) {
@@ -101,6 +104,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
             />}
             {editDiscount && <DiscountPopup discount={editDiscount} onClose={() => setEditDiscount(null)} />}
 
+            {editUser && <AdminUserEditPopup user={editUser} onClose={() => setEditUser(null)} />}
+
             <div>
                 <h2 className='section-main-title'>Панель администратора</h2>
             </div>
@@ -128,7 +133,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
                     {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
-                    {adminWorkspace === 'users' && <AdminWorkspaceUsers />}
+                    {adminWorkspace === 'users' && <AdminWorkspaceUsers onEdit={setEditUser} />}
 
                 </div>
             </div>

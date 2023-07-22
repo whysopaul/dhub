@@ -1,4 +1,4 @@
-import { ADMIN_GET_ALL_USERS, adminDispatchTypes } from "../../actions/admin/types";
+import { ADMIN_GET_ALL_USERS, ADMIN_SET_SPECIALIST, adminDispatchTypes } from "../../actions/admin/types";
 import { TUserData } from "../../actions/auth/types";
 
 interface IDefaultState {
@@ -15,6 +15,18 @@ const adminReducer = (state: IDefaultState = defaultState, action: adminDispatch
             return {
                 ...state,
                 users: action.payload
+            }
+        case ADMIN_SET_SPECIALIST:
+            return {
+                ...state,
+                users: [
+                    ...state.users.map(u => {
+                        if (u.id === action.payload.id) {
+                            return action.payload
+                        }
+                        return u
+                    })
+                ]
             }
         default:
             return state

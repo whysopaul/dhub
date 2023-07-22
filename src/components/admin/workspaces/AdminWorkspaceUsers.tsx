@@ -4,8 +4,10 @@ import { RootStore } from '../../../store';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
 import { adminGetAllUsers } from '../../../actions/admin/admin';
+import { TUserData } from '../../../actions/auth/types';
 
 interface IAdminWorkspaceUsersProps {
+    onEdit: (_: TUserData) => void
 }
 
 const AdminWorkspaceUsers: React.FunctionComponent<IAdminWorkspaceUsersProps> = (props) => {
@@ -33,7 +35,7 @@ const AdminWorkspaceUsers: React.FunctionComponent<IAdminWorkspaceUsersProps> = 
                     </div>
                 </div>
                 <div className='user-admin-panel-table-content'>
-                    {rootState.admin.users.map(user => {
+                    {rootState.admin.users.sort((a, b) => a.id - b.id).map(user => {
                         return <div className='user-admin-panel-table-row' id='users'>
                             <span>{user.id}</span>
                             <div id='user-name'>
@@ -48,7 +50,7 @@ const AdminWorkspaceUsers: React.FunctionComponent<IAdminWorkspaceUsersProps> = 
                             <div>
                                 <button
                                     className='user-admin-panel-table-edit-button'
-                                // onClick={() => props.onEdit(d)}
+                                    onClick={() => props.onEdit(user)}
                                 >
                                     Редактировать
                                 </button>

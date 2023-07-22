@@ -364,7 +364,8 @@
     width: fit-content;
 }
 
-.user-admin-panel-table-row>#service-name i {
+.user-admin-panel-table-row>#service-name i,
+.user-admin-panel-table-row>#user-name i {
     font-size: 12px;
     color: #386BEE;
 }
