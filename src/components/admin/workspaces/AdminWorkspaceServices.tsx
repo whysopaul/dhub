@@ -4,7 +4,7 @@ import { RootStore } from '../../../store';
 import { useMemo, useState } from 'react';
 import Loading from '../../global/Loading';
 import { useDispatch } from 'react-redux';
-import { deleteService, serviceDataUpdate } from '../../../actions/services/services';
+import { deleteService, serviceDataUpdate, serviceToggleHiddenStatus } from '../../../actions/services/services';
 import { Link } from 'react-router-dom';
 import { TServicesData } from '../../../actions/services/types';
 
@@ -95,10 +95,11 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                             <span>{service.rating}</span>
                             <span>{service.admin_notes}</span>
                             <div>
-                                <input type='checkbox' onChange={() => dispatch(serviceDataUpdate({
-                                    ...service,
-                                    is_hidden: !service.is_hidden
-                                }))} checked={service.is_hidden} />
+                                <input
+                                    type='checkbox'
+                                    onChange={() => dispatch(serviceToggleHiddenStatus(userState.d_token, service.id, !service.is_hidden))}
+                                    checked={service.is_hidden}
+                                />
                             </div>
                             <div>
                                 <button className='user-admin-panel-table-edit-button' onClick={() => props.onEdit(service)}>Редактировать</button>
