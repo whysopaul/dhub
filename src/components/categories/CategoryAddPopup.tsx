@@ -5,6 +5,8 @@ import { useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { createCategory } from '../../actions/categories/categories';
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../store';
 
 interface ICategoryAddPopupProps {
     onClose: () => void
@@ -12,10 +14,13 @@ interface ICategoryAddPopupProps {
 
 const CategoryAddPopup: React.FunctionComponent<ICategoryAddPopupProps> = (props) => {
 
+    const categoriesState = useSelector((state: RootStore) => state.categories.categories)
+
     const dispatch = useDispatch()
 
     const [name, setName] = useState('')
     const [index, setIndex] = useState(1)
+    const [parentId, setParentId] = useState<number>(null)
     const [showAlert, setShowAlert] = useState(false)
 
     const ref = useRef(null)
@@ -41,6 +46,18 @@ const CategoryAddPopup: React.FunctionComponent<ICategoryAddPopupProps> = (props
                         <option value={3}>3</option>
                     </select>
                 </label>
+                {index === 2 && <label>
+                    <span>Родительская категория:</span>
+                    <select
+                        value={parentId}
+                        onChange={e => setParentId(parseInt(e.target.value))}
+                    >
+                        <option value=''>--------</option>
+                        {categoriesState.filter(c => c.index === 1).map(c => {
+                            return <option value={c.id} key={c.id}>{c.name}</option>
+                        })}
+                    </select>
+                </label>}
             </div>
             {showAlert && <div>
                 <p className='service-edit-alert'>Поле "Название" должно быть заполнено</p>
@@ -48,7 +65,12 @@ const CategoryAddPopup: React.FunctionComponent<ICategoryAddPopupProps> = (props
             <div>
                 <button className='blue-shadow-button' onClick={() => {
                     if (name) {
-                        dispatch(createCategory(name, index))
+                        if (index === 2) {
+                            dispatch(createCategory(name, index, parentId))
+                        }
+                        if (index !== 2) {
+                            dispatch(createCategory(name, index))
+                        }
                         setShowAlert(false)
                         props.onClose()
                     } else {

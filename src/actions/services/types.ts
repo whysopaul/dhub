@@ -92,6 +92,14 @@ export type TDiscount = {
     is_promocode: boolean
 }
 
+export type TServiceApplication = {
+    username: string,
+    contact: string,
+    service_name: string,
+    service_link: string,
+    description: string
+}
+
 interface IGetAllServices {
     type: typeof GET_ALL_SERVICES,
     payload: TServicesData[]

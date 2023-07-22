@@ -12,6 +12,13 @@ interface IAddServicePopupProps {
 
 const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) => {
 
+    const [name, setName] = useState('')
+    const [contact, setContact] = useState('')
+    const [serviceName, setServiceName] = useState('')
+    const [link, setLink] = useState('')
+    const [description, setDescription] = useState('')
+    const [privacy, setPrivacy] = useState(false)
+
     const ref = useRef(null)
 
     useOnClickOutside(ref, () => props.onClose())
@@ -25,13 +32,13 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
             <h3>Владелец сервиса?</h3>
             <p>Оставьте заявку на его добавление. Мы свяжемся с вами для получения информации о вашем сервисе, после чего пользователи смогут найти его на страницах сайта</p>
             <form>
-                <input type="text" placeholder='Имя*' required />
-                <input type="text" placeholder='Контакт для обратной связи (email или телефон)*' required />
-                <input type="text" placeholder='Название сервиса' />
-                <input type="text" placeholder='Ссылка на сервис*' required />
-                <textarea placeholder='Краткое описание сервиса'></textarea>
+                <input type="text" placeholder='Имя*' value={name} onChange={e => setName(e.target.value)} required />
+                <input type="text" placeholder='Контакт для обратной связи (email или телефон)*' value={contact} onChange={e => setContact(e.target.value)} required />
+                <input type="text" placeholder='Название сервиса' value={serviceName} onChange={e => setServiceName(e.target.value)} />
+                <input type='url' placeholder='Ссылка на сервис*' value={link} onChange={e => setLink(e.target.value)} required />
+                <textarea placeholder='Краткое описание сервиса' value={description} onChange={e => setDescription(e.target.value)} />
                 <div className='add-service-privacy'>
-                    <input type="checkbox" id='privacy' />
+                    <input type="checkbox" id='privacy' onChange={() => setPrivacy(!privacy)} checked={privacy} />
                     <label htmlFor='privacy'>
                         <div className='add-service-checkbox-button'>
                             <div></div>

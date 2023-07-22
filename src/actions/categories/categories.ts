@@ -16,8 +16,8 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
     })
 }
 
-export const createCategory = (name: string, index: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
-    axios.post(SERVER_URL + '/createCategory', JSON.stringify({ name, index })).then(res => {
+export const createCategory = (name: string, index: number, parent_id?: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createCategory', JSON.stringify({ name, index, parent_id })).then(res => {
         // console.log(res.data)
 
         dispatch({
