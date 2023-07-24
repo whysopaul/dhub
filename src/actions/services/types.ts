@@ -6,6 +6,7 @@ export const GET_ALL_SERVICES_LOCATIONS = 'GET_ALL_SERVICES_LOCATIONS'
 export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
 export const GET_ALL_SERVICES_DISCOUNTS = 'GET_ALL_SERVICES_DISCOUNTS'
 export const GET_SERVICE = 'GET_SERVICE'
+export const GET_SERVICE_APPLICATIONS = 'GET_SERVICE_APPLICATIONS'
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
 export const SERVICE_UPDATE_LINK = 'SERVICE_UPDATE_LINK'
@@ -18,12 +19,14 @@ export const CREATE_PLATFORM = 'CREATE_PLATFORM'
 export const CREATE_SCREENSHOT = 'CREATE_SCREENSHOT'
 export const CREATE_SCREENSHOT_WITH_FILE = 'CREATE_SCREENSHOT_WITH_FILE'
 export const CREATE_DISCOUNT = 'CREATE_DISCOUNT'
+export const CREATE_SERVICE_APPLICATION = 'CREATE_SERVICE_APPLICATION'
 
 export const DELETE_SERVICE = 'DELETE_SERVICE'
 export const DELETE_LOCATION = 'DELETE_LOCATION'
 export const DELETE_PLATFORM = 'DELETE_PLATFORM'
 export const DELETE_SCREENSHOT = 'DELETE_SCREENSHOT'
 export const DELETE_DISCOUNT = 'DELETE_DISCOUNT'
+export const DELETE_SERVICE_APPLICATION = 'DELETE_SERVICE_APPLICATION'
 
 export type TServicesData = {
     id: number,
@@ -93,6 +96,7 @@ export type TDiscount = {
 }
 
 export type TServiceApplication = {
+    id?: number,
     username: string,
     contact: string,
     service_name: string,
@@ -123,6 +127,11 @@ interface IGetAllServicesDiscounts {
 interface IGetService {
     type: typeof GET_SERVICE,
     payload: TServicesData
+}
+
+interface IGetServiceApplications {
+    type: typeof GET_SERVICE_APPLICATIONS,
+    payload: TServiceApplication[]
 }
 
 interface IServicesLoading {
@@ -180,9 +189,14 @@ interface ICreateDiscount {
     payload: TDiscount
 }
 
+interface ICreateServiceApplication {
+    type: typeof CREATE_SERVICE_APPLICATION,
+    payload: TServiceApplication
+}
+
 interface IDeleteAction {
-    type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT | typeof DELETE_DISCOUNT,
+    type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT | typeof DELETE_DISCOUNT | typeof DELETE_SERVICE_APPLICATION,
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | IDeleteAction
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | ICreateServiceApplication | IDeleteAction

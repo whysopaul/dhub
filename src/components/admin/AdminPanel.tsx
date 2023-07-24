@@ -18,6 +18,7 @@ import DiscountPopup from './workspaces/DiscountPopup';
 import AdminWorkspaceUsers from './workspaces/AdminWorkspaceUsers';
 import { TUserData } from '../../actions/auth/types';
 import AdminUserEditPopup from './workspaces/AdminUserEditPopup';
+import AdminWorkspaceApplications from './workspaces/AdminWorkspaceApplications';
 
 interface IAdminPanelProps {
 }
@@ -28,7 +29,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     // const dispatch = useDispatch()
 
-    const [adminWorkspace, setAdminWorkspace] = useState<'services' | 'categories' | 'locations_platforms' | 'discounts' | 'users'>('services')
+    const [adminWorkspace, setAdminWorkspace] = useState<'services' | 'categories' | 'locations_platforms' | 'discounts' | 'users' | 'applications'>('services')
 
     const [createService, setCreateService] = useState(false)
     const [createCategory, setCreateCategory] = useState(false)
@@ -126,6 +127,9 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     <button className={adminWorkspace === 'users' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('users')}>
                         <span>Пользователи</span>
                     </button>
+                    <button className={adminWorkspace === 'applications' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('applications')}>
+                        <span>Заявки</span>
+                    </button>
                 </div>
                 <div className='user-admin-panel-workspace'>
 
@@ -134,6 +138,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
                     {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
                     {adminWorkspace === 'users' && <AdminWorkspaceUsers onEdit={setEditUser} />}
+                    {adminWorkspace === 'applications' && <AdminWorkspaceApplications />}
 
                 </div>
             </div>

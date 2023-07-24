@@ -5,11 +5,7 @@ import { SERVER_URL } from "../../components/utils";
 import store from "../../store";
 
 export const adminGetAllUsers = () => (dispatch: Dispatch<adminDispatchTypes>) => {
-
-    const state = store.getState()
-    const d_token = state.auth.user?.d_token
-
-    axios.get(SERVER_URL + '/getAllUsers', { params: { d_token } }).then(res => {
+    axios.get(SERVER_URL + '/getAllUsers', withToken()).then(res => {
         console.log(res.data)
 
         dispatch({
@@ -32,4 +28,15 @@ export const adminSetSpecialist = (d_token: string, user_id: number, is_speciali
     }).catch(error => {
         console.log(error)
     })
+}
+
+export const withToken = () => {
+    const state = store.getState()
+    const d_token = state.auth.user?.d_token
+
+    return {
+        params: {
+            d_token
+        }
+    }
 }

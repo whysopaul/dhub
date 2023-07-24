@@ -1,8 +1,9 @@
 import { Dispatch } from "react";
-import { CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, CREATE_SERVICE_APPLICATION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, DELETE_SERVICE_APPLICATION, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, GET_SERVICE_APPLICATIONS, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceApplication, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
+import { withToken } from "../admin/admin";
 
 export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes | categoriesDispatchTypes>) => {
 
@@ -160,6 +161,19 @@ export const getService = (service_id: number) => (dispatch: Dispatch<servicesDi
 
         dispatch({
             type: GET_SERVICE,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const getServiceApplications = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getServiceApplications', withToken()).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_SERVICE_APPLICATIONS,
             payload: res.data
         })
     }).catch(error => {
@@ -326,6 +340,19 @@ export const createDiscount = (d_token: string, discount: TDiscount) => (dispatc
     })
 }
 
+export const createServiceApplication = (s_application: TServiceApplication) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createServiceApplication', JSON.stringify({ s_application: { ...s_application } })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_SERVICE_APPLICATION,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
 export const deleteService = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteService', { params: { id, d_token } }).then(res => {
         // console.log(res.data)
@@ -386,6 +413,19 @@ export const deleteDiscount = (id: number, d_token: string) => (dispatch: Dispat
 
         dispatch({
             type: DELETE_DISCOUNT,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteServiceApplication = (d_token: string, id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteServiceApplication', { params: { d_token, id } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_SERVICE_APPLICATION,
             payload: res.data
         })
     }).catch(error => {

@@ -339,6 +339,11 @@
     grid-template-columns: 5% auto 10% 10% 13% 5%;
 }
 
+.user-admin-panel-table-row-head#applications,
+.user-admin-panel-table-row#applications {
+    grid-template-columns: 5% 15% 15% 15% 15% auto 5%;
+}
+
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {
     background: #F4F7FF;
 }

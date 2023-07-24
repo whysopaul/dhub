@@ -1,15 +1,18 @@
 import { ADMIN_GET_ALL_USERS, ADMIN_SET_SPECIALIST, adminDispatchTypes } from "../../actions/admin/types";
 import { TUserData } from "../../actions/auth/types";
+import { DELETE_SERVICE_APPLICATION, GET_SERVICE_APPLICATIONS, TServiceApplication, servicesDispatchTypes } from "../../actions/services/types";
 
 interface IDefaultState {
-    users: TUserData[]
+    users: TUserData[],
+    applications: TServiceApplication[]
 }
 
 const defaultState: IDefaultState = {
-    users: []
+    users: [],
+    applications: []
 }
 
-const adminReducer = (state: IDefaultState = defaultState, action: adminDispatchTypes) => {
+const adminReducer = (state: IDefaultState = defaultState, action: adminDispatchTypes | servicesDispatchTypes) => {
     switch (action.type) {
         case ADMIN_GET_ALL_USERS:
             return {
@@ -27,6 +30,16 @@ const adminReducer = (state: IDefaultState = defaultState, action: adminDispatch
                         return u
                     })
                 ]
+            }
+        case GET_SERVICE_APPLICATIONS:
+            return {
+                ...state,
+                applications: action.payload
+            }
+        case DELETE_SERVICE_APPLICATION:
+            return {
+                ...state,
+                applications: state.applications.filter(a => a.id !== parseInt(action.payload))
             }
         default:
             return state
