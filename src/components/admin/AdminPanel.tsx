@@ -19,6 +19,7 @@ import AdminWorkspaceUsers from './workspaces/AdminWorkspaceUsers';
 import { TUserData } from '../../actions/auth/types';
 import AdminUserEditPopup from './workspaces/AdminUserEditPopup';
 import AdminWorkspaceApplications from './workspaces/AdminWorkspaceApplications';
+import AdminWorkspaceCollections from './workspaces/AdminWorkspaceCollections';
 
 interface IAdminPanelProps {
 }
@@ -29,7 +30,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
     // const dispatch = useDispatch()
 
-    const [adminWorkspace, setAdminWorkspace] = useState<'services' | 'categories' | 'locations_platforms' | 'discounts' | 'users' | 'applications'>('services')
+    const [adminWorkspace, setAdminWorkspace] = useState<'services' | 'categories' | 'locations_platforms' | 'discounts' | 'users' | 'applications' | 'collections'>('services')
 
     const [createService, setCreateService] = useState(false)
     const [createCategory, setCreateCategory] = useState(false)
@@ -124,6 +125,9 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     <button className={adminWorkspace === 'discounts' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('discounts')}>
                         <span>Скидки</span>
                     </button>
+                    <button className={adminWorkspace === 'collections' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('collections')}>
+                        <span>Подборки</span>
+                    </button>
                     <button className={adminWorkspace === 'users' ? 'user-admin-panel-button active' : 'user-admin-panel-button'} onClick={() => setAdminWorkspace('users')}>
                         <span>Пользователи</span>
                     </button>
@@ -137,6 +141,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
                     {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
+                    {adminWorkspace === 'collections' && <AdminWorkspaceCollections onEdit={null} />}
                     {adminWorkspace === 'users' && <AdminWorkspaceUsers onEdit={setEditUser} />}
                     {adminWorkspace === 'applications' && <AdminWorkspaceApplications />}
 

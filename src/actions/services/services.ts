@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, CREATE_SERVICE_APPLICATION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, DELETE_SERVICE_APPLICATION, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_SERVICE, GET_SERVICE_APPLICATIONS, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceApplication, TServiceLocation, TServicePlatform, TServicesData, servicesDispatchTypes } from "./types";
+import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, CREATE_SERVICE_APPLICATION, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, DELETE_SERVICE_APPLICATION, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, GET_SERVICE_APPLICATIONS, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceApplication, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, UPDATE_COLLECTION, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -170,10 +170,62 @@ export const getService = (service_id: number) => (dispatch: Dispatch<servicesDi
 
 export const getServiceApplications = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getServiceApplications', withToken()).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_SERVICE_APPLICATIONS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const getBlock = (id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getBlock', { params: { id } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_BLOCK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const getBlocks = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getBlocks').then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_BLOCKS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const getCollection = (id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getCollection', { params: { id } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_COLLECTION,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const getCollections = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getCollections').then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: GET_COLLECTIONS,
             payload: res.data
         })
     }).catch(error => {
@@ -225,6 +277,32 @@ export const serviceUpdateDiscount = (d_token: string, discount: TDiscount) => (
 export const serviceToggleHiddenStatus = (d_token: string, service_id: number, is_hidden: boolean) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/toggleServiceHiddenStatus', JSON.stringify({ d_token, service_id, is_hidden })).then(res => {
         window.location.reload()
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const updateBlock = (block: TServicesBlock) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/updateBlock', JSON.stringify({ block: { ...block } })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: UPDATE_BLOCK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const updateCollection = (collection: TServicesCollection) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/updateCollection', JSON.stringify({ collection: { ...collection } })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: UPDATE_COLLECTION,
+            payload: res.data
+        })
     }).catch(error => {
         console.log(error)
     })
@@ -342,10 +420,36 @@ export const createDiscount = (d_token: string, discount: TDiscount) => (dispatc
 
 export const createServiceApplication = (s_application: TServiceApplication) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createServiceApplication', JSON.stringify({ s_application: { ...s_application } })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_SERVICE_APPLICATION,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const createBlock = (block: TServicesBlock) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createBlock', JSON.stringify({ block: { ...block } })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_BLOCK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const createCollection = (collection: TServicesCollection) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createCollection', JSON.stringify({ collection: { ...collection } })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: CREATE_COLLECTION,
             payload: res.data
         })
     }).catch(error => {
@@ -420,12 +524,38 @@ export const deleteDiscount = (id: number, d_token: string) => (dispatch: Dispat
     })
 }
 
-export const deleteServiceApplication = (d_token: string, id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
-    axios.delete(SERVER_URL + '/deleteServiceApplication', { params: { d_token, id } }).then(res => {
-        console.log(res.data)
+export const deleteServiceApplication = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteServiceApplication', { params: { id, d_token } }).then(res => {
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_SERVICE_APPLICATION,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteBlock = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteBlock', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_BLOCK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const deleteCollection = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deleteCollection', { params: { id, d_token } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: DELETE_COLLECTION,
             payload: res.data
         })
     }).catch(error => {

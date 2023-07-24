@@ -45,7 +45,7 @@ const AdminWorkspaceApplications: React.FunctionComponent<IAdminWorkspaceApplica
                                 <button
                                     className='cursor-pointer'
                                     onClick={() => {
-                                        if (confirm('Подтвердите удаление')) dispatch(deleteServiceApplication(rootState.auth.user.d_token, a.id))
+                                        if (confirm('Подтвердите удаление')) dispatch(deleteServiceApplication(a.id, rootState.auth.user.d_token))
                                     }}
                                 >
                                     <i className='fas fa-times' />

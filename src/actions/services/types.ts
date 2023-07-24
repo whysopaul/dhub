@@ -7,11 +7,20 @@ export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
 export const GET_ALL_SERVICES_DISCOUNTS = 'GET_ALL_SERVICES_DISCOUNTS'
 export const GET_SERVICE = 'GET_SERVICE'
 export const GET_SERVICE_APPLICATIONS = 'GET_SERVICE_APPLICATIONS'
+export const GET_BLOCK = 'GET_BLOCK'
+export const GET_BLOCKS = 'GET_BLOCKS'
+export const GET_COLLECTION = 'GET_COLLECTION'
+export const GET_COLLECTIONS = 'GET_COLLECTIONS'
+
 export const SERVICES_LOADING = 'SERVICES_LOADING'
+
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
 export const SERVICE_UPDATE_LINK = 'SERVICE_UPDATE_LINK'
 export const SERVICE_UPDATE_DISCOUNT = 'SERVICE_UPDATE_DISCOUNT'
 export const SERVICE_TOGGLE_HIDDEN_STATUS = 'SERVICE_TOGGLE_HIDDEN_STATUS'
+
+export const UPDATE_BLOCK = 'UPDATE_BLOCK'
+export const UPDATE_COLLECTION = 'UPDATE_COLLECTION'
 
 export const CREATE_SERVICE = 'CREATE_SERVICE'
 export const CREATE_LOCATION = 'CREATE_LOCATION'
@@ -20,6 +29,8 @@ export const CREATE_SCREENSHOT = 'CREATE_SCREENSHOT'
 export const CREATE_SCREENSHOT_WITH_FILE = 'CREATE_SCREENSHOT_WITH_FILE'
 export const CREATE_DISCOUNT = 'CREATE_DISCOUNT'
 export const CREATE_SERVICE_APPLICATION = 'CREATE_SERVICE_APPLICATION'
+export const CREATE_BLOCK = 'CREATE_BLOCK'
+export const CREATE_COLLECTION = 'CREATE_COLLECTION'
 
 export const DELETE_SERVICE = 'DELETE_SERVICE'
 export const DELETE_LOCATION = 'DELETE_LOCATION'
@@ -27,6 +38,8 @@ export const DELETE_PLATFORM = 'DELETE_PLATFORM'
 export const DELETE_SCREENSHOT = 'DELETE_SCREENSHOT'
 export const DELETE_DISCOUNT = 'DELETE_DISCOUNT'
 export const DELETE_SERVICE_APPLICATION = 'DELETE_SERVICE_APPLICATION'
+export const DELETE_BLOCK = 'DELETE_BLOCK'
+export const DELETE_COLLECTION = 'DELETE_COLLECTION'
 
 export type TServicesData = {
     id: number,
@@ -104,6 +117,19 @@ export type TServiceApplication = {
     description: string
 }
 
+export type TServicesBlock = {
+    id: number,
+    title: string,
+    service_ids: number[],
+    services: TServicesData[]
+}
+
+export type TServicesCollection = {
+    id: number,
+    title: string,
+    blocks: TServicesBlock[]
+}
+
 interface IGetAllServices {
     type: typeof GET_ALL_SERVICES,
     payload: TServicesData[]
@@ -134,6 +160,26 @@ interface IGetServiceApplications {
     payload: TServiceApplication[]
 }
 
+interface IGetBlock {
+    type: typeof GET_BLOCK,
+    payload: TServicesBlock
+}
+
+interface IGetBlocks {
+    type: typeof GET_BLOCKS,
+    payload: TServicesBlock[]
+}
+
+interface IGetCollection {
+    type: typeof GET_COLLECTION,
+    payload: TServicesCollection
+}
+
+interface IGetCollections {
+    type: typeof GET_COLLECTIONS,
+    payload: TServicesCollection[]
+}
+
 interface IServicesLoading {
     type: typeof SERVICES_LOADING,
     payload: boolean
@@ -157,6 +203,16 @@ interface IServiceUpdateDiscount {
 interface IServiceToggleHiddenStatus {
     type: typeof SERVICE_TOGGLE_HIDDEN_STATUS,
     payload: string
+}
+
+interface IUpdateBlock {
+    type: typeof UPDATE_BLOCK,
+    payload: TServicesBlock
+}
+
+interface IUpdateCollection {
+    type: typeof UPDATE_COLLECTION,
+    payload: TServicesCollection
 }
 
 // interface ICreateService {
@@ -194,9 +250,23 @@ interface ICreateServiceApplication {
     payload: TServiceApplication
 }
 
+interface ICreateBlock {
+    type: typeof CREATE_BLOCK,
+    payload: TServicesBlock
+}
+
+interface ICreateCollection {
+    type: typeof CREATE_COLLECTION,
+    payload: TServicesCollection
+}
+
 interface IDeleteAction {
-    type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT | typeof DELETE_DISCOUNT | typeof DELETE_SERVICE_APPLICATION,
+    type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT | typeof DELETE_DISCOUNT | typeof DELETE_SERVICE_APPLICATION | typeof DELETE_BLOCK | typeof DELETE_COLLECTION,
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | ICreateServiceApplication | IDeleteAction
+export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IGetBlock | IGetBlocks | IGetCollection | IGetCollections
+    | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus
+    | IUpdateBlock | IUpdateCollection
+    | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | ICreateServiceApplication | ICreateBlock | ICreateCollection
+    | IDeleteAction
