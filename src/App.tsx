@@ -15,6 +15,7 @@ import ScrollToTop from './components/utils/ScrollToTop';
 import GetData from './components/utils/GetData';
 import ServiceSelection from './components/services/ServiceSelection';
 import AdminPanel from './components/admin/AdminPanel';
+import CollectionsPage from './components/collections/CollectionsPage';
 
 interface IAppProps {
 }
@@ -34,6 +35,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                     <Route path='/feedback' element={<FeedbackListPage />} />
                     <Route path='/articles' element={<ArticlesListPage />} />
                     <Route path='/article/:articleId' element={<ArticlePage />} />
+                    <Route path='/collections' element={<CollectionsPage />} />
                     <Route path='/profile' element={<UserProfile />} />
                     <Route path='/profile/edit' element={<UserProfileEdit />} />
                     <Route path='/admin' element={<AdminPanel />} />

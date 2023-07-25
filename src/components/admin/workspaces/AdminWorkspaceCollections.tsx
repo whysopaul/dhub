@@ -16,10 +16,6 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(getCollections())
-    }, [])
-
     return <>
         <div>
             <div>

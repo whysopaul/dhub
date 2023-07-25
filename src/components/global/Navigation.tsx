@@ -9,6 +9,7 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
         <Link to='/categories'>Категории</Link>
         <Link to='/feedback'>Отзывы</Link>
         <Link to='/articles'>Статьи и обзоры</Link>
+        <Link to='/collections'>Подборки</Link>
     </>;
 };
 
