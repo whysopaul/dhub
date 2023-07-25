@@ -2,12 +2,12 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../../store';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
-import { getCollections } from '../../../actions/services/services';
 import { TServicesCollection } from '../../../actions/services/types';
+import { deleteCollection } from '../../../actions/services/services';
 
 interface IAdminWorkspaceCollectionsProps {
-    onEdit: (_: TServicesCollection) => void
+    onEditCollection: (_: TServicesCollection) => void,
+    onCreateCollection: () => void
 }
 
 const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollectionsProps> = (props) => {
@@ -17,7 +17,7 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
     const dispatch = useDispatch()
 
     return <>
-        <div>
+        <div className='user-admin-panel-table'>
             <div>
                 <div className='user-admin-panel-table-row-head' id='collections'>
                     <span>ID</span>
@@ -33,11 +33,11 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                         return <div className='user-admin-panel-table-row' id='collections'>
                             <span>{c.id}</span>
                             <span>{c.title}</span>
-                            <span>{c.blocks.map(b => b.title)}</span>
+                            <div>{c.blocks.map(b => b.title)}</div>
                             <div>
                                 <button
                                     className='user-admin-panel-table-edit-button'
-                                    onClick={() => props.onEdit(c)}
+                                    onClick={() => props.onEditCollection(c)}
                                 >
                                     Редактировать
                                 </button>
@@ -46,7 +46,7 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                                 <button
                                     className='cursor-pointer'
                                     onClick={() => {
-                                        // if (confirm('Подтвердите удаление')) dispatch(deleteServiceApplication(a.id, rootState.auth.user.d_token))
+                                        if (confirm('Подтвердите удаление')) dispatch(deleteCollection(c.id, rootState.auth.user.d_token))
                                     }}
                                 >
                                     <i className='fas fa-times' />
@@ -55,6 +55,21 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                         </div>
                     })}
                 </div>
+            </div>
+            <div className='user-admin-panel-add-buttons'>
+                <button
+                    className='user-admin-panel-button'
+                    onClick={() => props.onCreateCollection()}
+                >
+                    <i className='fas fa-plus' />
+                    <span>Создать подборку</span>
+                </button>
+                <button
+                    className='user-admin-panel-button'
+                >
+                    <i className='fas fa-plus' />
+                    <span>Создать блок</span>
+                </button>
             </div>
         </div>
     </>;

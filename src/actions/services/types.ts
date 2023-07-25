@@ -120,6 +120,7 @@ export type TServiceApplication = {
 export type TServicesBlock = {
     id: number,
     title: string,
+    collection: number,
     service_ids: number[],
     services: TServicesData[]
 }
