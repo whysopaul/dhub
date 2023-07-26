@@ -1,5 +1,5 @@
 import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, feedbackDispatchTypes } from "../../actions/feedback/types"
-import { CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCKS, GET_COLLECTIONS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
+import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
@@ -10,6 +10,7 @@ interface IDefaultState {
     blocks: TServicesBlock[],
     collections: TServicesCollection[],
     currentService: TServicesData,
+    currentCollection: TServicesCollection,
     is_loading: boolean
 }
 
@@ -22,6 +23,7 @@ const defaultState: IDefaultState = {
     blocks: [],
     collections: [],
     currentService: null,
+    currentCollection: null,
     is_loading: false
 }
 
@@ -57,6 +59,11 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 blocks: action.payload
+            }
+        case GET_COLLECTION:
+            return {
+                ...state,
+                currentCollection: action.payload
             }
         case GET_COLLECTIONS:
             return {
@@ -134,6 +141,11 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 discounts: [...state.discounts, action.payload]
+            }
+        case CREATE_BLOCK:
+            return {
+                ...state,
+                blocks: [...state.blocks, action.payload]
             }
         case CREATE_COLLECTION:
             return {

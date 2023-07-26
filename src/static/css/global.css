@@ -150,6 +150,21 @@ hr {
     column-gap: 16px;
 }
 
+.categories-list#services i {
+    color: inherit;
+}
+
+.list-scroll {
+    max-height: 300px;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    row-gap: 12px;
+    column-gap: 16px;
+    list-style-type: none;
+    overflow: scroll;
+}
+
 .sort-selection>* {
     font-family: 'Noto Sans', sans-serif;
     font-style: normal;

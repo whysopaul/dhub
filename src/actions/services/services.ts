@@ -433,7 +433,7 @@ export const createServiceApplication = (s_application: TServiceApplication) => 
 
 export const createBlock = (block: TServicesBlock) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createBlock', JSON.stringify({ block: { ...block } })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_BLOCK,
@@ -446,7 +446,7 @@ export const createBlock = (block: TServicesBlock) => (dispatch: Dispatch<servic
 
 export const createCollection = (collection: TServicesCollection) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createCollection', JSON.stringify({ collection: { ...collection } })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: CREATE_COLLECTION,

@@ -7,7 +7,7 @@ import { URL } from '../utils';
 // import { createService } from '../../actions/services/services';
 import ServiceEditPopup from '../services/ServiceEditPopup';
 import CategoryAddPopup from '../categories/CategoryAddPopup';
-import { TDiscount, TServicesData } from '../../actions/services/types';
+import { TDiscount, TServicesCollection, TServicesData } from '../../actions/services/types';
 import AdminWorkspaceServices from './workspaces/AdminWorkspaceServices';
 import AdminWorkspaceCategories from './workspaces/AdminWorkspaceCategories';
 import CategoryRelationsAddPopup from '../categories/CategoryRelationsAddPopup';
@@ -22,6 +22,7 @@ import AdminWorkspaceApplications from './workspaces/AdminWorkspaceApplications'
 import AdminWorkspaceCollections from './workspaces/AdminWorkspaceCollections';
 import CollectionAddPopup from '../collections/CollectionAddPopup';
 import BlockAddPopup from '../collections/blocks/BlockAddPopup';
+import CollectionEditPopup from '../collections/CollectionEditPopup';
 
 interface IAdminPanelProps {
 }
@@ -46,6 +47,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const [editService, setEditService] = useState<TServicesData>(null)
     const [editDiscount, setEditDiscount] = useState<TDiscount>(null)
     const [editUser, setEditUser] = useState<TUserData>(null)
+    const [editCollection, setEditCollection] = useState<TServicesCollection>(null)
 
     useEffect(() => {
         if (!userState || !userState?.is_admin) {
@@ -111,6 +113,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
             {editDiscount && <DiscountPopup discount={editDiscount} onClose={() => setEditDiscount(null)} />}
 
             {createCollection && <CollectionAddPopup onClose={() => setCreateCollection(false)} />}
+            {editCollection && <CollectionEditPopup collection={editCollection} onClose={() => setEditCollection(null)} />}
 
             {createBlock && <BlockAddPopup onClose={() => setCreateBlock(false)} />}
 
@@ -149,7 +152,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
                     {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
-                    {adminWorkspace === 'collections' && <AdminWorkspaceCollections onEditCollection={({ }) => null} onCreateCollection={() => setCreateCollection(true)} onCreateBlock={() => setCreateBlock(true)} />}
+                    {adminWorkspace === 'collections' && <AdminWorkspaceCollections onEditCollection={setEditCollection} onCreateCollection={() => setCreateCollection(true)} onCreateBlock={() => setCreateBlock(true)} />}
                     {adminWorkspace === 'users' && <AdminWorkspaceUsers onEdit={setEditUser} />}
                     {adminWorkspace === 'applications' && <AdminWorkspaceApplications />}
 

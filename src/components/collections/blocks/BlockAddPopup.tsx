@@ -20,7 +20,8 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
 
     const [title, setTitle] = useState('')
     const [collection, setCollection] = useState(-1)
-    const [services, setServices] = useState<string[]>([])
+    const [serviceName, setServiceName] = useState('')
+    const [services, setServices] = useState<TServicesData[]>([])
     const [showAlert, setShowAlert] = useState(false)
 
     const ref = useRef(null)
@@ -29,10 +30,10 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
 
     useOnPopup()
 
-    const toggleService = e => {
-        services.includes(e.target.value)
-            ? setServices(services.filter(s => s != e.target.value))
-            : setServices([...services, e.target.value])
+    const toggleService = (service: TServicesData) => {
+        services.map(s => s.id).includes(service.id)
+            ? setServices(services.filter(s => s.id !== service.id))
+            : setServices([...services, service])
     }
 
     return <>
@@ -63,7 +64,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                 </label>
                 <label>
                     <span>Сервисы:</span>
-                    <select
+                    {/* <select
                         value={services}
                         onChange={toggleService}
                         multiple
@@ -72,8 +73,40 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                         {rootState.services.services.map(s => {
                             return <option value={s.id.toString()} key={s.id}>{s.name}</option>
                         })}
-                    </select>
+                    </select> */}
+                    <input
+                        type='text'
+                        placeholder='Поиск по сервисам'
+                        value={serviceName}
+                        onChange={e => setServiceName(e.target.value)}
+                    />
                 </label>
+                {services.length > 0 && <ul className='categories-list' id='services'>
+                    {services.map(s => {
+                        return <li key={s.id}>
+                            <button
+                                className='category-tag active'
+                                onClick={() => toggleService(s)}
+                            >
+                                {s.name}
+                                <i className='fas fa-times' />
+                            </button>
+                        </li>
+                    })}
+                </ul>}
+                <ul className='service-edit-popup-add-category-list'>
+                    {rootState.services.services.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()) && !services.map(service => service.id).includes(s.id)).map(s => {
+                        return <li key={s.id}>
+                            <button
+                                className='category-tag'
+                                onClick={() => toggleService(s)}
+                            >
+                                {s.name}
+                                <i className='fas fa-plus' />
+                            </button>
+                        </li>
+                    })}
+                </ul>
             </div>
             {showAlert && <div>
                 <p className='service-edit-alert'>Поля "Название" и "Подборка" должны быть заполнены</p>
@@ -87,7 +120,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                                 id: -1,
                                 title,
                                 collection,
-                                service_ids: services.map(s => parseInt(s))
+                                service_ids: services.map(s => s.id)
                             }))
                             setShowAlert(false)
                             props.onClose()
