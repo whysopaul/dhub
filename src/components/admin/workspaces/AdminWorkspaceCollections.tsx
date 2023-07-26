@@ -7,7 +7,8 @@ import { deleteCollection } from '../../../actions/services/services';
 
 interface IAdminWorkspaceCollectionsProps {
     onEditCollection: (_: TServicesCollection) => void,
-    onCreateCollection: () => void
+    onCreateCollection: () => void,
+    onCreateBlock: () => void
 }
 
 const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollectionsProps> = (props) => {
@@ -33,7 +34,22 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                         return <div className='user-admin-panel-table-row' id='collections'>
                             <span>{c.id}</span>
                             <span>{c.title}</span>
-                            <div>{c.blocks.map(b => b.title)}</div>
+                            <div>
+                                <ul className='categories-list'>
+                                    {rootState.services.blocks.filter(b => b.collection === c.id).map(b => {
+                                        return <>
+                                            <li>
+                                                <button className='category-tag-button'>
+                                                    <span className='category-tag-name'>{b.title}</span>
+                                                    <div className='category-tag-qty'>
+                                                        <span>{b.service_ids.length}</span>
+                                                    </div>
+                                                </button>
+                                            </li>
+                                        </>
+                                    })}
+                                </ul>
+                            </div>
                             <div>
                                 <button
                                     className='user-admin-panel-table-edit-button'
@@ -66,6 +82,7 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                 </button>
                 <button
                     className='user-admin-panel-button'
+                    onClick={() => props.onCreateBlock()}
                 >
                     <i className='fas fa-plus' />
                     <span>Создать блок</span>

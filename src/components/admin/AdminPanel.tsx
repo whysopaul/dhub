@@ -21,6 +21,7 @@ import AdminUserEditPopup from './workspaces/AdminUserEditPopup';
 import AdminWorkspaceApplications from './workspaces/AdminWorkspaceApplications';
 import AdminWorkspaceCollections from './workspaces/AdminWorkspaceCollections';
 import CollectionAddPopup from '../collections/CollectionAddPopup';
+import BlockAddPopup from '../collections/blocks/BlockAddPopup';
 
 interface IAdminPanelProps {
 }
@@ -40,6 +41,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const [createPlatform, setCreatePlatform] = useState(false)
     const [createDiscount, setCreateDiscount] = useState(false)
     const [createCollection, setCreateCollection] = useState(false)
+    const [createBlock, setCreateBlock] = useState(false)
 
     const [editService, setEditService] = useState<TServicesData>(null)
     const [editDiscount, setEditDiscount] = useState<TDiscount>(null)
@@ -110,6 +112,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
             {createCollection && <CollectionAddPopup onClose={() => setCreateCollection(false)} />}
 
+            {createBlock && <BlockAddPopup onClose={() => setCreateBlock(false)} />}
+
             {editUser && <AdminUserEditPopup user={editUser} onClose={() => setEditUser(null)} />}
 
             <div>
@@ -145,7 +149,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
                     {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
-                    {adminWorkspace === 'collections' && <AdminWorkspaceCollections onEditCollection={({ }) => null} onCreateCollection={() => setCreateCollection(true)} />}
+                    {adminWorkspace === 'collections' && <AdminWorkspaceCollections onEditCollection={({ }) => null} onCreateCollection={() => setCreateCollection(true)} onCreateBlock={() => setCreateBlock(true)} />}
                     {adminWorkspace === 'users' && <AdminWorkspaceUsers onEdit={setEditUser} />}
                     {adminWorkspace === 'applications' && <AdminWorkspaceApplications />}
 

@@ -122,7 +122,7 @@ export type TServicesBlock = {
     title: string,
     collection: number,
     service_ids: number[],
-    services: TServicesData[]
+    services?: TServicesData[]
 }
 
 export type TServicesCollection = {

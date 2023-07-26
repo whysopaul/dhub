@@ -196,7 +196,7 @@ export const getBlock = (id: number) => (dispatch: Dispatch<servicesDispatchType
 
 export const getBlocks = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getBlocks').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_BLOCKS,
@@ -222,7 +222,7 @@ export const getCollection = (id: number) => (dispatch: Dispatch<servicesDispatc
 
 export const getCollections = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getCollections').then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_COLLECTIONS,

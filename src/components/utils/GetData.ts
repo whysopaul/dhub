@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux"
 import store from "../../store"
 import { useEffect } from "react"
 import { getAllCategories } from "../../actions/categories/categories"
-import { getAllServicesLocations, getAllServicesPlatforms, getCollections, getServicesData } from "../../actions/services/services"
+import { getAllServicesLocations, getAllServicesPlatforms, getBlocks, getCollections, getServicesData } from "../../actions/services/services"
 
 const GetData = () => {
     const dispatch = useDispatch()
@@ -16,6 +16,7 @@ const GetData = () => {
             // dispatch(getAllServicesPlatforms())
             // dispatch(getAllCategories())
             dispatch(getCollections())
+            dispatch(getBlocks())
         }
     }, [])
 
