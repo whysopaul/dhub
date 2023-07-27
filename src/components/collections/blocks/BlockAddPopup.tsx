@@ -94,7 +94,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                         </li>
                     })}
                 </ul>}
-                <ul className='service-edit-popup-add-category-list'>
+                <ul className='popup-list-scroll'>
                     {rootState.services.services.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()) && !services.map(service => service.id).includes(s.id)).map(s => {
                         return <li key={s.id}>
                             <button

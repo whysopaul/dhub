@@ -11,7 +11,11 @@ interface ICategoryTagProps {
 const CategoryTag: React.FunctionComponent<ICategoryTagProps> = (props) => {
     return <>
         <li>
-            <button type='button' className={props.checked && props.checked ? 'category-tag-button active' : 'category-tag-button'} onClick={() => props.onClick ? props.onClick() : null}>
+            <button
+                type='button'
+                className={props.checked ? 'category-tag-button active' : 'category-tag-button'}
+                onClick={() => props.onClick ? props.onClick() : null}
+            >
                 <span className='category-tag-name'>{props.name}</span>
                 <div className='category-tag-qty'>
                     <span>{props.qty}</span>

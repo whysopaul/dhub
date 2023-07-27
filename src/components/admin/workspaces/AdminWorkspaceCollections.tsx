@@ -2,12 +2,14 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../../store';
 import { useDispatch } from 'react-redux';
-import { TServicesCollection } from '../../../actions/services/types';
+import { TServicesBlock, TServicesCollection } from '../../../actions/services/types';
 import { deleteCollection } from '../../../actions/services/services';
+import CategoryTag from '../../categories/CategoryTag';
 
 interface IAdminWorkspaceCollectionsProps {
     onEditCollection: (_: TServicesCollection) => void,
     onCreateCollection: () => void,
+    onEditBlock: (_: TServicesBlock) => void,
     onCreateBlock: () => void
 }
 
@@ -38,14 +40,7 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                                 <ul className='categories-list'>
                                     {rootState.services.blocks.filter(b => b.collection === c.id).map(b => {
                                         return <>
-                                            <li>
-                                                <button className='category-tag-button'>
-                                                    <span className='category-tag-name'>{b.title}</span>
-                                                    <div className='category-tag-qty'>
-                                                        <span>{b.service_ids.length}</span>
-                                                    </div>
-                                                </button>
-                                            </li>
+                                            <CategoryTag name={b.title} qty={b.service_ids.length} onClick={() => props.onEditBlock(b)} key={b.id} />
                                         </>
                                     })}
                                 </ul>

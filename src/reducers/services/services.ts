@@ -1,5 +1,5 @@
 import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, feedbackDispatchTypes } from "../../actions/feedback/types"
-import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, servicesDispatchTypes } from "../../actions/services/types"
+import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
@@ -11,6 +11,7 @@ interface IDefaultState {
     collections: TServicesCollection[],
     currentService: TServicesData,
     currentCollection: TServicesCollection,
+    currentBlock: TServicesBlock,
     is_loading: boolean
 }
 
@@ -24,6 +25,7 @@ const defaultState: IDefaultState = {
     collections: [],
     currentService: null,
     currentCollection: null,
+    currentBlock: null,
     is_loading: false
 }
 
@@ -54,6 +56,11 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 currentService: action.payload
+            }
+        case GET_BLOCK:
+            return {
+                ...state,
+                currentBlock: action.payload
             }
         case GET_BLOCKS:
             return {
@@ -98,6 +105,21 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
                         return d
                     })
                 ]
+            }
+        case UPDATE_BLOCK:
+            return {
+                ...state,
+                blocks: [
+                    ...state.blocks.map(b => {
+                        if (b.id === action.payload.id) {
+                            return action.payload
+                        }
+                        return b
+                    })
+                ],
+                currentBlock: !state.currentBlock ? null : state.currentBlock.id === action.payload.id ? {
+                    ...action.payload
+                } : state.currentBlock
             }
         case CREATE_LOCATION:
             return {
@@ -182,6 +204,11 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
             return {
                 ...state,
                 discounts: [...state.discounts.filter(discount => discount.id !== parseInt(action.payload))]
+            }
+        case DELETE_BLOCK:
+            return {
+                ...state,
+                blocks: [...state.blocks.filter(b => b.id !== parseInt(action.payload))]
             }
         case DELETE_COLLECTION:
             return {

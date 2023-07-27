@@ -183,7 +183,7 @@ export const getServiceApplications = () => (dispatch: Dispatch<servicesDispatch
 
 export const getBlock = (id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getBlock', { params: { id } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_BLOCK,
@@ -284,7 +284,7 @@ export const serviceToggleHiddenStatus = (d_token: string, service_id: number, i
 
 export const updateBlock = (block: TServicesBlock) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/updateBlock', JSON.stringify({ block: { ...block } })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: UPDATE_BLOCK,
@@ -539,7 +539,7 @@ export const deleteServiceApplication = (id: number, d_token: string) => (dispat
 
 export const deleteBlock = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteBlock', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_BLOCK,
@@ -552,7 +552,7 @@ export const deleteBlock = (id: number, d_token: string) => (dispatch: Dispatch<
 
 export const deleteCollection = (id: number, d_token: string) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteCollection', { params: { id, d_token } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: DELETE_COLLECTION,
