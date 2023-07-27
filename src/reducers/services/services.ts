@@ -1,5 +1,5 @@
 import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, feedbackDispatchTypes } from "../../actions/feedback/types"
-import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, servicesDispatchTypes } from "../../actions/services/types"
+import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, UPDATE_COLLECTION, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
     services: TServicesData[],
@@ -120,6 +120,21 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
                 currentBlock: !state.currentBlock ? null : state.currentBlock.id === action.payload.id ? {
                     ...action.payload
                 } : state.currentBlock
+            }
+        case UPDATE_COLLECTION:
+            return {
+                ...state,
+                collections: [
+                    ...state.collections.map(c => {
+                        if (c.id === action.payload.id) {
+                            return action.payload
+                        }
+                        return c
+                    })
+                ],
+                currentCollection: !state.currentCollection ? null : state.currentCollection.id === action.payload.id ? {
+                    ...action.payload
+                } : state.currentCollection
             }
         case CREATE_LOCATION:
             return {
