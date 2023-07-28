@@ -24,9 +24,13 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
                 <span>Подборки</span>
             </button>
             <div className='collections-navigation-dropdown'>
-                {collectionState.map(c => {
-                    return <Link to={'/collection/' + c.id} key={c.id}>{c.title}</Link>
-                })}
+                <ul className='collections-navigation-dropdown-content'>
+                    {collectionState.map(c => {
+                        return <li key={c.id}>
+                            <Link to={'/collection/' + c.id}>{c.title}</Link>
+                        </li>
+                    })}
+                </ul>
             </div>
         </div>
     </>;

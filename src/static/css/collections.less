@@ -23,21 +23,28 @@
 
     .collections-navigation-dropdown {
         display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        padding-top: 12px;
+
+        .collections-navigation-dropdown-content {
+            background: #FFFFFF;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px gainsboro;
+            width: max-content;
+            list-style-type: none;
+
+            li {
+                padding: 12px;
+            }
+        }
     }
 
     &:hover {
         .collections-navigation-dropdown {
-            display: grid;
-            gap: 12px;
-            padding: 12px;
-            background: #FFFFFF;
-            border: 1px solid #eee;
-            border-radius: 12px;
-            box-shadow: 0 1px 4px gainsboro;
-            width: max-content;
-            position: absolute;
-            top: 24px;
-            right: -50%;
+            display: block;
         }
     }
 }
