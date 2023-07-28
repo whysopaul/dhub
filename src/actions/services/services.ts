@@ -209,7 +209,7 @@ export const getBlocks = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
 
 export const getCollection = (id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getCollection', { params: { id } }).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: GET_COLLECTION,

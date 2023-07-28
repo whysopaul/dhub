@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { TServicesCollection } from '../../actions/services/types';
+import { TServicesBlock, TServicesCollection } from '../../actions/services/types';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useDispatch } from 'react-redux';
@@ -39,6 +39,18 @@ const CollectionEditPopup: React.FunctionComponent<ICollectionEditPopupProps> = 
         }
     }, [, rootState.services.currentCollection])
 
+    const toggleBlock = (block: TServicesBlock) => {
+        currentCollection.blocks.map(b => b.id).includes(block.id)
+            ? setCurrentCollection({
+                ...currentCollection,
+                blocks: currentCollection.blocks.filter(b => b.id !== block.id)
+            })
+            : setCurrentCollection({
+                ...currentCollection,
+                blocks: [...currentCollection.blocks, block]
+            })
+    }
+
     return <>
         <div className='backdrop' />
         <div className='popup-container' ref={ref}>
@@ -58,24 +70,31 @@ const CollectionEditPopup: React.FunctionComponent<ICollectionEditPopupProps> = 
                         />
                     </label>
                     <p>Блоки:</p>
-                    <ul className='categories-list' id='services'>
+                    {currentCollection.blocks.length > 0 && <ul className='categories-list' id='blocks'>
                         {currentCollection.blocks.map(b => {
                             return <li key={b.id}>
                                 <button
                                     className='category-tag active'
+                                    onClick={() => toggleBlock(b)}
                                 >
                                     {b.title}
                                     <i className='fas fa-times' />
                                 </button>
                             </li>
                         })}
-                        <li>
-                            <button
-                                className='category-tag'
-                            >
-                                <i className='fas fa-plus' />
-                            </button>
-                        </li>
+                    </ul>}
+                    <ul className='categories-list' id='services'>
+                        {rootState.services.blocks?.filter(b => !currentCollection.blocks.map(block => block.id).includes(b.id)).map(b => {
+                            return <li key={b.id}>
+                                <button
+                                    className='category-tag'
+                                    onClick={() => toggleBlock(b)}
+                                >
+                                    {b.title}
+                                    <i className='fas fa-plus' />
+                                </button>
+                            </li>
+                        })}
                     </ul>
                 </div>
                 {showAlert && <div>

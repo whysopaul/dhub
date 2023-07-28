@@ -150,8 +150,15 @@ hr {
     column-gap: 16px;
 }
 
-.categories-list#services i {
+.categories-list#services i,
+.categories-list#blocks i {
     color: inherit;
+}
+
+.categories-list#blocks {
+    padding: 12px;
+    background: #F6F7FB;
+    border-radius: 12px;
 }
 
 .sort-selection>* {

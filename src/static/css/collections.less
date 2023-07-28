@@ -18,6 +18,30 @@
     }
 }
 
+.collections-navigation-container {
+    position: relative;
+
+    .collections-navigation-dropdown {
+        display: none;
+    }
+
+    &:hover {
+        .collections-navigation-dropdown {
+            display: grid;
+            gap: 12px;
+            padding: 12px;
+            background: #FFFFFF;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            box-shadow: 0 1px 4px gainsboro;
+            width: max-content;
+            position: absolute;
+            top: 24px;
+            right: -50%;
+        }
+    }
+}
+
 .collections-navigation-button {
     font-weight: 400;
     font-size: 14px;

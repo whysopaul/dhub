@@ -349,6 +349,17 @@
     grid-template-columns: 5% 25% auto 13% 5%;
 }
 
+.user-admin-panel-table-row#collections .category-tag-button:hover .category-tag-qty>span {
+    font-size: 0;
+}
+
+.user-admin-panel-table-row#collections .category-tag-button:hover .category-tag-qty>span:before {
+    font-family: 'Font Awesome 5 Free';
+    font-size: 12px;
+    line-height: 24px;
+    content: '\f304';
+}
+
 .user-admin-panel-table-content>.user-admin-panel-table-row:nth-child(2n) {
     background: #F4F7FF;
 }

@@ -44,13 +44,11 @@ const BlockEditPopup: React.FunctionComponent<IBlockEditPopupProps> = (props) =>
         currentBlock.service_ids.includes(service.id)
             ? setCurrentBlock({
                 ...currentBlock,
-                service_ids: currentBlock.service_ids.filter(s => s !== service.id),
-                services: currentBlock.services.filter(s => s.id !== service.id)
+                service_ids: currentBlock.service_ids.filter(s => s !== service.id)
             })
             : setCurrentBlock({
                 ...currentBlock,
-                service_ids: [...currentBlock.service_ids, service.id],
-                services: [...currentBlock.services, service]
+                service_ids: [...currentBlock.service_ids, service.id]
             })
     }
 

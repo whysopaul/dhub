@@ -1,10 +1,14 @@
 import * as React from 'react';
+import { useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
+import { RootStore } from '../../store';
 
 interface INavigationProps {
 }
 
 const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
+
+    const collectionState = useSelector((state: RootStore) => state.services.collections)
 
     const navigate = useNavigate()
 
@@ -12,12 +16,19 @@ const Navigation: React.FunctionComponent<INavigationProps> = (props) => {
         <Link to='/categories'>Категории</Link>
         <Link to='/feedback'>Отзывы</Link>
         <Link to='/articles'>Статьи и обзоры</Link>
-        <button
-            className='collections-navigation-button'
-            onClick={() => navigate('/collections')}
-        >
-            <span>Подборки</span>
-        </button>
+        <div className='collections-navigation-container'>
+            <button
+                className='collections-navigation-button'
+                onClick={() => navigate('/collections')}
+            >
+                <span>Подборки</span>
+            </button>
+            <div className='collections-navigation-dropdown'>
+                {collectionState.map(c => {
+                    return <Link to={'/collection/' + c.id} key={c.id}>{c.title}</Link>
+                })}
+            </div>
+        </div>
     </>;
 };
 
