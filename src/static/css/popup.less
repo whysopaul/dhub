@@ -24,6 +24,33 @@
         display: grid;
         gap: 16px;
 
+        label {
+            position: relative;
+
+            .popup-search-dropdown {
+                display: none;
+                position: absolute;
+                top: 38px;
+                left: 96px;
+                z-index: 1;
+                padding: 8px;
+                border: 1px solid #eee;
+                border-radius: 8px;
+                box-shadow: 0 2px 4px gainsboro;
+                background: #FFFFFF;
+
+                .popup-list-scroll {
+                    max-height: 160px;
+                }
+            }
+
+            &:focus-within {
+                .popup-search-dropdown {
+                    display: block;
+                }
+            }
+        }
+
         label,
         &>div {
             display: grid;

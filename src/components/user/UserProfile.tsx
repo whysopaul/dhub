@@ -87,11 +87,12 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                 </div>
             </div>
             {mode === 1 && <>
-                <div className='feedback-cards'>
-                    {feedbackState?.map(i => {
+                {feedbackState.length > 0 && <div className='feedback-cards'>
+                    {feedbackState.map(i => {
                         return <FeedbackCardComponent comment={i} owner key={i.id} />
                     })}
-                </div>
+                </div>}
+                {feedbackState.length === 0 && <p className='user-profile-no-feedback'>Вы пока не оставили отзывов. Оставьте свой первый отзыв!</p>}
             </>}
             {mode === 2 && <>
                 <div className='home-services-cards extended'>

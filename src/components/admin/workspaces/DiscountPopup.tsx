@@ -46,22 +46,31 @@ const DiscountPopup: React.FunctionComponent<IDiscountPopupProps> = (props) => {
                         onChange={e => setServiceName(e.target.value)}
                         disabled={props.discount.service !== -1}
                     />
+                    {searchQuery.length > 0 && <div className='popup-search-dropdown'>
+                        <ul className='popup-list-scroll'>
+                            {searchQuery.map(s => {
+                                return <li key={s.id}>
+                                    <button
+                                        className={discount.service === s.id ? 'category-tag active' : 'category-tag'}
+                                        onClick={() => setDiscount({
+                                            ...discount,
+                                            service: s.id
+                                        })}
+                                    >
+                                        {s.name}
+                                    </button>
+                                </li>
+                            })}
+                        </ul>
+                    </div>}
                 </label>}
                 <label>
                     <span>Сервис:</span>
                     <select
                         className='popup-service-select'
-                        value={discount.service}
-                        onChange={e => setDiscount({
-                            ...discount,
-                            service: parseInt(e.target.value)
-                        })}
-                        disabled={props.discount.service !== -1}
+                        disabled
                     >
-                        <option value="-1">--------</option>
-                        {searchQuery.map(s => {
-                            return <option value={s.id} key={s.id}>{s.name}</option>
-                        })}
+                        <option value="-1">{discount.service === -1 ? '--------' : rootState.services.services.find(s => s.id === discount.service)?.name}</option>
                     </select>
                 </label>
                 <div>

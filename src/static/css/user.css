@@ -73,6 +73,13 @@
     background-color: #386BEE;
 }
 
+.user-profile-no-feedback {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: #2D4379;
+}
+
 /* USER PROFILE EDIT */
 
 .user-profile-edit-container {
