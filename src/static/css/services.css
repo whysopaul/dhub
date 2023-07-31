@@ -579,6 +579,18 @@
     margin-bottom: 24px !important;
 }
 
+.services-list-select {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #386BEE;
+    background: #F6F7FB;
+    padding: 7px 12px;
+    border-radius: 24px;
+    cursor: pointer;
+}
+
 .services-list-sharing {
     display: grid;
     justify-content: center;
@@ -769,17 +781,6 @@
 /* .service-selection-advanced-inputs input[type='checkbox'] {
     margin-right: 16px;
 } */
-
-.service-selection-advanced-inputs select {
-    font-family: 'Noto Sans', sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 14px;
-    color: #386BEE;
-    background: #F6F7FB;
-    padding: 7px 12px;
-    border-radius: 24px;
-}
 
 .service-selection-buttons {
     display: flex;

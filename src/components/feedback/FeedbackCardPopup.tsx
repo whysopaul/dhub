@@ -21,7 +21,7 @@ const FeedbackCardPopup: React.FunctionComponent<IFeedbackCardPopupProps> = (pro
     return <>
         <div className='backdrop' />
         <div className='feedback-card-popup-container' ref={ref}>
-            <FeedbackCardComponent comment={props.comment} show_full />
+            <FeedbackCardComponent comment={props.comment} onClosePopup={() => props.onClose()} show_full />
             <button className='feedback-card-popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>
         </div>
     </>;

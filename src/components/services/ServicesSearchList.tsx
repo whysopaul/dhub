@@ -29,6 +29,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [searchByName, setSearchByName] = useState(true)
     const [searchByText, setSearchByText] = useState(false)
     const [country, setCountry] = useState('')
+    const [collection, setCollection] = useState(-1)
 
     useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
@@ -38,7 +39,13 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
     const [sortMode, setSortMode] = useState<string>('default')
 
-    const searchCondition: TServicesData[] = rootState.services.services.map(service => {
+    const searchSource = (): TServicesData[] => {
+        if (collection !== -1)
+            return rootState.services.services.filter(s => rootState.services.blocks.filter(b => b.collection === collection).flatMap(b => b.service_ids).includes(s.id))
+        return rootState.services.services
+    }
+
+    const searchCondition: TServicesData[] = searchSource().map(service => {
         return {
             ...service,
             description: {
@@ -150,6 +157,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
         if (country) {
             urlParams.append('country', country)
+        }
+
+        if (collection !== -1) {
+            urlParams.append('collection', collection.toString())
         }
 
         return URL + '/services?' + urlParams
@@ -276,11 +287,14 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (urlParams.has('country')) {
             setCountry(urlParams.get('country'))
         }
+        if (urlParams.has('collection')) {
+            setCollection(parseInt(urlParams.get('collection')))
+        }
     }, [])
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText, country])
+    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText, country, collection])
 
     return <>
         <div className='services-list-header-container'>
@@ -345,6 +359,20 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     </ul>
                 </div>}
 
+                <div>
+                    <p>Подборки:</p>
+                    <select
+                        className='services-list-select'
+                        value={collection}
+                        onChange={e => setCollection(parseInt(e.target.value))}
+                    >
+                        <option value={-1}>--------</option>
+                        {rootState.services.collections.map(c => {
+                            return <option value={c.id} key={c.id}>{c.title}</option>
+                        })}
+                    </select>
+                </div>
+
                 <div className='service-selection-advanced-inputs view-desktop'>
                     <div>
                         <p>Функциональные особенности:</p>
@@ -361,6 +389,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     <div>
                         <p>Страна разработчика:</p>
                         <select
+                            className='services-list-select'
                             value={country}
                             onChange={e => setCountry(e.target.value)}
                         >
@@ -404,6 +433,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         </div>
                         {openMobileCountry && <div className='service-dropdown-content'>
                             <select
+                                className='services-list-select'
                                 value={country}
                                 onChange={e => setCountry(e.target.value)}
                             >

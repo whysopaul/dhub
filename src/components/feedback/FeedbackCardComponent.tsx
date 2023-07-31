@@ -14,11 +14,12 @@ interface IFeedbackCardComponentProps {
     comment: TFeedback,
     owner?: boolean,
     show_full?: boolean,
+    onClosePopup?: () => void,
     onTouchStart?: (e: React.TouchEvent) => void,
     onTouchMove?: (e: React.TouchEvent, cardsQty?: number) => void
 }
 
-const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner, show_full, onTouchStart, onTouchMove }) => {
+const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps> = ({ comment, owner, show_full, onClosePopup, onTouchStart, onTouchMove }) => {
 
     const rootState = useSelector((state: RootStore) => state)
 
@@ -70,7 +71,21 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                     <Link to={'/service/' + comment.service}><p>{feedbackServiceData?.name}</p></Link>
                     <Link to={'/services?categories=' + feedbackServiceData?.categories_3[0]?.id}><span>{feedbackServiceData?.categories_3[0]?.name}</span></Link>
                 </div>
-                <button className={rootState.auth.user && comment.likes.includes(rootState.auth.user?.vk_id) ? 'feedback-service-likes active' : 'feedback-service-likes'} onClick={() => rootState.auth.user ? dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.id)) : dispatch(userShowLoginPopup())}>
+                <button
+                    className={rootState.auth.user && comment.likes.includes(rootState.auth.user?.vk_id) ? 'feedback-service-likes active' : 'feedback-service-likes'}
+                    onClick={() => {
+                        if (rootState.auth.user) {
+                            dispatch(feedbackToggleFeedbackUpvote(rootState.auth.user.d_token, comment.id))
+                        } else {
+                            if (show_full) {
+                                onClosePopup()
+                                dispatch(userShowLoginPopup())
+                            } else {
+                                dispatch(userShowLoginPopup())
+                            }
+                        }
+                    }}
+                >
                     <i className='fas fa-thumbs-up' />
                     <div>
                         <span>{comment.likes.length}</span>
