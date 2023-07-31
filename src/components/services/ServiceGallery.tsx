@@ -3,6 +3,7 @@ import { TServiceScreenshot, TServicesData } from '../../actions/services/types'
 import { useEffect, useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { getScreen } from '../utils';
+import { useOnPopup } from '../utils/HandleOnPopup';
 
 interface IServiceGalleryProps {
     service: TServicesData,
@@ -37,6 +38,8 @@ const ServiceGallery: React.FunctionComponent<IServiceGalleryProps> = (props) =>
     }
 
     const screenshots: TServiceScreenshot[] = props.service.images.screenshots
+
+    useOnPopup()
 
     return <>
         <div className='backdrop'></div>

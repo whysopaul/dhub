@@ -8,7 +8,7 @@ import { TServicesData } from '../../actions/services/types';
 import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import Loading from '../global/Loading';
-import { URL } from '../utils';
+import { URL, countriesList } from '../utils';
 
 interface IServicesSearchListProps {
 }
@@ -28,6 +28,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const dropdownRef = useRef(null)
     const [searchByName, setSearchByName] = useState(true)
     const [searchByText, setSearchByText] = useState(false)
+    const [country, setCountry] = useState('')
 
     useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
@@ -47,27 +48,29 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         }
     }).filter(service =>
         (searchByName && !searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
-        &&
-        (!searchByName && searchByText ? service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
-        &&
-        (searchByName && searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
-        &&
-        service.description.isFree !== isNotFree
-        &&
-        service.description.hasTrial !== hasNoTrial
-        &&
-        service.description.hasPartnership !== hasNoPartnership
-        &&
-        (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.includes(category.id)) || service.categories_3.find(category => selectedCategories.includes(category.id)) : true)
-        &&
-        (
-            paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
-                :
-                paymentMethod === 2 ? paymentMethodTwo.some(p_m => service.description.paymentMethod.includes(p_m))
+            &&
+            (!searchByName && searchByText ? service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+            &&
+            (searchByName && searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+            &&
+            service.description.isFree !== isNotFree
+            &&
+            service.description.hasTrial !== hasNoTrial
+            &&
+            service.description.hasPartnership !== hasNoPartnership
+            &&
+            (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.includes(category.id)) || service.categories_3.find(category => selectedCategories.includes(category.id)) : true)
+            &&
+            (
+                paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
                     :
-                    paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m))
-                        : true
-        )
+                    paymentMethod === 2 ? paymentMethodTwo.some(p_m => service.description.paymentMethod.includes(p_m))
+                        :
+                        paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m))
+                            : true
+            )
+            &&
+            country === '' ? true : service.description.country === country
     ).sort((a, b) => {
         if (sortMode === 'new') {
             return b.id - a.id
@@ -100,6 +103,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
     const [openMobileFuncInputs, setOpenMobileFuncInputs] = useState(false)
     const [openMobilePaymentInputs, setOpenMobilePaymentInputs] = useState(false)
+    const [openMobileCountry, setOpenMobileCountry] = useState(false)
 
     // const searchParamsInputRef = useRef<HTMLInputElement>(null)
 
@@ -142,6 +146,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
         if (searchByText) {
             urlParams.append('searchbytext', 'true')
+        }
+
+        if (country) {
+            urlParams.append('country', country)
         }
 
         return URL + '/services?' + urlParams
@@ -265,11 +273,14 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (urlParams.has('searchbytext')) {
             setSearchByText(true)
         }
+        if (urlParams.has('country')) {
+            setCountry(urlParams.get('country'))
+        }
     }, [])
 
     useEffect(() => {
         setCurrentPage(1)
-    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText])
+    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText, country])
 
     return <>
         <div className='services-list-header-container'>
@@ -347,6 +358,20 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
                         <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
                     </div>
+                    <div>
+                        <p>Страна разработчика:</p>
+                        <select
+                            value={country}
+                            onChange={e => setCountry(e.target.value)}
+                        >
+                            <option value=''>--------</option>
+                            {Object.values(countriesList).map(c => {
+                                return c.map(cn => {
+                                    return <option value={cn.countryName} key={cn.countryName}>{cn.countryName}</option>
+                                })
+                            })}
+                        </select>
+                    </div>
                 </div>
 
                 <div className='service-selection-advanced-inputs view-mobile'>
@@ -370,6 +395,25 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                             <label><input type='radio' onChange={() => setPaymentMethod(1)} checked={paymentMethod === 1} />По подписке</label>
                             <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
                             <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
+                        </div>}
+                    </div>
+                    <div className='service-dropdown-container'>
+                        <div className='service-dropdown-header' onClick={() => setOpenMobileCountry(!openMobileCountry)}>
+                            <p>Страна разработчика</p>
+                            <i className={openMobileCountry ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                        </div>
+                        {openMobileCountry && <div className='service-dropdown-content'>
+                            <select
+                                value={country}
+                                onChange={e => setCountry(e.target.value)}
+                            >
+                                <option value=''>--------</option>
+                                {Object.values(countriesList).map(c => {
+                                    return c.map(cn => {
+                                        return <option value={cn.countryName} key={cn.countryName}>{cn.countryName}</option>
+                                    })
+                                })}
+                            </select>
                         </div>}
                     </div>
                 </div>

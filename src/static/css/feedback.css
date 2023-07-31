@@ -8,7 +8,7 @@
 
 .feedback-cards>.feedback-card-container {
     background-color: rgba(244, 247, 255, 0.5);
-    box-shadow: 0 0 8px #e0e7f4;
+    box-shadow: 0 2px 4px #e0e7f4;
     backdrop-filter: none;
 }
 

@@ -230,7 +230,9 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     }
                                     if (d.is_sale) {
                                         return <div key={d.id}>
-                                            <p>Скидка:</p>
+                                            <div className='service-promocode'>
+                                                <p>Скидка:</p>
+                                            </div>
                                             <p>{d.description}</p>
                                         </div>
                                     }

@@ -621,15 +621,15 @@
 }
 
 .services-list-reset-button {
-    padding: 6px 8px;
-    font-family: 'Montserrat', sans-serif;
+    padding: 7px 12px;
+    font-family: 'Noto Sans', sans-serif;
     font-style: normal;
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
     color: #636E8D;
     background: #eee;
-    border-radius: 12px;
+    border-radius: 24px;
     cursor: pointer;
 }
 
@@ -769,6 +769,17 @@
 /* .service-selection-advanced-inputs input[type='checkbox'] {
     margin-right: 16px;
 } */
+
+.service-selection-advanced-inputs select {
+    font-family: 'Noto Sans', sans-serif;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    color: #386BEE;
+    background: #F6F7FB;
+    padding: 7px 12px;
+    border-radius: 24px;
+}
 
 .service-selection-buttons {
     display: flex;
