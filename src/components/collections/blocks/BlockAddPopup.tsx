@@ -120,7 +120,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                                 id: -1,
                                 title,
                                 service_ids: services.map(s => s.id),
-                                collection_ids: []
+                                collection_ids: [collection]
                             }))
                             setShowAlert(false)
                             props.onClose()

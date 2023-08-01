@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useDispatch } from 'react-redux';
-import { connectVkAccount } from '../../actions/auth/auth';
+import { connectVkAccount, userHideLoginPopup } from '../../actions/auth/auth';
 import LoginImg from '../../static/images/login.webp';
 import '../../static/css/login.less';
 import { useOnPopup } from '../utils/HandleOnPopup';
@@ -20,6 +20,10 @@ const Login: React.FunctionComponent<ILoginProps> = (props) => {
     useOnClickOutside(ref, () => props.onClose())
 
     useOnPopup()
+
+    useEffect(() => {
+        return () => dispatch(userHideLoginPopup())
+    })
 
     return <>
         <div className='backdrop'></div>

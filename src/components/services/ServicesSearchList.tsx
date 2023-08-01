@@ -55,29 +55,29 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         }
     }).filter(service =>
         (searchByName && !searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
-            &&
-            (!searchByName && searchByText ? service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
-            &&
-            (searchByName && searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
-            &&
-            service.description.isFree !== isNotFree
-            &&
-            service.description.hasTrial !== hasNoTrial
-            &&
-            service.description.hasPartnership !== hasNoPartnership
-            &&
-            (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.includes(category.id)) || service.categories_3.find(category => selectedCategories.includes(category.id)) : true)
-            &&
-            (
-                paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
+        &&
+        (!searchByName && searchByText ? service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+        &&
+        (searchByName && searchByText ? service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase()) || service.description.text.toLocaleLowerCase().includes(search.toLocaleLowerCase()) : true)
+        &&
+        service.description.isFree !== isNotFree
+        &&
+        service.description.hasTrial !== hasNoTrial
+        &&
+        service.description.hasPartnership !== hasNoPartnership
+        &&
+        (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.includes(category.id)) || service.categories_3.find(category => selectedCategories.includes(category.id)) : true)
+        &&
+        (
+            paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
+                :
+                paymentMethod === 2 ? paymentMethodTwo.some(p_m => service.description.paymentMethod.includes(p_m))
                     :
-                    paymentMethod === 2 ? paymentMethodTwo.some(p_m => service.description.paymentMethod.includes(p_m))
-                        :
-                        paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m))
-                            : true
-            )
-            &&
-            country === '' ? true : service.description.country === country
+                    paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m))
+                        : true
+        )
+        &&
+        (country === '' ? true : service.description.country === country)
     ).sort((a, b) => {
         if (sortMode === 'new') {
             return b.id - a.id

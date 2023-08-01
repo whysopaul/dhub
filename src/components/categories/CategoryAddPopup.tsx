@@ -66,10 +66,10 @@ const CategoryAddPopup: React.FunctionComponent<ICategoryAddPopupProps> = (props
                 <button className='blue-shadow-button' onClick={() => {
                     if (name) {
                         if (index === 2) {
-                            dispatch(createCategory({ id: -1, name, index, parent: parentId }))
+                            dispatch(createCategory({ name, index, parent: parentId }))
                         }
                         if (index !== 2) {
-                            dispatch(createCategory({ id: -1, name, index }))
+                            dispatch(createCategory({ name, index }))
                         }
                         setShowAlert(false)
                         props.onClose()

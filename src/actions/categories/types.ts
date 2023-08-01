@@ -25,6 +25,8 @@ export type TCategory = {
     }[]
 }
 
+export type TNewCategory = Omit<TCategory, 'id'>
+
 interface IGetCategories {
     type: typeof GET_ALL_CATEGORIES,
     payload: TCategory[]

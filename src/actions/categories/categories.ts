@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "./types";
+import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, TNewCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -16,7 +16,7 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
     })
 }
 
-export const createCategory = (category: TCategory) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+export const createCategory = (category: TNewCategory) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
     axios.post(SERVER_URL + '/createCategory', JSON.stringify({ category })).then(res => {
         // console.log(res.data)
 
