@@ -3,6 +3,8 @@ export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const CREATE_CATEGORY = 'CREATE_CATEGORY'
 export const CREATE_CATEGORY_RELATIONS = 'CREATE_CATEGORY_RELATIONS'
 
+export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
+
 export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 
 // export type TMainCategory = {
@@ -15,7 +17,7 @@ export type TCategory = {
     id: number,
     name: string,
     index: number,
-    parent: number,
+    parent?: number,
     connections?: {
         id: number,
         service: number,
@@ -38,9 +40,14 @@ interface ICreateCategoryRelations {
     payload: any
 }
 
+interface IUpdateCategory {
+    type: typeof UPDATE_CATEGORY,
+    payload: TCategory
+}
+
 interface IDeleteCategory {
     type: typeof DELETE_CATEGORY,
     payload: string
 }
 
-export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations | IDeleteCategory
+export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations | IUpdateCategory | IDeleteCategory

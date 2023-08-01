@@ -119,8 +119,8 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                             dispatch(createBlock({
                                 id: -1,
                                 title,
-                                collection,
-                                service_ids: services.map(s => s.id)
+                                service_ids: services.map(s => s.id),
+                                collection_ids: []
                             }))
                             setShowAlert(false)
                             props.onClose()

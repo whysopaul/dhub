@@ -38,7 +38,7 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                             <span>{c.title}</span>
                             <div>
                                 <ul className='categories-list'>
-                                    {rootState.services.blocks.filter(b => b.collection === c.id).map(b => {
+                                    {rootState.services.blocks.filter(b => b.collection_ids.includes(c.id)).map(b => {
                                         return <>
                                             <CategoryTag name={b.title} qty={b.service_ids.length} onClick={() => props.onEditBlock(b)} key={b.id} />
                                         </>

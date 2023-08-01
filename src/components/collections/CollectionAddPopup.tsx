@@ -48,7 +48,7 @@ const CollectionAddPopup: React.FunctionComponent<ICollectionAddPopupProps> = (p
                             dispatch(createCollection({
                                 id: -1,
                                 title,
-                                blocks: []
+                                block_ids: []
                             }))
                             setShowAlert(false)
                             props.onClose()

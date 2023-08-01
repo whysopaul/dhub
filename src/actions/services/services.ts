@@ -432,7 +432,7 @@ export const createServiceApplication = (s_application: TServiceApplication) => 
 }
 
 export const createBlock = (block: TServicesBlock) => (dispatch: Dispatch<servicesDispatchTypes>) => {
-    axios.post(SERVER_URL + '/createBlock', JSON.stringify({ block: { ...block } })).then(res => {
+    axios.post(SERVER_URL + '/createBlock', JSON.stringify({ block })).then(res => {
         // console.log(res.data)
 
         dispatch({

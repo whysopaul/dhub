@@ -41,7 +41,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
     const searchSource = (): TServicesData[] => {
         if (collection !== -1)
-            return rootState.services.services.filter(s => rootState.services.blocks.filter(b => b.collection === collection).flatMap(b => b.service_ids).includes(s.id))
+            return rootState.services.services.filter(s => rootState.services.blocks.filter(b => b.collection_ids.includes(collection)).flatMap(b => b.service_ids).includes(s.id))
         return rootState.services.services
     }
 

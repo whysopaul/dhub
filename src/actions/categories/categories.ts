@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, DELETE_CATEGORY, GET_ALL_CATEGORIES, categoriesDispatchTypes } from "./types";
+import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
@@ -16,8 +16,8 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
     })
 }
 
-export const createCategory = (name: string, index: number, parent_id?: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
-    axios.post(SERVER_URL + '/createCategory', JSON.stringify({ name, index, parent_id })).then(res => {
+export const createCategory = (category: TCategory) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/createCategory', JSON.stringify({ category })).then(res => {
         // console.log(res.data)
 
         dispatch({
@@ -25,7 +25,7 @@ export const createCategory = (name: string, index: number, parent_id?: number) 
             payload: res.data
         })
 
-        window.location.reload()
+        // window.location.reload()
     }).catch(error => {
         console.log(error)
     })
@@ -37,6 +37,19 @@ export const createCategoryRelations = (cat_id: number, parent_id: number) => (d
 
         dispatch({
             type: CREATE_CATEGORY_RELATIONS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const updateCategory = (category: TCategory) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/updateCategory', JSON.stringify({ category })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: UPDATE_CATEGORY,
             payload: res.data
         })
     }).catch(error => {

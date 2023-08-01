@@ -120,15 +120,17 @@ export type TServiceApplication = {
 export type TServicesBlock = {
     id: number,
     title: string,
-    collection: number,
-    service_ids: number[]
+    // collection: number,
+    service_ids: number[],
+    collection_ids: number[]
     // services?: TServicesData[]
 }
 
 export type TServicesCollection = {
     id: number,
     title: string,
-    blocks: TServicesBlock[]
+    // blocks: TServicesBlock[]
+    block_ids: number[]
 }
 
 interface IGetAllServices {
