@@ -44,8 +44,8 @@ const CollectionPage: React.FunctionComponent<ICollectionPageProps> = (props) =>
                             })}
                         </div>
                         <div className='home-section-link'>
-                            <Link to='#' className='arrow-right-link'>
-                                <span>{'Показать все ' + b.title}</span>
+                            <Link to={'/services?collection=' + parseInt(collectionId)} className='arrow-right-link'>
+                                <span>Смотреть всю подборку</span>
                                 <i className='fas fa-long-arrow-alt-right' />
                             </Link>
                         </div>
