@@ -4,8 +4,10 @@ import { RootStore } from '../../../store';
 import { useMemo, useState } from 'react';
 import Loading from '../../global/Loading';
 import { deleteCategory } from '../../../actions/categories/categories';
+import { TCategory } from '../../../actions/categories/types';
 
 interface IAdminWorkspaceCategoriesProps {
+    onEdit: (_: TCategory) => void,
     onCreate: () => void,
     onCreateRelations: () => void
 }
@@ -74,7 +76,7 @@ const AdminWorkspaceCategories: React.FunctionComponent<IAdminWorkspaceCategorie
                             <span>{category.id}</span>
                             <span>{category.name}</span>
                             <span>{category.index}</span>
-                            <span>{category.parent ? category.parent : '-'}</span>
+                            <span onClick={() => props.onEdit(category)}>{category.parent ? category.parent : '-'}</span>
                             <div>
                                 <button className='cursor-pointer' onClick={() => {
                                     if (confirm('Подтвердите удаление категории')) dispatch(deleteCategory(category.id, rootState.auth.user?.d_token))

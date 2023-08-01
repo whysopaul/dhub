@@ -6,7 +6,7 @@ import { URL } from '../utils';
 // import { useDispatch } from 'react-redux';
 // import { createService } from '../../actions/services/services';
 import ServiceEditPopup from '../services/ServiceEditPopup';
-import CategoryAddPopup from '../categories/CategoryAddPopup';
+import CategoryPopup from '../categories/CategoryPopup';
 import { TDiscount, TServicesBlock, TServicesCollection, TServicesData } from '../../actions/services/types';
 import AdminWorkspaceServices from './workspaces/AdminWorkspaceServices';
 import AdminWorkspaceCategories from './workspaces/AdminWorkspaceCategories';
@@ -24,6 +24,7 @@ import CollectionAddPopup from '../collections/CollectionAddPopup';
 import BlockAddPopup from '../collections/blocks/BlockAddPopup';
 import CollectionEditPopup from '../collections/CollectionEditPopup';
 import BlockEditPopup from '../collections/blocks/BlockEditPopup';
+import { TCategory } from '../../actions/categories/types';
 
 interface IAdminPanelProps {
 }
@@ -46,6 +47,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const [createBlock, setCreateBlock] = useState(false)
 
     const [editService, setEditService] = useState<TServicesData>(null)
+    const [editCategory, setEditCategory] = useState<TCategory>(null)
     const [editDiscount, setEditDiscount] = useState<TDiscount>(null)
     const [editUser, setEditUser] = useState<TUserData>(null)
     const [editCollection, setEditCollection] = useState<TServicesCollection>(null)
@@ -95,8 +97,9 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
             {editService && <ServiceEditPopup service={editService} onClose={() => setEditService(null)} is_empty />}
 
-            {createCategory && <CategoryAddPopup onClose={() => setCreateCategory(false)} />}
+            {createCategory && <CategoryPopup category={{ id: -1, name: '', index: 1 }} onClose={() => setCreateCategory(false)} />}
             {createCategoryRelations && <CategoryRelationsAddPopup onClose={() => setCreateCategoryRelations(false)} />}
+            {editCategory && <CategoryPopup category={editCategory} onClose={() => setEditCategory(null)} />}
 
             {createLocation && <LocationsPlatformsAddPopup onClose={() => setCreateLocation(false)} action='location' />}
             {createPlatform && <LocationsPlatformsAddPopup onClose={() => setCreatePlatform(false)} action='platform' />}
@@ -152,7 +155,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                 <div className='user-admin-panel-workspace'>
 
                     {adminWorkspace === 'services' && <AdminWorkspaceServices onEdit={setEditService} onCreate={() => setCreateService(true)} />}
-                    {adminWorkspace === 'categories' && <AdminWorkspaceCategories onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
+                    {adminWorkspace === 'categories' && <AdminWorkspaceCategories onEdit={setEditCategory} onCreate={() => setCreateCategory(true)} onCreateRelations={() => setCreateCategoryRelations(true)} />}
                     {adminWorkspace === 'locations_platforms' && <AdminWorkspaceLocationsPlatforms onCreateLocation={() => setCreateLocation(true)} onCreatePlatform={() => setCreatePlatform(true)} />}
                     {adminWorkspace === 'discounts' && <AdminWorkspaceDiscounts onEdit={setEditDiscount} onCreate={() => setCreateDiscount(true)} />}
                     {adminWorkspace === 'collections' && <AdminWorkspaceCollections onEditCollection={setEditCollection} onCreateCollection={() => setCreateCollection(true)} onEditBlock={setEditBlock} onCreateBlock={() => setCreateBlock(true)} />}
