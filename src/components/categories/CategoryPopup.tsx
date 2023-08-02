@@ -94,7 +94,15 @@ const CategoryPopup: React.FunctionComponent<ICategoryPopupProps> = (props) => {
                             }
                         }
                         if (category.id !== -1) {
-                            dispatch(updateCategory(category))
+                            if (category.index === 2) {
+                                dispatch(updateCategory(category))
+                            }
+                            if (category.index !== 2) {
+                                dispatch(updateCategory({
+                                    ...category,
+                                    parent: null
+                                }))
+                            }
                         }
                         setShowAlert(false)
                         props.onClose()

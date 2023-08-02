@@ -66,6 +66,7 @@ const AdminWorkspaceCategories: React.FunctionComponent<IAdminWorkspaceCategorie
                     <span>Название</span>
                     <span>Индекс</span>
                     <span>Принадлежность</span>
+                    <span>Редактирование</span>
                     <div>
                         <i className='fas fa-trash-alt' />
                     </div>
@@ -76,11 +77,24 @@ const AdminWorkspaceCategories: React.FunctionComponent<IAdminWorkspaceCategorie
                             <span>{category.id}</span>
                             <span>{category.name}</span>
                             <span>{category.index}</span>
-                            <span onClick={() => props.onEdit(category)}>{category.parent ? category.parent : '-'}</span>
+                            <span>{category.parent ? category.parent : '-'}</span>
                             <div>
-                                <button className='cursor-pointer' onClick={() => {
-                                    if (confirm('Подтвердите удаление категории')) dispatch(deleteCategory(category.id, rootState.auth.user?.d_token))
-                                }}><i className='fas fa-times' /></button>
+                                <button
+                                    className='user-admin-panel-table-edit-button'
+                                    onClick={() => props.onEdit(category)}
+                                >
+                                    Редактировать
+                                </button>
+                            </div>
+                            <div>
+                                <button
+                                    className='cursor-pointer'
+                                    onClick={() => {
+                                        if (confirm('Подтвердите удаление категории')) dispatch(deleteCategory(category.id, rootState.auth.user?.d_token))
+                                    }}
+                                >
+                                    <i className='fas fa-times' />
+                                </button>
                             </div>
                         </div>
                     })}

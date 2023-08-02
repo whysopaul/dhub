@@ -249,6 +249,7 @@
 .service-rating-section {
     display: flex;
     align-items: center;
+    align-self: center;
 }
 
 .service-rating-divider {
@@ -1291,6 +1292,10 @@
         font-size: 12px;
         line-height: 12px;
         gap: 8px;
+    }
+
+    .service-promocode>a {
+        display: none;
     }
 
     .service-info>p {

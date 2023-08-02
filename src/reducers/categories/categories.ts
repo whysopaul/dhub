@@ -1,4 +1,4 @@
-import { CREATE_CATEGORY, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../../actions/categories/types"
+import { CREATE_CATEGORY, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "../../actions/categories/types"
 
 interface IDefaultState {
     categories: TCategory[],
@@ -19,6 +19,18 @@ export const categoriesReducer = (state: IDefaultState = defaultState, action: c
             return {
                 ...state,
                 categories: [...state.categories, action.payload]
+            }
+        case UPDATE_CATEGORY:
+            return {
+                ...state,
+                categories: [
+                    ...state.categories.map(c => {
+                        if (c.id === action.payload.id) {
+                            return action.payload
+                        }
+                        return c
+                    })
+                ]
             }
         case DELETE_CATEGORY:
             return {

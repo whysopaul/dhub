@@ -42,7 +42,7 @@ const CategoryRelationsAddPopup: React.FunctionComponent<ICategoryRelationsAddPo
                         })}
                     </select>
                 </label>
-                <div>
+                <div className='popup-link-icon'>
                     <i className='fas fa-link' />
                 </div>
                 <label>
