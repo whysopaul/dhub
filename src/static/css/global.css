@@ -324,6 +324,18 @@ hr {
     color: #386BEE;
 }
 
+.navbar-mobile-navigation>.collections-navigation-container>.collections-navigation-button {
+    color: #B3B7C1;
+}
+
+.navbar-mobile-navigation>.collections-navigation-container>.collections-navigation-button:hover {
+    color: #386BEE;
+}
+
+.navbar-mobile-navigation>.collections-navigation-container:hover .collections-navigation-dropdown {
+    display: none;
+}
+
 .navbar-mobile-social-networks-buttons {
     display: flex;
     gap: 16px;

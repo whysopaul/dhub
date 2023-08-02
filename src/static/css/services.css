@@ -511,11 +511,6 @@
     gap: 8px;
 }
 
-/* .services-list-search-params input {
-    width: initial !important;
-    height: initial !important;
-} */
-
 .services-list-filters-container p {
     font-size: 14px;
     line-height: 14px;
@@ -610,7 +605,6 @@
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    /*! margin-top: 32px; */
 }
 
 .services-list-not-found {
@@ -621,7 +615,6 @@
     line-height: 24px;
     color: #B3BBC2;
     text-align: center;
-    /* margin: 200px auto; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -660,10 +653,6 @@
     line-height: 32px;
     color: white;
 }
-
-/* .services-list-selected-categories {
-    margin-bottom: 24px;
-} */
 
 .services-list-selected-categories p {
     font-size: 14px;
@@ -753,7 +742,6 @@
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
-    /* margin-bottom: 24px; */
 }
 
 .service-selection-advanced-inputs>div {
@@ -776,12 +764,7 @@
 .service-selection-advanced-inputs input[type='radio'] {
     width: 16px;
     height: 16px;
-    /* margin-right: 16px; */
 }
-
-/* .service-selection-advanced-inputs input[type='checkbox'] {
-    margin-right: 16px;
-} */
 
 .service-selection-buttons {
     display: flex;
@@ -811,7 +794,6 @@
     background-color: #FFFFFF;
     border-radius: 24px;
     padding: 32px 48px;
-    /*! text-align: center; */
     z-index: 100;
     width: 800px;
     height: 800px;
@@ -1192,21 +1174,10 @@
 
     .service-rating-tag {
         padding: 6px 8px;
-        /* gap: 4px; */
     }
-
-    /* .service-rating-tag>span {
-        font-size: 10px;
-        line-height: 10px;
-    } */
-
-    /* .service-page-categories {
-        margin-bottom: 24px;
-    } */
 
     .service-main-container {
         grid-template-columns: auto;
-        /* gap: 32px; */
         margin-bottom: 32px;
     }
 
@@ -1300,29 +1271,12 @@
 
     .service-info>p {
         margin: 24px 0;
-        /* font-size: 12px; */
-        /* line-height: 16px; */
     }
 
     .service-details {
         margin-top: 24px;
         gap: 16px;
     }
-
-    /* .service-details>span {
-        font-size: 12px;
-        line-height: 10px;
-    } */
-
-    /* .service-dropdown-header {
-        font-size: 12px;
-        line-height: 12px;
-    }
-
-    .service-dropdown-content {
-        font-size: 12px;
-        line-height: 16px;
-    } */
 
     .service-banner-wrapper {
         margin: 32px 0 24px;
@@ -1373,15 +1327,10 @@
     }
 
     .service-section-header-buttons>button {
-        /* font-size: 12px; */
-        /* line-height: 12px; */
-        /* padding: 10px 16px; */
         gap: 8px;
     }
 
     .service-section-header-buttons>button>span {
-        /* font-size: 10px; */
-        /* line-height: 10px; */
         padding: 4px 6px;
     }
 
@@ -1413,16 +1362,6 @@
         gap: 0;
     }
 
-    /* .services-list-filters-container p {
-        font-size: 12px;
-        line-height: 12px;
-    } */
-
-    /* .services-list-search-params {
-        font-size: 12px;
-        line-height: 12px;
-    } */
-
     .services-list-sharing {
         margin-top: 32px;
     }
@@ -1449,16 +1388,6 @@
         display: none;
     }
 
-    /* .services-list-reset-button {
-        padding: 4px 6px;
-        font-size: 12px;
-        line-height: 12px;
-    }
-
-    .services-list-reset-button>i {
-        font-size: 10px;
-    } */
-
     .services-list-social-networks-buttons>button {
         width: 28px;
         height: 28px;
@@ -1466,7 +1395,6 @@
 
     .service-selection-container p {
         font-size: 10px;
-        /* margin-bottom: 20px; */
     }
 
     .service-selection-container hr {
@@ -1487,14 +1415,7 @@
         gap: 0;
     }
 
-    /* .service-selection-advanced-inputs p {
-        font-size: 12px;
-    } */
-
     .service-selection-advanced-inputs label {
-        /* font-weight: 400; */
-        /* font-size: 12px; */
-        /* line-height: 12px; */
         width: fit-content;
     }
 
