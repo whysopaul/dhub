@@ -70,7 +70,7 @@ const DiscountPopup: React.FunctionComponent<IDiscountPopupProps> = (props) => {
                         className='popup-service-select'
                         disabled
                     >
-                        <option value="-1">{discount.service === -1 ? '--------' : rootState.services.services.find(s => s.id === discount.service)?.name}</option>
+                        <option>{discount.service === -1 ? '--------' : rootState.services.services.find(s => s.id === discount.service)?.name}</option>
                     </select>
                 </label>
                 <div>

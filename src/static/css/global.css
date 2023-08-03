@@ -1,5 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Noto+Sans:wght@300;400;500;600&display=swap');
 
+:root {
+    --color-white: #FFF;
+    --color-black: #16181B;
+    --color-gray: #636E8D;
+    --color-lightgray: #B3B7C1;
+    --color-blue: #386BEE;
+    --color-lightblue-one: #F4F7FF;
+    --color-lightblue-two: #F6F7FB;
+    --color-lightblue-three: rgba(244, 247, 255, 0.5);
+    --color-darkblue: #2D4379;
+}
+
 html,
 body,
 h1,
