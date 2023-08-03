@@ -40,14 +40,14 @@ const CollectionEditPopup: React.FunctionComponent<ICollectionEditPopupProps> = 
     }, [, rootState.services.currentCollection])
 
     const toggleBlock = (block: TServicesBlock) => {
-        currentCollection.block_ids.includes(block.id)
+        currentCollection.connections.map(c => c.block).includes(block.id)
             ? setCurrentCollection({
                 ...currentCollection,
-                block_ids: currentCollection.block_ids.filter(b => b !== block.id)
+                connections: currentCollection.connections.filter(c => c.block !== block.id)
             })
             : setCurrentCollection({
                 ...currentCollection,
-                block_ids: [...currentCollection.block_ids, block.id]
+                connections: [...currentCollection.connections, { collection: currentCollection.id, block: block.id }]
             })
     }
 
@@ -70,8 +70,8 @@ const CollectionEditPopup: React.FunctionComponent<ICollectionEditPopupProps> = 
                         />
                     </label>
                     <p>Блоки:</p>
-                    {currentCollection.block_ids.length > 0 && <ul className='categories-list' id='blocks'>
-                        {rootState.services.blocks.filter(b => currentCollection.block_ids.includes(b.id)).map(b => {
+                    {currentCollection.connections.length > 0 && <ul className='categories-list' id='blocks'>
+                        {rootState.services.blocks.filter(b => currentCollection.connections.map(b_c => b_c.block).includes(b.id)).map(b => {
                             return <li key={b.id}>
                                 <button
                                     className='category-tag active'
@@ -84,7 +84,7 @@ const CollectionEditPopup: React.FunctionComponent<ICollectionEditPopupProps> = 
                         })}
                     </ul>}
                     <ul className='categories-list' id='services'>
-                        {rootState.services.blocks?.filter(b => !currentCollection.block_ids.includes(b.id)).map(b => {
+                        {rootState.services.blocks?.filter(b => !currentCollection.connections.map(b_c => b_c.block).includes(b.id)).map(b => {
                             return <li key={b.id}>
                                 <button
                                     className='category-tag'
@@ -104,7 +104,7 @@ const CollectionEditPopup: React.FunctionComponent<ICollectionEditPopupProps> = 
                     <button
                         className='blue-shadow-button'
                         onClick={() => {
-                            if (currentCollection.title.length > 0 && currentCollection.block_ids.length > 0) {
+                            if (currentCollection.title.length > 0 && currentCollection.connections.length > 0) {
                                 dispatch(updateCollection(currentCollection))
                                 setShowAlert(false)
                                 props.onClose()

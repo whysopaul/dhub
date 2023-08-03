@@ -19,7 +19,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
     const dispatch = useDispatch()
 
     const [title, setTitle] = useState('')
-    const [collection, setCollection] = useState(-1)
+    // const [collection, setCollection] = useState(-1)
     const [serviceName, setServiceName] = useState('')
     const [services, setServices] = useState<TServicesData[]>([])
     const [showAlert, setShowAlert] = useState(false)
@@ -50,7 +50,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                         onChange={e => setTitle(e.target.value)}
                     />
                 </label>
-                <label>
+                {/* <label>
                     <span>Подборка:</span>
                     <select
                         value={collection}
@@ -61,7 +61,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                             return <option value={c.id} key={c.id}>{c.title}</option>
                         })}
                     </select>
-                </label>
+                </label> */}
                 <label>
                     <span>Сервисы:</span>
                     {/* <select
@@ -109,18 +109,17 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                 </ul>
             </div>
             {showAlert && <div>
-                <p className='service-edit-alert'>Поля "Название" и "Подборка" должны быть заполнены</p>
+                <p className='service-edit-alert'>Поле "Название" должно быть заполнено</p>
             </div>}
             <div>
                 <button
                     className='blue-shadow-button'
                     onClick={() => {
-                        if (title.length > 0 && collection !== -1) {
+                        if (title.length > 0) {
                             dispatch(createBlock({
                                 id: -1,
                                 title,
-                                service_ids: services.map(s => s.id),
-                                collection_ids: [collection]
+                                service_ids: services.map(s => s.id)
                             }))
                             setShowAlert(false)
                             props.onClose()

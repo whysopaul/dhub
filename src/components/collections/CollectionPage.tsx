@@ -32,7 +32,7 @@ const CollectionPage: React.FunctionComponent<ICollectionPageProps> = (props) =>
         <h2 className='section-main-title'>{serviceState.collections?.find(c => c.id === parseInt(collectionId))?.title}</h2>
 
         {serviceState.blocks.length === 0 ? <Loading height={310} /> : <div className='collection-blocks-container'>
-            {serviceState.blocks?.filter(b => b.collection_ids.includes(parseInt(collectionId))).map(b => {
+            {serviceState.blocks?.filter(b => serviceState.collections.find(c => c.id === parseInt(collectionId)).connections.map(b_c => b_c.block).includes(b.id)).map(b => {
                 return <>
                     <div className='home-section-common-container' key={b.id}>
                         <div className='home-section-title'>

@@ -105,10 +105,10 @@ const AdminWorkspaceCategories: React.FunctionComponent<IAdminWorkspaceCategorie
                     <i className='fas fa-plus' />
                     <span>Добавить категорию</span>
                 </button>
-                <button className='user-admin-panel-button' onClick={() => props.onCreateRelations()}>
+                {/* <button className='user-admin-panel-button' onClick={() => props.onCreateRelations()}>
                     <i className='fas fa-link' />
                     <span>Привязать категорию</span>
-                </button>
+                </button> */}
             </div>
         </div>
     </>;

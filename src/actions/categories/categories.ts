@@ -31,7 +31,7 @@ export const createCategory = (category: TNewCategory) => (dispatch: Dispatch<ca
     })
 }
 
-export const createCategoryRelations = (cat_id: number, parent_id: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+export const createCategoryRelations = (cat_id: number, parent_id: number) => (dispatch: Dispatch<categoriesDispatchTypes>) => { // outdated
     axios.post(SERVER_URL + '/createCategoryRelations', JSON.stringify({ cat_id, parent_id })).then(res => {
         console.log(res.data)
 
@@ -46,7 +46,7 @@ export const createCategoryRelations = (cat_id: number, parent_id: number) => (d
 
 export const updateCategory = (category: TCategory) => (dispatch: Dispatch<categoriesDispatchTypes>) => {
     axios.post(SERVER_URL + '/updateCategory', JSON.stringify({ category })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: UPDATE_CATEGORY,
