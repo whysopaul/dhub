@@ -24,6 +24,12 @@ const CollectionPage: React.FunctionComponent<ICollectionPageProps> = (props) =>
         dispatch(getCollection(parseInt(collectionId)))
     }, [])
 
+    useEffect(() => {
+        if (serviceState.collections.length > 0 && typeof serviceState.collections.find(c => c.id === parseInt(collectionId)) === 'undefined') {
+            window.location.replace('/')
+        }
+    }, [, serviceState.collections])
+
     return <>
         {/* <h2>{serviceState.currentCollection?.title}</h2> */}
 

@@ -54,6 +54,12 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
         }
     }, [])
 
+    useEffect(() => {
+        if (serviceState.services.length > 0 && typeof serviceState.services.find(s => s.id === parseInt(serviceId)) === 'undefined') {
+            window.location.replace('/')
+        }
+    }, [, serviceState.services])
+
     const [selectedImageSource, setSelectedImageSource] = useState(null)
 
     // 1 - Отзывы

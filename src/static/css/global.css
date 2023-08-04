@@ -4,12 +4,17 @@
     --color-white: #FFF;
     --color-black: #16181B;
     --color-gray: #636E8D;
-    --color-lightgray: #B3B7C1;
+    --color-lightgray-one: #B3B7C1;
+    --color-lightgray-two: #D3DAEA;
     --color-blue: #386BEE;
     --color-lightblue-one: #F4F7FF;
     --color-lightblue-two: #F6F7FB;
     --color-lightblue-three: rgba(244, 247, 255, 0.5);
     --color-darkblue: #2D4379;
+    --color-deepdarkblue: #0D253C;
+    --color-yellow: #FFC517;
+    --color-green: #1FB663;
+    --color-red: #FF2038;
 }
 
 html,
