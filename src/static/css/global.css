@@ -438,11 +438,6 @@ hr {
         column-gap: 12px;
     }
 
-    /* .sort-selection>* {
-        font-size: 12px;
-        line-height: 12px;
-    } */
-
     .sort-selection.view-mobile {
         display: initial;
     }
@@ -468,8 +463,6 @@ hr {
 
     .wide-search-container input[type='text'] {
         padding: 0 46px 0 20px;
-        /* font-size: 12px; */
-        /* line-height: 12px; */
         height: 42px;
     }
 
