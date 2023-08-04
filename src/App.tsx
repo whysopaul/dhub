@@ -13,7 +13,6 @@ import ArticlePage from './components/articles/ArticlePage';
 import CategoriesListPage from './components/categories/CategoriesListPage';
 import ScrollToTop from './components/utils/ScrollToTop';
 import GetData from './components/utils/GetData';
-import ServiceSelection from './components/services/ServiceSelection';
 import AdminPanel from './components/admin/AdminPanel';
 import CollectionsPage from './components/collections/CollectionsPage';
 import CollectionPage from './components/collections/CollectionPage';
@@ -29,10 +28,9 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route element={<Layout />}>
-                    {/* <Route path='/search' element={<ServiceSelection />} /> */}
                     <Route path='/services' element={<ServicesSearchList />} />
-                    <Route path='/categories' element={<CategoriesListPage />} />
                     <Route path='/service/:serviceId' element={<ServicePage />} />
+                    <Route path='/categories' element={<CategoriesListPage />} />
                     <Route path='/feedback' element={<FeedbackListPage />} />
                     <Route path='/articles' element={<ArticlesListPage />} />
                     <Route path='/article/:articleId' element={<ArticlePage />} />
@@ -42,6 +40,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                     <Route path='/profile/edit' element={<UserProfileEdit />} />
                     <Route path='/admin' element={<AdminPanel />} />
                 </Route>
+                <Route path='*' element={<Home />} />
 
                 <Route path='/loginVk' element={<LoginVk />} />
             </Routes>

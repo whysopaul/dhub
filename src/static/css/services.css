@@ -210,13 +210,13 @@
 }
 
 .service-promocode {
-    padding: 8px 10px;
-    color: #636E8D;
-    background: #F4F7FF;
-    border-radius: 12px;
+    padding: 10px 20px;
+    color: var(--color-gray);
+    background: var(--color-lightblue-one);
+    border-radius: 24px;
     font-family: 'Noto Sans', sans-serif;
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 16px;
+    line-height: 16px;
     display: flex;
     align-items: center;
     gap: 12px;
@@ -236,7 +236,7 @@
 }
 
 .service-promocode>span {
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
     font-weight: 600;
     color: #386BEE;
 }
@@ -342,6 +342,8 @@
 
 .service-dropdown-content .service-promocode {
     background: none;
+    font-size: 14px;
+    line-height: 14px;
 }
 
 /* SERVICE BANNER */
