@@ -75,7 +75,7 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
         case GET_COLLECTIONS:
             return {
                 ...state,
-                collections: action.payload
+                collections: action.payload.sort((a, b) => a.id - b.id)
             }
         case SERVICES_LOADING:
             return {

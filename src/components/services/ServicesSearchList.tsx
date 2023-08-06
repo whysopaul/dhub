@@ -299,7 +299,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     return <>
         <div className='services-list-header-container'>
             <div className='services-list-search-title'>
-                <h3 className='section-main-title' ref={titleRef}>Найденные сервисы:</h3>
+                <h2 className='section-main-title' ref={titleRef}>{collection === -1 ? 'Найденные сервисы:' : rootState.services.collections.find(c => c.id === collection)?.title}</h2>
                 <span className='services-list-services-number'>{searchCondition.length}</span>
             </div>
             {searchCondition.length > 0 && <div className='sort-selection view-desktop'>
