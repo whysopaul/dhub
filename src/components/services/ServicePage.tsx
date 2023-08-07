@@ -147,8 +147,13 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 {currentService.discounts.find(d => d.is_promocode) && <div className='service-promocode'>
                                     <p>Промокод:</p>
                                     <span>{currentService.discounts.find(d => d.is_promocode).code}</span>
-                                    <a title={currentService.discounts.find(d => d.is_promocode).description}>
+                                    <a>
                                         <i className='far fa-question-circle' />
+                                        <div className='service-promocode-dropdown'>
+                                            <div>
+                                                {currentService.discounts.find(d => d.is_promocode).description}
+                                            </div>
+                                        </div>
                                     </a>
                                 </div>}
                                 {/* <span>{currentService.categories_3[0]?.name}</span> */}

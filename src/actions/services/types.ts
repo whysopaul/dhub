@@ -121,11 +121,11 @@ export type TServicesBlock = {
     id: number,
     title: string,
     service_ids: number[],
-    // connections?: {
-    //     id?: number,
-    //     block: number,
-    //     collection: number
-    // }[]
+    connections?: {
+        id?: number,
+        block: number,
+        collection: number
+    }[]
 }
 
 export type TServicesCollection = {

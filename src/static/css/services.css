@@ -224,6 +224,10 @@
     grid-column-end: span 2;
 }
 
+.service-promocode>a {
+    position: relative;
+}
+
 .service-promocode>a>i {
     /* color: #636E8D; */
     /* text-decoration: underline dashed; */
@@ -231,8 +235,31 @@
     cursor: help;
 }
 
+.service-promocode>a>.service-promocode-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: -10px;
+    padding-top: 6px;
+    z-index: 1;
+}
+
+.service-promocode>a>.service-promocode-dropdown>div {
+    padding: 10px;
+    background: var(--color-white);
+    border: 1px solid #eee;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px gainsboro;
+    width: max-content;
+    max-width: 200px;
+}
+
 .service-promocode>a:hover>i {
     color: #B3BBC2;
+}
+
+.service-promocode>a:hover>.service-promocode-dropdown {
+    display: block;
 }
 
 .service-promocode>span {
