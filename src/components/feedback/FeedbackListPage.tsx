@@ -98,7 +98,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
 
     const changePage = (number: number) => {
         setCurrentPage(number)
-        titleRef.current.scrollIntoView({ behavior: 'smooth' })
+        window.requestAnimationFrame(() => titleRef.current.scrollIntoView({ behavior: 'smooth' }))
     }
 
     return <>
@@ -126,11 +126,13 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
                 </ul>
             </div>
         </div> */}
+
         <div className='feedback-cards'>
             {mockFeedbackData.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(i => {
                 return <FeedbackCardComponent comment={i} key={i.id} />
             })}
         </div>
+
         {numberOfPages.length > 1 && <div className='services-list-pagination'>
             <button className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage > 1 && changePage(currentPage - 1) }} disabled={currentPage === 1}>
                 <i className='fas fa-chevron-left' />

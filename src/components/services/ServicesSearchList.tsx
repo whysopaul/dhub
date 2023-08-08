@@ -24,13 +24,13 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [paymentMethod, setPaymentMethod] = useState<number>(null)
     const [searchCategories, setSearchCategories] = useState('')
     const [selectedCategories, setSelectedCategories] = useState<number[]>([])
-    const [showDropdown, setShowDropdown] = useState(false)
-    const dropdownRef = useRef(null)
     const [searchByName, setSearchByName] = useState(true)
     const [searchByText, setSearchByText] = useState(false)
     const [country, setCountry] = useState('')
     const [collection, setCollection] = useState(-1)
 
+    const [showDropdown, setShowDropdown] = useState(false)
+    const dropdownRef = useRef(null)
     useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
     const paymentMethodOne = ['по подписке', 'ежемесячно', 'ежегодно', 'посуточно', 'ежеквартально', 'месяц', 'ежедневно', 'еженедельно', 'поквартально', 'подписка', 'ежечасно', 'покупка баллов']
@@ -296,6 +296,11 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         setCurrentPage(1)
     }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText, country, collection])
 
+    const changePage = (number: number) => {
+        setCurrentPage(number)
+        window.requestAnimationFrame(() => titleRef.current.scrollIntoView({ behavior: 'smooth' }))
+    }
+
     return <>
         <div className='services-list-header-container'>
             <div className='services-list-search-title'>
@@ -503,29 +508,38 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             {!rootState.services.is_loading && searchCondition.length === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}
             {rootState.services.is_loading && <Loading height={505} />}
         </div>
+
         {searchCondition.length > 0 && numberOfPages.length > 1 && <div className='services-list-pagination'>
-            <button className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage > 1 && setCurrentPage(currentPage - 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }} disabled={currentPage === 1}>
+            <button
+                className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'}
+                onClick={() => currentPage > 1 && changePage(currentPage - 1)}
+                disabled={currentPage === 1}
+            >
                 <i className='fas fa-chevron-left' />
             </button>
             {paginationRange.map(number => {
-
-                const changePage = (number: number) => {
-                    setCurrentPage(number)
-                    titleRef.current.scrollIntoView({ behavior: 'smooth' })
-                }
 
                 if (number === DOTS) {
                     return <button className='page-number-button disabled' disabled>&#8230;</button>
                 }
 
-                return <button className={currentPage === number ? 'page-number-button active' : 'page-number-button'} onClick={() => { typeof number === 'number' && currentPage !== number && changePage(number) }} key={number}>
+                return <button
+                    className={currentPage === number ? 'page-number-button active' : 'page-number-button'}
+                    onClick={() => { typeof number === 'number' && currentPage !== number && changePage(number) }}
+                    key={number}
+                >
                     {number}
                 </button>
             })}
-            <button className={currentPage === numberOfPages.length ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage < numberOfPages.length && setCurrentPage(currentPage + 1); titleRef.current.scrollIntoView({ behavior: 'smooth' }) }} disabled={currentPage === numberOfPages.length}>
+            <button
+                className={currentPage === numberOfPages.length ? 'page-number-button disabled' : 'page-number-button'}
+                onClick={() => currentPage < numberOfPages.length && changePage(currentPage + 1)}
+                disabled={currentPage === numberOfPages.length}
+            >
                 <i className='fas fa-chevron-right' />
             </button>
         </div>}
+
         <div className='services-list-sharing view-mobile'>
             <button className='blue-shadow-button' onClick={() => {
                 navigator.clipboard.writeText(createSearchParamsLink())
