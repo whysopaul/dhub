@@ -101,6 +101,21 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             })
         }
 
+        if (path.includes('collection')) {
+            return pathArray.map(link => {
+                switch (link) {
+                    case '':
+                        return <li><Link to='/'>Главная</Link></li>
+                    case 'collection':
+                        return <li><Link to='/collections'>Подборки</Link></li>
+                    case 'collections':
+                        return <li><span>Подборки</span></li>
+                    default:
+                        return <li><span>{rootState.services.collections.find(c => c.id === parseInt(link))?.title}</span></li>
+                }
+            })
+        }
+
         if (path.includes('profile')) {
             return pathArray.map((link, idx) => {
                 switch (link) {

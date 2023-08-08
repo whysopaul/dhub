@@ -328,7 +328,7 @@ hr {
     margin-bottom: auto;
 }
 
-.navbar-mobile-navigation>a {
+.navbar-mobile-navigation a {
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
@@ -336,16 +336,8 @@ hr {
     color: var(--color-lightgray-one);
 }
 
-.navbar-mobile-navigation>a:hover {
+.navbar-mobile-navigation a:hover {
     text-decoration-line: underline;
-    color: var(--color-blue);
-}
-
-.navbar-mobile-navigation>.collections-navigation-container>.collections-navigation-button {
-    color: var(--color-lightgray-one);
-}
-
-.navbar-mobile-navigation>.collections-navigation-container>.collections-navigation-button:hover {
     color: var(--color-blue);
 }
 
