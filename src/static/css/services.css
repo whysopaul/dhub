@@ -692,7 +692,7 @@
 .services-list-options {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 .services-list-social-networks-buttons {
@@ -1101,7 +1101,9 @@
 }
 
 .service-edit-add-screenshot-input-container input[type='file'] {
-    margin: 8px 12px;
+    width: 100%;
+    padding: 8px 12px;
+    box-sizing: border-box;
 }
 
 .service-edit-add-screenshot-input-container input[type='text'] {

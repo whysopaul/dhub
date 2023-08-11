@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
 import { useOnClickOutside } from '../../utils/HandleClickOutside';
 import { useOnPopup } from '../../utils/HandleOnPopup';
-import { adminSetSpecialist } from '../../../actions/admin/admin';
+import { adminSetSpecialist, adminUpdateSpecialistConnections } from '../../../actions/admin/admin';
 
 interface IAdminUserEditPopupProps {
     user: TUserData,
@@ -21,6 +21,15 @@ const AdminUserEditPopup: React.FunctionComponent<IAdminUserEditPopupProps> = (p
 
     const [isSpecialist, setIsSpecialist] = useState<boolean>(props.user.is_specialist)
     const [specialistDescription, setSpecialistDescription] = useState<string>(props.user.specialist_description)
+    const [specialistServices, setSpecialistServices] = useState<number[]>(props.user.specialist_services)
+
+    const [serviceName, setServiceName] = useState('')
+
+    const toggleService = (serviceId: number) => {
+        specialistServices.includes(serviceId)
+            ? setSpecialistServices(specialistServices.filter(s => s !== serviceId))
+            : setSpecialistServices([...specialistServices, serviceId])
+    }
 
     const ref = useRef(null)
 
@@ -49,11 +58,47 @@ const AdminUserEditPopup: React.FunctionComponent<IAdminUserEditPopupProps> = (p
                         onChange={e => setSpecialistDescription(e.target.value)}
                     />
                 </label>
+                <label id='extended'>
+                    <span>Сервисы:</span>
+                    <input
+                        type='text'
+                        placeholder='Поиск по сервисам'
+                        value={serviceName}
+                        onChange={e => setServiceName(e.target.value)}
+                    />
+                </label>
+                {specialistServices.length > 0 && <ul className='categories-list' id='services'>
+                    {specialistServices.map(s => rootState.services.services.find(service => service.id === s)).map(s => {
+                        return <li key={s.id}>
+                            <button
+                                className='category-tag active'
+                                onClick={() => toggleService(s.id)}
+                            >
+                                {s.name}
+                                <i className='fas fa-times' />
+                            </button>
+                        </li>
+                    })}
+                </ul>}
+                <ul className='popup-list-scroll'>
+                    {rootState.services.services.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()) && !specialistServices.includes(s.id)).map(s => {
+                        return <li key={s.id}>
+                            <button
+                                className='category-tag'
+                                onClick={() => toggleService(s.id)}
+                            >
+                                {s.name}
+                                <i className='fas fa-plus' />
+                            </button>
+                        </li>
+                    })}
+                </ul>
             </div>
             <div>
                 <button
                     className='blue-shadow-button'
                     onClick={() => {
+                        dispatch(adminUpdateSpecialistConnections(rootState.auth.user.d_token, props.user.id, specialistServices))
                         dispatch(adminSetSpecialist(rootState.auth.user.d_token, props.user.id, isSpecialist, specialistDescription))
                         props.onClose()
                     }}
