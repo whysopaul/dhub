@@ -13,7 +13,8 @@ export type TUserData = {
     d_token: string,
     history: number[], // service_id array
     is_specialist: boolean,
-    specialist_description: string
+    specialist_description: string,
+    specialist_services: number[]
 }
 
 interface IUserLogin {

@@ -1,3 +1,4 @@
+import { TUserData } from "../auth/types"
 import { TCategory } from "../categories/types"
 import { TFeedback } from "../feedback/types"
 
@@ -68,6 +69,7 @@ export type TServicesData = {
     admin_notes: string,
     is_hidden: boolean,
     discounts: TDiscount[],
+    specialists?: TUserData[],
     isNew?: boolean
 }
 

@@ -50,6 +50,10 @@
     gap: 8px;
 }
 
+.blue-shadow-button.home-search-button {
+    padding: 0 32px;
+}
+
 .round-item-button {
     height: 48px;
     /* background-color: rgba(56, 107, 238, 0.05); */
@@ -196,6 +200,10 @@
         font-size: 14px;
         line-height: 14px;
         gap: 6px;
+        padding: 0 16px;
+    }
+
+    .blue-shadow-button.home-search-button {
         padding: 0 16px;
     }
 

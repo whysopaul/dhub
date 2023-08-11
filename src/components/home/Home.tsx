@@ -124,7 +124,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <img src={Welcome} alt='' />
                 </div>
                 <div className='home-welcome-buttons'>
-                    <button className='blue-shadow-button' onClick={() => navigate('/services')}>
+                    <button className='blue-shadow-button home-search-button' onClick={() => navigate('/services')}>
                         <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>

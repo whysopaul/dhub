@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { ADMIN_GET_ALL_USERS, ADMIN_SET_SPECIALIST, adminDispatchTypes } from "./types";
+import { ADMIN_GET_ALL_USERS, ADMIN_SET_SPECIALIST, ADMIN_UPDATE_SPECIALIST_CONNECTIONS, adminDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import store from "../../store";
@@ -23,6 +23,19 @@ export const adminSetSpecialist = (d_token: string, user_id: number, is_speciali
 
         dispatch({
             type: ADMIN_SET_SPECIALIST,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const adminUpdateSpecialistConnections = (d_token: string, user_id: number, service_ids: number[]) => (dispatch: Dispatch<adminDispatchTypes>) => {
+    axios.post(SERVER_URL + '/updateSpecialistConnections', JSON.stringify({ d_token, user_id, service_ids })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: ADMIN_UPDATE_SPECIALIST_CONNECTIONS,
             payload: res.data
         })
     }).catch(error => {
