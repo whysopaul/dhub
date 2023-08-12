@@ -1,4 +1,4 @@
-import { ADMIN_GET_ALL_USERS, ADMIN_SET_SPECIALIST, adminDispatchTypes } from "../../actions/admin/types";
+import { ADMIN_GET_ALL_USERS, ADMIN_SET_SPECIALIST, ADMIN_UPDATE_SPECIALIST_CONNECTIONS, adminDispatchTypes } from "../../actions/admin/types";
 import { TUserData } from "../../actions/auth/types";
 import { DELETE_SERVICE_APPLICATION, GET_SERVICE_APPLICATIONS, TServiceApplication, servicesDispatchTypes } from "../../actions/services/types";
 
@@ -26,6 +26,21 @@ const adminReducer = (state: IDefaultState = defaultState, action: adminDispatch
                     ...state.users.map(u => {
                         if (u.id === action.payload.id) {
                             return action.payload
+                        }
+                        return u
+                    })
+                ]
+            }
+        case ADMIN_UPDATE_SPECIALIST_CONNECTIONS:
+            return {
+                ...state,
+                users: [
+                    ...state.users.map(u => {
+                        if (u.id === action.payload.id) {
+                            return {
+                                ...u,
+                                specialist_services: action.payload.specialist_services
+                            }
                         }
                         return u
                     })

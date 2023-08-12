@@ -98,8 +98,8 @@ const AdminUserEditPopup: React.FunctionComponent<IAdminUserEditPopupProps> = (p
                 <button
                     className='blue-shadow-button'
                     onClick={() => {
-                        dispatch(adminUpdateSpecialistConnections(rootState.auth.user.d_token, props.user.id, specialistServices))
                         dispatch(adminSetSpecialist(rootState.auth.user.d_token, props.user.id, isSpecialist, specialistDescription))
+                        dispatch(adminUpdateSpecialistConnections(rootState.auth.user.d_token, props.user.id, specialistServices))
                         props.onClose()
                     }}
                 >
