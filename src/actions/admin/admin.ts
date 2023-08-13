@@ -6,7 +6,7 @@ import store from "../../store";
 
 export const adminGetAllUsers = () => (dispatch: Dispatch<adminDispatchTypes>) => {
     axios.get(SERVER_URL + '/getAllUsers', withToken()).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: ADMIN_GET_ALL_USERS,
@@ -19,7 +19,7 @@ export const adminGetAllUsers = () => (dispatch: Dispatch<adminDispatchTypes>) =
 
 export const adminSetSpecialist = (d_token: string, user_id: number, is_specialist: boolean, specialist_description: string) => (dispatch: Dispatch<adminDispatchTypes>) => {
     axios.post(SERVER_URL + '/setSpecialist', JSON.stringify({ d_token, user_id, is_specialist, specialist_description })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: ADMIN_SET_SPECIALIST,
@@ -32,7 +32,7 @@ export const adminSetSpecialist = (d_token: string, user_id: number, is_speciali
 
 export const adminUpdateSpecialistConnections = (d_token: string, user_id: number, service_ids: number[]) => (dispatch: Dispatch<adminDispatchTypes>) => {
     axios.post(SERVER_URL + '/updateSpecialistConnections', JSON.stringify({ d_token, user_id, service_ids })).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
 
         dispatch({
             type: ADMIN_UPDATE_SPECIALIST_CONNECTIONS,
