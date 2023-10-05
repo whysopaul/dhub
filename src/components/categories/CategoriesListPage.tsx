@@ -51,7 +51,7 @@ const CategoriesListPage: React.FunctionComponent<ICategoriesListPageProps> = (p
                 {rootState.categories.categories.map(category => {
                     return {
                         ...category,
-                        servicesInCategory: rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length
+                        servicesInCategory: rootState.services.services.filter(service => service.categories_3?.find(servicesCategory => servicesCategory.id === category.id)).length
                     }
                 }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 16).map(popularCategory => {
                     return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => navigate('/services?categories=' + popularCategory.id)} key={popularCategory.id} />

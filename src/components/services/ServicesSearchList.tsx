@@ -66,7 +66,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         &&
         service.description.hasPartnership !== hasNoPartnership
         &&
-        (selectedCategories.length > 0 ? service.categories_2.find(category => selectedCategories.includes(category.id)) || service.categories_3.find(category => selectedCategories.includes(category.id)) : true)
+        (selectedCategories.length > 0 ? service.categories_2?.find(category => selectedCategories.includes(category.id)) || service.categories_3?.find(category => selectedCategories.includes(category.id)) : true)
         &&
         (
             paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
@@ -337,14 +337,14 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         {searchCategories.length === 0 && <p>Популярные категории:</p>}
                         <ul className='services-list-dropdown-list'>
                             {searchCategories.length > 0 && searchCategoriesCondition.length > 0 && searchCategoriesCondition.map(category => {
-                                return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length} onClick={() => toggleCategory(category)} checked={selectedCategories.includes(category.id)} key={category.id} />
+                                return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories_3?.find(servicesCategory => servicesCategory.id === category.id)).length} onClick={() => toggleCategory(category)} checked={selectedCategories.includes(category.id)} key={category.id} />
                             })}
                             {searchCategories.length > 0 && searchCategoriesCondition.length === 0 && <li className='services-list-dropdown-no-match'>Не найдено</li>}
                             {searchCategories.length === 0 && <>
                                 {rootState.categories.categories.map(category => {
                                     return {
                                         ...category,
-                                        servicesInCategory: rootState.services.services.filter(service => service.categories_3.find(servicesCategory => servicesCategory.id === category.id)).length
+                                        servicesInCategory: rootState.services.services.filter(service => service.categories_3?.find(servicesCategory => servicesCategory.id === category.id)).length
                                     }
                                 }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 15).map(popularCategory => {
                                     return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => toggleCategory(popularCategory)} checked={selectedCategories.includes(popularCategory.id)} key={popularCategory.id} />

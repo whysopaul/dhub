@@ -49,14 +49,14 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const searchMainCategoryFilter = useMemo(() => {
         return categoriesState
             .filter(category => category.index === 2)
-            .filter(category => !currentService?.categories_2.map(cat => cat.id).includes(category.id))
+            .filter(category => !currentService?.categories_2?.map(cat => cat.id).includes(category.id))
             .filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
     }, [searchCategory, currentService?.categories_2, categoriesState])
 
     const searchCategoryFilter = useMemo(() => {
         return categoriesState
             .filter(category => category.index === 3)
-            .filter(category => !currentService?.categories_3.map(cat => cat.id).includes(category.id))
+            .filter(category => !currentService?.categories_3?.map(cat => cat.id).includes(category.id))
             .filter(category => category.name.toLocaleLowerCase().includes(searchCategory.toLocaleLowerCase()))
     }, [searchCategory, currentService?.categories_3, categoriesState])
 
@@ -109,10 +109,10 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     }
 
     const toggleCategories = (category: TCategory) => {
-        currentService.categories_3.map(cat => cat.id).includes(category.id)
+        currentService.categories_3?.map(cat => cat.id).includes(category.id)
             ? setCurrentService({
                 ...currentService,
-                categories_3: currentService.categories_3.filter(cat => cat.id !== category.id)
+                categories_3: currentService.categories_3?.filter(cat => cat.id !== category.id)
             })
             : setCurrentService({
                 ...currentService,
@@ -470,7 +470,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         </ul>
                         <p>Подкатегории:</p>
                         <ul className='categories-list'>
-                            {currentService.categories_3.map(category => {
+                            {currentService.categories_3?.map(category => {
                                 return <li key={category.id}>
                                     <button
                                         className='category-tag'
@@ -598,9 +598,9 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 &&
                                 currentService.link
                                 &&
-                                currentService.categories_2.length > 0
+                                currentService.categories_2?.length > 0
                                 &&
-                                currentService.categories_3.length > 0
+                                currentService.categories_3?.length > 0
                                 &&
                                 currentService.description.text
                                 &&

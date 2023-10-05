@@ -258,9 +258,9 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             {openCategories && <div className='service-dropdown-content'>
                                 <div className='service-page-categories'>
                                     <ul className='categories-list'>
-                                        {currentService.categories_3.map(i => {
+                                        {currentService.categories_3?.map(i => {
 
-                                            const categoriesQty = serviceState.services.filter(service => service.categories_3.find(category => category.id === i.id)).length
+                                            const categoriesQty = serviceState.services.filter(service => service.categories_3?.find(category => category.id === i.id)).length
 
                                             return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
                                         })}
