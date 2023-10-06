@@ -9,11 +9,15 @@ import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import Loading from '../global/Loading';
 import { URL, countriesList } from '../utils';
+import { useParams } from 'react-router';
+import { Link } from 'react-router-dom';
 
 interface IServicesSearchListProps {
 }
 
 const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (props) => {
+
+    const { pageNumber } = useParams()
 
     const rootState = useSelector((state: RootStore) => state)
 
@@ -296,9 +300,18 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         setCurrentPage(1)
     }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText, country, collection])
 
+    useEffect(() => {
+        if (!pageNumber || parseInt(pageNumber) === 1) {
+            setCurrentPage(1)
+        } else {
+            setCurrentPage(parseInt(pageNumber))
+        }
+    }, [, pageNumber])
+
     const changePage = (number: number) => {
-        setCurrentPage(number)
-        window.requestAnimationFrame(() => titleRef.current.scrollIntoView({ behavior: 'smooth' }))
+        // setCurrentPage(number)
+        // window.requestAnimationFrame(() => titleRef.current.scrollIntoView({ behavior: 'smooth' }))
+        return number
     }
 
     return <>
@@ -510,34 +523,34 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         </div>
 
         {searchCondition.length > 0 && numberOfPages.length > 1 && <div className='services-list-pagination'>
-            <button
+            <Link
                 className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'}
-                onClick={() => currentPage > 1 && changePage(currentPage - 1)}
-                disabled={currentPage === 1}
+                to={currentPage > 1 && '/services/' + changePage(currentPage - 1)}
+            // disabled={currentPage === 1}
             >
                 <i className='fas fa-chevron-left' />
-            </button>
+            </Link>
             {paginationRange.map(number => {
 
                 if (number === DOTS) {
                     return <button className='page-number-button disabled' disabled>&#8230;</button>
                 }
 
-                return <button
+                return <Link
                     className={currentPage === number ? 'page-number-button active' : 'page-number-button'}
-                    onClick={() => { typeof number === 'number' && currentPage !== number && changePage(number) }}
+                    to={typeof number === 'number' && currentPage !== number && '/services/' + changePage(number)}
                     key={number}
                 >
                     {number}
-                </button>
+                </Link>
             })}
-            <button
+            <Link
                 className={currentPage === numberOfPages.length ? 'page-number-button disabled' : 'page-number-button'}
-                onClick={() => currentPage < numberOfPages.length && changePage(currentPage + 1)}
-                disabled={currentPage === numberOfPages.length}
+                to={currentPage < numberOfPages.length && '/services/' + changePage(currentPage + 1)}
+            // disabled={currentPage === numberOfPages.length}
             >
                 <i className='fas fa-chevron-right' />
-            </button>
+            </Link>
         </div>}
 
         <div className='services-list-sharing view-mobile'>

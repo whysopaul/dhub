@@ -29,6 +29,7 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                 <Route path='/' element={<Home />} />
                 <Route element={<Layout />}>
                     <Route path='/services' element={<ServicesSearchList />} />
+                    <Route path='/services/:pageNumber' element={<ServicesSearchList />} />
                     <Route path='/service/:serviceId' element={<ServicePage />} />
                     <Route path='/categories' element={<CategoriesListPage />} />
                     <Route path='/feedback' element={<FeedbackListPage />} />

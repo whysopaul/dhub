@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --mode production",
+    "postbuild": "react-snap",
     "dev": "webpack serve --mode development",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -40,6 +41,7 @@
     "@types/redux": "^3.6.0",
     "@types/redux-thunk": "^2.1.0",
     "@webpack-cli/serve": "^2.0.2",
-    "html-webpack-plugin": "^5.5.1"
+    "html-webpack-plugin": "^5.5.1",
+    "react-snap": "^1.23.0"
   }
 }

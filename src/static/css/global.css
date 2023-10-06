@@ -41,6 +41,8 @@ body {
     line-height: 1;
     scrollbar-color: #AAD1FC #E9E7EA;
     scrollbar-width: thin;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 ::-webkit-scrollbar {
