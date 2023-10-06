@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createRoot, hydrateRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import App from './src/App';
 import { persistStore } from 'redux-persist';
 import store from './src/store';
@@ -17,24 +17,10 @@ const persistor = persistStore(store);
 
 const container = document.getElementById('root')
 const root = createRoot(container!)
-
-if (container.hasChildNodes()) {
-    const hydrate = hydrateRoot(container, <Provider store={store}>
+root.render(
+    <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <App />
         </PersistGate>
-    </Provider>)
-    hydrate.render(<Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-            <App />
-        </PersistGate>
-    </Provider>)
-} else {
-    root.render(
-        <Provider store={store}>
-            <PersistGate loading={null} persistor={persistor}>
-                <App />
-            </PersistGate>
-        </Provider>
-    )
-}
+    </Provider>
+)
