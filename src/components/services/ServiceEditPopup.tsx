@@ -508,6 +508,21 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 Обновить ссылку
                             </button>
                         </div>
+                        <p>Логотип:</p>
+                        <div className='service-edit-link-container'>
+                            <input
+                                type='text'
+                                placeholder='http://'
+                                value={currentService.images.logo}
+                                onChange={e => setCurrentService({
+                                    ...currentService,
+                                    images: {
+                                        ...currentService.images,
+                                        logo: e.target.value
+                                    }
+                                })}
+                            />
+                        </div>
                         {!props.add && <>
                             <p>Скриншоты:</p>
                             <div className='service-edit-screenshots-container'>

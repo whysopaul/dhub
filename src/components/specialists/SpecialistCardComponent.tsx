@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { TSpecialist } from '../../actions/specialists/types';
 import '../../static/css/specialists.css';
+import { TUserData } from '../../actions/auth/types';
 
 interface ISpecialistCardComponentProps {
-    specialist: TSpecialist,
+    specialist: TUserData,
     onTouchStart?: (e: React.TouchEvent) => void,
     onTouchMove?: (e: React.TouchEvent, cardsQty?: number) => void
 }
@@ -12,11 +12,11 @@ const SpecialistCardComponent: React.FunctionComponent<ISpecialistCardComponentP
     return <>
         <div className='specialist-card-container' onTouchStart={e => props.onTouchStart ? props.onTouchStart(e) : null} onTouchMove={e => props.onTouchMove ? props.onTouchMove(e) : null}>
             <div className='specialist-card-photo'>
-                <img src={props.specialist.profile.photo} alt="" />
+                <img src={props.specialist.photo} alt="" />
             </div>
             <div className='specialist-card-info'>
-                <p>{props.specialist.profile.name}</p>
-                <span>{props.specialist.profile.about}</span>
+                <p>{props.specialist.name.split(' ')[0]}</p>
+                <span>{props.specialist.specialist_description}</span>
             </div>
             <button className='arrow-right-button color-blue'>
                 <span>Выбрать специалиста</span>

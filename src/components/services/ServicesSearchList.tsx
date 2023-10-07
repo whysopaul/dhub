@@ -25,7 +25,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [searchCategories, setSearchCategories] = useState('')
     const [selectedCategories, setSelectedCategories] = useState<number[]>([])
     const [searchByName, setSearchByName] = useState(true)
-    const [searchByText, setSearchByText] = useState(false)
+    const [searchByText, setSearchByText] = useState(true)
     const [country, setCountry] = useState('')
     const [collection, setCollection] = useState(-1)
 

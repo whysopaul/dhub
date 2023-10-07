@@ -502,6 +502,15 @@
 .service-specialists-cards {
     display: grid;
     gap: 16px;
+    margin-bottom: 32px;
+}
+
+.service-specialists-no-specialists {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 14px;
+    color: var(--color-darkblue);
+    margin-bottom: 32px;
 }
 
 /* SERVICES LIST PAGE */

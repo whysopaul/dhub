@@ -11,6 +11,7 @@
 # production
 /build
 /build-netlify
+/dist
 
 # misc
 .DS_Store

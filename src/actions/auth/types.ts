@@ -1,4 +1,5 @@
 export const USER_LOGIN = 'USER_LOGIN'
+export const USER_LOGOUT = 'USER_LOGOUT'
 export const USER_ADD_HISTORY = 'USER_ADD_HISTORY'
 
 export const USER_LOGIN_POPUP_STATE = 'USER_LOGIN_POPUP_STATE'
@@ -22,6 +23,10 @@ interface IUserLogin {
     payload: TUserData
 }
 
+interface IUserLogout {
+    type: typeof USER_LOGOUT
+}
+
 interface IUserAddHistory {
     type: typeof USER_ADD_HISTORY,
     payload: TUserData
@@ -32,4 +37,4 @@ interface IUserLoginPopupState {
     payload: boolean
 }
 
-export type authDispatchTypes = IUserLogin | IUserAddHistory | IUserLoginPopupState
+export type authDispatchTypes = IUserLogin | IUserLogout | IUserAddHistory | IUserLoginPopupState

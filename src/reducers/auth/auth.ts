@@ -1,4 +1,4 @@
-import { USER_LOGIN, TUserData, authDispatchTypes, USER_ADD_HISTORY, USER_LOGIN_POPUP_STATE } from "../../actions/auth/types"
+import { USER_LOGIN, TUserData, authDispatchTypes, USER_ADD_HISTORY, USER_LOGIN_POPUP_STATE, USER_LOGOUT } from "../../actions/auth/types"
 import { FEEDBACK_GET_USER_FEEDBACK, TFeedback, feedbackDispatchTypes } from "../../actions/feedback/types"
 
 interface IDefaultState {
@@ -27,6 +27,11 @@ const authReducer = (state: IDefaultState = defaultState, action: authDispatchTy
             return {
                 ...state,
                 user: action.payload
+            }
+        case USER_LOGOUT:
+            return {
+                ...state,
+                user: null
             }
         case USER_ADD_HISTORY:
             return {

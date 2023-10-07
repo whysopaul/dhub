@@ -64,7 +64,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     // 1 - Отзывы
     // 2 - Специалисты
-    const [mode, setMode] = useState<number>(1)
+    // const [mode, setMode] = useState<number>(1)
 
     const [showFeedbackPopup, setShowFeedbackPopup] = useState(false)
 
@@ -307,7 +307,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 </a>}
             </div>
             <section>
-                <div className='service-section-header-options'>
+                {/* <div className='service-section-header-options'>
                     <div className='service-section-header-buttons'>
                         <button className={mode === 1 ? 'active' : null} onClick={() => setMode(1)}>
                             <p>Отзывы</p>
@@ -324,61 +324,61 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             <option value="">по умолчанию</option>
                         </select>
                     </div>}
-                </div>
-                {mode === 1 && <>
-                    <div className='section-header-container'>
-                        <h2 className='section-main-title'>Отзывы</h2>
-                        <button className='feedback-button' onClick={() => authState ? setShowFeedbackPopup(true) : dispatch(userShowLoginPopup())}>
-                            <i className='far fa-edit' />
-                            <span>Оставить отзыв</span>
-                        </button>
-                    </div>
-                    {screenWidth > 576 && <div className='feedback-cards'>
-                        {currentService.feedbacks.length > 0 && currentService.feedbacks.map(i => {
-                            return <FeedbackCardComponent comment={i} key={i.id} />
-                        })}
-                    </div>}
-                    {screenWidth <= 576 && <div className='feedback-cards'>
-                        {currentService.feedbacks.length > 0 && currentService.feedbacks.slice(currentCard, currentCard + 1).map(i => {
-                            const dataLength = currentService.feedbacks.length
-                            return <>
-                                <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
-                                <div className='cards-mobile-swipe-bar'>
-                                    {[...new Array(dataLength)].map((_, idx) => {
-                                        return <button className={currentCard === idx ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
-                                    })}
-                                </div>
-                            </>
-                        })}
-                    </div>}
-                    {currentService.feedbacks.length === 0 && <div className='feedback-no-feedbacks'>
-                        <p>Отзывов пока нет. Оставьте отзыв первым!</p>
-                    </div>}
-                </>}
+                </div> */}
 
-                {mode === 2 && <>
-                    <div className='section-header-container'>
-                        <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
-                    </div>
-                    {screenWidth > 576 && <div className='service-specialists-cards'>
-                        {mockSpecialists.map(specialist => {
-                            return <SpecialistCardComponent specialist={specialist} key={specialist.id} />
-                        })}
-                    </div>}
-                    {screenWidth <= 576 && <div className='service-specialists-cards'>
-                        {mockSpecialists.slice(currentCard, currentCard + 1).map(specialist => {
-                            const dataLength = mockSpecialists.length
-                            return <>
-                                <SpecialistCardComponent specialist={specialist} key={specialist.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
-                                <div className='cards-mobile-swipe-bar'>
-                                    {[...new Array(dataLength)].map((_, idx) => {
-                                        return <button className={specialist.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
-                                    })}
-                                </div>
-                            </>
-                        })}
-                    </div>}
-                </>}
+                <div className='section-header-container'>
+                    <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
+                </div>
+                {screenWidth > 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
+                    {currentService.specialists?.map(specialist => {
+                        return <SpecialistCardComponent specialist={specialist} key={specialist.id} />
+                    })}
+                </div>}
+                {screenWidth <= 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
+                    {currentService.specialists?.slice(currentCard, currentCard + 1).map(specialist => {
+                        const dataLength = mockSpecialists.length
+                        return <>
+                            <SpecialistCardComponent specialist={specialist} key={specialist.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
+                            <div className='cards-mobile-swipe-bar'>
+                                {[...new Array(dataLength)].map((_, idx) => {
+                                    return <button className={specialist.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
+                                })}
+                            </div>
+                        </>
+                    })}
+                </div>}
+                {currentService.specialists?.length === 0 && <div className='service-specialists-no-specialists'>
+                    <p>Пока никого нет. Станьте первым!</p>
+                </div>}
+
+                <div className='section-header-container'>
+                    <h2 className='section-main-title'>Отзывы</h2>
+                    <button className='feedback-button' onClick={() => authState ? setShowFeedbackPopup(true) : dispatch(userShowLoginPopup())}>
+                        <i className='far fa-edit' />
+                        <span>Оставить отзыв</span>
+                    </button>
+                </div>
+                {screenWidth > 576 && currentService.feedbacks?.length > 0 && <div className='feedback-cards'>
+                    {currentService.feedbacks?.map(i => {
+                        return <FeedbackCardComponent comment={i} key={i.id} />
+                    })}
+                </div>}
+                {screenWidth <= 576 && currentService.feedbacks?.length > 0 && <div className='feedback-cards'>
+                    {currentService.feedbacks?.slice(currentCard, currentCard + 1).map(i => {
+                        const dataLength = currentService.feedbacks.length
+                        return <>
+                            <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
+                            <div className='cards-mobile-swipe-bar'>
+                                {[...new Array(dataLength)].map((_, idx) => {
+                                    return <button className={currentCard === idx ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
+                                })}
+                            </div>
+                        </>
+                    })}
+                </div>}
+                {currentService.feedbacks.length === 0 && <div className='feedback-no-feedbacks'>
+                    <p>Отзывов пока нет. Оставьте отзыв первым!</p>
+                </div>}
             </section>
         </>}
     </>;

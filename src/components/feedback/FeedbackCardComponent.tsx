@@ -42,9 +42,9 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
         <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
             <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
                 {!owner && <>
-                    {comment.is_soup ? <div className='feedback-card-anonym'><i className='fas fa-user-circle' /></div> : <img src={comment.user.photo} alt="" />}
+                    {comment.is_soup || comment.user.photo === 'https://vk.com/images/camera_200.png' ? <div className='feedback-card-anonym'><i className='fas fa-user-circle' /></div> : <img src={comment.user.photo} alt="" />}
                     <div className='feedback-card-username'>
-                        <p>{comment.is_soup ? comment.soup_name : comment.user.name}</p>
+                        <p>{comment.is_soup ? comment.soup_name.split(' ')[0] : comment.user.name.split(' ')[0]}</p>
                     </div>
                 </>}
                 <div className='feedback-card-rating'>

@@ -66,9 +66,9 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
             <form>
                 <div className='feedback-popup-main'>
                     <div className='feedback-popup-columns'>
-                        <div>
+                        {/* <div>
                             <i className='far fa-edit color-blue' />
-                        </div>
+                        </div> */}
                         <div>
                             <h3>Оставьте отзыв на сервис</h3>
                             {selectService && <>
@@ -121,23 +121,33 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                         <span>Далее</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </button>}
-                    {!selectService && <button type='button' className='blue-shadow-button' onClick={() => {
-                        dispatch(feedbackCreateFeedback(userState.d_token, {
-                            id: -1,
-                            user: userState,
-                            service: selectedService.id,
-                            text: textarea,
-                            functionality: functionality,
-                            usability: usability,
-                            customer_service: customerService,
-                            likes: [],
-                            total_rating: Number(((functionality + usability + customerService) / 3).toFixed(1))
-                        }));
-                        props.onClose()
-                    }}>
-                        <span>Отправить</span>
-                        <i className='fas fa-long-arrow-alt-right' />
-                    </button>}
+                    {!selectService && <div className='feedback-popup-bottom-buttons'>
+                        <button type='button' className='feedback-popup-bottom-buttons-ai-button' title='Дописать отзыв с помощью ИИ'>
+                            <i className='fas fa-magic' />
+                        </button>
+                        <span className='feedback-popup-bottom-buttons-divider' />
+                        <button
+                            type='button'
+                            className='feedback-popup-bottom-buttons-create-feedback-button'
+                            onClick={() => {
+                                dispatch(feedbackCreateFeedback(userState.d_token, {
+                                    id: -1,
+                                    user: userState,
+                                    service: selectedService.id,
+                                    text: textarea,
+                                    functionality: functionality,
+                                    usability: usability,
+                                    customer_service: customerService,
+                                    likes: [],
+                                    total_rating: Number(((functionality + usability + customerService) / 3).toFixed(1))
+                                }));
+                                props.onClose()
+                            }}
+                        >
+                            <span>Отправить</span>
+                            <i className='fas fa-long-arrow-alt-right' />
+                        </button>
+                    </div>}
                 </div>
             </form>
             <button className='popup-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>

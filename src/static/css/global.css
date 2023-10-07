@@ -327,10 +327,11 @@ hr {
     gap: 20px;
     width: max-content;
     margin-top: 85px;
-    margin-bottom: auto;
+    margin-bottom: 85px;
 }
 
-.navbar-mobile-navigation a {
+.navbar-mobile-navigation a,
+.navbar-mobile-logout-container-button {
     font-weight: 400;
     font-size: 14px;
     line-height: 18px;
@@ -338,13 +339,22 @@ hr {
     color: var(--color-lightgray-one);
 }
 
-.navbar-mobile-navigation a:hover {
+.navbar-mobile-navigation a:hover,
+.navbar-mobile-logout-container-button:hover {
     text-decoration-line: underline;
     color: var(--color-blue);
 }
 
 .navbar-mobile-navigation>.collections-navigation-container:hover .collections-navigation-dropdown {
     display: none;
+}
+
+.navbar-mobile-logout-container {
+    margin-bottom: auto;
+}
+
+.navbar-mobile-logout-container-button {
+    cursor: pointer;
 }
 
 .navbar-mobile-social-networks-buttons {

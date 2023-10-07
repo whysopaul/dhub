@@ -7,12 +7,16 @@ import LogoTransparent from '../../static/images/logo_transparent.svg';
 import Navigation from './Navigation';
 import Login from './Login';
 import { useOnPopup } from '../utils/HandleOnPopup';
+import { useDispatch } from 'react-redux';
+import { userLogout } from '../../actions/auth/auth';
 
 interface INavbarMobileProps {
     onClose: () => void
 }
 
 const NavbarMobile: React.FunctionComponent<INavbarMobileProps> = (props) => {
+
+    const dispatch = useDispatch()
 
     const authState = useSelector((state: RootStore) => state.auth.user)
 
@@ -46,6 +50,9 @@ const NavbarMobile: React.FunctionComponent<INavbarMobileProps> = (props) => {
             <div className='navbar-mobile-navigation'>
                 <Navigation />
             </div>
+            {authState && <div className='navbar-mobile-logout-container'>
+                <button className='navbar-mobile-logout-container-button' onClick={() => dispatch(userLogout())}>Выйти из аккаунта</button>
+            </div>}
             <div className='navbar-mobile-social-networks-buttons'>
                 <button><i className='fab fa-vk' /></button>
                 <button><i className='fab fa-telegram-plane' /></button>
