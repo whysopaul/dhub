@@ -1,0 +1,6 @@
+User-agent: *
+
+Disallow: /profile
+Disallow: /profile/edit
+Disallow: /admin
+Disallow: /loginVk

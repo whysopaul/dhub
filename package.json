@@ -4,6 +4,7 @@
   "description": "digital hub frontend",
   "main": "index.js",
   "scripts": {
+    "firebase-build": "webpack --mode production",
     "build": "webpack --mode production",
     "postbuild": "react-snap",
     "dev": "webpack serve --mode development",

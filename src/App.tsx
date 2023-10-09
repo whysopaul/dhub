@@ -29,10 +29,11 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
             <ScrollToTop />
 
             <Helmet>
-                <title>digital hub</title>
+                <title>digital hub — Агрегатор сервисов для вашей продуктивности</title>
                 <meta property='og:title' content='digital hub — Агрегатор сервисов для вашей продуктивности' />
                 <meta property='og:type' content='website' />
                 <meta name='description' content='Агрегатор сервисов для вашей продуктивности. Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.' />
+                <meta property='og:description' content='Агрегатор сервисов для вашей продуктивности. Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.' />
                 <meta property='og:image' content={Screenshot} />
             </Helmet>
 
