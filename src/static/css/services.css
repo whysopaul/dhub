@@ -308,8 +308,13 @@
     color: #2D4379;
 }
 
-.service-info>p {
+.service-description-text {
+    display: grid;
+    gap: 16px;
     margin: 32px 0;
+}
+
+.service-description-text>p {
     font-weight: 400;
     font-size: 14px;
     line-height: 20px;

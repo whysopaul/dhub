@@ -19,6 +19,7 @@ import { getService } from '../../actions/services/services';
 import { feedbacksLength, getScreen } from '../utils';
 import { userAddHistory, userShowLoginPopup } from '../../actions/auth/auth';
 import Loading from '../global/Loading';
+import { Helmet } from 'react-helmet-async';
 
 interface IServicePageProps {
 }
@@ -134,6 +135,12 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
         {editMode && <ServiceEditPopup service={currentService} onClose={() => setEditMode(false)} />}
 
         {currentService && <>
+            <Helmet>
+                <title>{currentService.name + ' | digital hub'}</title>
+                <meta property='og:title' content={currentService.name + ' | digital hub'} />
+                <meta property='og:image' content={currentService.images.logo} />
+            </Helmet>
+
             <div className='service-main-container'>
                 <div>
                     <div className='service-info'>
@@ -168,7 +175,11 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                             </div>
                         </div>
                         <hr />
-                        <p>{currentService.description.text}</p>
+                        <div className='service-description-text'>
+                            {currentService.description.text.split('\n').filter(p => p !== '').map(p => {
+                                return <p>{p}</p>
+                            })}
+                        </div>
                     </div>
                     <div className='service-more-info'>
                         {/* <div className='service-banner-wrapper'>

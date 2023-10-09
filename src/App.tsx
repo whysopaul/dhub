@@ -16,6 +16,8 @@ import GetData from './components/utils/GetData';
 import AdminPanel from './components/admin/AdminPanel';
 import CollectionsPage from './components/collections/CollectionsPage';
 import CollectionPage from './components/collections/CollectionPage';
+import { Helmet } from 'react-helmet-async';
+import Screenshot from '../screenshot.png';
 
 interface IAppProps {
 }
@@ -25,10 +27,20 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
         <BrowserRouter>
             <GetData />
             <ScrollToTop />
+
+            <Helmet>
+                <title>digital hub</title>
+                <meta property='og:title' content='digital hub — Агрегатор сервисов для вашей продуктивности' />
+                <meta property='og:type' content='website' />
+                <meta name='description' content='Агрегатор сервисов для вашей продуктивности. Рейтинги, обзоры, отзывы, минусы и плюсы сервисов для бизнеса в одном месте. Сравнивайте и внедряйте. И конечно, используйте промокоды на скидку.' />
+                <meta property='og:image' content={Screenshot} />
+            </Helmet>
+
             <Routes>
                 <Route path='/' element={<Home />} />
                 <Route element={<Layout />}>
                     <Route path='/services' element={<ServicesSearchList />} />
+                    <Route path='/services/:pageNumber' element={<ServicesSearchList />} />
                     <Route path='/service/:serviceId' element={<ServicePage />} />
                     <Route path='/categories' element={<CategoriesListPage />} />
                     <Route path='/feedback' element={<FeedbackListPage />} />

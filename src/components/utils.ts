@@ -1,5 +1,5 @@
 export const SERVER_URL = 'https://api.vtargete.pro/api/digital_hub'
-export const URL = window.location.href.includes('localhost') ? 'http://localhost:8080' : 'https://digital-hub-3505b.web.app'
+export const URL = window.location.href.includes('localhost') ? 'http://localhost:8080' : window.location.href.includes('web') ? 'https://digital-hub-3505b.web.app' : 'https://digital-hub-3505b.netlify.app'
 
 export const createServiceLink = (name: string): string => {
     return name.split(' ').join('').split('.').join('').toLocaleLowerCase()

@@ -10,8 +10,8 @@
 
 # production
 /build
-/build-netlify
-/dist
+# /build-netlify
+# /dist
 
 # misc
 .DS_Store

@@ -11,7 +11,7 @@ module.exports = {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: 'ts-loader',
+                use: 'esbuild-loader',
                 exclude: /node_modules/
             },
             // for good ol' css
@@ -41,7 +41,7 @@ module.exports = {
             },
         ],
     },
-    watch: false,
+    // watch: false,
     resolve: {
         extensions: [".ts", ".tsx", ".js"]
     },

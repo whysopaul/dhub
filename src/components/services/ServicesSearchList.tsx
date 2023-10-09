@@ -3,17 +3,24 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import ServiceCardComponent from './ServiceCardComponent';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { TServicesData } from '../../actions/services/types';
 import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import Loading from '../global/Loading';
 import { URL, countriesList } from '../utils';
+import { useNavigate, useParams } from 'react-router';
+import { Link } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 
 interface IServicesSearchListProps {
 }
 
 const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (props) => {
+
+    const { pageNumber } = useParams()
+
+    const navigate = useNavigate()
 
     const rootState = useSelector((state: RootStore) => state)
 
@@ -21,7 +28,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [isNotFree, setIsNotFree] = useState<boolean>(null)
     const [hasNoTrial, setHasNoTrial] = useState<boolean>(null)
     const [hasNoPartnership, setHasNoPartnership] = useState<boolean>(null)
-    const [paymentMethod, setPaymentMethod] = useState<number>(null)
+    const [paymentMethods, setPaymentMethods] = useState<number[]>([])
     const [searchCategories, setSearchCategories] = useState('')
     const [selectedCategories, setSelectedCategories] = useState<number[]>([])
     const [searchByName, setSearchByName] = useState(true)
@@ -34,7 +41,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
     const paymentMethodOne = ['по подписке', 'ежемесячно', 'ежегодно', 'посуточно', 'ежеквартально', 'месяц', 'ежедневно', 'еженедельно', 'поквартально', 'подписка', 'ежечасно', 'покупка баллов']
-    const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов']
+    const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов', 'поштучно']
     const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
     const [sortMode, setSortMode] = useState<string>('default')
@@ -68,14 +75,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         &&
         (selectedCategories.length > 0 ? service.categories_2?.find(category => selectedCategories.includes(category.id)) || service.categories_3?.find(category => selectedCategories.includes(category.id)) : true)
         &&
-        (
-            paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m))
-                :
-                paymentMethod === 2 ? paymentMethodTwo.some(p_m => service.description.paymentMethod.includes(p_m))
-                    :
-                    paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m))
-                        : true
-        )
+        (paymentMethods.length > 0 ? paymentMethods.some(paymentMethod => paymentMethod === 1 ? paymentMethodOne.some(p_m => service.description.paymentMethod.includes(p_m)) : paymentMethod === 2 ? paymentMethodTwo.some(p_m => service.description.paymentMethod.includes(p_m)) : paymentMethod === 3 ? paymentMethodThree.some(p_m => service.description.paymentMethod.includes(p_m)) : true) : true)
         &&
         (country === '' ? true : service.description.country === country)
     ).sort((a, b) => {
@@ -106,6 +106,12 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             : setSelectedCategories([...selectedCategories, category.id])
     }
 
+    const togglePaymentMethod = (paymentMethod: number) => {
+        paymentMethods.includes(paymentMethod)
+            ? setPaymentMethods(paymentMethods.filter(p_m => p_m !== paymentMethod))
+            : setPaymentMethods([...paymentMethods, paymentMethod])
+    }
+
     // console.log([...new Set(rootState.services.services.map(s => s.description.paymentMethod))])
 
     const [openMobileFuncInputs, setOpenMobileFuncInputs] = useState(false)
@@ -131,8 +137,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             urlParams.append('hasPartnership', 'true')
         }
 
-        if (paymentMethod) {
-            urlParams.append('paymentMethod', paymentMethod.toString())
+        if (paymentMethods.length > 0) {
+            urlParams.append('paymentMethods', paymentMethods.sort((a, b) => a - b).join(','))
         }
 
         if (selectedCategories.length > 0) {
@@ -269,8 +275,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (urlParams.has('categories')) {
             setSelectedCategories(urlParams.get('categories').split(',').map(category => Number(category)))
         }
-        if (urlParams.has('paymentMethod')) {
-            setPaymentMethod(Number(urlParams.get('paymentMethod')))
+        if (urlParams.has('paymentMethods')) {
+            setPaymentMethods(urlParams.get('paymentMethods').split(',').map(p_m => Number(p_m)))
         }
         if (urlParams.has('recent')) {
             setSortMode('new')
@@ -292,16 +298,43 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         }
     }, [])
 
+    // Not reload page with pageNumber on first render
+
+    const checkFirstRender = useRef(true)
+    const firstRender = checkFirstRender.current
+
+    useLayoutEffect(() => {
+        checkFirstRender.current = false
+        return
+    })
+
     useEffect(() => {
         setCurrentPage(1)
-    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethod, selectedCategories, searchByName, searchByText, country, collection])
 
-    const changePage = (number: number) => {
-        setCurrentPage(number)
-        window.requestAnimationFrame(() => titleRef.current.scrollIntoView({ behavior: 'smooth' }))
-    }
+        if (!firstRender && !window.location.search) {
+            navigate('/services')
+        }
+    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethods, selectedCategories, searchByName, searchByText, country, collection])
+
+    useEffect(() => {
+        if (!pageNumber || parseInt(pageNumber) === 1) {
+            setCurrentPage(1)
+        } else {
+            setCurrentPage(parseInt(pageNumber))
+        }
+    }, [, pageNumber])
+
+    // const changePage = (number: number) => {
+    //     setCurrentPage(number)
+    //     window.requestAnimationFrame(() => titleRef.current.scrollIntoView({ behavior: 'smooth' }))
+    // }
 
     return <>
+        <Helmet>
+            <title>Найти сервис | digital hub</title>
+            <meta property='og:title' content='Найти сервис | digital hub' />
+        </Helmet>
+
         <div className='services-list-header-container'>
             <div className='services-list-search-title'>
                 <h2 className='section-main-title' ref={titleRef}>{collection === -1 ? 'Найденные сервисы:' : rootState.services.collections.find(c => c.id === collection)?.title}</h2>
@@ -387,9 +420,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     </div>
                     <div>
                         <p>Способ оплаты:</p>
-                        <label><input type='radio' onChange={() => setPaymentMethod(1)} checked={paymentMethod === 1} />По подписке</label>
-                        <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
-                        <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
+                        <label><input type='checkbox' onChange={() => togglePaymentMethod(1)} checked={paymentMethods.includes(1)} />По подписке</label>
+                        <label><input type='checkbox' onChange={() => togglePaymentMethod(2)} checked={paymentMethods.includes(2)} />За действие</label>
+                        <label><input type='checkbox' onChange={() => togglePaymentMethod(3)} checked={paymentMethods.includes(3)} />Разовая</label>
                     </div>
                     <div>
                         <p>Страна разработчика:</p>
@@ -426,9 +459,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                             <i className={openMobilePaymentInputs ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
                         </div>
                         {openMobilePaymentInputs && <div className='service-dropdown-content'>
-                            <label><input type='radio' onChange={() => setPaymentMethod(1)} checked={paymentMethod === 1} />По подписке</label>
-                            <label><input type='radio' onChange={() => setPaymentMethod(2)} checked={paymentMethod === 2} />За действие</label>
-                            <label><input type='radio' onChange={() => setPaymentMethod(3)} checked={paymentMethod === 3} />Разовая</label>
+                            <label><input type='checkbox' onChange={() => togglePaymentMethod(1)} checked={paymentMethods.includes(1)} />По подписке</label>
+                            <label><input type='checkbox' onChange={() => togglePaymentMethod(2)} checked={paymentMethods.includes(2)} />За действие</label>
+                            <label><input type='checkbox' onChange={() => togglePaymentMethod(3)} checked={paymentMethods.includes(3)} />Разовая</label>
                         </div>}
                     </div>
                     <div className='service-dropdown-container'>
@@ -510,34 +543,34 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         </div>
 
         {searchCondition.length > 0 && numberOfPages.length > 1 && <div className='services-list-pagination'>
-            <button
+            <Link
                 className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'}
-                onClick={() => currentPage > 1 && changePage(currentPage - 1)}
-                disabled={currentPage === 1}
+                to={currentPage > 1 && '/services/' + (currentPage - 1)}
+            // disabled={currentPage === 1}
             >
                 <i className='fas fa-chevron-left' />
-            </button>
+            </Link>
             {paginationRange.map(number => {
 
                 if (number === DOTS) {
                     return <button className='page-number-button disabled' disabled>&#8230;</button>
                 }
 
-                return <button
+                return <Link
                     className={currentPage === number ? 'page-number-button active' : 'page-number-button'}
-                    onClick={() => { typeof number === 'number' && currentPage !== number && changePage(number) }}
+                    to={typeof number === 'number' && currentPage !== number && '/services/' + number}
                     key={number}
                 >
                     {number}
-                </button>
+                </Link>
             })}
-            <button
+            <Link
                 className={currentPage === numberOfPages.length ? 'page-number-button disabled' : 'page-number-button'}
-                onClick={() => currentPage < numberOfPages.length && changePage(currentPage + 1)}
-                disabled={currentPage === numberOfPages.length}
+                to={currentPage < numberOfPages.length && '/services/' + (currentPage + 1)}
+            // disabled={currentPage === numberOfPages.length}
             >
                 <i className='fas fa-chevron-right' />
-            </button>
+            </Link>
         </div>}
 
         <div className='services-list-sharing view-mobile'>

@@ -42,7 +42,11 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                     case 'services':
                         return <li><span>Сервисы</span></li>
                     default:
-                        return <li><span>{rootState.services.services.find(service => service.id === parseInt(link))?.name}</span></li>
+                        if (parseInt(link) > 1000) {
+                            return <li><span>{rootState.services.services.find(service => service.id === parseInt(link))?.name}</span></li>
+                        } else {
+                            return null
+                        }
                 }
             })
         }

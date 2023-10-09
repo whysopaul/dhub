@@ -98,6 +98,7 @@
     line-height: 12px;
     color: #386BEE;
     cursor: pointer;
+    text-decoration: none;
 }
 
 .page-number-button.active {
