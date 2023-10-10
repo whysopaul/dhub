@@ -19,7 +19,7 @@ const persistor = persistStore(store);
 const container = document.getElementById('root')
 const root = createRoot(container!)
 
-if (container.hasChildNodes()) {
+if (container?.hasChildNodes()) {
     const hydrate = hydrateRoot(container, <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
             <HelmetProvider>

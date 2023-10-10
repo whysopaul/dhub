@@ -46,7 +46,7 @@ module.exports = {
         extensions: [".ts", ".tsx", ".js"]
     },
     plugins: [
-        new HtmlWebpackPlugin({ template: "./index.html", inject: 'body', hash: true })
+        new HtmlWebpackPlugin({ template: "./index.html", inject: 'body', hash: true, favicon: './favicon.ico' })
     ],
 
     devServer: {
