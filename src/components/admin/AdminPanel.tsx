@@ -97,7 +97,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
 
             {editService && <ServiceEditPopup service={editService} onClose={() => setEditService(null)} is_empty />}
 
-            {createCategory && <CategoryPopup category={{ id: -1, name: '', index: 1 }} onClose={() => setCreateCategory(false)} />}
+            {createCategory && <CategoryPopup category={{ id: -1, name: '', index: 1, service_count: 0 }} onClose={() => setCreateCategory(false)} />}
             {createCategoryRelations && <CategoryRelationsAddPopup onClose={() => setCreateCategoryRelations(false)} />}
             {editCategory && <CategoryPopup category={editCategory} onClose={() => setEditCategory(null)} />}
 
