@@ -432,6 +432,12 @@
     cursor: pointer;
 }
 
+.feedback-popup-main>p {
+    margin-top: 24px;
+    color: var(--color-red);
+    text-align: center;
+}
+
 /* FEEDBACK CARD POPUP */
 
 .feedback-card-popup-container {
