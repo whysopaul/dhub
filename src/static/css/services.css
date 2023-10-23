@@ -77,6 +77,81 @@
     overflow: hidden;
 }
 
+/* SERVICE CARD MOCKUP */
+
+.service-card-mockup-container {
+    width: 245px;
+    height: 310px;
+    background: rgba(244, 247, 255, 0.5);
+    border-radius: 12px;
+    padding: 16px;
+    flex-shrink: 0;
+    box-sizing: border-box;
+}
+
+.service-card-mockup-header {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.service-card-mockup-logo {
+    width: 100px;
+    height: 100px;
+    background: var(--color-white);
+    border-radius: 16px;
+}
+
+.service-card-mockup-rating {
+    width: 55px;
+    height: 24px;
+    background: var(--color-lightgray-two);
+    border-radius: 16px;
+    animation: 1s service-mockup-animation infinite;
+}
+
+.service-card-mockup-name {
+    width: 50%;
+    height: 22px;
+    background: var(--color-lightgray-two);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    animation: 1s service-mockup-animation infinite;
+}
+
+.service-card-mockup-description {
+    display: grid;
+    gap: 8px;
+}
+
+.service-card-mockup-description>div {
+    width: 100%;
+    height: 20px;
+    background: var(--color-lightgray-two);
+    border-radius: 8px;
+    animation: 1s service-mockup-animation infinite;
+}
+
+.service-card-mockup-description>div:nth-child(4) {
+    width: 55%;
+}
+
+@keyframes service-mockup-animation {
+    0% {
+        opacity: 0.5;
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.5;
+    }
+}
+
 /* RATING TAG */
 
 .service-rating-tag {
@@ -378,6 +453,52 @@
     line-height: 14px;
 }
 
+.service-dropdown-similar-services {
+    display: flex;
+    gap: 10px;
+    overflow: auto;
+}
+
+.service-dropdown-similar-service-link {
+    color: var(--color-black);
+    text-decoration: none;
+}
+
+.service-dropdown-similar-service-card {
+    width: 132px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(244, 247, 255, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.service-dropdown-similar-service-card-logo {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-white);
+    border-radius: 10px;
+    flex-shrink: 0;
+    overflow: hidden;
+}
+
+.service-dropdown-similar-service-card-logo>img {
+    width: 50px;
+}
+
+.service-dropdown-similar-service-card>p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    max-height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* SERVICE BANNER */
 
 .service-banner-wrapper {
@@ -518,6 +639,76 @@
     margin-bottom: 32px;
 }
 
+/* SERVICE PAGE MOCKUP */
+
+.service-page-mockup-header {
+    margin-bottom: 32px;
+}
+
+.service-page-mockup-header-title {
+    width: 200px;
+    height: 32px;
+    background: var(--color-lightblue-two);
+    border-radius: 12px;
+    animation: 1s service-mockup-animation infinite;
+}
+
+.service-page-mockup-description {
+    width: 100%;
+    height: 100px;
+    background: var(--color-lightblue-two);
+    border-radius: 12px;
+    margin: 32px 0;
+    animation: 1s service-mockup-animation infinite;
+}
+
+.service-page-mockup-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 32px;
+}
+
+.service-page-mockup-details>div {
+    width: 100px;
+    height: 16px;
+    background: var(--color-lightblue-two);
+    border-radius: 12px;
+    animation: 1s service-mockup-animation infinite;
+}
+
+.service-page-mockup-details>div:nth-child(2n) {
+    justify-self: flex-end;
+}
+
+.service-page-mockup-details>div:nth-child(3n) {
+    width: 120px;
+}
+
+.service-page-mockup-details>div:nth-child(5n) {
+    width: 180px;
+}
+
+.service-page-mockup-images {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 12px;
+    grid-auto-rows: min-content;
+}
+
+.service-page-mockup-images>div {
+    width: 100%;
+    height: 100px;
+    background: var(--color-lightblue-two);
+    border-radius: 8px;
+    animation: 1s service-mockup-animation infinite;
+}
+
+.service-page-mockup-images>div:nth-child(1) {
+    grid-column-end: span 3;
+    height: 300px;
+}
+
 /* SERVICES LIST PAGE */
 
 .services-list-header-container {
@@ -598,7 +789,8 @@
     margin-bottom: 0 !important;
 }
 
-.services-list-cards-container .service-card-container {
+.services-list-cards-container .service-card-container,
+.services-list-cards-container .service-card-mockup-container {
     width: 235px !important;
 }
 
@@ -1222,6 +1414,47 @@
         padding: 6px 8px;
     }
 
+    .service-card-mockup-container {
+        width: 100%;
+        height: auto;
+        padding: 12px;
+        display: flex;
+        gap: 16px;
+    }
+
+    .service-card-mockup-header {
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+    }
+
+    .service-card-mockup-logo {
+        width: 64px;
+        height: 64px;
+        border-radius: 10px;
+    }
+
+    .service-card-mockup-name {
+        height: 18px;
+        margin-bottom: 10px;
+    }
+
+    .service-card-mockup-header+div {
+        width: 100%;
+    }
+
+    .service-card-mockup-description {
+        gap: 4px;
+    }
+
+    .service-card-mockup-description>div {
+        height: 16px;
+    }
+
+    .service-card-mockup-rating {
+        width: 40px;
+    }
+
     .service-main-container {
         grid-template-columns: auto;
         margin-bottom: 32px;
@@ -1384,6 +1617,14 @@
         gap: 16px;
     }
 
+    .service-page-mockup-details>div:nth-child(5n) {
+        width: 150px;
+    }
+
+    .service-page-mockup-images {
+        display: none;
+    }
+
     .services-list-header-container {
         flex-direction: column;
         align-items: flex-start;
@@ -1420,7 +1661,8 @@
         gap: 8px;
     }
 
-    .services-list-cards-container .service-card-container {
+    .services-list-cards-container .service-card-container,
+    .services-list-cards-container .service-card-mockup-container {
         width: 100% !important;
     }
 

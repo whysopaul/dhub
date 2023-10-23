@@ -31,7 +31,7 @@
 
 .feedback-card-header {
     display: grid;
-    grid-template-columns: 64px auto auto;
+    grid-template-columns: 64px 1fr auto;
     align-items: center;
 }
 
@@ -223,11 +223,21 @@
     color: var(--color-white);
 }
 
-.feedback-card-delete-container {
+.feedback-card-buttons-container {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 12px;
     margin-top: 24px;
+}
+
+.feedback-card-buttons-container>button:nth-child(1) {
+    font-family: 'Noto Sans';
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: var(--color-blue);
+    cursor: pointer;
 }
 
 /* FEEDBACK POPUP */

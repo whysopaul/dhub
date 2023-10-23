@@ -48,6 +48,10 @@
     max-width: 500px;
 }
 
+.home-welcome-right-block {
+    line-height: 0;
+}
+
 .home-welcome-right-block>img {
     position: absolute;
     width: 678px;
@@ -333,7 +337,7 @@
 
 .home-feedback-cards {
     display: grid;
-    grid-template-columns: repeat(2, auto);
+    grid-template-columns: repeat(2, 1fr);
     gap: 16px;
     position: relative;
 }

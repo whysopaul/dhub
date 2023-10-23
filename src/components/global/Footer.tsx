@@ -10,7 +10,8 @@ const Footer: React.FunctionComponent<IFooterProps> = (props) => {
     return <>
         <footer className='footer'>
             <div className='footer-wrapper'>
-                <img src={Logo} alt='digital.hub' />
+                {/* <img src={Logo} alt='digital.hub' /> */}
+                <h2 className='footer-logo'>digital <span>hub</span></h2>
                 <div className='footer-navigation'>
                     <Navigation />
                 </div>

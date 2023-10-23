@@ -43,7 +43,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                         return <li><span>Сервисы</span></li>
                     default:
                         if (parseInt(link) > 1000) {
-                            return <li><span>{rootState.services.services.find(service => service.id === parseInt(link))?.name}</span></li>
+                            return <li><span>{rootState.services.services_simple_list.find(service => service.id === parseInt(link))?.name}</span></li>
                         } else {
                             return null
                         }
@@ -159,7 +159,8 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
 
         <header className='header'>
             <div className='header-navbar'>
-                <img src={Logo} alt="" className='cursor-pointer' onClick={() => navigate('/')} />
+                {/* <img src={Logo} alt="" className='cursor-pointer' onClick={() => navigate('/')} /> */}
+                <h1 className='header-logo'><Link to='/' title='Главная страница'>digital <span>hub</span></Link></h1>
                 <div className='header-navbar-navigation'>
                     <Navigation />
                 </div>

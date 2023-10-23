@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, CREATE_SERVICE_APPLICATION, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, DELETE_SERVICE_APPLICATION, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, GET_SERVICE_APPLICATIONS, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceApplication, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, UPDATE_COLLECTION, servicesDispatchTypes } from "./types";
+import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, CREATE_SERVICE_APPLICATION, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, DELETE_SERVICE_APPLICATION, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_ALL_SERVICES_SIMPLE_LIST, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_MAIN_PAGE, GET_SEARCH, GET_SERVICE, GET_SERVICE_APPLICATIONS, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceApplication, TServiceLocation, TServicePlatform, TServiceSearch, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, UPDATE_COLLECTION, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -55,6 +55,7 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes |
                 categories_3: s_c_3[s.id],
                 description: {
                     ...s.description,
+                    text: s.id > 4000 ? s.description.text.split('\n').slice(1).join('\n') : s.description.text,
                     locations: s_l[s.id],
                     platforms: s_p[s.id]
                 }
@@ -116,6 +117,77 @@ export const getServicesData = () => (dispatch: Dispatch<servicesDispatchTypes |
 
 }
 
+export const getMainPage = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+
+    dispatch({
+        type: SERVICES_LOADING,
+        payload: true
+    })
+
+    axios.get(SERVER_URL + '/getMainPage').then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: SERVICES_LOADING,
+            payload: false
+        })
+
+        dispatch({
+            type: GET_MAIN_PAGE,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+
+        dispatch({
+            type: SERVICES_LOADING,
+            payload: false
+        })
+    })
+}
+
+export const getSearch = (params: TServiceSearch, page: number, number_of_elements: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+
+    dispatch({
+        type: SERVICES_LOADING,
+        payload: true
+    })
+
+    axios.post(SERVER_URL + '/getSearch', JSON.stringify({ params, page, number_of_elements })).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: SERVICES_LOADING,
+            payload: false
+        })
+
+        dispatch({
+            type: GET_SEARCH,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+
+        dispatch({
+            type: SERVICES_LOADING,
+            payload: false
+        })
+    })
+}
+
+export const getAllServicesSimpleList = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getServicesSimpleList').then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: GET_ALL_SERVICES_SIMPLE_LIST,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
 export const getAllServicesLocations = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getLocations').then(res => {
         // console.log(res.data)
@@ -161,7 +233,13 @@ export const getService = (service_id: number) => (dispatch: Dispatch<servicesDi
 
         dispatch({
             type: GET_SERVICE,
-            payload: res.data
+            payload: {
+                ...res.data,
+                description: {
+                    ...res.data.description,
+                    text: res.data.id > 4000 ? res.data.description.text.split('\n').slice(1).join('\n') : res.data.description.text
+                }
+            }
         })
     }).catch(error => {
         console.log(error)

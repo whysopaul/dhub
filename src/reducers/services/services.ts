@@ -1,9 +1,15 @@
-import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, feedbackDispatchTypes } from "../../actions/feedback/types"
-import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, UPDATE_COLLECTION, servicesDispatchTypes } from "../../actions/services/types"
+import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, FEEDBACK_UPDATE_FEEDBACK, feedbackDispatchTypes } from "../../actions/feedback/types"
+import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_ALL_SERVICES_SIMPLE_LIST, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_MAIN_PAGE, GET_SEARCH, GET_SERVICE, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, TDiscount, TMainPage, TServiceLocation, TServicePlatform, TServicesBlock, TServicesCollection, TServicesData, TServicesDataSimple, UPDATE_BLOCK, UPDATE_COLLECTION, servicesDispatchTypes } from "../../actions/services/types"
 
 interface IDefaultState {
+    main_page: TMainPage,
+    search: {
+        total_count: number,
+        data: TServicesData[]
+    },
     services: TServicesData[],
     services_hidden: TServicesData[],
+    services_simple_list: TServicesDataSimple[],
     locations: TServiceLocation[],
     platforms: TServicePlatform[],
     discounts: TDiscount[],
@@ -16,8 +22,20 @@ interface IDefaultState {
 }
 
 const defaultState: IDefaultState = {
+    main_page: {
+        new_services: [],
+        free_services: [],
+        top_services: [],
+        feedbacks_data: [],
+        all_services: []
+    },
+    search: {
+        total_count: 0,
+        data: []
+    },
     services: [],
     services_hidden: [],
+    services_simple_list: [],
     locations: [],
     platforms: [],
     discounts: [],
@@ -31,11 +49,26 @@ const defaultState: IDefaultState = {
 
 const servicesReducer = (state: IDefaultState = defaultState, action: servicesDispatchTypes | feedbackDispatchTypes) => {
     switch (action.type) {
+        case GET_MAIN_PAGE:
+            return {
+                ...state,
+                main_page: action.payload
+            }
+        case GET_SEARCH:
+            return {
+                ...state,
+                search: action.payload
+            }
         case GET_ALL_SERVICES:
             return {
                 ...state,
                 services: action.payload.filter(s => !s.is_hidden),
                 services_hidden: action.payload.filter(s => s.is_hidden)
+            }
+        case GET_ALL_SERVICES_SIMPLE_LIST:
+            return {
+                ...state,
+                services_simple_list: action.payload
             }
         case GET_ALL_SERVICES_LOCATIONS:
             return {
@@ -241,6 +274,23 @@ const servicesReducer = (state: IDefaultState = defaultState, action: servicesDi
                 }
             }
         case FEEDBACK_TOGGLE_FEEDBACK_UPVOTE:
+            return {
+                ...state,
+                currentService: !state.currentService ? null : {
+                    ...state.currentService,
+                    feedbacks: state.currentService.id === action.payload.service
+                        ? [
+                            ...state.currentService.feedbacks.map(feedback => {
+                                if (feedback.id === action.payload.id) {
+                                    return action.payload
+                                }
+                                return feedback
+                            })
+                        ]
+                        : [...state.currentService.feedbacks]
+                }
+            }
+        case FEEDBACK_UPDATE_FEEDBACK:
             return {
                 ...state,
                 currentService: !state.currentService ? null : {

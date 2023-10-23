@@ -8,6 +8,7 @@ import { RootStore } from '../../store';
 import Loading from '../global/Loading';
 import ServiceCardComponent from '../services/ServiceCardComponent';
 import '../../static/css/collections.less';
+import ServiceCardMockup from '../services/ServiceCardMockup';
 
 interface ICollectionPageProps {
 }
@@ -38,14 +39,14 @@ const CollectionPage: React.FunctionComponent<ICollectionPageProps> = (props) =>
         <h2 className='section-main-title'>{serviceState.collections?.find(c => c.id === parseInt(collectionId))?.title}</h2>
 
         {serviceState.blocks.length === 0 ? <Loading height={310} /> : <div className='collection-blocks-container'>
-            {serviceState.blocks?.filter(b => serviceState.collections.find(c => c.id === parseInt(collectionId)).connections.map(b_c => b_c.block).includes(b.id)).map(b => {
+            {serviceState.blocks?.filter(b => serviceState.collections.find(c => c.id === parseInt(collectionId))?.connections.map(b_c => b_c.block).includes(b.id)).map(b => {
                 return <>
                     <div className='home-section-common-container' key={b.id}>
                         <div className='home-section-title'>
                             <h2>{b.title}</h2>
                         </div>
                         <div className='home-services-cards'>
-                            {serviceState.services.filter(s => b.service_ids.includes(s.id)).map(s => {
+                            {serviceState.is_loading ? <ServiceCardMockup qty={5} /> : serviceState.services.filter(s => b.service_ids.includes(s.id)).map(s => {
                                 return <ServiceCardComponent service={s} key={s.id} />
                             })}
                         </div>

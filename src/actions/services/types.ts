@@ -2,7 +2,11 @@ import { TUserData } from "../auth/types"
 import { TCategory } from "../categories/types"
 import { TFeedback } from "../feedback/types"
 
+export const GET_MAIN_PAGE = 'GET_MAIN_PAGE'
+export const GET_SEARCH = 'GET_SEARCH'
+
 export const GET_ALL_SERVICES = 'GET_ALL_SERVICES'
+export const GET_ALL_SERVICES_SIMPLE_LIST = 'GET_ALL_SERVICES_SIMPLE_LIST'
 export const GET_ALL_SERVICES_LOCATIONS = 'GET_ALL_SERVICES_LOCATIONS'
 export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
 export const GET_ALL_SERVICES_DISCOUNTS = 'GET_ALL_SERVICES_DISCOUNTS'
@@ -73,6 +77,12 @@ export type TServicesData = {
     isNew?: boolean
 }
 
+export type TServicesDataSimple = {
+    id: number,
+    name: string,
+    logo: string
+}
+
 export type TServiceLocation = {
     id: number,
     name: string,
@@ -140,9 +150,47 @@ export type TServicesCollection = {
     }[]
 }
 
+export type TMainPage = {
+    new_services: TServicesData[],
+    free_services: TServicesData[],
+    top_services: TServicesData[],
+    feedbacks_data: TFeedback[],
+    all_services: TServicesData[]
+}
+
+export type TServiceSearch = {
+    search_string: string,
+    include_name: boolean,
+    include_description: boolean,
+    is_free: boolean,
+    has_trial: boolean,
+    has_partnership: boolean,
+    country: string,
+    categories_ids: number[],
+    collection_id: number
+}
+
+interface IGetMainPage {
+    type: typeof GET_MAIN_PAGE,
+    payload: TMainPage
+}
+
+interface IGetSearch {
+    type: typeof GET_SEARCH,
+    payload: {
+        total_count: number,
+        data: TServicesData[]
+    }
+}
+
 interface IGetAllServices {
     type: typeof GET_ALL_SERVICES,
     payload: TServicesData[]
+}
+
+interface IGetAllServicesSimpleList {
+    type: typeof GET_ALL_SERVICES_SIMPLE_LIST,
+    payload: TServicesDataSimple[]
 }
 
 interface IGetAllServicesLocations {
@@ -275,7 +323,7 @@ interface IDeleteAction {
     payload: string
 }
 
-export type servicesDispatchTypes = IGetAllServices | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IGetBlock | IGetBlocks | IGetCollection | IGetCollections
+export type servicesDispatchTypes = IGetMainPage | IGetSearch | IGetAllServices | IGetAllServicesSimpleList | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IGetBlock | IGetBlocks | IGetCollection | IGetCollections
     | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus
     | IUpdateBlock | IUpdateCollection
     | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | ICreateServiceApplication | ICreateBlock | ICreateCollection

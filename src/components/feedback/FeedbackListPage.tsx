@@ -1,24 +1,33 @@
 import * as React from 'react';
-// import { useSelector } from 'react-redux';
-// import { RootStore } from '../../store';
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../store';
 // import CategoryTag from '../categories/CategoryTag';
-import { mockFeedbackData } from '../../actions/feedback/feedback';
+import { feedbackSearchFeedbacks, mockFeedbackData } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from './FeedbackCardComponent';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 interface IFeedbackListPageProps {
 }
 
 const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props) => {
 
-    // const rootState = useSelector((state: RootStore) => state)
+    const dispatch = useDispatch()
+
+    const feedbackState = useSelector((state: RootStore) => state.feedback)
+
+    const [search, setSearch] = useState('')
+    const [currentPage, setCurrentPage] = useState(1)
+
+    useEffect(() => {
+        dispatch(feedbackSearchFeedbacks({ service_name: search }, currentPage, numberOfFeedbacks))
+    }, [, search, currentPage])
 
     const titleRef = useRef(null)
 
-    const totalCount = mockFeedbackData.length
-    const [numberOfServices] = useState(8)
-    const [currentPage, setCurrentPage] = useState(1)
-    const numberOfPages = new Array(Math.ceil(totalCount / numberOfServices)).fill('').map((_, idx) => idx + 1)
+    const totalCount = feedbackState.search_feedbacks.total_count
+    const [numberOfFeedbacks] = useState(8)
+    const numberOfPages = new Array(Math.ceil(totalCount / numberOfFeedbacks)).fill('').map((_, idx) => idx + 1)
     const siblingCount = 1
     const DOTS = '...'
 
@@ -32,7 +41,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
     };
 
     const paginationRange = useMemo(() => {
-        const totalPageCount = Math.ceil(totalCount / numberOfServices);
+        const totalPageCount = Math.ceil(totalCount / numberOfFeedbacks);
 
         // Pages count is determined as siblingCount + firstPage + lastPage + currentPage + 2*DOTS
         const totalPageNumbers = siblingCount + 5;
@@ -112,7 +121,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
             </div>
         </div>
         <div className='wide-search-container'>
-            <input type='text' placeholder='Введите название сервиса' autoComplete='off' />
+            <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
             <i className='fas fa-search color-blue' />
         </div>
         {/* <div className='categories-section'>
@@ -128,7 +137,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
         </div> */}
 
         <div className='feedback-cards'>
-            {mockFeedbackData.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(i => {
+            {feedbackState.search_feedbacks.data?.map(i => {
                 return <FeedbackCardComponent comment={i} key={i.id} />
             })}
         </div>

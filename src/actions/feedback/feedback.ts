@@ -1,4 +1,4 @@
-import { FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_GET_USER_FEEDBACK, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, TFeedback, feedbackDispatchTypes } from "./types";
+import { FEEDBACK_CLEAR_GENERATED_FEEDBACK, FEEDBACK_CREATE_FEEDBACK, FEEDBACK_DELETE_FEEDBACK, FEEDBACK_GENERATE_FEEDBACK, FEEDBACK_GET_USER_FEEDBACK, FEEDBACK_IS_LOADING, FEEDBACK_SEARCH_FEEDBACKS, FEEDBACK_TOGGLE_FEEDBACK_UPVOTE, FEEDBACK_UPDATE_FEEDBACK, TFeedback, feedbackDispatchTypes } from "./types";
 import MockFeedbackUserPhoto from '../../static/images/feedback_user_mock_photo.webp';
 import { Dispatch } from "react";
 import axios from "axios";
@@ -30,6 +30,54 @@ export const feedbackToggleFeedbackUpvote = (d_token: string, id: number) => (di
     })
 }
 
+export const feedbackUpdateFeedback = (d_token: string, feedback: TFeedback) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
+    axios.post(SERVER_URL + '/updateFeedback', JSON.stringify({ d_token, feedback })).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: FEEDBACK_UPDATE_FEEDBACK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const feedbackGenerateFeedback = (d_token: string, feedback: TFeedback) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
+
+    dispatch({
+        type: FEEDBACK_IS_LOADING,
+        payload: true
+    })
+
+    axios.post(SERVER_URL + '/generateFeedback', JSON.stringify({ d_token, feedback })).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: FEEDBACK_IS_LOADING,
+            payload: false
+        })
+
+        dispatch({
+            type: FEEDBACK_GENERATE_FEEDBACK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+
+        dispatch({
+            type: FEEDBACK_IS_LOADING,
+            payload: false
+        })
+    })
+}
+
+export const feedbackClearGeneratedFeedback = () => (dispatch: Dispatch<feedbackDispatchTypes>) => {
+    dispatch({
+        type: FEEDBACK_CLEAR_GENERATED_FEEDBACK
+    })
+}
+
 export const feedbackDeleteFeedback = (d_token: string, id: number) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
     axios.delete(SERVER_URL + '/deleteFeedback', { params: { d_token, id } }).then(res => {
         // console.log(res.data)
@@ -49,6 +97,19 @@ export const feedbackGetUserFeedback = (d_token: string) => (dispatch: Dispatch<
 
         dispatch({
             type: FEEDBACK_GET_USER_FEEDBACK,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const feedbackSearchFeedbacks = (params: { service_name: string }, page: number, number_of_elements: number) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
+    axios.post(SERVER_URL + '/searchFeedbacks', JSON.stringify({ params, page, number_of_elements })).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: FEEDBACK_SEARCH_FEEDBACKS,
             payload: res.data
         })
     }).catch(error => {

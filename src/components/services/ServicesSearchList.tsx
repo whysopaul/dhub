@@ -7,11 +7,13 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { TServicesData } from '../../actions/services/types';
 import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
-import Loading from '../global/Loading';
 import { URL, countriesList } from '../utils';
 import { useNavigate, useParams } from 'react-router';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import ServiceCardMockup from './ServiceCardMockup';
+import { useDispatch } from 'react-redux';
+import { getSearch } from '../../actions/services/services';
 
 interface IServicesSearchListProps {
 }
@@ -21,20 +23,24 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const { pageNumber } = useParams()
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const dispatch = useDispatch()
 
     const rootState = useSelector((state: RootStore) => state)
 
     const [search, setSearch] = useState('')
-    const [isNotFree, setIsNotFree] = useState<boolean>(null)
-    const [hasNoTrial, setHasNoTrial] = useState<boolean>(null)
-    const [hasNoPartnership, setHasNoPartnership] = useState<boolean>(null)
+    const [isFree, setIsFree] = useState<boolean>(null)
+    const [hasTrial, setHasTrial] = useState<boolean>(null)
+    const [hasPartnership, setHasPartnership] = useState<boolean>(null)
     const [paymentMethods, setPaymentMethods] = useState<number[]>([])
     const [searchCategories, setSearchCategories] = useState('')
     const [selectedCategories, setSelectedCategories] = useState<number[]>([])
     const [searchByName, setSearchByName] = useState(true)
     const [searchByText, setSearchByText] = useState(true)
     const [country, setCountry] = useState('')
-    const [collection, setCollection] = useState(-1)
+    const [collection, setCollection] = useState<number>(null)
+    const [currentPage, setCurrentPage] = useState(1)
 
     const [showDropdown, setShowDropdown] = useState(false)
     const dropdownRef = useRef(null)
@@ -46,13 +52,21 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
     const [sortMode, setSortMode] = useState<string>('default')
 
+    const [isParamsChecked, setIsParamsChecked] = useState(false)
+
+    useEffect(() => {
+        if (isParamsChecked) {
+            dispatch(getSearch({ search_string: search, include_name: searchByName, include_description: searchByText, is_free: isFree, has_trial: hasTrial, has_partnership: hasPartnership, country, categories_ids: selectedCategories, collection_id: collection }, currentPage, numberOfServices))
+        }
+    }, [, isParamsChecked, search, isFree, hasTrial, hasPartnership, searchByName, searchByText, country, collection, currentPage])
+
     const searchSource = (): TServicesData[] => {
         if (collection !== -1)
             return rootState.services.services.filter(s => rootState.services.blocks.filter(b => rootState.services.collections.find(c => c.id === collection).connections.map(b_c => b_c.block).includes(b.id)).flatMap(b => b.service_ids).includes(s.id))
         return rootState.services.services
     }
 
-    const searchCondition: TServicesData[] = searchSource().map(service => {
+    /* const searchCondition: TServicesData[] = searchSource().map(service => {
         return {
             ...service,
             description: {
@@ -96,7 +110,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             return 0
         }
         return
-    })
+    }) */
 
     const searchCategoriesCondition = rootState.categories.categories.filter(category => category.index === 3).filter(category => category.name.toLocaleLowerCase().includes(searchCategories.toLocaleLowerCase()))
 
@@ -127,13 +141,13 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             urlParams.append('search', search.trim())
         }
 
-        if (isNotFree === false) {
+        if (isFree) {
             urlParams.append('isFree', 'true')
         }
-        if (hasNoTrial === false) {
+        if (hasTrial) {
             urlParams.append('hasTrial', 'true')
         }
-        if (hasNoPartnership === false) {
+        if (hasPartnership) {
             urlParams.append('hasPartnership', 'true')
         }
 
@@ -165,7 +179,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             urlParams.append('country', country)
         }
 
-        if (collection !== -1) {
+        if (collection) {
             urlParams.append('collection', collection.toString())
         }
 
@@ -175,9 +189,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const titleRef = useRef<HTMLHeadingElement>(null)
     const [copied, setCopied] = useState(false)
 
-    const totalCount = searchCondition.length
+    const totalCount = rootState.services.search.total_count //searchCondition.length
     const [numberOfServices] = useState(20)
-    const [currentPage, setCurrentPage] = useState(1)
     const numberOfPages = new Array(Math.ceil(totalCount / numberOfServices)).fill('').map((_, idx) => idx + 1)
     const siblingCount = 1
     const DOTS = '...'
@@ -257,20 +270,22 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     }, [currentPage, numberOfPages, totalCount]);
 
     useEffect(() => {
+        setIsParamsChecked(false)
+
         setSortMode('default')
 
-        const urlParams = new URLSearchParams(window.location.search)
+        const urlParams = new URLSearchParams(location.search)
         if (urlParams.has('search')) {
             setSearch(urlParams.get('search'))
         }
         if (urlParams.has('isFree')) {
-            setIsNotFree(false)
+            setIsFree(true)
         }
         if (urlParams.has('hasTrial')) {
-            setHasNoTrial(false)
+            setHasTrial(true)
         }
         if (urlParams.has('hasPartnership')) {
-            setHasNoPartnership(false)
+            setHasPartnership(true)
         }
         if (urlParams.has('categories')) {
             setSelectedCategories(urlParams.get('categories').split(',').map(category => Number(category)))
@@ -296,6 +311,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (urlParams.has('collection')) {
             setCollection(parseInt(urlParams.get('collection')))
         }
+
+        setIsParamsChecked(true)
     }, [])
 
     // Not reload page with pageNumber on first render
@@ -314,7 +331,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (!firstRender && !window.location.search) {
             navigate('/services')
         }
-    }, [, search, isNotFree, hasNoTrial, hasNoPartnership, paymentMethods, selectedCategories, searchByName, searchByText, country, collection])
+    }, [, search, isFree, hasTrial, hasPartnership, paymentMethods, selectedCategories, searchByName, searchByText, country, collection])
 
     useEffect(() => {
         if (!pageNumber || parseInt(pageNumber) === 1) {
@@ -337,10 +354,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
         <div className='services-list-header-container'>
             <div className='services-list-search-title'>
-                <h2 className='section-main-title' ref={titleRef}>{collection === -1 ? 'Найденные сервисы:' : rootState.services.collections.find(c => c.id === collection)?.title}</h2>
-                <span className='services-list-services-number'>{searchCondition.length}</span>
+                <h2 className='section-main-title' ref={titleRef}>{!collection ? 'Найденные сервисы:' : rootState.services.collections.find(c => c.id === collection)?.title}</h2>
+                <span className='services-list-services-number'>{totalCount}</span>
             </div>
-            {searchCondition.length > 0 && <div className='sort-selection view-desktop'>
+            {totalCount > 0 && <div className='sort-selection view-desktop'>
                 <span>Сортировать:</span>
                 <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
                     <option value='default'>по умолчанию</option>
@@ -356,8 +373,8 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 <div className='wide-search-container'>
                     <div className='services-list-search-params'>
                         <span>Поиск по:</span>
-                        <label><input type='checkbox' onChange={() => setSearchByName(!searchByName)} checked={searchByName} /> названию</label>
-                        <label><input type='checkbox' onChange={() => setSearchByText(!searchByText)} checked={searchByText} /> описанию</label>
+                        <label><input type='checkbox' onChange={() => setSearchByName(searchByName ? null : true)} checked={searchByName} /> названию</label>
+                        <label><input type='checkbox' onChange={() => setSearchByText(searchByText ? null : true)} checked={searchByText} /> описанию</label>
                     </div>
                     <input type='text' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
                     <i className='fas fa-search color-blue' />
@@ -404,7 +421,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         value={collection}
                         onChange={e => setCollection(parseInt(e.target.value))}
                     >
-                        <option value={-1}>--------</option>
+                        <option value={null}>--------</option>
                         {rootState.services.collections.map(c => {
                             return <option value={c.id} key={c.id}>{c.title}</option>
                         })}
@@ -414,9 +431,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 <div className='service-selection-advanced-inputs view-desktop'>
                     <div>
                         <p>Функциональные особенности:</p>
-                        <label><input type='checkbox' onChange={() => setIsNotFree(isNotFree === false ? null : false)} checked={isNotFree === false} />Бесплатная версия</label>
-                        <label><input type='checkbox' onChange={() => setHasNoTrial(hasNoTrial === false ? null : false)} checked={hasNoTrial === false} />Пробный период</label>
-                        <label><input type='checkbox' onChange={() => setHasNoPartnership(hasNoPartnership === false ? null : false)} checked={hasNoPartnership === false} />Партнёрская программа</label>
+                        <label><input type='checkbox' onChange={() => setIsFree(isFree ? null : true)} checked={isFree} />Бесплатная версия</label>
+                        <label><input type='checkbox' onChange={() => setHasTrial(hasTrial ? null : true)} checked={hasTrial} />Пробный период</label>
+                        <label><input type='checkbox' onChange={() => setHasPartnership(hasPartnership ? null : true)} checked={hasPartnership} />Партнёрская программа</label>
                     </div>
                     <div>
                         <p>Способ оплаты:</p>
@@ -448,9 +465,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                             <i className={openMobileFuncInputs ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
                         </div>
                         {openMobileFuncInputs && <div className='service-dropdown-content'>
-                            <label><input type='checkbox' onChange={() => setIsNotFree(isNotFree === false ? null : false)} checked={isNotFree === false} />Бесплатная версия</label>
-                            <label><input type='checkbox' onChange={() => setHasNoTrial(hasNoTrial === false ? null : false)} checked={hasNoTrial === false} />Пробный период</label>
-                            <label><input type='checkbox' onChange={() => setHasNoPartnership(hasNoPartnership === false ? null : false)} checked={hasNoPartnership === false} />Партнёрская программа</label>
+                            <label><input type='checkbox' onChange={() => setIsFree(isFree ? null : true)} checked={isFree} />Бесплатная версия</label>
+                            <label><input type='checkbox' onChange={() => setHasTrial(hasTrial ? null : true)} checked={hasTrial} />Пробный период</label>
+                            <label><input type='checkbox' onChange={() => setHasPartnership(hasPartnership ? null : true)} checked={hasPartnership} />Партнёрская программа</label>
                         </div>}
                     </div>
                     <div className='service-dropdown-container'>
@@ -492,7 +509,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <i className='fas fa-times' />
                     </button>
                 </div>
-                {searchCondition.length > 0 && <div className='sort-selection view-mobile'>
+                {/* searchCondition.length > 0 && */ <div className='sort-selection view-mobile'>
                     <span>Сортировать:</span>
                     <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
                         <option value='default'>по умолчанию</option>
@@ -533,16 +550,19 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                     </div>
                 </div>
             </div>
-            {searchCondition.length > 0 && <div className='services-list-cards-container'>
-                {searchCondition.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(service => {
+            {!rootState.services.is_loading && totalCount > 0 && <div className='services-list-cards-container'>
+                {/* {searchCondition.slice(currentPage === 1 ? 0 : (currentPage - 1) * numberOfServices, currentPage * numberOfServices).map(service => {
+                    return <ServiceCardComponent service={service} key={service.id} />
+                })} */}
+                {rootState.services.search.data?.map(service => {
                     return <ServiceCardComponent service={service} key={service.id} />
                 })}
             </div>}
-            {!rootState.services.is_loading && searchCondition.length === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}
-            {rootState.services.is_loading && <Loading height={505} />}
+            {!rootState.services.is_loading && totalCount === 0 && <div className='services-list-not-found'><i className='fas fa-times' /><p>По запросу ничего не найдено</p></div>}
+            {rootState.services.is_loading && <div className='services-list-cards-container'><ServiceCardMockup qty={20} /></div>}
         </div>
 
-        {searchCondition.length > 0 && numberOfPages.length > 1 && <div className='services-list-pagination'>
+        {/* searchCondition.length > 0 && */ numberOfPages.length > 1 && <div className='services-list-pagination'>
             <Link
                 className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'}
                 to={currentPage > 1 && '/services/' + (currentPage - 1)}

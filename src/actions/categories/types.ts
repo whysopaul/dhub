@@ -18,6 +18,7 @@ export type TCategory = {
     name: string,
     index: number,
     parent?: number,
+    service_count: number,
     connections?: {
         id: number,
         service: number,

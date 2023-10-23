@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { RootStore } from '../../store';
 import { useEffect, useState } from 'react';
 import '../../static/css/services.css';
@@ -18,8 +18,8 @@ import { useDispatch } from 'react-redux';
 import { getService } from '../../actions/services/services';
 import { feedbacksLength, getScreen } from '../utils';
 import { userAddHistory, userShowLoginPopup } from '../../actions/auth/auth';
-import Loading from '../global/Loading';
 import { Helmet } from 'react-helmet-async';
+import ServicePageMockup from './ServicePageMockup';
 
 interface IServicePageProps {
 }
@@ -35,13 +35,16 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     const [openDiscounts, setOpenDiscounts] = useState(false)
     const [openScreenshots, setOpenScreenshots] = useState(false)
     const [openCategories, setOpenCategories] = useState(false)
+    const [openSimilarServices, setOpenSimilarServices] = useState(false)
     const [openSpecialistInfo, setOpenSpecialistInfo] = useState(false)
 
     const dispatch = useDispatch()
 
+    const { pathname } = useLocation()
+
     useEffect(() => {
         dispatch(getService(parseInt(serviceId)))
-    }, [, serviceState.services])
+    }, [, serviceState.services, pathname])
 
     useEffect(() => {
         if (serviceState.currentService?.id === parseInt(serviceId)) {
@@ -71,6 +74,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     const [screenWidth, setScreenWidth] = useState<number>(window.innerWidth)
     const [currentCard, setCurrentCard] = useState<number>(0)
+    const [currentSpecialist, setCurrentSpecialist] = useState<number>(0)
 
     useEffect(() => {
         setScreenWidth(window.innerWidth)
@@ -95,7 +99,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
         setTouchPosition(touchDown)
     }
 
-    const handleTouchMove = (e: React.TouchEvent, cardsQty: number) => {
+    const handleTouchMove = (e: React.TouchEvent, currentItem: number, setCurrentItem: (_: number) => void, cardsQty: number) => {
         const touchDown = touchPosition
 
         if (touchDown === null) {
@@ -106,17 +110,17 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
         const diff = touchDown - currentTouch
 
         if (diff > 5) {
-            if (currentCard + 1 > cardsQty) {
-                return setCurrentCard(0)
+            if (currentItem + 1 > cardsQty) {
+                return setCurrentItem(0)
             }
-            return setCurrentCard(currentCard + 1)
+            return setCurrentItem(currentItem + 1)
         }
 
         if (diff < -5) {
-            if (currentCard - 1 < 0) {
-                return setCurrentCard(cardsQty)
+            if (currentItem - 1 < 0) {
+                return setCurrentItem(cardsQty)
             }
-            return setCurrentCard(currentCard - 1)
+            return setCurrentItem(currentItem - 1)
         }
 
         setTouchPosition(null)
@@ -124,8 +128,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     const navigate = useNavigate()
 
-    if (currentService === null) return <>
-        <Loading height={400} />
+    if (currentService === null || currentService?.id !== parseInt(serviceId)) return <>
+        <ServicePageMockup />
     </>
 
     return <>
@@ -176,8 +180,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         </div>
                         <hr />
                         <div className='service-description-text'>
-                            {currentService.description.text.split('\n').filter(p => p !== '').map(p => {
-                                return <p>{p}</p>
+                            {currentService.description.text.split('\n').filter(p => p !== '').map((p, idx) => {
+                                return <p key={idx}>{p}</p>
                             })}
                         </div>
                     </div>
@@ -271,11 +275,31 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     <ul className='categories-list'>
                                         {currentService.categories_3?.map(i => {
 
-                                            const categoriesQty = serviceState.services.filter(service => service.categories_3?.find(category => category.id === i.id)).length
+                                            // const categoriesQty = serviceState.services.filter(service => service.categories_3?.find(category => category.id === i.id)).length
 
-                                            return <CategoryTag name={i.name} qty={categoriesQty} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
+                                            return <CategoryTag name={i.name} qty={i.service_count} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
                                         })}
                                     </ul>
+                                </div>
+                            </div>}
+                        </div>
+                        <div className='service-dropdown-container'>
+                            <div className='service-dropdown-header' onClick={() => setOpenSimilarServices(!openSimilarServices)}>
+                                <p>Похожие сервисы</p>
+                                <i className={openSimilarServices ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                            </div>
+                            {openSimilarServices && <div className='service-dropdown-content'>
+                                <div className='service-dropdown-similar-services'>
+                                    {serviceState.services.filter(s => s.id !== currentService.id).filter(s => s.categories_3.some(c => currentService.categories_3.map(l_c => l_c.id).includes(c.id))).map(s => {
+                                        return <Link to={'/service/' + s.id} className='service-dropdown-similar-service-link' title={s.name} key={s.id}>
+                                            <div className='service-dropdown-similar-service-card'>
+                                                <div className='service-dropdown-similar-service-card-logo'>
+                                                    <img src={s.images.logo} alt={s.name} />
+                                                </div>
+                                                <p>{s.name}</p>
+                                            </div>
+                                        </Link>
+                                    })}
                                 </div>
                             </div>}
                         </div>
@@ -346,10 +370,10 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     })}
                 </div>}
                 {screenWidth <= 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
-                    {currentService.specialists?.slice(currentCard, currentCard + 1).map(specialist => {
-                        const dataLength = mockSpecialists.length
+                    {currentService.specialists?.slice(currentSpecialist, currentSpecialist + 1).map(specialist => {
+                        const dataLength = currentService.specialists?.length
                         return <>
-                            <SpecialistCardComponent specialist={specialist} key={specialist.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
+                            <SpecialistCardComponent specialist={specialist} key={specialist.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, currentSpecialist, setCurrentSpecialist, dataLength - 1)} />
                             <div className='cards-mobile-swipe-bar'>
                                 {[...new Array(dataLength)].map((_, idx) => {
                                     return <button className={specialist.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
@@ -378,7 +402,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     {currentService.feedbacks?.slice(currentCard, currentCard + 1).map(i => {
                         const dataLength = currentService.feedbacks.length
                         return <>
-                            <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, dataLength - 1)} />
+                            <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, currentCard, setCurrentCard, dataLength - 1)} />
                             <div className='cards-mobile-swipe-bar'>
                                 {[...new Array(dataLength)].map((_, idx) => {
                                     return <button className={currentCard === idx ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>

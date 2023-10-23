@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import LogoTransparent from '../../static/images/logo_transparent.svg';
 import Navigation from './Navigation';
 import Login from './Login';
@@ -41,7 +41,8 @@ const NavbarMobile: React.FunctionComponent<INavbarMobileProps> = (props) => {
 
         <div className='navbar-mobile'>
             <div className='navbar-mobile-header'>
-                <img src={LogoTransparent} alt="" className='cursor-pointer' onClick={() => navigate('/')} />
+                {/* <img src={LogoTransparent} alt="" className='cursor-pointer' onClick={() => navigate('/')} /> */}
+                <h1 className='navbar-mobile-header-logo'><Link to='/' title='Главная страница'>digital <span>hub</span></Link></h1>
                 <div className='navbar-mobile-header-buttons'>
                     <button className='navbar-mobile-user-button' onClick={() => authState ? navigate('/profile') : setShowLoginPopup(true)}><i className='fas fa-user' /></button>
                     <button className='navbar-mobile-close-button' onClick={() => props.onClose()}><i className='fas fa-times' /></button>

@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "digital hub frontend",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "firebase-build": "tsc && vite build",
     "build": "tsc && vite build",

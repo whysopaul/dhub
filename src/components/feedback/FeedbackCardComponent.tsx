@@ -9,6 +9,7 @@ import { userShowLoginPopup } from '../../actions/auth/auth';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import FeedbackCardPopup from './FeedbackCardPopup';
+import GiveFeedbackPopup from './GiveFeedbackPopup';
 
 interface IFeedbackCardComponentProps {
     comment: TFeedback,
@@ -31,13 +32,15 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
         })
     }
 
-    const feedbackServiceData = rootState.services.services.find(service => service.id === comment.service)
+    // const feedbackServiceData = rootState.services.services.find(service => service.id === comment.service)
 
     const [showFullFeedback, setShowFullFeedback] = useState(false)
+    const [editMode, setEditMode] = useState(false)
 
     return <>
 
         {showFullFeedback && <FeedbackCardPopup comment={comment} onClose={() => setShowFullFeedback(false)} />}
+        {editMode && <GiveFeedbackPopup edit_feedback={comment} onClose={() => setEditMode(false)} />}
 
         <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
             <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
@@ -64,12 +67,12 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
             <hr />
             <div className='feedback-card-footer'>
                 <div className='feedback-service-logo'>
-                    <Link to={'/service/' + comment.service}><img src={feedbackServiceData?.images?.logo} alt={feedbackServiceData?.name} /></Link>
+                    <Link to={'/service/' + comment.service}><img src={comment.service_logo} alt={comment.service_name} /></Link>
                     {/* <i className='fas fa-icons' /> */}
                 </div>
                 <div className='feedback-service-name'>
-                    <Link to={'/service/' + comment.service}><p>{feedbackServiceData?.name}</p></Link>
-                    <Link to={'/services?categories=' + feedbackServiceData?.categories_3[0]?.id}><span>{feedbackServiceData?.categories_3[0]?.name}</span></Link>
+                    <Link to={'/service/' + comment.service}><p>{comment.service_name}</p></Link>
+                    {/* <Link to={'/services?categories=' + feedbackServiceData?.categories_3[0]?.id}><span>{feedbackServiceData?.categories_3[0]?.name}</span></Link> */}
                 </div>
                 <button
                     className={rootState.auth.user && comment.likes.includes(rootState.auth.user?.vk_id) ? 'feedback-service-likes active' : 'feedback-service-likes'}
@@ -92,7 +95,10 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                     </div>
                 </button>
             </div>
-            {(comment.user && (comment.user.vk_id === rootState.auth.user?.vk_id) || rootState.auth.user?.is_admin) && <div className='feedback-card-delete-container'>
+            {(comment.user && (comment.user.vk_id === rootState.auth.user?.vk_id) || rootState.auth.user?.is_admin) && <div className='feedback-card-buttons-container'>
+                {!show_full && <button onClick={() => setEditMode(true)}>
+                    Редактировать
+                </button>}
                 <button
                     className='delete-button'
                     onClick={() => {

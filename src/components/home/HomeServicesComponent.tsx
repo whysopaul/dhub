@@ -4,7 +4,7 @@ import ServiceCardComponent from '../services/ServiceCardComponent';
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
-import Loading from '../global/Loading';
+import ServiceCardMockup from '../services/ServiceCardMockup';
 
 interface IHomeServicesComponentProps {
     title: string,
@@ -24,7 +24,7 @@ const HomeServicesComponent: React.FunctionComponent<IHomeServicesComponentProps
                 <h2>{props.title}</h2>
             </div>
             <div className={props.extended ? 'home-services-cards extended' : 'home-services-cards'}>
-                {servicesLoading ? <Loading height={310} /> : props.data.slice(0, props.qty).map(i => {
+                {servicesLoading ? <ServiceCardMockup qty={props.qty >= 8 ? (props.qty === 10 ? 10 : 5) : 3} /> : props.data.slice(0, props.qty).map(i => {
                     return <ServiceCardComponent service={i} key={i.id} />
                 })}
             </div>

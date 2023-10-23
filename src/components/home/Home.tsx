@@ -11,7 +11,6 @@ import Header from '../global/Header';
 import Footer from '../global/Footer';
 import AddServicePopup from './AddServicePopup';
 import { mockArtData } from '../../actions/articles/articles';
-import { mockFeedbackData } from '../../actions/feedback/feedback';
 
 import '../../static/css/home.css';
 import Welcome from '../../static/images/welcome.webp';
@@ -20,6 +19,8 @@ import Taskboard from '../../static/images/taskboard.webp';
 import Subscribe from '../../static/images/subscribe.webp';
 import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
+import { useDispatch } from 'react-redux';
+import { getMainPage } from '../../actions/services/services';
 
 interface IHomeProps {
 }
@@ -30,7 +31,13 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
     // const categoriesState = useSelector((state: RootStore) => state.categories.categories)
     // const authState = useSelector((state: RootStore) => state.auth.user)
 
+    const dispatch = useDispatch()
+
     const navigate = useNavigate()
+
+    useEffect(() => {
+        dispatch(getMainPage())
+    }, [])
 
     const [showAddServicePopup, setShowAddServicePopup] = useState(false)
 
@@ -162,7 +169,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div> */}
 
-            <HomeServicesComponent title='Новые сервисы' data={[...serviceState.services].sort((a, b) => b.id - a.id)} qty={servicesQty} sortModeLink='new' />
+            <HomeServicesComponent title='Новые сервисы' data={serviceState.main_page.new_services} qty={servicesQty} sortModeLink='new' />
 
             <div className='home-banners-wrapper'>
                 <div className='home-giftbox-container'>
@@ -196,7 +203,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
             </div>
 
-            <HomeServicesComponent title='Бесплатные сервисы' data={[...serviceState.services].filter(service => service.description.isFree)} qty={servicesQty} sortModeLink='free' />
+            <HomeServicesComponent title='Бесплатные сервисы' data={serviceState.main_page.free_services} qty={servicesQty} sortModeLink='free' />
 
             <div className='home-feedback-container'>
                 <div className='home-feedback-header'>
@@ -207,12 +214,12 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     </Link>
                 </div>
                 {screenWidth > 576 && <div className='home-feedback-cards'>
-                    {mockFeedbackData.slice(0, 4).map(i => {
+                    {serviceState.main_page.feedbacks_data.slice(0, 4).map(i => {
                         return <FeedbackCardComponent comment={i} key={i.id} />
                     })}
                 </div>}
                 {screenWidth <= 576 && <div className='home-feedback-cards'>
-                    {mockFeedbackData.slice(currentComment, currentComment + 1).map(i => {
+                    {serviceState.main_page.feedbacks_data.slice(currentComment, currentComment + 1).map(i => {
                         return <>
                             <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} />
                             <div className='home-feedback-swipe-bar'>
@@ -225,11 +232,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>}
             </div>
 
-            <HomeServicesComponent title='Топ-сервисов' data={[...serviceState.services].sort((a, b) => b.rating - a.rating)} qty={servicesQty} sortModeLink='top' />
+            <HomeServicesComponent title='Топ-сервисов' data={serviceState.main_page.top_services} qty={servicesQty} sortModeLink='top' />
 
             <HomeArticlesComponent data={mockArtData} />
 
-            <HomeServicesComponent title='Все сервисы' data={serviceState.services} qty={servicesQtyExtended} extended />
+            <HomeServicesComponent title='Все сервисы' data={serviceState.main_page.all_services} qty={servicesQtyExtended} extended />
 
             <div className='home-subscription-wrapper'>
                 <div className='home-subscription-container'>

@@ -14,7 +14,7 @@ const ServiceCardComponent: React.FunctionComponent<IServiceCardComponentProps> 
             <div className='service-card-container'>
                 <div className='service-card-header'>
                     <div className='service-card-logo'>
-                        <img src={props.service.images?.logo} alt={props.service.name} />
+                        <img src={props.service.images?.logo} alt={props.service.name} loading='lazy' />
                     </div>
                     {props.service.rating === 0 ? null : <ServiceRatingTag rating={props.service.rating} />}
                 </div>
