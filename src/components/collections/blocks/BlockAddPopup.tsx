@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../../store';
 import { useDispatch } from 'react-redux';
 import { useRef, useState } from 'react';
-import { TServicesData } from '../../../actions/services/types';
+import { TServicesDataSimple } from '../../../actions/services/types';
 import { useOnClickOutside } from '../../utils/HandleClickOutside';
 import { useOnPopup } from '../../utils/HandleOnPopup';
 import { createBlock } from '../../../actions/services/services';
@@ -21,7 +21,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
     const [title, setTitle] = useState('')
     // const [collection, setCollection] = useState(-1)
     const [serviceName, setServiceName] = useState('')
-    const [services, setServices] = useState<TServicesData[]>([])
+    const [services, setServices] = useState<TServicesDataSimple[]>([])
     const [showAlert, setShowAlert] = useState(false)
 
     const ref = useRef(null)
@@ -30,7 +30,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
 
     useOnPopup()
 
-    const toggleService = (service: TServicesData) => {
+    const toggleService = (service: TServicesDataSimple) => {
         services.map(s => s.id).includes(service.id)
             ? setServices(services.filter(s => s.id !== service.id))
             : setServices([...services, service])
@@ -95,7 +95,7 @@ const BlockAddPopup: React.FunctionComponent<IBlockAddPopupProps> = (props) => {
                     })}
                 </ul>}
                 <ul className='popup-list-scroll'>
-                    {rootState.services.services.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()) && !services.map(service => service.id).includes(s.id)).map(s => {
+                    {rootState.services.services_simple_list.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()) && !services.map(service => service.id).includes(s.id)).map(s => {
                         return <li key={s.id}>
                             <button
                                 className='category-tag'

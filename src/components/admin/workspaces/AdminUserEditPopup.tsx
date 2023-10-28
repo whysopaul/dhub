@@ -68,7 +68,7 @@ const AdminUserEditPopup: React.FunctionComponent<IAdminUserEditPopupProps> = (p
                     />
                 </label>
                 {specialistServices.length > 0 && <ul className='categories-list' id='services'>
-                    {specialistServices.map(s => rootState.services.services.find(service => service.id === s)).map(s => {
+                    {specialistServices.map(s => rootState.services.services_simple_list.find(service => service.id === s)).map(s => {
                         return <li key={s.id}>
                             <button
                                 className='category-tag active'
@@ -81,7 +81,7 @@ const AdminUserEditPopup: React.FunctionComponent<IAdminUserEditPopupProps> = (p
                     })}
                 </ul>}
                 <ul className='popup-list-scroll'>
-                    {rootState.services.services.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()) && !specialistServices.includes(s.id)).map(s => {
+                    {rootState.services.services_simple_list.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()) && !specialistServices.includes(s.id)).map(s => {
                         return <li key={s.id}>
                             <button
                                 className='category-tag'

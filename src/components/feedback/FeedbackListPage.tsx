@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 // import CategoryTag from '../categories/CategoryTag';
-import { feedbackSearchFeedbacks, mockFeedbackData } from '../../actions/feedback/feedback';
+import { feedbackSearchFeedbacks } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from './FeedbackCardComponent';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';

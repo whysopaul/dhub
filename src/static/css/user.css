@@ -248,11 +248,14 @@
 
 .user-admin-panel-search-length {
     margin-right: auto;
-    font-family: 'Montserrat', sans-serif;
+    /* font-family: 'Montserrat', sans-serif; */
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
     color: #636E8D;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
 .user-admin-panel-search-length span {
@@ -261,6 +264,30 @@
     border-radius: 12px;
     font-weight: 500;
     padding: 2px 4px;
+}
+
+.user-admin-panel-search-length>select {
+    color: var(--color-blue);
+}
+
+.user-admin-panel-change-page {
+    display: flex;
+    gap: 8px;
+}
+
+.user-admin-panel-change-page>button {
+    width: 30px;
+    height: 30px;
+    color: var(--color-blue);
+    border: 1px solid var(--color-blue);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.user-admin-panel-change-page>button:disabled {
+    color: var(--color-gray);
+    border: 1px solid var(--color-gray);
+    cursor: not-allowed;
 }
 
 .user-admin-panel-table-header>.user-admin-panel-button {

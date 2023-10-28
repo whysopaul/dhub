@@ -13,26 +13,26 @@ export const FEEDBACK_SEARCH_FEEDBACKS = 'FEEDBACK_SEARCH_FEEDBACKS'
 
 export const FEEDBACK_IS_LOADING = 'FEEDBACK_IS_LOADING'
 
-type TFeedbackPoints = 1 | 2 | 3 | 4 | 5
+// type TFeedbackPoints = 1 | 2 | 3 | 4 | 5
 
-export type TFeedbackComment = {
-    id: number,
-    author: {
-        id?: number,
-        firstName: string,
-        lastName: string,
-        profilePhoto?: string
-    },
-    serviceId?: number,
-    text: string,
-    points: {
-        functionality: TFeedbackPoints,
-        usability: TFeedbackPoints,
-        customerService: TFeedbackPoints
-    },
-    totalRating?: number,
-    likes: number
-}
+// export type TFeedbackComment = {
+//     id: number,
+//     author: {
+//         id?: number,
+//         firstName: string,
+//         lastName: string,
+//         profilePhoto?: string
+//     },
+//     serviceId?: number,
+//     text: string,
+//     points: {
+//         functionality: TFeedbackPoints,
+//         usability: TFeedbackPoints,
+//         customerService: TFeedbackPoints
+//     },
+//     totalRating?: number,
+//     likes: number
+// }
 
 export type TFeedback = {
     id: number,

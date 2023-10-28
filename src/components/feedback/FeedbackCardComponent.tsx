@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import FeedbackCardPopup from './FeedbackCardPopup';
 import GiveFeedbackPopup from './GiveFeedbackPopup';
+import ConfirmPopup from '../global/ConfirmPopup';
 
 interface IFeedbackCardComponentProps {
     comment: TFeedback,
@@ -37,10 +38,13 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
     const [showFullFeedback, setShowFullFeedback] = useState(false)
     const [editMode, setEditMode] = useState(false)
 
+    const [openConfirmDeletePopup, setOpenConfirmDeletePopup] = useState(false)
+
     return <>
 
         {showFullFeedback && <FeedbackCardPopup comment={comment} onClose={() => setShowFullFeedback(false)} />}
         {editMode && <GiveFeedbackPopup edit_feedback={comment} onClose={() => setEditMode(false)} />}
+        {openConfirmDeletePopup && <ConfirmPopup title='Вы уверены, что хотите удалить данный отзыв?' type='delete' onConfirm={() => dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))} onClose={() => setOpenConfirmDeletePopup(false)} />}
 
         <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
             <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
@@ -101,9 +105,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                 </button>}
                 <button
                     className='delete-button'
-                    onClick={() => {
-                        if (confirm('Подтвердите удаление отзыва')) dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))
-                    }}
+                    onClick={() => setOpenConfirmDeletePopup(true)}
                 >
                     Удалить отзыв
                 </button>

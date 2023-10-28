@@ -120,7 +120,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
     return <>
         <div className='backdrop'></div>
         <div className='feedback-popup-container' ref={ref}>
-            <form>
+            <form style={openConfirmPopup ? { pointerEvents: 'none' } : {}}>
                 <div className='feedback-popup-main'>
                     <div className='feedback-popup-columns'>
                         {/* <div>
@@ -183,19 +183,26 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                             type='button'
                             className='feedback-popup-bottom-buttons-ai-button'
                             title='Дописать отзыв с помощью ИИ'
-                            onClick={() => dispatch(feedbackGenerateFeedback(userState.d_token, {
-                                id: -1,
-                                user: userState,
-                                service: selectedService.id,
-                                text: textarea,
-                                functionality,
-                                usability,
-                                customer_service: customerService,
-                                likes: [],
-                                total_rating: Number(((functionality + usability + customerService) / 3).toFixed(1)),
-                                service_name: selectedService.name,
-                                service_logo: selectedService.logo
-                            }))}
+                            onClick={() => {
+                                if (isValidFeedback) {
+                                    setShowMessage(false)
+                                    dispatch(feedbackGenerateFeedback(userState.d_token, {
+                                        id: -1,
+                                        user: userState,
+                                        service: selectedService.id,
+                                        text: textarea,
+                                        functionality,
+                                        usability,
+                                        customer_service: customerService,
+                                        likes: [],
+                                        total_rating: Number(((functionality + usability + customerService) / 3).toFixed(1)),
+                                        service_name: selectedService.name,
+                                        service_logo: selectedService.logo
+                                    }))
+                                } else {
+                                    setShowMessage(true)
+                                }
+                            }}
                         >
                             <i className={feedbackState.feedback_is_loading ? 'fas fa-sync-alt fa-spin' : 'fas fa-magic'} />
                         </button>
@@ -246,7 +253,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
             </form>
             <button className='popup-close-button' onClick={() => handleOnClose()}><i className='fas fa-times' /></button>
 
-            {openConfirmPopup && <ConfirmPopup title='Вы уверены, что хотите закрыть окно? Данные будут утеряны.' onConfirm={() => props.onClose()} onClose={() => setOpenConfirmPopup(false)} />}
+            {openConfirmPopup && <ConfirmPopup title='Вы уверены, что хотите закрыть окно? Несохраненные данные будут утеряны.' type='confirm' onConfirm={() => props.onClose()} onClose={() => setOpenConfirmPopup(false)} />}
         </div>
     </>;
 };

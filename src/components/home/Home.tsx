@@ -224,7 +224,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                             <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={handleTouchMove} />
                             <div className='home-feedback-swipe-bar'>
                                 {[...new Array(4)].map((_, idx) => {
-                                    return <button className={i.id === idx + 1 ? 'home-feedback-swipe-point active' : 'home-feedback-swipe-point'} onClick={() => setCurrentComment(idx)} key={idx}></button>
+                                    return <button className={currentComment === idx ? 'home-feedback-swipe-point active' : 'home-feedback-swipe-point'} onClick={() => setCurrentComment(idx)} key={idx}></button>
                                 })}
                             </div>
                         </>

@@ -10,7 +10,7 @@ import { createDiscount, serviceUpdateDiscount } from '../../../actions/services
 
 interface IDiscountPopupProps {
     discount: TDiscount,
-    onClose: () => void,
+    onClose: () => void
 }
 
 const DiscountPopup: React.FunctionComponent<IDiscountPopupProps> = (props) => {
@@ -24,7 +24,7 @@ const DiscountPopup: React.FunctionComponent<IDiscountPopupProps> = (props) => {
     const [serviceName, setServiceName] = useState('')
     const [showAlert, setShowAlert] = useState(false)
 
-    const searchQuery = rootState.services.services.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()))
+    const searchQuery = rootState.services.services_simple_list.filter(s => s.name.toLocaleLowerCase().includes(serviceName.toLocaleLowerCase()))
 
     const ref = useRef(null)
 
@@ -70,7 +70,7 @@ const DiscountPopup: React.FunctionComponent<IDiscountPopupProps> = (props) => {
                         className='popup-service-select'
                         disabled
                     >
-                        <option>{discount.service === -1 ? '--------' : rootState.services.services.find(s => s.id === discount.service)?.name}</option>
+                        <option>{discount.service === -1 ? '--------' : rootState.services.services_simple_list.find(s => s.id === discount.service)?.name}</option>
                     </select>
                 </label>
                 <div>

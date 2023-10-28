@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../../store';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Loading from '../../global/Loading';
 import { useDispatch } from 'react-redux';
-import { deleteService, serviceDataUpdate, serviceToggleHiddenStatus } from '../../../actions/services/services';
+import { deleteService, getSearch, serviceDataUpdate, serviceToggleHiddenStatus } from '../../../actions/services/services';
 import { Link } from 'react-router-dom';
 import { TServicesData } from '../../../actions/services/types';
 
@@ -21,27 +21,40 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
     const [search, setSearch] = useState('')
     const [sortMode, setSortMode] = useState<string>('default')
 
-    const searchQuery = useMemo(() => {
-        return serviceState.services?.concat(serviceState.services_hidden).filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).sort((a, b) => {
-            if (sortMode === 'new') {
-                return b.id - a.id
-            }
-            if (sortMode === 'top') {
-                return b.rating - a.rating
-            }
-            if (sortMode === 'a-z') {
-                if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return -1
-                if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return 1
-                return 0
-            }
-            if (sortMode === 'z-a') {
-                if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return 1
-                if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return -1
-                return 0
-            }
-            return a.id - b.id
-        })
-    }, [, search, serviceState.services, serviceState.services_hidden, sortMode])
+    const [currentPage, setCurrentPage] = useState(1)
+    const [numberOfElements, setNumberOfElements] = useState(20)
+
+    useEffect(() => {
+        dispatch(getSearch({ search_string: search, include_name: true, include_description: null, is_free: null, has_trial: null, has_partnership: null, country: '', categories_ids: [], collection_id: null }, currentPage, numberOfElements))
+    }, [, search, sortMode, currentPage, numberOfElements])
+
+    useEffect(() => {
+        setCurrentPage(1)
+    }, [, search, sortMode, numberOfElements])
+
+    // const searchQuery = useMemo(() => {
+    //     return serviceState.services?.concat(serviceState.services_hidden).filter(service => service.name.toLocaleLowerCase().includes(search.toLocaleLowerCase())).sort((a, b) => {
+    //         if (sortMode === 'new') {
+    //             return b.id - a.id
+    //         }
+    //         if (sortMode === 'top') {
+    //             return b.rating - a.rating
+    //         }
+    //         if (sortMode === 'a-z') {
+    //             if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return -1
+    //             if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return 1
+    //             return 0
+    //         }
+    //         if (sortMode === 'z-a') {
+    //             if (a.name.toLocaleLowerCase() < b.name.toLocaleLowerCase()) return 1
+    //             if (a.name.toLocaleLowerCase() > b.name.toLocaleLowerCase()) return -1
+    //             return 0
+    //         }
+    //         return a.id - b.id
+    //     })
+    // }, [, search, serviceState.services, serviceState.services_hidden, sortMode])
+
+    const searchQuery = serviceState.search
 
     const dispatch = useDispatch()
 
@@ -53,7 +66,24 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                     <i className='fas fa-search' />
                 </div>
                 <div className='user-admin-panel-search-length'>
-                    <p>Найдено: <span>{searchQuery.length}</span></p>
+                    <p>Найдено: <span>{searchQuery.total_count}</span></p>
+                    <p>Показывать по:</p>
+                    <select value={numberOfElements} onChange={e => setNumberOfElements(parseInt(e.target.value))}>
+                        <option value={20}>20</option>
+                        <option value={40}>40</option>
+                        <option value={60}>60</option>
+                        <option value={80}>80</option>
+                        <option value={100}>100</option>
+                    </select>
+                    <p>Страница {currentPage} из {searchQuery.total_count ? Math.ceil(searchQuery.total_count / numberOfElements) : 1}</p>
+                    <div className='user-admin-panel-change-page'>
+                        <button onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>
+                            <i className='fas fa-chevron-left' />
+                        </button>
+                        <button onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === Math.ceil(searchQuery.total_count / numberOfElements) || searchQuery.total_count === 0}>
+                            <i className='fas fa-chevron-right' />
+                        </button>
+                    </div>
                 </div>
                 <div className='sort-selection'>
                     <span>Сортировать:</span>
@@ -82,7 +112,7 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                     </div>
                 </div>
                 <div className='user-admin-panel-table-content'>
-                    {serviceState.is_loading ? <Loading height={505} /> : searchQuery.map(service => {
+                    {serviceState.is_loading ? <Loading height={505} /> : searchQuery.data?.map(service => {
                         return <div className='user-admin-panel-table-row' id='services' key={service.id}>
                             <span>{service.id}</span>
                             <div id='service-name'>
