@@ -10,7 +10,6 @@ import CategoryTag from '../categories/CategoryTag';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import { TServicesData } from '../../actions/services/types';
 import ServiceGallery from './ServiceGallery';
-import { mockSpecialists } from '../../actions/specialists/specialists';
 import SpecialistCardComponent from '../specialists/SpecialistCardComponent';
 import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 import ServiceEditPopup from './ServiceEditPopup';
