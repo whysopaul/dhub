@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { feedbackGetUserFeedback, mockFeedbackData } from '../../actions/feedback/feedback';
+import { feedbackGetUserFeedback } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import ServiceCardComponent from '../services/ServiceCardComponent';
 import '../../static/css/user.css';
