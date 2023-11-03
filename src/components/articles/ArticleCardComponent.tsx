@@ -11,7 +11,7 @@ const ArticleCardComponent: React.FunctionComponent<IArticleCardComponentProps> 
     return <>
         <div className='article-card-container'>
             <div className='article-card-image'>
-                <Link to={'/article/' + props.article.id}><img src={props.article.previewImage} alt="" /></Link>
+                <Link to={'/article/' + props.article.id} title={props.article.title}><img src={props.article.previewImage} alt={props.article.title} /></Link>
                 <span>{props.article.category}</span>
             </div>
             <h3 className='article-card-title'><Link to={'/article/' + props.article.id}>{props.article.title}</Link></h3>

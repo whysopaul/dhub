@@ -113,6 +113,8 @@
     line-height: 20px;
     color: #2D4379;
     display: inline;
+    white-space: break-spaces;
+    word-break: break-word;
     margin-right: 8px;
 }
 

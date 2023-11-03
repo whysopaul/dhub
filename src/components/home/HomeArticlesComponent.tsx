@@ -40,8 +40,8 @@ const HomeArticlesComponent: React.FunctionComponent<IHomeArticlesComponentProps
                 <h2>Статьи и обзоры</h2>
             </div>
             <div className='home-articles-buttons'>
-                <button onClick={() => listBack()}><i className='fas fa-chevron-left' /></button>
-                <button onClick={() => listForward()}><i className='fas fa-chevron-right' /></button>
+                <button onClick={() => listBack()} title='Назад'><i className='fas fa-chevron-left' /></button>
+                <button onClick={() => listForward()} title='Вперед'><i className='fas fa-chevron-right' /></button>
             </div>
             <div className='home-articles-cards'>
                 {props.data.slice(sliceStart, sliceEnd).map(i => {

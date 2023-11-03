@@ -272,6 +272,8 @@ hr {
 }
 
 .confirm-popup-container>h3 {
+    font-size: 18px;
+    line-height: 22px;
     padding: 0 32px;
     margin-bottom: 24px;
 }

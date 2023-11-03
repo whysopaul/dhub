@@ -36,7 +36,7 @@ const AdminWorkspaceUsers: React.FunctionComponent<IAdminWorkspaceUsersProps> = 
                 </div>
                 <div className='user-admin-panel-table-content'>
                     {rootState.admin.users.sort((a, b) => a.id - b.id).map(user => {
-                        return <div className='user-admin-panel-table-row' id='users'>
+                        return <div className='user-admin-panel-table-row' id='users' key={user.id}>
                             <span>{user.id}</span>
                             <div id='user-name'>
                                 <a href={'https://vk.com/id' + user.vk_id} target='_blank' rel='noopener noreferrer'>

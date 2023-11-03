@@ -36,7 +36,7 @@ const AdminWorkspaceDiscounts: React.FunctionComponent<IAdminWorkspaceDiscountsP
                 </div>
                 <div className='user-admin-panel-table-content'>
                     {rootState.services.discounts.map(d => {
-                        return <div className='user-admin-panel-table-row' id='discounts'>
+                        return <div className='user-admin-panel-table-row' id='discounts' key={d.id}>
                             <span>{d.id}</span>
                             <span>{rootState.services.services_simple_list.find(s => s.id === d.service)?.name}</span>
                             <span>{d.is_promocode ? 'Промокод' : 'Скидка'}</span>

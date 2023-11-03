@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { RootStore } from '../../store';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../../static/css/services.css';
 import ServiceRatingTag from './ServiceRatingTag';
 import CategoryTag from '../categories/CategoryTag';
@@ -30,6 +30,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     const serviceState = useSelector((state: RootStore) => state.services)
     const [currentService, setCurrentService] = useState<TServicesData>(null)
     const [editMode, setEditMode] = useState(false)
+
+    const feedbacksRef = useRef<HTMLDivElement>(null)
 
     const [openDiscounts, setOpenDiscounts] = useState(false)
     const [openScreenshots, setOpenScreenshots] = useState(false)
@@ -149,7 +151,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <div className='service-info'>
                         <div className='service-info-header'>
                             <div className='service-title-section'>
-                                <a href={currentService.link} target='_blank' rel='noopener noreferrer'>
+                                <a href={currentService.link} target='_blank' rel='noopener noreferrer' title='Перейти в сервис'>
                                     <h1 className='section-main-title'>{currentService.name}</h1>
                                     <i className='fas fa-external-link-alt' />
                                 </a>
@@ -173,7 +175,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 <div className='service-rating-divider' />
                                 <div className='service-feedback-qty'>
                                     <i className='fas fa-star' />
-                                    <span>{feedbacksLength(currentService.feedbacks.length)}</span>
+                                    <button onClick={() => feedbacksRef.current.scrollIntoView({ behavior: 'smooth' })}>{feedbacksLength(currentService.feedbacks.length)}</button>
                                 </div>
                             </div>
                         </div>
@@ -362,6 +364,10 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
                 <div className='section-header-container'>
                     <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
+                    <button className='service-specialists-login-button' onClick={() => !authState ? dispatch(userShowLoginPopup()) : null}>
+                        <i className='fas fa-sign-in-alt' />
+                        <span>Стать специалистом</span>
+                    </button>
                 </div>
                 {screenWidth > 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
                     {currentService.specialists?.map(specialist => {
@@ -385,7 +391,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <p>Пока никого нет. Станьте первым!</p>
                 </div>}
 
-                <div className='section-header-container'>
+                <div className='section-header-container' ref={feedbacksRef}>
                     <h2 className='section-main-title'>Отзывы</h2>
                     <button className='feedback-button' onClick={() => authState ? setShowFeedbackPopup(true) : dispatch(userShowLoginPopup())}>
                         <i className='far fa-edit' />

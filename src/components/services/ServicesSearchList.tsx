@@ -58,7 +58,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         if (isParamsChecked) {
             dispatch(getSearch({ search_string: search, include_name: searchByName, include_description: searchByText, is_free: isFree, has_trial: hasTrial, has_partnership: hasPartnership, country, categories_ids: selectedCategories, collection_id: collection }, currentPage, numberOfServices))
         }
-    }, [, isParamsChecked, search, isFree, hasTrial, hasPartnership, searchByName, searchByText, country, collection, currentPage])
+    }, [, isParamsChecked, search, isFree, hasTrial, hasPartnership, searchByName, searchByText, country, selectedCategories, collection, currentPage])
 
     const searchSource = (): TServicesData[] => {
         if (collection !== -1)
@@ -387,17 +387,12 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         {searchCategories.length === 0 && <p>Популярные категории:</p>}
                         <ul className='services-list-dropdown-list'>
                             {searchCategories.length > 0 && searchCategoriesCondition.length > 0 && searchCategoriesCondition.map(category => {
-                                return <CategoryTag name={category.name} qty={rootState.services.services.filter(service => service.categories_3?.find(servicesCategory => servicesCategory.id === category.id)).length} onClick={() => toggleCategory(category)} checked={selectedCategories.includes(category.id)} key={category.id} />
+                                return <CategoryTag name={category.name} qty={category.service_count} onClick={() => toggleCategory(category)} checked={selectedCategories.includes(category.id)} key={category.id} />
                             })}
                             {searchCategories.length > 0 && searchCategoriesCondition.length === 0 && <li className='services-list-dropdown-no-match'>Не найдено</li>}
                             {searchCategories.length === 0 && <>
-                                {rootState.categories.categories.map(category => {
-                                    return {
-                                        ...category,
-                                        servicesInCategory: rootState.services.services.filter(service => service.categories_3?.find(servicesCategory => servicesCategory.id === category.id)).length
-                                    }
-                                }).sort((a, b) => b.servicesInCategory - a.servicesInCategory).slice(0, 15).map(popularCategory => {
-                                    return <CategoryTag name={popularCategory.name} qty={popularCategory.servicesInCategory} onClick={() => toggleCategory(popularCategory)} checked={selectedCategories.includes(popularCategory.id)} key={popularCategory.id} />
+                                {rootState.categories.categories.filter(category => category.index === 3).sort((a, b) => b.service_count - a.service_count).slice(0, 15).map(popularCategory => {
+                                    return <CategoryTag name={popularCategory.name} qty={popularCategory.service_count} onClick={() => toggleCategory(popularCategory)} checked={selectedCategories.includes(popularCategory.id)} key={popularCategory.id} />
                                 })}
                             </>}
                         </ul>

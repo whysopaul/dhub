@@ -34,7 +34,7 @@ const AdminWorkspaceApplications: React.FunctionComponent<IAdminWorkspaceApplica
                 </div>
                 <div className='user-admin-panel-table-content'>
                     {rootState.admin.applications.map(a => {
-                        return <div className='user-admin-panel-table-row' id='applications'>
+                        return <div className='user-admin-panel-table-row' id='applications' key={a.id}>
                             <span>{a.id}</span>
                             <span>{a.username}</span>
                             <span>{a.contact}</span>

@@ -41,7 +41,8 @@
 }
 
 .service-card-logo>img {
-    width: 80px;
+    max-width: 80px;
+    max-height: 80px;
 }
 
 .service-card-name {
@@ -49,9 +50,13 @@
     font-style: normal;
     font-weight: 600;
     font-size: 22px;
-    line-height: 22px;
+    line-height: 25px;
     color: #16181B;
     margin-bottom: 8px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .service-card-category {
@@ -70,7 +75,7 @@
     font-size: 14px;
     line-height: 20px;
     color: #2D4379;
-    margin-top: 16px;
+    margin-top: 13px;
     display: -webkit-box;
     -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
@@ -376,11 +381,13 @@
     color: #F8B32D;
 }
 
-.service-feedback-qty>span {
+.service-feedback-qty>button {
+    font-family: 'Noto Sans', sans-serif;
     font-weight: 400;
     font-size: 14px;
     line-height: 14px;
     color: #2D4379;
+    cursor: pointer;
 }
 
 .service-description-text {
@@ -625,6 +632,23 @@
     background: white;
 }
 
+.service-specialists-login-button {
+    font-family: 'Noto Sans', sans-serif;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 14px;
+    color: #386BEE;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+.service-specialists-login-button>i {
+    font-size: 18px;
+}
+
 .service-specialists-cards {
     display: grid;
     gap: 16px;
@@ -792,6 +816,11 @@
 .services-list-cards-container .service-card-container,
 .services-list-cards-container .service-card-mockup-container {
     width: 235px !important;
+}
+
+.services-list-cards-container .service-card-mockup-container {
+    position: relative;
+    z-index: -1;
 }
 
 .services-list-search-title {

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import FeedbackCardPopup from './FeedbackCardPopup';
 import GiveFeedbackPopup from './GiveFeedbackPopup';
-import ConfirmPopup from '../global/ConfirmPopup';
+import ConfirmDeletePopup from '../global/ConfirmDeletePopup';
 
 interface IFeedbackCardComponentProps {
     comment: TFeedback,
@@ -44,7 +44,7 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
 
         {showFullFeedback && <FeedbackCardPopup comment={comment} onClose={() => setShowFullFeedback(false)} />}
         {editMode && <GiveFeedbackPopup edit_feedback={comment} onClose={() => setEditMode(false)} />}
-        {openConfirmDeletePopup && <ConfirmPopup title='Вы уверены, что хотите удалить данный отзыв?' type='delete' onConfirm={() => dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))} onClose={() => setOpenConfirmDeletePopup(false)} />}
+        {openConfirmDeletePopup && <ConfirmDeletePopup title='Вы уверены, что хотите удалить данный отзыв?' onConfirm={() => dispatch(feedbackDeleteFeedback(rootState.auth.user?.d_token, comment.id))} onClose={() => setOpenConfirmDeletePopup(false)} />}
 
         <div className='feedback-card-container' onTouchStart={e => onTouchStart ? onTouchStart(e) : null} onTouchMove={e => onTouchMove ? onTouchMove(e) : null}>
             <div className={owner ? 'feedback-card-header owner' : 'feedback-card-header'}>
@@ -99,10 +99,10 @@ const FeedbackCardComponent: React.FunctionComponent<IFeedbackCardComponentProps
                     </div>
                 </button>
             </div>
-            {(comment.user && (comment.user.vk_id === rootState.auth.user?.vk_id) || rootState.auth.user?.is_admin) && <div className='feedback-card-buttons-container'>
-                {!show_full && <button onClick={() => setEditMode(true)}>
+            {(comment.user && (comment.user.vk_id === rootState.auth.user?.vk_id) || rootState.auth.user?.is_admin) && !show_full && <div className='feedback-card-buttons-container'>
+                <button onClick={() => setEditMode(true)}>
                     Редактировать
-                </button>}
+                </button>
                 <button
                     className='delete-button'
                     onClick={() => setOpenConfirmDeletePopup(true)}

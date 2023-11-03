@@ -33,15 +33,13 @@ const AdminWorkspaceCollections: React.FunctionComponent<IAdminWorkspaceCollecti
                 </div>
                 <div className='user-admin-panel-table-content'>
                     {rootState.services.collections.map(c => {
-                        return <div className='user-admin-panel-table-row' id='collections'>
+                        return <div className='user-admin-panel-table-row' id='collections' key={c.id}>
                             <span>{c.id}</span>
                             <span>{c.title}</span>
                             <div>
                                 <ul className='categories-list'>
                                     {rootState.services.blocks.filter(b => c.connections.map(b_c => b_c.block).includes(b.id)).map(b => {
-                                        return <>
-                                            <CategoryTag name={b.title} qty={b.service_ids.length} onClick={() => props.onEditBlock(b)} key={b.id} />
-                                        </>
+                                        return <CategoryTag name={b.title} qty={b.service_ids.length} onClick={() => props.onEditBlock(b)} key={b.id} />
                                     })}
                                 </ul>
                             </div>

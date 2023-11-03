@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
@@ -528,7 +528,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                             <div className='service-edit-screenshots-container'>
                                 <div className='service-edit-screenshots-gallery'>
                                     {currentService.images.screenshots.map((s, idx) => {
-                                        return <>
+                                        return <Fragment key={s.id}>
                                             {/* <span>{idx + 1}.</span>
                                         <input
                                             type='text'
@@ -578,7 +578,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                                     <i className='fas fa-times' />
                                                 </button>
                                             </div>
-                                        </>
+                                        </Fragment>
                                     })}
                                 </div>
                                 <button

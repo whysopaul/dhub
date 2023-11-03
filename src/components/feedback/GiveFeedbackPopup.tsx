@@ -253,7 +253,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
             </form>
             <button className='popup-close-button' onClick={() => handleOnClose()}><i className='fas fa-times' /></button>
 
-            {openConfirmPopup && <ConfirmPopup title='Вы уверены, что хотите закрыть окно? Несохраненные данные будут утеряны.' type='confirm' onConfirm={() => props.onClose()} onClose={() => setOpenConfirmPopup(false)} />}
+            {openConfirmPopup && <ConfirmPopup title='Вы уверены, что хотите закрыть окно? Несохраненные данные будут утеряны.' onConfirm={() => props.onClose()} onClose={() => setOpenConfirmPopup(false)} />}
         </div>
     </>;
 };
