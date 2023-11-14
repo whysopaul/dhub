@@ -1,13 +1,33 @@
 import * as React from 'react';
-import { mockArtData } from '../../actions/articles/articles';
+import { articlesGetPosts, mockArtData } from '../../actions/articles/articles';
 import CategoryTag from '../categories/CategoryTag';
 import ArticleCardComponent from './ArticleCardComponent';
+import { useSelector } from 'react-redux';
+import { RootStore } from '../../store';
+import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import ArticleEditPopup from './ArticleEditPopup';
 
 interface IArticlesListPageProps {
 }
 
 const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props) => {
+
+    const userState = useSelector((state: RootStore) => state.auth.user)
+    const articleState = useSelector((state: RootStore) => state.articles.articles)
+
+    const [showAddArticlePopup, setShowAddArticlePopup] = useState(false)
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(articlesGetPosts())
+    }, [])
+
     return <>
+
+        {showAddArticlePopup && <ArticleEditPopup article={{ id: -1, title: '', content: '' }} onClose={() => setShowAddArticlePopup(false)} add />}
+
         <div className='categories-section'>
             <p>Категории статей и обзоров:</p>
             <div>
@@ -20,6 +40,10 @@ const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props
         </div>
         <div className='section-header-container'>
             <h3 className='section-main-title'>Новости, статьи и обзоры</h3>
+            {userState?.is_admin && <button className='articles-add-article-button' onClick={() => setShowAddArticlePopup(true)}>
+                <i className='fas fa-plus' />
+                <span>Добавить статью</span>
+            </button>}
             <div className='sort-selection'>
                 <span>Сортировать:</span>
                 <select className='color-blue'>
@@ -28,7 +52,7 @@ const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props
             </div>
         </div>
         <div className='articles-cards'>
-            {mockArtData.map(i => {
+            {articleState.map(i => {
                 return <ArticleCardComponent article={i} key={i.id} />
             })}
         </div>

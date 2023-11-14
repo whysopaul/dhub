@@ -5,12 +5,13 @@ import { persistStore } from 'redux-persist';
 import store from './src/store';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
+import { HelmetProvider } from 'react-helmet-async';
 
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './src/static/css/global.css';
 import './src/static/css/ui.css';
 import './src/static/css/layout.less';
-import { HelmetProvider } from 'react-helmet-async';
+import './src/static/css/popup.less';
 
 // localStorage.clear()
 

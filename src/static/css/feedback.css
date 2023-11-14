@@ -324,6 +324,10 @@
     height: 40px;
     border-radius: 50%;
     object-fit: contain;
+    background: var(--color-lightblue-two);
+    line-height: 40px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .feedback-popup-services-list-item div {

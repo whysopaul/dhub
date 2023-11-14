@@ -5,7 +5,8 @@ interface ICategoryTagProps {
     name: string,
     qty: number,
     onClick?: () => void,
-    checked?: boolean
+    checked?: boolean,
+    hideServiceCount?: boolean
 }
 
 const CategoryTag: React.FunctionComponent<ICategoryTagProps> = (props) => {
@@ -17,9 +18,9 @@ const CategoryTag: React.FunctionComponent<ICategoryTagProps> = (props) => {
                 onClick={() => props.onClick ? props.onClick() : null}
             >
                 <span className='category-tag-name'>{props.name}</span>
-                <div className='category-tag-qty'>
+                {!props.hideServiceCount && <div className='category-tag-qty'>
                     <span>{props.qty}</span>
-                </div>
+                </div>}
             </button>
         </li>
     </>;

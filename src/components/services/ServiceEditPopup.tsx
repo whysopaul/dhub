@@ -4,7 +4,7 @@ import { useOnClickOutside } from '../utils/HandleClickOutside';
 import { useOnPopup } from '../utils/HandleOnPopup';
 import { TServiceLocation, TServicePlatform, TServicesData } from '../../actions/services/types';
 import { useDispatch } from 'react-redux';
-import { createScreenshot, createScreenshotWithFile, deleteScreenshot, deleteService, getService, serviceDataUpdate, serviceUpdateLink } from '../../actions/services/services';
+import { createScreenshot, createScreenshotWithFile, deleteScreenshot, deleteService, getService, serviceDataUpdate, serviceUpdateLink, uploadServiceLogo, uploadServiceLogoWithFile } from '../../actions/services/services';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
@@ -120,6 +120,11 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             })
     }
 
+    const [logo, setLogo] = useState<File>(null)
+    const [logoLink, setLogoLink] = useState<string>('')
+    const [showAddLogoPopup, setShowAddLogoPopup] = useState<boolean>(false)
+    const [logoUploadMode, setLogoUploadMode] = useState<number>(0)
+
     const [screenshots, setScreenshots] = useState<File[]>([])
     const [screenshotLink, setScreenshotLink] = useState<string>('')
     const [showAddScreenshotPopup, setShowAddScreenshotPopup] = useState<boolean>(false)
@@ -132,7 +137,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
     const refOne = useRef(null)
     const refTwo = useRef(null)
 
-    useOnClickOutside((showAddMainCategoryPopup || showAddCategoryPopup || showAddScreenshotPopup) ? refTwo : refOne, () => showAddMainCategoryPopup ? setShowAddMainCategoryPopup(false) : showAddCategoryPopup ? setShowAddCategoryPopup(false) : showAddScreenshotPopup ? setShowAddScreenshotPopup(false) : props.onClose())
+    useOnClickOutside((showAddMainCategoryPopup || showAddCategoryPopup || showAddLogoPopup || showAddScreenshotPopup) ? refTwo : refOne, () => showAddMainCategoryPopup ? setShowAddMainCategoryPopup(false) : showAddCategoryPopup ? setShowAddCategoryPopup(false) : showAddLogoPopup ? setShowAddLogoPopup(false) : showAddScreenshotPopup ? setShowAddScreenshotPopup(false) : props.onClose())
 
     useOnPopup()
 
@@ -227,7 +232,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
             <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
             <div className='service-edit-popup-add-popup' ref={refTwo}>
                 <h3>Добавить скриншот</h3>
-                <div className='service-edit-add-screenshot-mode'>
+                <div className='service-edit-add-image-mode'>
                     <label>
                         <input
                             type='radio'
@@ -245,8 +250,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         <span>По ссылке</span>
                     </label>
                 </div>
-                {screenshotUploadMode === 0 && <div className='service-edit-add-screenshot-container'>
-                    <div className='service-edit-add-screenshot-input-container'>
+                {screenshotUploadMode === 0 && <div className='service-edit-add-image-container'>
+                    <div className='service-edit-add-image-input-container'>
                         <input
                             type='file'
                             multiple
@@ -274,8 +279,8 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                         <i className='fas fa-file-upload' />
                     </button>
                 </div>}
-                {screenshotUploadMode === 1 && <div className='service-edit-add-screenshot-container'>
-                    <div className='service-edit-add-screenshot-input-container'>
+                {screenshotUploadMode === 1 && <div className='service-edit-add-image-container'>
+                    <div className='service-edit-add-image-input-container'>
                         <input
                             type='text'
                             placeholder='Ссылка на скриншот'
@@ -296,6 +301,75 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                 <button
                     className='popup-close-button'
                     onClick={() => setShowAddScreenshotPopup(false)}
+                >
+                    <i className='fas fa-times' />
+                </button>
+            </div>
+        </>}
+
+        {showAddLogoPopup && <>
+            <div className='backdrop' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)', backdropFilter: 'blur(4px)', zIndex: 101 }} />
+            <div className='service-edit-popup-add-popup' ref={refTwo}>
+                <h3>Добавить логотип</h3>
+                {/* <div className='service-edit-add-image-mode'>
+                    <label>
+                        <input
+                            type='radio'
+                            onChange={() => setLogoUploadMode(0)}
+                            checked={logoUploadMode === 0}
+                        />
+                        <span>Загрузить файл</span>
+                    </label>
+                    <label>
+                        <input
+                            type='radio'
+                            onChange={() => setLogoUploadMode(1)}
+                            checked={logoUploadMode === 1}
+                        />
+                        <span>По ссылке</span>
+                    </label>
+                </div> */}
+                {logoUploadMode === 0 && <div className='service-edit-add-image-container'>
+                    <div className='service-edit-add-image-input-container'>
+                        <input
+                            type='file'
+                            accept='image/png, image/jpg, image/jpeg, image/webp'
+                            onChange={e => { setLogo(e.target.files[0]) }}
+                        />
+                    </div>
+                    <button
+                        className='blue-shadow-button'
+                        onClick={() => {
+                            dispatch(uploadServiceLogoWithFile(logo, currentService?.id))
+                            setShowAddLogoPopup(false)
+                        }}
+                    >
+                        <span>Загрузить</span>
+                        <i className='fas fa-file-upload' />
+                    </button>
+                </div>}
+                {/* {logoUploadMode === 1 && <div className='service-edit-add-image-container'>
+                    <div className='service-edit-add-image-input-container'>
+                        <input
+                            type='url'
+                            placeholder='Ссылка на логотип'
+                            value={logoLink}
+                            onChange={e => setLogoLink(e.target.value)} />
+                    </div>
+                    <button
+                        className='blue-shadow-button'
+                        onClick={() => {
+                            dispatch(uploadServiceLogo(logoLink, currentService?.id))
+                            setShowAddLogoPopup(false)
+                        }}
+                    >
+                        <span>Загрузить</span>
+                        <i className='fas fa-file-upload' />
+                    </button>
+                </div>} */}
+                <button
+                    className='popup-close-button'
+                    onClick={() => setShowAddLogoPopup(false)}
                 >
                     <i className='fas fa-times' />
                 </button>
@@ -508,21 +582,33 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                 Обновить ссылку
                             </button>
                         </div>
-                        <p>Логотип:</p>
-                        <div className='service-edit-link-container'>
-                            <input
-                                type='text'
-                                placeholder='http://'
-                                value={currentService.images.logo}
-                                onChange={e => setCurrentService({
-                                    ...currentService,
-                                    images: {
-                                        ...currentService.images,
-                                        logo: e.target.value
-                                    }
-                                })}
-                            />
-                        </div>
+                        {!props.add && <>
+                            <p>Логотип:</p>
+                            {/* <div className='service-edit-link-container'>
+                                <input
+                                    type='text'
+                                    placeholder='http://'
+                                    value={currentService.images.logo}
+                                    onChange={e => setCurrentService({
+                                        ...currentService,
+                                        images: {
+                                            ...currentService.images,
+                                            logo: e.target.value
+                                        }
+                                    })}
+                                />
+                            </div> */}
+                            <div className='service-edit-logo-container'>
+                                {props.service.images?.logo_file
+                                    ? <img src={props.service.images.logo_file} />
+                                    : <i className='fas fa-image' />}
+                                <button
+                                    className='service-edit-secondary-button'
+                                    onClick={() => setShowAddLogoPopup(true)}>
+                                    Добавить логотип
+                                </button>
+                            </div>
+                        </>}
                         {!props.add && <>
                             <p>Скриншоты:</p>
                             <div className='service-edit-screenshots-container'>

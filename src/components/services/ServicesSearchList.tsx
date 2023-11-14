@@ -50,15 +50,17 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов', 'поштучно']
     const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
-    const [sortMode, setSortMode] = useState<string>('default')
+    const [sortMode, setSortMode] = useState<string>('')
+    const [sortType, setSortType] = useState<'new' | 'rating' | 'alphabet'>(null)
+    const [sortDirection, setSortDirection] = useState<1 | -1>(1)
 
     const [isParamsChecked, setIsParamsChecked] = useState(false)
 
     useEffect(() => {
         if (isParamsChecked) {
-            dispatch(getSearch({ search_string: search, include_name: searchByName, include_description: searchByText, is_free: isFree, has_trial: hasTrial, has_partnership: hasPartnership, country, categories_ids: selectedCategories, collection_id: collection }, currentPage, numberOfServices))
+            dispatch(getSearch({ search_string: search, include_name: searchByName, include_description: searchByText, is_free: isFree, has_trial: hasTrial, has_partnership: hasPartnership, country, categories_ids: selectedCategories, collection_id: collection, sort_type: sortType, sort_direction: sortDirection }, currentPage, numberOfServices))
         }
-    }, [, isParamsChecked, search, isFree, hasTrial, hasPartnership, searchByName, searchByText, country, selectedCategories, collection, currentPage])
+    }, [, isParamsChecked, search, isFree, hasTrial, hasPartnership, searchByName, searchByText, country, selectedCategories, collection, sortType, sortDirection, currentPage])
 
     const searchSource = (): TServicesData[] => {
         if (collection !== -1)
@@ -163,7 +165,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             urlParams.append('recent', 'new')
         }
 
-        if (sortMode === 'top') {
+        if (sortMode === 'rating' && sortDirection === 1) {
             urlParams.append('rating', 'top')
         }
 
@@ -295,9 +297,13 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
         }
         if (urlParams.has('recent')) {
             setSortMode('new')
+            setSortType('new')
+            setSortDirection(-1)
         }
         if (urlParams.has('rating') && urlParams.get('rating') === 'top') {
-            setSortMode('top')
+            setSortMode('rating')
+            setSortType('rating')
+            setSortDirection(1)
         }
         if (urlParams.has('searchbyname')) {
             setSearchByName(true)
@@ -346,6 +352,40 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     //     window.requestAnimationFrame(() => titleRef.current.scrollIntoView({ behavior: 'smooth' }))
     // }
 
+    const changeSortMode = (sort_type: string) => {
+        switch (sort_type) {
+            case 'new':
+                setSortMode('new')
+                setSortType('new')
+                setSortDirection(-1)
+                break
+            case 'rating':
+                setSortMode('rating')
+                setSortType('rating')
+                setSortDirection(-1)
+                break
+            case 'rating_low':
+                setSortMode('rating')
+                setSortType('rating')
+                setSortDirection(1)
+                break
+            case 'alphabet':
+                setSortMode('alphabet')
+                setSortType('alphabet')
+                setSortDirection(1)
+                break
+            case 'alphabet_reverse':
+                setSortMode('alphabet_reverse')
+                setSortType('alphabet')
+                setSortDirection(-1)
+                break
+            default:
+                setSortMode('')
+                setSortType(null)
+                setSortDirection(1)
+        }
+    }
+
     return <>
         <Helmet>
             <title>Найти сервис | digital hub</title>
@@ -359,12 +399,12 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             </div>
             {totalCount > 0 && <div className='sort-selection view-desktop'>
                 <span>Сортировать:</span>
-                <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
-                    <option value='default'>по умолчанию</option>
+                <select className='color-blue' value={sortMode} onChange={e => changeSortMode(e.target.value)}>
+                    <option value=''>по умолчанию</option>
                     <option value='new'>по новизне</option>
-                    <option value='top'>по рейтингу</option>
-                    <option value='a-z'>по алфавиту: А-Я</option>
-                    <option value='z-a'>по алфавиту: Я-А</option>
+                    <option value='rating'>по рейтингу</option>
+                    <option value='alphabet'>по алфавиту: А-Я</option>
+                    <option value='alphabet_reverse'>по алфавиту: Я-А</option>
                 </select>
             </div>}
         </div>
@@ -430,12 +470,12 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <label><input type='checkbox' onChange={() => setHasTrial(hasTrial ? null : true)} checked={hasTrial} />Пробный период</label>
                         <label><input type='checkbox' onChange={() => setHasPartnership(hasPartnership ? null : true)} checked={hasPartnership} />Партнёрская программа</label>
                     </div>
-                    <div>
+                    {/* <div>
                         <p>Способ оплаты:</p>
                         <label><input type='checkbox' onChange={() => togglePaymentMethod(1)} checked={paymentMethods.includes(1)} />По подписке</label>
                         <label><input type='checkbox' onChange={() => togglePaymentMethod(2)} checked={paymentMethods.includes(2)} />За действие</label>
                         <label><input type='checkbox' onChange={() => togglePaymentMethod(3)} checked={paymentMethods.includes(3)} />Разовая</label>
-                    </div>
+                    </div> */}
                     <div>
                         <p>Страна разработчика:</p>
                         <select
@@ -465,7 +505,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                             <label><input type='checkbox' onChange={() => setHasPartnership(hasPartnership ? null : true)} checked={hasPartnership} />Партнёрская программа</label>
                         </div>}
                     </div>
-                    <div className='service-dropdown-container'>
+                    {/* <div className='service-dropdown-container'>
                         <div className='service-dropdown-header' onClick={() => setOpenMobilePaymentInputs(!openMobilePaymentInputs)}>
                             <p>Способ оплаты</p>
                             <i className={openMobilePaymentInputs ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
@@ -475,7 +515,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                             <label><input type='checkbox' onChange={() => togglePaymentMethod(2)} checked={paymentMethods.includes(2)} />За действие</label>
                             <label><input type='checkbox' onChange={() => togglePaymentMethod(3)} checked={paymentMethods.includes(3)} />Разовая</label>
                         </div>}
-                    </div>
+                    </div> */}
                     <div className='service-dropdown-container'>
                         <div className='service-dropdown-header' onClick={() => setOpenMobileCountry(!openMobileCountry)}>
                             <p>Страна разработчика</p>
@@ -506,12 +546,12 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                 </div>
                 {/* searchCondition.length > 0 && */ <div className='sort-selection view-mobile'>
                     <span>Сортировать:</span>
-                    <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
-                        <option value='default'>по умолчанию</option>
+                    <select className='color-blue' value={sortMode} onChange={e => changeSortMode(e.target.value)}>
+                        <option value=''>по умолчанию</option>
                         <option value='new'>по новизне</option>
-                        <option value='top'>по рейтингу</option>
-                        <option value='a-z'>по алфавиту: А-Я</option>
-                        <option value='z-a'>по алфавиту: Я-А</option>
+                        <option value='rating'>по рейтингу</option>
+                        <option value='alphabet'>по алфавиту: А-Я</option>
+                        <option value='alphabet_reverse'>по алфавиту: Я-А</option>
                     </select>
                 </div>}
                 {/* <div className='wide-search-container'>

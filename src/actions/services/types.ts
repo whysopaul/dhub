@@ -17,6 +17,8 @@ export const GET_BLOCKS = 'GET_BLOCKS'
 export const GET_COLLECTION = 'GET_COLLECTION'
 export const GET_COLLECTIONS = 'GET_COLLECTIONS'
 
+export const GET_UPDATE_SERVICE_LOGOS = 'GET_UPDATE_SERVICE_LOGOS'
+
 export const SERVICES_LOADING = 'SERVICES_LOADING'
 
 export const SERVICE_DATA_UPDATE = 'SERVICE_DATA_UPDATE'
@@ -36,6 +38,9 @@ export const CREATE_DISCOUNT = 'CREATE_DISCOUNT'
 export const CREATE_SERVICE_APPLICATION = 'CREATE_SERVICE_APPLICATION'
 export const CREATE_BLOCK = 'CREATE_BLOCK'
 export const CREATE_COLLECTION = 'CREATE_COLLECTION'
+
+export const UPLOAD_SERVICE_LOGO = 'UPLOAD_SERVICE_LOGO'
+export const UPLOAD_SERVICE_LOGO_WITH_FILE = 'UPLOAD_SERVICE_LOGO_WITH_FILE'
 
 export const DELETE_SERVICE = 'DELETE_SERVICE'
 export const DELETE_LOCATION = 'DELETE_LOCATION'
@@ -66,6 +71,7 @@ export type TServicesData = {
     categories_3: TCategory[],
     images: {
         logo: string,
+        logo_file: string,
         screenshots?: TServiceScreenshot[]
     },
     feedbacks: TFeedback[],
@@ -80,7 +86,8 @@ export type TServicesData = {
 export type TServicesDataSimple = {
     id: number,
     name: string,
-    logo: string
+    logo: string,
+    logo_url: string
 }
 
 export type TServiceLocation = {
@@ -167,7 +174,9 @@ export type TServiceSearch = {
     has_partnership: boolean,
     country: string,
     categories_ids: number[],
-    collection_id: number
+    collection_id: number,
+    sort_type: 'new' | 'rating' | 'alphabet' | null,
+    sort_direction: 1 | -1
 }
 
 interface IGetMainPage {
@@ -236,6 +245,11 @@ interface IGetCollection {
 interface IGetCollections {
     type: typeof GET_COLLECTIONS,
     payload: TServicesCollection[]
+}
+
+interface IGetUpdateServiceLogos {
+    type: typeof GET_UPDATE_SERVICE_LOGOS,
+    payload: any
 }
 
 interface IServicesLoading {
@@ -318,13 +332,23 @@ interface ICreateCollection {
     payload: TServicesCollection
 }
 
+interface IUploadServiceLogo {
+    type: typeof UPLOAD_SERVICE_LOGO,
+    payload: TServicesData
+}
+
+interface IUploadServiceLogoWithFile {
+    type: typeof UPLOAD_SERVICE_LOGO_WITH_FILE,
+    payload: TServicesData
+}
+
 interface IDeleteAction {
     type: typeof DELETE_SERVICE | typeof DELETE_LOCATION | typeof DELETE_PLATFORM | typeof DELETE_SCREENSHOT | typeof DELETE_DISCOUNT | typeof DELETE_SERVICE_APPLICATION | typeof DELETE_BLOCK | typeof DELETE_COLLECTION,
     payload: string
 }
 
-export type servicesDispatchTypes = IGetMainPage | IGetSearch | IGetAllServices | IGetAllServicesSimpleList | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IGetBlock | IGetBlocks | IGetCollection | IGetCollections
+export type servicesDispatchTypes = IGetMainPage | IGetSearch | IGetAllServices | IGetAllServicesSimpleList | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IGetBlock | IGetBlocks | IGetCollection | IGetCollections | IGetUpdateServiceLogos
     | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus
     | IUpdateBlock | IUpdateCollection
-    | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | ICreateServiceApplication | ICreateBlock | ICreateCollection
+    | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | ICreateServiceApplication | ICreateBlock | ICreateCollection | IUploadServiceLogo | IUploadServiceLogoWithFile
     | IDeleteAction

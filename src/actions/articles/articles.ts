@@ -1,5 +1,120 @@
-import { TArticlesData } from "./types";
+import { ARTICLES_CREATE_POST, ARTICLES_DELETE_POST, ARTICLES_GET_POST, ARTICLES_GET_POSTS, ARTICLES_UPDATE_POST, ARTICLES_UPLOAD_POST_IMAGE, ARTICLES_UPLOAD_POST_IMAGE_WITH_FILE, TArticlesData, articlesDispatchTypes } from "./types";
 import MockPreviewImage from '../../static/images/article_preview_mock_image.webp';
+import { Dispatch } from "react";
+import axios from "axios";
+import { SERVER_URL } from "../../components/utils";
+
+export const articlesGetPost = (id: number) => (dispatch: Dispatch<articlesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getPost', { params: { id } }).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: ARTICLES_GET_POST,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const articlesGetPosts = () => (dispatch: Dispatch<articlesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/getPosts').then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: ARTICLES_GET_POSTS,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const articlesCreatePost = (post_data: TArticlesData) => (dispatch: Dispatch<articlesDispatchTypes>) => {
+    const formData = new FormData
+
+    const postData = JSON.stringify({ post_data: { ...post_data } })
+
+    formData.append('body', postData)
+
+    axios.post(SERVER_URL + '/createPost', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: ARTICLES_CREATE_POST,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const articlesUpdatePost = (post_data: TArticlesData) => (dispatch: Dispatch<articlesDispatchTypes>) => {
+    const formData = new FormData
+
+    const postData = JSON.stringify({ post_data: { ...post_data } })
+
+    formData.append('body', postData)
+
+    axios.post(SERVER_URL + '/updatePost', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: ARTICLES_UPDATE_POST,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const articlesUploadPostImage = (source: string, post_id: number) => (dispatch: Dispatch<articlesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/uploadPostImage', JSON.stringify({ source, post_id })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: ARTICLES_UPLOAD_POST_IMAGE,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const articlesUploadPostImageWithFile = (file: File, post_id: number) => (dispatch: Dispatch<articlesDispatchTypes>) => {
+    const formData = new FormData
+
+    formData.append('file', file)
+
+    const body = JSON.stringify({ post_id })
+    formData.append('body', body)
+
+    axios.post(SERVER_URL + '/uploadPostImageWithFile', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: ARTICLES_UPLOAD_POST_IMAGE_WITH_FILE,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const articlesDeletePost = (id: number) => (dispatch: Dispatch<articlesDispatchTypes>) => {
+    axios.delete(SERVER_URL + '/deletePost', { params: { id } }).then(res => {
+        // console.log(res.data)
+
+        dispatch({
+            type: ARTICLES_DELETE_POST,
+            payload: res.data
+        })
+
+        window.location.replace('/articles')
+    }).catch(error => {
+        console.log(error)
+    })
+}
 
 export const mockArtData: TArticlesData[] = new Array(8).fill('').map((i, idx) => { return { ...i, id: 1 + idx, title: 'Лучшие коворкинги Москвы и Санкт-Петербурга ' + (idx + 1), category: 'Лайфстайл', description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc venenatis diam nisi, vel mattis mi rhoncus sed...', previewImage: MockPreviewImage } })
 

@@ -42,7 +42,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
 
     useEffect(() => {
         if (props.service) {
-            setSelectedService({ id: props.service.id, name: props.service.name, logo: props.service.images.logo })
+            setSelectedService({ id: props.service.id, name: props.service.name, logo: props.service.images.logo, logo_url: '' })
         }
 
         if (!props.service && !props.edit_feedback) {
@@ -64,7 +64,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
 
     useEffect(() => {
         if (props.edit_feedback) {
-            setSelectedService({ id: props.edit_feedback.service, name: props.edit_feedback.service_name, logo: props.edit_feedback.service_logo })
+            setSelectedService({ id: props.edit_feedback.service, name: props.edit_feedback.service_name, logo: props.edit_feedback.service_logo, logo_url: '' })
             setFunctionality(props.edit_feedback.functionality)
             setUsability(props.edit_feedback.usability)
             setCustomerService(props.edit_feedback.customer_service)
@@ -139,12 +139,12 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                                     {showList && searchFilterName.map(service => {
                                         return <>
                                             <label className='feedback-popup-services-list-item' key={service.id}>
-                                                <img src={service.logo} loading='lazy' />
+                                                <img src={'https://api.vtargete.pro' + service.logo_url} alt={service.name} loading='lazy' />
                                                 <div>
                                                     <p>{service.name}</p>
                                                     {/* <span>{service.categories_3[0]?.name}</span> */}
                                                 </div>
-                                                <input type='radio' name='service' checked={selectedService?.id === service.id} onChange={() => setSelectedService({ id: service.id, name: service.name, logo: service.logo })} />
+                                                <input type='radio' name='service' checked={selectedService?.id === service.id} onChange={() => setSelectedService({ id: service.id, name: service.name, logo: service.logo, logo_url: '' })} />
                                             </label>
                                         </>
                                     })}

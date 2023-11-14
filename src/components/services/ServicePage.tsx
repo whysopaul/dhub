@@ -19,6 +19,9 @@ import { feedbacksLength, getScreen } from '../utils';
 import { userAddHistory, userShowLoginPopup } from '../../actions/auth/auth';
 import { Helmet } from 'react-helmet-async';
 import ServicePageMockup from './ServicePageMockup';
+import HomeServicesComponent from '../home/HomeServicesComponent';
+import HomeArticlesComponent from '../home/HomeArticlesComponent';
+import { mockArtData } from '../../actions/articles/articles';
 
 interface IServicePageProps {
 }
@@ -31,12 +34,14 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     const [currentService, setCurrentService] = useState<TServicesData>(null)
     const [editMode, setEditMode] = useState(false)
 
+    const [showFullDescription, setShowFullDescription] = useState(false)
+
     const feedbacksRef = useRef<HTMLDivElement>(null)
 
     const [openDiscounts, setOpenDiscounts] = useState(false)
     const [openScreenshots, setOpenScreenshots] = useState(false)
     const [openCategories, setOpenCategories] = useState(false)
-    const [openSimilarServices, setOpenSimilarServices] = useState(false)
+    // const [openSimilarServices, setOpenSimilarServices] = useState(false)
     const [openSpecialistInfo, setOpenSpecialistInfo] = useState(false)
 
     const dispatch = useDispatch()
@@ -129,6 +134,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     const navigate = useNavigate()
 
+    const DESCRIPTION_SHORT_VALUE = screenWidth <= 576 ? 343 : 900
+
     if (currentService === null || currentService?.id !== parseInt(serviceId)) return <>
         <ServicePageMockup />
     </>
@@ -181,9 +188,14 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         </div>
                         <hr />
                         <div className='service-description-text'>
-                            {currentService.description.text.split('\n').filter(p => p !== '').map((p, idx) => {
+                            {currentService.description.text.length <= DESCRIPTION_SHORT_VALUE && currentService.description.text.split('\n').filter(p => p !== '').map((p, idx) => {
                                 return <p key={idx}>{p}</p>
                             })}
+                            {currentService.description.text.length > DESCRIPTION_SHORT_VALUE && currentService.description.text.slice(0, showFullDescription ? undefined : DESCRIPTION_SHORT_VALUE).split('\n').filter(p => p !== '').map((p, idx) => {
+                                const shortenedParagraph = currentService.description.text.slice(0, DESCRIPTION_SHORT_VALUE).split('\n').filter(paragraph => paragraph !== '').length
+                                return <p key={idx} style={((shortenedParagraph === idx + 1) && !showFullDescription) ? { display: 'inline', marginRight: '8px', marginBottom: 0 } : {}}>{p + (((shortenedParagraph === idx + 1) && !showFullDescription) ? '...' : '')}</p>
+                            })}
+                            {currentService.description.text.length > DESCRIPTION_SHORT_VALUE && <button onClick={() => setShowFullDescription(!showFullDescription)}>{showFullDescription ? 'Свернуть' : 'Подробнее'}</button>}
                         </div>
                     </div>
                     <div className='service-more-info'>
@@ -203,20 +215,41 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         </div> */}
                         <hr />
                         <div className='service-details'>
-                            <span>Бесплатная версия</span>
-                            <span className='service-details-data'>{currentService.description.isFree ? 'Да' : 'Нет'}</span>
-                            <span>Пробный период</span>
-                            <span className='service-details-data'>{currentService.description.hasTrial ? 'Да' : 'Нет'}</span>
-                            <span>Стоимость</span>
-                            <span className='service-details-data'>{currentService.description.price}</span>
-                            <span>Способ оплаты</span>
-                            <span className='service-details-data'>{currentService.description.paymentMethod}</span>
-                            <span>Дислокация</span>
-                            <span className='service-details-data'>{currentService.description.locations?.map(i => i.name).join(', ')}</span>
-                            <span>Платформа</span>
-                            <span className='service-details-data'>{currentService.description.platforms?.map(i => i.name).join(', ')}</span>
-                            <span>Партнерская программа</span>
-                            <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
+                            <div className='service-details-row'>
+                                <span>Бесплатная версия</span>
+                                <span className='service-details-dashed-line' />
+                                <span className='service-details-data'>{currentService.description.isFree ? 'Да' : 'Нет'}</span>
+                            </div>
+                            <div className='service-details-row'>
+                                <span>Пробный период</span>
+                                <span className='service-details-dashed-line' />
+                                <span className='service-details-data'>{currentService.description.hasTrial ? 'Да' : 'Нет'}</span>
+                            </div>
+                            <div className='service-details-row'>
+                                <span>Стоимость</span>
+                                <span className='service-details-dashed-line' />
+                                <span className='service-details-data'>{currentService.description.price ? currentService.description.price : '–'}</span>
+                            </div>
+                            <div className='service-details-row'>
+                                <span>Способ оплаты</span>
+                                <span className='service-details-dashed-line' />
+                                <span className='service-details-data'>{currentService.description.paymentMethod ? currentService.description.paymentMethod : '–'}</span>
+                            </div>
+                            <div className='service-details-row'>
+                                <span>Дислокация</span>
+                                <span className='service-details-dashed-line' />
+                                <span className='service-details-data'>{currentService.description.locations?.length > 0 ? currentService.description.locations?.map(i => i.name).join(', ') : '–'}</span>
+                            </div>
+                            <div className='service-details-row'>
+                                <span>Платформа</span>
+                                <span className='service-details-dashed-line' />
+                                <span className='service-details-data'>{currentService.description.platforms?.length > 0 ? currentService.description.platforms?.map(i => i.name).join(', ') : '–'}</span>
+                            </div>
+                            <div className='service-details-row'>
+                                <span>Партнерская программа</span>
+                                <span className='service-details-dashed-line' />
+                                <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
+                            </div>
                         </div>
                         {screenWidth <= 576 && currentService.images.screenshots?.length > 0 && <div className='service-dropdown-container' onClick={() => setOpenScreenshots(!openScreenshots)}>
                             <div className='service-dropdown-header'>
@@ -228,7 +261,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
                                         return <>
                                             <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getScreen(i.link))} key={i.id}>
-                                                <img src={getScreen(i.link)} alt="" />
+                                                <img src={getScreen(i.link)} alt={'Скриншот сервиса ' + currentService.name} />
                                             </div>
                                         </>
                                     })}
@@ -278,13 +311,13 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
                                             // const categoriesQty = serviceState.services.filter(service => service.categories_3?.find(category => category.id === i.id)).length
 
-                                            return <CategoryTag name={i.name} qty={i.service_count} onClick={() => navigate('/services?categories=' + i.id)} key={i.id} />
+                                            return <CategoryTag name={i.name} qty={i.service_count} onClick={() => navigate('/services?categories=' + i.id)} hideServiceCount key={i.id} />
                                         })}
                                     </ul>
                                 </div>
                             </div>}
                         </div>
-                        <div className='service-dropdown-container'>
+                        {/* <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenSimilarServices(!openSimilarServices)}>
                                 <p>Похожие сервисы</p>
                                 <i className={openSimilarServices ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
@@ -303,7 +336,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                     })}
                                 </div>
                             </div>}
-                        </div>
+                        </div> */}
                         <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenSpecialistInfo(!openSpecialistInfo)}>
                                 <p>Специалист в этом сервисе?</p>
@@ -327,7 +360,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
                             return <>
                                 <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getScreen(i.link))} key={i.id}>
-                                    <img src={getScreen(i.link)} alt="" />
+                                    <img src={getScreen(i.link)} alt={'Скриншот сервиса ' + currentService.name} />
                                 </div>
                             </>
                         })}
@@ -420,6 +453,8 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     <p>Отзывов пока нет. Оставьте отзыв первым!</p>
                 </div>}
             </section>
+            <HomeServicesComponent title='Похожие сервисы' data={[]} qty={5} />
+            <HomeArticlesComponent data={mockArtData} />
         </>}
     </>;
 };

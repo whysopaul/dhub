@@ -9,9 +9,9 @@ interface ILayoutProps {
 const Layout: React.FunctionComponent<ILayoutProps> = (props) => {
     return <>
         <Header />
-        <div className='page-main-container'>
+        <main className='page-main-container'>
             <Outlet />
-        </div>
+        </main>
         <Footer />
     </>;
 };

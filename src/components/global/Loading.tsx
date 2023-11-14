@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface ILoadingProps {
-    height: number
+    height: string | number
 }
 
 const Loading: React.FunctionComponent<ILoadingProps> = (props) => {

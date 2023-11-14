@@ -1,5 +1,5 @@
 import { Dispatch } from "react";
-import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, CREATE_SERVICE_APPLICATION, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, DELETE_SERVICE_APPLICATION, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_ALL_SERVICES_SIMPLE_LIST, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_MAIN_PAGE, GET_SEARCH, GET_SERVICE, GET_SERVICE_APPLICATIONS, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceApplication, TServiceLocation, TServicePlatform, TServiceSearch, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, UPDATE_COLLECTION, servicesDispatchTypes } from "./types";
+import { CREATE_BLOCK, CREATE_COLLECTION, CREATE_DISCOUNT, CREATE_LOCATION, CREATE_PLATFORM, CREATE_SCREENSHOT, CREATE_SCREENSHOT_WITH_FILE, CREATE_SERVICE, CREATE_SERVICE_APPLICATION, DELETE_BLOCK, DELETE_COLLECTION, DELETE_DISCOUNT, DELETE_LOCATION, DELETE_PLATFORM, DELETE_SCREENSHOT, DELETE_SERVICE, DELETE_SERVICE_APPLICATION, GET_ALL_SERVICES, GET_ALL_SERVICES_DISCOUNTS, GET_ALL_SERVICES_LOCATIONS, GET_ALL_SERVICES_PLATFORMS, GET_ALL_SERVICES_SIMPLE_LIST, GET_BLOCK, GET_BLOCKS, GET_COLLECTION, GET_COLLECTIONS, GET_MAIN_PAGE, GET_SEARCH, GET_SERVICE, GET_SERVICE_APPLICATIONS, SERVICES_LOADING, SERVICE_DATA_UPDATE, SERVICE_UPDATE_DISCOUNT, SERVICE_UPDATE_LINK, TDiscount, TServiceApplication, TServiceLocation, TServicePlatform, TServiceSearch, TServicesBlock, TServicesCollection, TServicesData, UPDATE_BLOCK, UPDATE_COLLECTION, UPLOAD_SERVICE_LOGO, UPLOAD_SERVICE_LOGO_WITH_FILE, servicesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 import { GET_ALL_CATEGORIES, TCategory, categoriesDispatchTypes } from "../categories/types";
@@ -311,6 +311,14 @@ export const getCollections = () => (dispatch: Dispatch<servicesDispatchTypes>) 
     })
 }
 
+export const getUpdateServiceLogos = () => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.get(SERVER_URL + '/updateServiceLogos').then(res => {
+        console.log(res.data)
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
 export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Dispatch<servicesDispatchTypes>) => {
     axios.post(SERVER_URL + '/updateService', JSON.stringify({ service: serviceData })).then(res => {
         // console.log(res.data)
@@ -528,6 +536,39 @@ export const createCollection = (collection: TServicesCollection) => (dispatch: 
 
         dispatch({
             type: CREATE_COLLECTION,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const uploadServiceLogo = (source: string, service_id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    axios.post(SERVER_URL + '/uploadServiceLogo', JSON.stringify({ source, service_id })).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: UPLOAD_SERVICE_LOGO,
+            payload: res.data
+        })
+    }).catch(error => {
+        console.log(error)
+    })
+}
+
+export const uploadServiceLogoWithFile = (file: File, service_id: number) => (dispatch: Dispatch<servicesDispatchTypes>) => {
+    const formData = new FormData
+
+    formData.append('file', file)
+
+    const body = JSON.stringify({ service_id })
+    formData.append('body', body)
+
+    axios.post(SERVER_URL + '/uploadServiceLogoWithFile', formData, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
+        console.log(res.data)
+
+        dispatch({
+            type: UPLOAD_SERVICE_LOGO_WITH_FILE,
             payload: res.data
         })
     }).catch(error => {

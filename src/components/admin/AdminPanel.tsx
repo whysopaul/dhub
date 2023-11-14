@@ -83,6 +83,7 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     categories_3: [],
                     images: {
                         logo: '',
+                        logo_file: '',
                         screenshots: []
                     },
                     feedbacks: [],

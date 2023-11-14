@@ -19,14 +19,16 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
     const serviceState = useSelector((state: RootStore) => state.services)
 
     const [search, setSearch] = useState('')
-    const [sortMode, setSortMode] = useState<string>('default')
+    const [sortMode, setSortMode] = useState<string>('')
+    const [sortType, setSortType] = useState<'new' | 'rating' | 'alphabet'>(null)
+    const [sortDirection, setSortDirection] = useState<1 | -1>(1)
 
     const [currentPage, setCurrentPage] = useState(1)
     const [numberOfElements, setNumberOfElements] = useState(20)
 
     useEffect(() => {
-        dispatch(getSearch({ search_string: search, include_name: true, include_description: null, is_free: null, has_trial: null, has_partnership: null, country: '', categories_ids: [], collection_id: null }, currentPage, numberOfElements))
-    }, [, search, sortMode, currentPage, numberOfElements])
+        dispatch(getSearch({ search_string: search, include_name: true, include_description: null, is_free: null, has_trial: null, has_partnership: null, country: '', categories_ids: [], collection_id: null, sort_type: sortType, sort_direction: sortDirection }, currentPage, numberOfElements))
+    }, [, search, sortType, sortDirection, currentPage, numberOfElements])
 
     useEffect(() => {
         setCurrentPage(1)
@@ -58,6 +60,40 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
 
     const dispatch = useDispatch()
 
+    const changeSortMode = (sort_type: string) => {
+        switch (sort_type) {
+            case 'new':
+                setSortMode('new')
+                setSortType('new')
+                setSortDirection(-1)
+                break
+            case 'rating':
+                setSortMode('rating')
+                setSortType('rating')
+                setSortDirection(-1)
+                break
+            case 'rating_low':
+                setSortMode('rating')
+                setSortType('rating')
+                setSortDirection(1)
+                break
+            case 'alphabet':
+                setSortMode('alphabet')
+                setSortType('alphabet')
+                setSortDirection(1)
+                break
+            case 'alphabet_reverse':
+                setSortMode('alphabet_reverse')
+                setSortType('alphabet')
+                setSortDirection(-1)
+                break
+            default:
+                setSortMode('')
+                setSortType(null)
+                setSortDirection(1)
+        }
+    }
+
     return <>
         <div className='user-admin-panel-table'>
             <div className='user-admin-panel-table-header'>
@@ -87,12 +123,12 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
                 </div>
                 <div className='sort-selection'>
                     <span>Сортировать:</span>
-                    <select className='color-blue' value={sortMode} onChange={e => setSortMode(e.target.value)}>
-                        <option value='default'>по умолчанию</option>
+                    <select className='color-blue' value={sortMode} onChange={e => changeSortMode(e.target.value)}>
+                        <option value=''>по умолчанию</option>
                         <option value='new'>по новизне</option>
-                        <option value='top'>по рейтингу</option>
-                        <option value='a-z'>по алфавиту: А-Я</option>
-                        <option value='z-a'>по алфавиту: Я-А</option>
+                        <option value='rating'>по рейтингу</option>
+                        <option value='alphabet'>по алфавиту: А-Я</option>
+                        <option value='alphabet_reverse'>по алфавиту: Я-А</option>
                     </select>
                 </div>
             </div>

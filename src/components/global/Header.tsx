@@ -1,12 +1,11 @@
 import * as React from 'react';
-import Logo from '../../static/images/logo.svg';
+// import Logo from '../../static/images/logo.svg';
 import Navigation from './Navigation';
 import Login from './Login';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import UserHeader from './UserHeader';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { mockArtData } from '../../actions/articles/articles';
 import { useState } from 'react';
 import NavbarMobile from './NavbarMobile';
 import { useDispatch } from 'react-redux';
@@ -100,7 +99,10 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                     case 'articles':
                         return <li><span>Статьи</span></li>
                     default:
-                        return <li><span>{mockArtData.find(article => article.id === parseInt(link))?.title}</span></li>
+                        if (rootState.articles.currentArticle?.id === parseInt(link)) {
+                            return <li><span>{rootState.articles.currentArticle?.title}</span></li>
+                        }
+                        return null
                 }
             })
         }
