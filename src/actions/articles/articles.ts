@@ -3,6 +3,7 @@ import MockPreviewImage from '../../static/images/article_preview_mock_image.web
 import { Dispatch } from "react";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
+import DOMPurify from "dompurify";
 
 export const articlesGetPost = (id: number) => (dispatch: Dispatch<articlesDispatchTypes>) => {
     axios.get(SERVER_URL + '/getPost', { params: { id } }).then(res => {
@@ -21,9 +22,18 @@ export const articlesGetPosts = () => (dispatch: Dispatch<articlesDispatchTypes>
     axios.get(SERVER_URL + '/getPosts').then(res => {
         // console.log(res.data)
 
+        const temp = res.data.map((a: TArticlesData) => {
+            const sanitized = DOMPurify.sanitize(a.content, { ALLOWED_TAGS: ['p'], ALLOWED_ATTR: [] })
+            return {
+                ...a,
+                previewImage: a.content.slice(a.content.indexOf('src=\"', a.content.indexOf('img')) + 5, a.content.indexOf('\"', a.content.indexOf('src=\"', a.content.indexOf('<img')) + 5)),
+                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>'))
+            }
+        })
+
         dispatch({
             type: ARTICLES_GET_POSTS,
-            payload: res.data
+            payload: temp
         })
     }).catch(error => {
         console.log(error)

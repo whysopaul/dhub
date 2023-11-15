@@ -21,7 +21,6 @@ import { Helmet } from 'react-helmet-async';
 import ServicePageMockup from './ServicePageMockup';
 import HomeServicesComponent from '../home/HomeServicesComponent';
 import HomeArticlesComponent from '../home/HomeArticlesComponent';
-import { mockArtData } from '../../actions/articles/articles';
 
 interface IServicePageProps {
 }
@@ -31,6 +30,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     const { serviceId } = useParams()
     const authState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services)
+    const articleState = useSelector((state: RootStore) => state.articles.articles)
     const [currentService, setCurrentService] = useState<TServicesData>(null)
     const [editMode, setEditMode] = useState(false)
 
@@ -454,7 +454,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 </div>}
             </section>
             <HomeServicesComponent title='Похожие сервисы' data={[]} qty={5} />
-            <HomeArticlesComponent data={mockArtData} />
+            <HomeArticlesComponent data={articleState} />
         </>}
     </>;
 };

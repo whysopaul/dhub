@@ -10,7 +10,6 @@ import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import Header from '../global/Header';
 import Footer from '../global/Footer';
 import AddServicePopup from './AddServicePopup';
-import { mockArtData } from '../../actions/articles/articles';
 
 import '../../static/css/home.css';
 import Welcome from '../../static/images/welcome.webp';
@@ -28,6 +27,7 @@ interface IHomeProps {
 const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const serviceState = useSelector((state: RootStore) => state.services)
+    const articleState = useSelector((state: RootStore) => state.articles.articles)
     // const categoriesState = useSelector((state: RootStore) => state.categories.categories)
     // const authState = useSelector((state: RootStore) => state.auth.user)
 
@@ -234,7 +234,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
             <HomeServicesComponent title='Топ-сервисов' data={serviceState.main_page.top_services} qty={servicesQty} sortModeLink='top' />
 
-            <HomeArticlesComponent data={mockArtData} />
+            <HomeArticlesComponent data={articleState} />
 
             <HomeServicesComponent title='Все сервисы' data={serviceState.main_page.all_services} qty={servicesQtyExtended} extended />
 

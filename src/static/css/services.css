@@ -357,6 +357,7 @@
     display: flex;
     align-items: center;
     align-self: center;
+    flex-shrink: 0;
 }
 
 .service-rating-divider {
