@@ -9,9 +9,14 @@ export const articlesGetPost = (id: number) => (dispatch: Dispatch<articlesDispa
     axios.get(SERVER_URL + '/getPost', { params: { id } }).then(res => {
         // console.log(res.data)
 
+        const sanitized = DOMPurify.sanitize(res.data.content, { ALLOWED_TAGS: ['p'], ALLOWED_ATTR: [] })
+
         dispatch({
             type: ARTICLES_GET_POST,
-            payload: res.data
+            payload: {
+                ...res.data,
+                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>')).replace('&nbsp;', ' ')
+            }
         })
     }).catch(error => {
         console.log(error)
@@ -27,7 +32,7 @@ export const articlesGetPosts = () => (dispatch: Dispatch<articlesDispatchTypes>
             return {
                 ...a,
                 previewImage: a.content.slice(a.content.indexOf('src=\"', a.content.indexOf('img')) + 5, a.content.indexOf('\"', a.content.indexOf('src=\"', a.content.indexOf('<img')) + 5)),
-                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>')),
+                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>')).replace('&nbsp;', ' '),
                 category: 'Маркетинг' // temp
             }
         })

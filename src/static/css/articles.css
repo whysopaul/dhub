@@ -187,6 +187,12 @@
     width: fit-content;
 }
 
+.article-page-side-container {
+    position: sticky;
+    top: 16px;
+    height: fit-content;
+}
+
 .article-page-sharing {
     display: flex;
     flex-wrap: nowrap;
@@ -209,14 +215,17 @@
     gap: 12px;
 }
 
-.article-page-sharing-buttons>button {
+.article-page-sharing-buttons>a {
     background: #386BEE;
     border-radius: 50%;
     color: white;
     width: 24px;
     height: 24px;
     font-size: 16px;
-    cursor: pointer;
+    line-height: 24px;
+    text-align: center;
+    text-decoration: none;
+    /* cursor: pointer; */
 }
 
 .article-page-admin-button {
@@ -245,6 +254,10 @@
 }
 
 /* MISC */
+
+.categories-section.articles-list-page>p {
+    margin-top: 0;
+}
 
 .articles-add-article-button {
     margin: 0 auto 0 24px;
@@ -308,7 +321,7 @@
 
 @media screen and (max-width: 576px) {
     .articles-cards {
-        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
         column-gap: 23px;
     }
 
@@ -365,11 +378,33 @@
         border-radius: 12px;
     }
 
+    .article-page-content-main-container table {
+        border-radius: initial;
+    }
+
+    .article-page-content-main-container table>tbody {
+        width: calc(100vw - 32px);
+        display: block;
+        overflow: auto;
+    }
+
+    .article-page-content-main-container table td {
+        padding: 18px;
+    }
+
+    .article-page-content-main-container img {
+        padding: 18px;
+    }
+
     .article-page-category {
         font-size: 10px;
         line-height: 10px;
         padding: 6px 10px;
         border-radius: 12px;
+    }
+
+    .article-page-side-container {
+        position: static;
     }
 
     .article-page-sharing {
@@ -385,9 +420,25 @@
         gap: 10px;
     }
 
-    .article-page-sharing-buttons>button {
+    .article-page-sharing-buttons>a {
         width: 20px;
         height: 20px;
         font-size: 14px;
+        line-height: 20px;
+    }
+
+    .section-header-container.articles-list-page {
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .section-header-container.articles-list-page>.section-main-title {
+        width: 50%;
+    }
+
+    .section-header-container.articles-list-page>.articles-add-article-button {
+        order: 3;
+        flex-shrink: 0;
+        margin: 0;
     }
 }

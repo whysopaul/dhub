@@ -28,7 +28,7 @@ const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props
 
         {showAddArticlePopup && <ArticleEditPopup article={{ id: -1, title: '', content: '' }} onClose={() => setShowAddArticlePopup(false)} add />}
 
-        <div className='categories-section'>
+        <div className='categories-section articles-list-page'>
             <p>Категории статей и обзоров:</p>
             <div>
                 <ul className='categories-list'>
@@ -38,7 +38,7 @@ const ArticlesListPage: React.FunctionComponent<IArticlesListPageProps> = (props
                 </ul>
             </div>
         </div>
-        <div className='section-header-container'>
+        <div className='section-header-container articles-list-page'>
             <h3 className='section-main-title'>Новости, статьи и обзоры</h3>
             {userState?.is_admin && <button className='articles-add-article-button' onClick={() => setShowAddArticlePopup(true)}>
                 <i className='fas fa-plus' />
