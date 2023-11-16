@@ -27,7 +27,8 @@ export const articlesGetPosts = () => (dispatch: Dispatch<articlesDispatchTypes>
             return {
                 ...a,
                 previewImage: a.content.slice(a.content.indexOf('src=\"', a.content.indexOf('img')) + 5, a.content.indexOf('\"', a.content.indexOf('src=\"', a.content.indexOf('<img')) + 5)),
-                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>'))
+                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>')),
+                category: 'Маркетинг' // temp
             }
         })
 

@@ -29,6 +29,7 @@
     height: 220px;
     object-fit: cover;
     border-radius: 16px;
+    min-width: 300px;
 }
 
 .article-card-image>span {
@@ -320,6 +321,7 @@
     }
 
     .article-card-image img {
+        min-width: auto;
         height: 100%;
         min-height: 120px;
         border-radius: 12px;

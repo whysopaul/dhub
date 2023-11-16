@@ -20,6 +20,7 @@ import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
 import { useDispatch } from 'react-redux';
 import { getMainPage } from '../../actions/services/services';
+import { articlesGetPosts } from '../../actions/articles/articles';
 
 interface IHomeProps {
 }
@@ -37,6 +38,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     useEffect(() => {
         dispatch(getMainPage())
+        dispatch(articlesGetPosts()) // temp
     }, [])
 
     const [showAddServicePopup, setShowAddServicePopup] = useState(false)
