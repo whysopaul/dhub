@@ -160,7 +160,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
         {showNavbarMobile && <NavbarMobile onClose={() => setShowNavbarMobile(false)} />}
 
         <header className='header'>
-            <div className='header-navbar'>
+            <nav className='header-navbar'>
                 {/* <img src={Logo} alt="" className='cursor-pointer' onClick={() => navigate('/')} /> */}
                 <h1 className='header-logo'><Link to='/' title='Главная страница'>digital <span>hub</span></Link></h1>
                 <div className='header-navbar-navigation'>
@@ -177,7 +177,7 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
                     <button onClick={() => rootState.auth.user ? navigate('/profile') : dispatch(userShowLoginPopup())} title={rootState.auth.user ? 'Профиль' : 'Войти в аккаунт'}><i className='fas fa-user' /></button>
                     <button className='bg-blue' onClick={() => setShowNavbarMobile(true)} title='Главное меню'><i className='fas fa-bars color-white' /></button>
                 </div>
-            </div>
+            </nav>
             {!props.root && <>
                 <div className='header-breadcrumbs'>
                     <ul>
