@@ -19,6 +19,8 @@ import CollectionPage from './components/collections/CollectionPage';
 import Head from './components/utils/Head';
 import { Suspense, lazy } from 'react';
 import Loading from './components/global/Loading';
+import Privacy from './components/legal/Privacy';
+import OfferAgreement from './components/legal/OfferAgreement';
 
 const AdminPanel = lazy(() => import('./components/admin/AdminPanel'));
 
@@ -50,6 +52,8 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                         <Route path='/profile/edit' element={<UserProfileEdit />} />
                         <Route path='/admin' element={<AdminPanel />} />
                     </Route>
+                    <Route path='/privacy' element={<Privacy />} />
+                    <Route path='/offer' element={<OfferAgreement />} />
                     <Route path='*' element={<Home />} />
 
                     <Route path='/loginVk' element={<LoginVk />} />

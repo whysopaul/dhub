@@ -192,7 +192,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const [copied, setCopied] = useState(false)
 
     const totalCount = rootState.services.search.total_count //searchCondition.length
-    const [numberOfServices] = useState(20)
+    const [numberOfServices] = useState(40)
     const numberOfPages = new Array(Math.ceil(totalCount / numberOfServices)).fill('').map((_, idx) => idx + 1)
     const siblingCount = 1
     const DOTS = '...'

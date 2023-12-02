@@ -15,7 +15,8 @@ export const articlesGetPost = (id: number) => (dispatch: Dispatch<articlesDispa
             type: ARTICLES_GET_POST,
             payload: {
                 ...res.data,
-                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>')).replace('&nbsp;', ' ')
+                description: sanitized.slice(sanitized.indexOf('<p>') + 3, sanitized.indexOf('<\/p>')).replace('&nbsp;', ' '),
+                category: 'Маркетинг' // temp
             }
         })
     }).catch(error => {

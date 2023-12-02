@@ -26,8 +26,8 @@ const Footer: React.FunctionComponent<IFooterProps> = (props) => {
                 </div>
                 <div className='footer-info'>
                     <div className='footer-doc-links'>
-                        <Link to='/'>Политика конфиденциальности</Link>
-                        <Link to='/'>Договор оферты</Link>
+                        <Link to='/privacy'>Политика конфиденциальности</Link>
+                        <Link to='/offer'>Договор оферты</Link>
                     </div>
                     <div className='footer-credentials'>
                         <p>ИП Крестинин К.И.</p>

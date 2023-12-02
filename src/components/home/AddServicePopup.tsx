@@ -61,7 +61,7 @@ const AddServicePopup: React.FunctionComponent<IAddServicePopupProps> = (props) 
                         <div className='add-service-checkbox-button'>
                             <div></div>
                         </div>
-                        <span>Соглашаюсь с <Link to='/'>политикой обработки</Link> персональных данных</span>
+                        <span>Соглашаюсь с <Link to='/privacy'>политикой обработки</Link> персональных данных</span>
                     </label>
                 </div>
                 <button type='submit' className='blue-shadow-button'>
