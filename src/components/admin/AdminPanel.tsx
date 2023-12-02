@@ -90,7 +90,8 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
                     promocode: '',
                     admin_notes: '',
                     is_hidden: false,
-                    discounts: []
+                    discounts: [],
+                    similar_services: []
                 }}
                 onClose={() => setCreateService(false)}
                 add

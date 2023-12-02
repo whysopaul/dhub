@@ -142,7 +142,7 @@ export type TServicesBlock = {
     id: number,
     title: string,
     service_ids: number[],
-    services_dict: TServicesData[],
+    services_dict?: TServicesData[],
     connections?: {
         id?: number,
         block: number,
