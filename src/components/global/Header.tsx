@@ -180,8 +180,9 @@ const Header: React.FunctionComponent<IHeaderProps> = (props) => {
             </nav>
             {!props.root && <>
                 <div className='header-breadcrumbs'>
-                    <ul>
-                        {createBreadCrumbs(location.pathname)}
+                    <ul itemScope itemType='https://schema.org/BreadcrumbList'>
+                        {createBreadCrumbs(location.pathname)
+                            .map((bc, idx) => bc ? <li itemProp='itemListElement' itemScope itemType='https://schema.org/ListItem' key={idx + 1}>{<bc.props.children.type itemProp='item' {...bc.props.children.props}>{bc.props.children.props.children}</bc.props.children.type>}<meta itemProp='position' content={idx + 1 + ''} /></li> : null)}
                     </ul>
                 </div>
             </>}

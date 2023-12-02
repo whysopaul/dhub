@@ -15,7 +15,7 @@ import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 import ServiceEditPopup from './ServiceEditPopup';
 import { useDispatch } from 'react-redux';
 import { getService } from '../../actions/services/services';
-import { feedbacksLength, getScreen } from '../utils';
+import { feedbacksLength, getImage } from '../utils';
 import { userAddHistory, userShowLoginPopup } from '../../actions/auth/auth';
 import { Helmet } from 'react-helmet-async';
 import ServicePageMockup from './ServicePageMockup';
@@ -153,53 +153,54 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                 <meta property='og:image' content={currentService.images.logo} />
             </Helmet>
 
-            <div className='service-main-container'>
-                <div>
-                    <div className='service-info'>
-                        <div className='service-info-header'>
-                            <div className='service-title-section'>
-                                <a href={currentService.link} target='_blank' rel='noopener noreferrer' title='Перейти в сервис'>
-                                    <h1 className='section-main-title'>{currentService.name}</h1>
-                                    <i className='fas fa-external-link-alt' />
-                                </a>
-                                {authState?.is_admin && <button onClick={() => setEditMode(true)}>Редактировать</button>}
-                                {currentService.discounts.find(d => d.is_promocode) && <div className='service-promocode'>
-                                    <p>Промокод:</p>
-                                    <span>{currentService.discounts.find(d => d.is_promocode).code}</span>
-                                    <a>
-                                        <i className='far fa-question-circle' />
-                                        <div className='service-promocode-dropdown'>
-                                            <div>
-                                                {currentService.discounts.find(d => d.is_promocode).description}
-                                            </div>
-                                        </div>
+            <div itemScope itemType='https://schema.org/SoftwareApplication'>
+                <div className='service-main-container'>
+                    <div>
+                        <div className='service-info'>
+                            <div className='service-info-header'>
+                                <div className='service-title-section'>
+                                    <a href={currentService.link} target='_blank' rel='noopener noreferrer' title='Перейти в сервис'>
+                                        <h1 className='section-main-title' itemProp='name'>{currentService.name}</h1>
+                                        <i className='fas fa-external-link-alt' />
                                     </a>
-                                </div>}
-                                {/* <span>{currentService.categories_3[0]?.name}</span> */}
-                            </div>
-                            <div className='service-rating-section'>
-                                <ServiceRatingTag rating={currentService.rating} />
-                                <div className='service-rating-divider' />
-                                <div className='service-feedback-qty'>
-                                    <i className='fas fa-star' />
-                                    <button onClick={() => feedbacksRef.current.scrollIntoView({ behavior: 'smooth' })}>{feedbacksLength(currentService.feedbacks.length)}</button>
+                                    {authState?.is_admin && <button onClick={() => setEditMode(true)}>Редактировать</button>}
+                                    {currentService.discounts.find(d => d.is_promocode) && <div className='service-promocode'>
+                                        <p>Промокод:</p>
+                                        <span>{currentService.discounts.find(d => d.is_promocode).code}</span>
+                                        <a>
+                                            <i className='far fa-question-circle' />
+                                            <div className='service-promocode-dropdown'>
+                                                <div>
+                                                    {currentService.discounts.find(d => d.is_promocode).description}
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>}
+                                    {/* <span>{currentService.categories_3[0]?.name}</span> */}
+                                </div>
+                                <div className='service-rating-section' itemProp='aggregateRating' itemScope itemType='https://schema.org/AggregateRating'>
+                                    <ServiceRatingTag rating={currentService.rating} itemProp='ratingValue' />
+                                    <div className='service-rating-divider' />
+                                    <div className='service-feedback-qty'>
+                                        <i className='fas fa-star' />
+                                        <button onClick={() => feedbacksRef.current.scrollIntoView({ behavior: 'smooth' })}>{currentService.feedbacks.length > 0 && <span itemProp='reviewCount'>{currentService.feedbacks.length}</span>}{feedbacksLength(currentService.feedbacks.length)}</button>
+                                    </div>
                                 </div>
                             </div>
+                            <hr />
+                            <div className='service-description-text' itemProp='description'>
+                                {currentService.description.text.length <= DESCRIPTION_SHORT_VALUE && currentService.description.text.split('\n').filter(p => p !== '').map((p, idx) => {
+                                    return <p key={idx}>{p}</p>
+                                })}
+                                {currentService.description.text.length > DESCRIPTION_SHORT_VALUE && currentService.description.text.slice(0, showFullDescription ? undefined : DESCRIPTION_SHORT_VALUE).split('\n').filter(p => p !== '').map((p, idx) => {
+                                    const shortenedParagraph = currentService.description.text.slice(0, DESCRIPTION_SHORT_VALUE).split('\n').filter(paragraph => paragraph !== '').length
+                                    return <p key={idx} style={((shortenedParagraph === idx + 1) && !showFullDescription) ? { display: 'inline', marginRight: '8px', marginBottom: 0 } : {}}>{p + (((shortenedParagraph === idx + 1) && !showFullDescription) ? '...' : '')}</p>
+                                })}
+                                {currentService.description.text.length > DESCRIPTION_SHORT_VALUE && <button onClick={() => setShowFullDescription(!showFullDescription)}>{showFullDescription ? 'Свернуть' : 'Подробнее'}</button>}
+                            </div>
                         </div>
-                        <hr />
-                        <div className='service-description-text'>
-                            {currentService.description.text.length <= DESCRIPTION_SHORT_VALUE && currentService.description.text.split('\n').filter(p => p !== '').map((p, idx) => {
-                                return <p key={idx}>{p}</p>
-                            })}
-                            {currentService.description.text.length > DESCRIPTION_SHORT_VALUE && currentService.description.text.slice(0, showFullDescription ? undefined : DESCRIPTION_SHORT_VALUE).split('\n').filter(p => p !== '').map((p, idx) => {
-                                const shortenedParagraph = currentService.description.text.slice(0, DESCRIPTION_SHORT_VALUE).split('\n').filter(paragraph => paragraph !== '').length
-                                return <p key={idx} style={((shortenedParagraph === idx + 1) && !showFullDescription) ? { display: 'inline', marginRight: '8px', marginBottom: 0 } : {}}>{p + (((shortenedParagraph === idx + 1) && !showFullDescription) ? '...' : '')}</p>
-                            })}
-                            {currentService.description.text.length > DESCRIPTION_SHORT_VALUE && <button onClick={() => setShowFullDescription(!showFullDescription)}>{showFullDescription ? 'Свернуть' : 'Подробнее'}</button>}
-                        </div>
-                    </div>
-                    <div className='service-more-info'>
-                        {/* <div className='service-banner-wrapper'>
+                        <div className='service-more-info'>
+                            {/* <div className='service-banner-wrapper'>
                             <div className='service-banner-container'>
                                 <div>
                                     <h3>Специалист в этом сервисе?</h3>
@@ -213,111 +214,111 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 </div>
                             </div>
                         </div> */}
-                        <hr />
-                        <div className='service-details'>
-                            <div className='service-details-row'>
-                                <span>Бесплатная версия</span>
-                                <span className='service-details-dashed-line' />
-                                <span className='service-details-data'>{currentService.description.isFree ? 'Да' : 'Нет'}</span>
-                            </div>
-                            <div className='service-details-row'>
-                                <span>Пробный период</span>
-                                <span className='service-details-dashed-line' />
-                                <span className='service-details-data'>{currentService.description.hasTrial ? 'Да' : 'Нет'}</span>
-                            </div>
-                            <div className='service-details-row'>
-                                <span>Стоимость</span>
-                                <span className='service-details-dashed-line' />
-                                <span className='service-details-data'>{currentService.description.price ? currentService.description.price : '–'}</span>
-                            </div>
-                            <div className='service-details-row'>
-                                <span>Способ оплаты</span>
-                                <span className='service-details-dashed-line' />
-                                <span className='service-details-data'>{currentService.description.paymentMethod ? currentService.description.paymentMethod : '–'}</span>
-                            </div>
-                            <div className='service-details-row'>
-                                <span>Дислокация</span>
-                                <span className='service-details-dashed-line' />
-                                <span className='service-details-data'>{currentService.description.locations?.length > 0 ? currentService.description.locations?.map(i => i.name).join(', ') : '–'}</span>
-                            </div>
-                            <div className='service-details-row'>
-                                <span>Платформа</span>
-                                <span className='service-details-dashed-line' />
-                                <span className='service-details-data'>{currentService.description.platforms?.length > 0 ? currentService.description.platforms?.map(i => i.name).join(', ') : '–'}</span>
-                            </div>
-                            <div className='service-details-row'>
-                                <span>Партнерская программа</span>
-                                <span className='service-details-dashed-line' />
-                                <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
-                            </div>
-                        </div>
-                        {screenWidth <= 576 && currentService.images.screenshots?.length > 0 && <div className='service-dropdown-container' onClick={() => setOpenScreenshots(!openScreenshots)}>
-                            <div className='service-dropdown-header'>
-                                <p>Скриншоты</p>
-                                <i className={openScreenshots ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
-                            </div>
-                            {openScreenshots && <div className='service-dropdown-content'>
-                                <div className='service-images'>
-                                    {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
-                                        return <>
-                                            <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getScreen(i.link))} key={i.id}>
-                                                <img src={getScreen(i.link)} alt={'Скриншот сервиса ' + currentService.name} />
-                                            </div>
-                                        </>
-                                    })}
-                                    {currentService.images.screenshots.length === 0 && <div className='service-image-wrapper empty'>
-                                        <i className='fas fa-image' />
-                                    </div>}
+                            <hr />
+                            <div className='service-details'>
+                                <div className='service-details-row'>
+                                    <span>Бесплатная версия</span>
+                                    <span className='service-details-dashed-line' />
+                                    <span className='service-details-data'>{currentService.description.isFree ? 'Да' : 'Нет'}</span>
                                 </div>
-                            </div>}
-                        </div>}
-                        {currentService.discounts.length > 0 && <div className='service-dropdown-container'>
-                            <div className='service-dropdown-header' onClick={() => setOpenDiscounts(!openDiscounts)}>
-                                <p>Промокоды и скидки</p>
-                                <i className={openDiscounts ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                                <div className='service-details-row'>
+                                    <span>Пробный период</span>
+                                    <span className='service-details-dashed-line' />
+                                    <span className='service-details-data'>{currentService.description.hasTrial ? 'Да' : 'Нет'}</span>
+                                </div>
+                                <div className='service-details-row'>
+                                    <span>Стоимость</span>
+                                    <span className='service-details-dashed-line' />
+                                    <span className='service-details-data'>{currentService.description.price ? currentService.description.price : '–'}</span>
+                                </div>
+                                <div className='service-details-row'>
+                                    <span>Способ оплаты</span>
+                                    <span className='service-details-dashed-line' />
+                                    <span className='service-details-data'>{currentService.description.paymentMethod ? currentService.description.paymentMethod : '–'}</span>
+                                </div>
+                                <div className='service-details-row'>
+                                    <span>Дислокация</span>
+                                    <span className='service-details-dashed-line' />
+                                    <span className='service-details-data'>{currentService.description.locations?.length > 0 ? currentService.description.locations?.map(i => i.name).join(', ') : '–'}</span>
+                                </div>
+                                <div className='service-details-row'>
+                                    <span>Платформа</span>
+                                    <span className='service-details-dashed-line' />
+                                    <span className='service-details-data' itemProp='operatingSystem'>{currentService.description.platforms?.length > 0 ? currentService.description.platforms?.map(i => i.name).join(', ') : '–'}</span>
+                                </div>
+                                <div className='service-details-row'>
+                                    <span>Партнерская программа</span>
+                                    <span className='service-details-dashed-line' />
+                                    <span className='service-details-data'>{currentService.description.hasPartnership ? 'Да' : 'Нет'}</span>
+                                </div>
                             </div>
-                            {openDiscounts && <div className='service-dropdown-content'>
-                                {currentService.discounts.map(d => {
-                                    if (d.is_promocode) {
-                                        return <div key={d.id}>
-                                            <div className='service-promocode'>
-                                                {/* <i className='fas fa-tag' /> */}
-                                                <p>Промокод:</p>
-                                                <span>{d.code}</span>
-                                            </div>
-                                            <p>{d.description}</p>
-                                        </div>
-                                    }
-                                    if (d.is_sale) {
-                                        return <div key={d.id}>
-                                            <div className='service-promocode'>
-                                                <p>Скидка:</p>
-                                            </div>
-                                            <p>{d.description}</p>
-                                        </div>
-                                    }
-                                })}
-                            </div>}
-                        </div>}
-                        <div className='service-dropdown-container'>
-                            <div className='service-dropdown-header' onClick={() => setOpenCategories(!openCategories)}>
-                                <p>Категории</p>
-                                <i className={openCategories ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
-                            </div>
-                            {openCategories && <div className='service-dropdown-content'>
-                                <div className='service-page-categories'>
-                                    <ul className='categories-list'>
-                                        {currentService.categories_3?.map(i => {
-
-                                            // const categoriesQty = serviceState.services.filter(service => service.categories_3?.find(category => category.id === i.id)).length
-
-                                            return <CategoryTag name={i.name} qty={i.service_count} onClick={() => navigate('/services?categories=' + i.id)} hideServiceCount key={i.id} />
+                            {screenWidth <= 576 && currentService.images.screenshots?.length > 0 && <div className='service-dropdown-container' onClick={() => setOpenScreenshots(!openScreenshots)}>
+                                <div className='service-dropdown-header'>
+                                    <p>Скриншоты</p>
+                                    <i className={openScreenshots ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                                </div>
+                                {openScreenshots && <div className='service-dropdown-content'>
+                                    <div className='service-images'>
+                                        {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
+                                            return <>
+                                                <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getImage(i.link))} key={i.id}>
+                                                    <img src={getImage(i.link)} alt={'Скриншот сервиса ' + currentService.name} itemProp='screenshot' />
+                                                </div>
+                                            </>
                                         })}
-                                    </ul>
-                                </div>
+                                        {currentService.images.screenshots.length === 0 && <div className='service-image-wrapper empty'>
+                                            <i className='fas fa-image' />
+                                        </div>}
+                                    </div>
+                                </div>}
                             </div>}
-                        </div>
-                        {/* <div className='service-dropdown-container'>
+                            {currentService.discounts.length > 0 && <div className='service-dropdown-container'>
+                                <div className='service-dropdown-header' onClick={() => setOpenDiscounts(!openDiscounts)}>
+                                    <p>Промокоды и скидки</p>
+                                    <i className={openDiscounts ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                                </div>
+                                {openDiscounts && <div className='service-dropdown-content'>
+                                    {currentService.discounts.map(d => {
+                                        if (d.is_promocode) {
+                                            return <div key={d.id}>
+                                                <div className='service-promocode'>
+                                                    {/* <i className='fas fa-tag' /> */}
+                                                    <p>Промокод:</p>
+                                                    <span>{d.code}</span>
+                                                </div>
+                                                <p>{d.description}</p>
+                                            </div>
+                                        }
+                                        if (d.is_sale) {
+                                            return <div key={d.id}>
+                                                <div className='service-promocode'>
+                                                    <p>Скидка:</p>
+                                                </div>
+                                                <p>{d.description}</p>
+                                            </div>
+                                        }
+                                    })}
+                                </div>}
+                            </div>}
+                            <div className='service-dropdown-container'>
+                                <div className='service-dropdown-header' onClick={() => setOpenCategories(!openCategories)}>
+                                    <p>Категории</p>
+                                    <i className={openCategories ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
+                                </div>
+                                {openCategories && <div className='service-dropdown-content'>
+                                    <div className='service-page-categories'>
+                                        <ul className='categories-list'>
+                                            {currentService.categories_3?.map(i => {
+
+                                                // const categoriesQty = serviceState.services.filter(service => service.categories_3?.find(category => category.id === i.id)).length
+
+                                                return <CategoryTag name={i.name} qty={i.service_count} onClick={() => navigate('/services?categories=' + i.id)} hideServiceCount key={i.id} />
+                                            })}
+                                        </ul>
+                                    </div>
+                                </div>}
+                            </div>
+                            {/* <div className='service-dropdown-container'>
                             <div className='service-dropdown-header' onClick={() => setOpenSimilarServices(!openSimilarServices)}>
                                 <p>Похожие сервисы</p>
                                 <i className={openSimilarServices ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
@@ -337,46 +338,46 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                                 </div>
                             </div>}
                         </div> */}
-                        <div className='service-dropdown-container'>
-                            <div className='service-dropdown-header' onClick={() => setOpenSpecialistInfo(!openSpecialistInfo)}>
-                                <p>Специалист в этом сервисе?</p>
-                                <i className={openSpecialistInfo ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
-                            </div>
-                            {openSpecialistInfo && <div className='service-dropdown-content'>
-                                <div>
-                                    <p>Специалист в этом сервисе? Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae amet, a ipsa, non dolores culpa, delectus explicabo repellat quo laboriosam possimus vero ex! Quasi perferendis asperiores repellendus, animi nesciunt iure dolorem quis magnam blanditiis voluptates, placeat esse error est corrupti ut deleniti? Magnam eos, eligendi similique obcaecati harum laboriosam suscipit officiis fugit, molestias animi, adipisci quos excepturi? Quae maiores autem ipsum ratione doloremque illum necessitatibus, nesciunt voluptatum tempora odit ipsam, rerum quos distinctio veritatis corrupti fuga facilis optio deserunt laborum at delectus? Sit, iusto explicabo? Aperiam, blanditiis qui perspiciatis numquam molestiae voluptate, ullam distinctio eligendi dolorem, laboriosam magni vitae fuga.</p>
+                            <div className='service-dropdown-container'>
+                                <div className='service-dropdown-header' onClick={() => setOpenSpecialistInfo(!openSpecialistInfo)}>
+                                    <p>Специалист в этом сервисе?</p>
+                                    <i className={openSpecialistInfo ? 'fas fa-arrow-down' : 'fas fa-arrow-right'} />
                                 </div>
+                                {openSpecialistInfo && <div className='service-dropdown-content'>
+                                    <div>
+                                        <p>Специалист в этом сервисе? Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae amet, a ipsa, non dolores culpa, delectus explicabo repellat quo laboriosam possimus vero ex! Quasi perferendis asperiores repellendus, animi nesciunt iure dolorem quis magnam blanditiis voluptates, placeat esse error est corrupti ut deleniti? Magnam eos, eligendi similique obcaecati harum laboriosam suscipit officiis fugit, molestias animi, adipisci quos excepturi? Quae maiores autem ipsum ratione doloremque illum necessitatibus, nesciunt voluptatum tempora odit ipsam, rerum quos distinctio veritatis corrupti fuga facilis optio deserunt laborum at delectus? Sit, iusto explicabo? Aperiam, blanditiis qui perspiciatis numquam molestiae voluptate, ullam distinctio eligendi dolorem, laboriosam magni vitae fuga.</p>
+                                    </div>
+                                </div>}
+                            </div>
+                        </div>
+                        {screenWidth > 576 && <a href={currentService.link} target='_blank' rel='noopener noreferrer' className='arrow-right-link' itemProp='url'>
+                            <span>Перейти в сервис</span>
+                            <i className='fas fa-long-arrow-alt-right' />
+                        </a>}
+                    </div>
+
+                    {screenWidth > 576 && <div>
+                        <div className='service-images'>
+                            {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
+                                return <>
+                                    <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getImage(i.link))} key={i.id}>
+                                        <img src={getImage(i.link)} alt={'Скриншот сервиса ' + currentService.name} itemProp='screenshot' />
+                                    </div>
+                                </>
+                            })}
+                            {currentService.images.screenshots.length === 0 && <div className='service-image-wrapper empty'>
+                                <i className='fas fa-image' />
                             </div>}
                         </div>
-                    </div>
-                    {screenWidth > 576 && <a href={currentService.link} target='_blank' rel='noopener noreferrer' className='arrow-right-link'>
+                    </div>}
+
+                    {screenWidth <= 576 && <a href={currentService.link} target='_blank' rel='noopener noreferrer' className='arrow-right-link' itemProp='url'>
                         <span>Перейти в сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
                     </a>}
                 </div>
-
-                {screenWidth > 576 && <div>
-                    <div className='service-images'>
-                        {currentService.images.screenshots.length > 0 && currentService.images.screenshots.slice(0, 4).map(i => {
-                            return <>
-                                <div className='service-image-wrapper' onClick={() => setSelectedImageSource(getScreen(i.link))} key={i.id}>
-                                    <img src={getScreen(i.link)} alt={'Скриншот сервиса ' + currentService.name} />
-                                </div>
-                            </>
-                        })}
-                        {currentService.images.screenshots.length === 0 && <div className='service-image-wrapper empty'>
-                            <i className='fas fa-image' />
-                        </div>}
-                    </div>
-                </div>}
-
-                {screenWidth <= 576 && <a href={currentService.link} target='_blank' rel='noopener noreferrer' className='arrow-right-link'>
-                    <span>Перейти в сервис</span>
-                    <i className='fas fa-long-arrow-alt-right' />
-                </a>}
-            </div>
-            <section>
-                {/* <div className='service-section-header-options'>
+                <section>
+                    {/* <div className='service-section-header-options'>
                     <div className='service-section-header-buttons'>
                         <button className={mode === 1 ? 'active' : null} onClick={() => setMode(1)}>
                             <p>Отзывы</p>
@@ -395,66 +396,67 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                     </div>}
                 </div> */}
 
-                <div className='section-header-container'>
-                    <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
-                    <button className='service-specialists-login-button' onClick={() => !authState ? dispatch(userShowLoginPopup()) : null}>
-                        <i className='fas fa-sign-in-alt' />
-                        <span>Стать специалистом</span>
-                    </button>
-                </div>
-                {screenWidth > 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
-                    {currentService.specialists?.map(specialist => {
-                        return <SpecialistCardComponent specialist={specialist} key={specialist.id} />
-                    })}
-                </div>}
-                {screenWidth <= 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
-                    {currentService.specialists?.slice(currentSpecialist, currentSpecialist + 1).map(specialist => {
-                        const dataLength = currentService.specialists?.length
-                        return <>
-                            <SpecialistCardComponent specialist={specialist} key={specialist.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, currentSpecialist, setCurrentSpecialist, dataLength - 1)} />
-                            <div className='cards-mobile-swipe-bar'>
-                                {[...new Array(dataLength)].map((_, idx) => {
-                                    return <button className={specialist.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
-                                })}
-                            </div>
-                        </>
-                    })}
-                </div>}
-                {currentService.specialists?.length === 0 && <div className='service-specialists-no-specialists'>
-                    <p>Пока никого нет. Станьте первым!</p>
-                </div>}
+                    <div className='section-header-container'>
+                        <h2 className='section-main-title'>Специалисты по {currentService.name}</h2>
+                        <button className='service-specialists-login-button' onClick={() => !authState ? dispatch(userShowLoginPopup()) : null}>
+                            <i className='fas fa-sign-in-alt' />
+                            <span>Стать специалистом</span>
+                        </button>
+                    </div>
+                    {screenWidth > 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
+                        {currentService.specialists?.map(specialist => {
+                            return <SpecialistCardComponent specialist={specialist} key={specialist.id} />
+                        })}
+                    </div>}
+                    {screenWidth <= 576 && currentService.specialists?.length > 0 && <div className='service-specialists-cards'>
+                        {currentService.specialists?.slice(currentSpecialist, currentSpecialist + 1).map(specialist => {
+                            const dataLength = currentService.specialists?.length
+                            return <>
+                                <SpecialistCardComponent specialist={specialist} key={specialist.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, currentSpecialist, setCurrentSpecialist, dataLength - 1)} />
+                                <div className='cards-mobile-swipe-bar'>
+                                    {[...new Array(dataLength)].map((_, idx) => {
+                                        return <button className={specialist.id === idx + 1 ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
+                                    })}
+                                </div>
+                            </>
+                        })}
+                    </div>}
+                    {currentService.specialists?.length === 0 && <div className='service-specialists-no-specialists'>
+                        <p>Пока никого нет. Станьте первым!</p>
+                    </div>}
 
-                <div className='section-header-container' ref={feedbacksRef}>
-                    <h2 className='section-main-title'>Отзывы</h2>
-                    <button className='feedback-button' onClick={() => authState ? setShowFeedbackPopup(true) : dispatch(userShowLoginPopup())}>
-                        <i className='far fa-edit' />
-                        <span>Оставить отзыв</span>
-                    </button>
-                </div>
-                {screenWidth > 576 && currentService.feedbacks?.length > 0 && <div className='feedback-cards'>
-                    {currentService.feedbacks?.map(i => {
-                        return <FeedbackCardComponent comment={i} key={i.id} />
-                    })}
-                </div>}
-                {screenWidth <= 576 && currentService.feedbacks?.length > 0 && <div className='feedback-cards'>
-                    {currentService.feedbacks?.slice(currentCard, currentCard + 1).map(i => {
-                        const dataLength = currentService.feedbacks.length
-                        return <>
-                            <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, currentCard, setCurrentCard, dataLength - 1)} />
-                            <div className='cards-mobile-swipe-bar'>
-                                {[...new Array(dataLength)].map((_, idx) => {
-                                    return <button className={currentCard === idx ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
-                                })}
-                            </div>
-                        </>
-                    })}
-                </div>}
-                {currentService.feedbacks.length === 0 && <div className='feedback-no-feedbacks'>
-                    <p>Отзывов пока нет. Оставьте отзыв первым!</p>
-                </div>}
-            </section>
-            <HomeServicesComponent title='Похожие сервисы' data={[]} qty={5} />
-            <HomeArticlesComponent data={articleState} />
+                    <div className='section-header-container' ref={feedbacksRef}>
+                        <h2 className='section-main-title'>Отзывы</h2>
+                        <button className='feedback-button' onClick={() => authState ? setShowFeedbackPopup(true) : dispatch(userShowLoginPopup())}>
+                            <i className='far fa-edit' />
+                            <span>Оставить отзыв</span>
+                        </button>
+                    </div>
+                    {screenWidth > 576 && currentService.feedbacks?.length > 0 && <div className='feedback-cards'>
+                        {currentService.feedbacks?.map(i => {
+                            return <FeedbackCardComponent comment={i} key={i.id} />
+                        })}
+                    </div>}
+                    {screenWidth <= 576 && currentService.feedbacks?.length > 0 && <div className='feedback-cards'>
+                        {currentService.feedbacks?.slice(currentCard, currentCard + 1).map(i => {
+                            const dataLength = currentService.feedbacks.length
+                            return <>
+                                <FeedbackCardComponent comment={i} key={i.id} onTouchStart={handleTouchStart} onTouchMove={e => handleTouchMove(e, currentCard, setCurrentCard, dataLength - 1)} />
+                                <div className='cards-mobile-swipe-bar'>
+                                    {[...new Array(dataLength)].map((_, idx) => {
+                                        return <button className={currentCard === idx ? 'cards-mobile-swipe-point active' : 'cards-mobile-swipe-point'} onClick={() => setCurrentCard(idx)} key={idx}></button>
+                                    })}
+                                </div>
+                            </>
+                        })}
+                    </div>}
+                    {currentService.feedbacks.length === 0 && <div className='feedback-no-feedbacks'>
+                        <p>Отзывов пока нет. Оставьте отзыв первым!</p>
+                    </div>}
+                </section>
+                <HomeServicesComponent title='Похожие сервисы' data={[]} qty={5} />
+                <HomeArticlesComponent data={articleState} />
+            </div>
         </>}
     </>;
 };

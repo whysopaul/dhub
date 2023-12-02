@@ -1,3 +1,5 @@
+import { TServicesData } from "../services/types"
+
 export const USER_LOGIN = 'USER_LOGIN'
 export const USER_LOGOUT = 'USER_LOGOUT'
 export const USER_ADD_HISTORY = 'USER_ADD_HISTORY'
@@ -13,6 +15,7 @@ export type TUserData = {
     is_admin: boolean,
     d_token: string,
     history: number[], // service_id array
+    history_dict: TServicesData[],
     is_specialist: boolean,
     specialist_description: string,
     specialist_services: number[]

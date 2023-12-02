@@ -7,7 +7,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { TServicesData } from '../../actions/services/types';
 import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
-import { URL, countriesList } from '../utils';
+import { URL, countriesList, debounce } from '../utils';
 import { useNavigate, useParams } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
@@ -416,7 +416,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <label><input type='checkbox' onChange={() => setSearchByName(searchByName ? null : true)} checked={searchByName} /> названию</label>
                         <label><input type='checkbox' onChange={() => setSearchByText(searchByText ? null : true)} checked={searchByText} /> описанию</label>
                     </div>
-                    <input type='text' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
+                    <input type='text' placeholder='Поиск' /* value={search} */ onChange={debounce(e => setSearch(e.target.value), 1000)} autoComplete='off' />
                     <i className='fas fa-search color-blue' />
                 </div>
                 <div className='wide-search-container'>

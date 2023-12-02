@@ -37,6 +37,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
     // 1 - отзывы, 2 - история просмотров
     const [mode, setMode] = useState<number>(1)
     const [showFeedbackPopup, setShowFeedbackPopup] = useState(false)
+    const [historySliceCut, setHistorySliceCut] = useState(20)
 
     return <>
 
@@ -96,14 +97,14 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
             </>}
             {mode === 2 && <>
                 <div className='home-services-cards extended'>
-                    {userState.history?.map(i => {
-                        return <ServiceCardComponent service={serviceState.find(service => service.id === i)} key={i} />
+                    {userState.history_dict?.slice(0, historySliceCut > userState.history_dict?.length ? undefined : historySliceCut).map(i => {
+                        return <ServiceCardComponent service={i} key={i.id} />
                     })}
                 </div>
                 <div className='show-more-container'>
-                    {userState.history?.length > 10 && <button className='color-blue cursor-pointer'>
-                        <span>Показать еще</span>
-                        <i className='fas fa-chevron-down' />
+                    {userState.history_dict?.length > 20 && <button className='color-blue cursor-pointer' onClick={() => setHistorySliceCut((prev) => prev > userState.history_dict?.length ? 20 : prev + 20)}>
+                        <span>{historySliceCut > userState.history_dict?.length ? 'Скрыть' : 'Показать еще'}</span>
+                        <i className={historySliceCut > userState.history_dict?.length ? 'fas fa-chevron-up' : 'fas fa-chevron-down'} />
                     </button>}
                 </div>
             </>}

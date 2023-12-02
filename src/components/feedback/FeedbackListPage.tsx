@@ -6,6 +6,7 @@ import { feedbackSearchFeedbacks } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from './FeedbackCardComponent';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { debounce } from '../utils';
 
 interface IFeedbackListPageProps {
 }
@@ -121,7 +122,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
             </div>
         </div>
         <div className='wide-search-container'>
-            <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
+            <input type='text' placeholder='Введите название сервиса' /* value={search} */ onChange={debounce(e => setSearch(e.target.value), 1000)} autoComplete='off' />
             <i className='fas fa-search color-blue' />
         </div>
         {/* <div className='categories-section'>

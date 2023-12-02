@@ -46,7 +46,7 @@ const CollectionPage: React.FunctionComponent<ICollectionPageProps> = (props) =>
                             <h2>{b.title}</h2>
                         </div>
                         <div className='home-services-cards'>
-                            {serviceState.is_loading ? <ServiceCardMockup qty={5} /> : serviceState.services.filter(s => b.service_ids.includes(s.id)).map(s => {
+                            {serviceState.is_loading ? <ServiceCardMockup qty={5} /> : b.services_dict?.map(s => {
                                 return <ServiceCardComponent service={s} key={s.id} />
                             })}
                         </div>

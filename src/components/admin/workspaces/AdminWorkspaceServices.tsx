@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { deleteService, getSearch, serviceDataUpdate, serviceToggleHiddenStatus } from '../../../actions/services/services';
 import { Link } from 'react-router-dom';
 import { TServicesData } from '../../../actions/services/types';
+import { debounce } from '../../utils';
 
 interface IAdminWorkspaceServicesProps {
     onEdit: (_: TServicesData) => void,
@@ -98,7 +99,7 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
         <div className='user-admin-panel-table'>
             <div className='user-admin-panel-table-header'>
                 <div className='wide-search-container'>
-                    <input type='text' placeholder='Поиск по названию' value={search} onChange={e => setSearch(e.target.value)} />
+                    <input type='text' placeholder='Поиск по названию' /* value={search} */ onChange={debounce(e => setSearch(e.target.value), 1000)} />
                     <i className='fas fa-search' />
                 </div>
                 <div className='user-admin-panel-search-length'>

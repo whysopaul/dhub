@@ -11,6 +11,7 @@ import { useDispatch } from 'react-redux';
 import { feedbackClearGeneratedFeedback, feedbackCreateFeedback, feedbackGenerateFeedback, feedbackUpdateFeedback } from '../../actions/feedback/feedback';
 import { TFeedback } from '../../actions/feedback/types';
 import ConfirmPopup from '../global/ConfirmPopup';
+import { getImage } from '../utils';
 
 interface IGiveFeedbackPopupProps {
     service?: TServicesData,
@@ -139,7 +140,7 @@ const GiveFeedbackPopup: React.FunctionComponent<IGiveFeedbackPopupProps> = (pro
                                     {showList && searchFilterName.map(service => {
                                         return <>
                                             <label className='feedback-popup-services-list-item' key={service.id}>
-                                                <img src={'https://api.vtargete.pro' + service.logo_url} alt={service.name} loading='lazy' />
+                                                <img src={getImage(service.logo_url)} alt={service.name} loading='lazy' />
                                                 <div>
                                                     <p>{service.name}</p>
                                                     {/* <span>{service.categories_3[0]?.name}</span> */}

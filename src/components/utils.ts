@@ -5,8 +5,19 @@ export const createServiceLink = (name: string): string => {
     return name.split(' ').join('').split('.').join('').toLocaleLowerCase()
 }
 
-export const getScreen = (path: string): string => {
-    return path
+export const debounce = (func, delay) => {
+    let timeoutId
+    return (...args) => {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => {
+            timeoutId = null
+            func(...args)
+        }, delay)
+    }
+}
+
+export const getImage = (path: string): string => {
+    return 'https://api.vtargete.pro' + path
 }
 
 export const feedbacksLength = (feedbacks_length: number): string => {
@@ -16,16 +27,16 @@ export const feedbacksLength = (feedbacks_length: number): string => {
         return 'Нет отзывов'
     }
     if (feedbacks_length < 10 && m === 1 || feedbacks_length > 20 && m === 1) {
-        return feedbacks_length + ' отзыв'
+        return ' отзыв'
     }
     if (feedbacks_length < 10 && m > 1 && m < 5 || feedbacks_length > 20 && m > 1 && m < 5) {
-        return feedbacks_length + ' отзыва'
+        return ' отзыва'
     }
     if (feedbacks_length < 10 && m >= 5 || feedbacks_length > 20 && m >= 5) {
-        return feedbacks_length + ' отзывов'
+        return ' отзывов'
     }
     if (feedbacks_length >= 10 && feedbacks_length >= 20) {
-        return feedbacks_length + ' отзывов'
+        return ' отзывов'
     }
 }
 

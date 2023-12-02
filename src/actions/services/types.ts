@@ -10,6 +10,7 @@ export const GET_ALL_SERVICES_SIMPLE_LIST = 'GET_ALL_SERVICES_SIMPLE_LIST'
 export const GET_ALL_SERVICES_LOCATIONS = 'GET_ALL_SERVICES_LOCATIONS'
 export const GET_ALL_SERVICES_PLATFORMS = 'GET_ALL_SERVICES_PLATFORMS'
 export const GET_ALL_SERVICES_DISCOUNTS = 'GET_ALL_SERVICES_DISCOUNTS'
+export const GET_SERVICES_BY_ID = 'GET_SERVICES_BY_ID'
 export const GET_SERVICE = 'GET_SERVICE'
 export const GET_SERVICE_APPLICATIONS = 'GET_SERVICE_APPLICATIONS'
 export const GET_BLOCK = 'GET_BLOCK'
@@ -80,6 +81,7 @@ export type TServicesData = {
     is_hidden: boolean,
     discounts: TDiscount[],
     specialists?: TUserData[],
+    similar_services: any,
     isNew?: boolean
 }
 
@@ -140,6 +142,7 @@ export type TServicesBlock = {
     id: number,
     title: string,
     service_ids: number[],
+    services_dict: TServicesData[],
     connections?: {
         id?: number,
         block: number,
@@ -215,6 +218,11 @@ interface IGetAllServicesPlatforms {
 interface IGetAllServicesDiscounts {
     type: typeof GET_ALL_SERVICES_DISCOUNTS,
     payload: TDiscount[]
+}
+
+interface IGetServicesById {
+    type: typeof GET_SERVICES_BY_ID,
+    payload: TServicesData[]
 }
 
 interface IGetService {
@@ -347,7 +355,7 @@ interface IDeleteAction {
     payload: string
 }
 
-export type servicesDispatchTypes = IGetMainPage | IGetSearch | IGetAllServices | IGetAllServicesSimpleList | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetService | IGetServiceApplications | IGetBlock | IGetBlocks | IGetCollection | IGetCollections | IGetUpdateServiceLogos
+export type servicesDispatchTypes = IGetMainPage | IGetSearch | IGetAllServices | IGetAllServicesSimpleList | IGetAllServicesLocations | IGetAllServicesPlatforms | IGetAllServicesDiscounts | IGetServicesById | IGetService | IGetServiceApplications | IGetBlock | IGetBlocks | IGetCollection | IGetCollections | IGetUpdateServiceLogos
     | IServicesLoading | IServiceDataUpdate | IServiceUpdateLink | IServiceUpdateDiscount | IServiceToggleHiddenStatus
     | IUpdateBlock | IUpdateCollection
     | ICreateLocation | ICreatePlatform | ICreateScreenshot | ICreateScreenshotWithFile | ICreateDiscount | ICreateServiceApplication | ICreateBlock | ICreateCollection | IUploadServiceLogo | IUploadServiceLogoWithFile
