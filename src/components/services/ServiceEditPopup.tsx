@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { TCategory } from '../../actions/categories/types';
 import Loading from '../global/Loading';
-import { countriesList } from '../utils';
+import { countriesList, getImage } from '../utils';
 
 interface IServiceEditPopupProps {
     service: TServicesData,
@@ -600,7 +600,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                             </div> */}
                             <div className='service-edit-logo-container'>
                                 {props.service.images?.logo_file
-                                    ? <img src={props.service.images.logo_file} />
+                                    ? <img src={getImage(props.service.images.logo_file)} />
                                     : <i className='fas fa-image' />}
                                 <button
                                     className='service-edit-secondary-button'
@@ -655,7 +655,7 @@ const ServiceEditPopup: React.FunctionComponent<IServiceEditPopupProps> = (props
                                             <i className='fas fa-save' />
                                         </button> */}
                                             <div className='service-edit-screenshot-wrapper'>
-                                                <img src={s.link} />
+                                                <img src={getImage(s.link)} />
                                                 <button onClick={() => {
                                                     if (confirm('Подтвердите удаление скриншота')) {
                                                         dispatch(deleteScreenshot(s.id, userState.d_token))

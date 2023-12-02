@@ -454,7 +454,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
                         <p>Отзывов пока нет. Оставьте отзыв первым!</p>
                     </div>}
                 </section>
-                <HomeServicesComponent title='Похожие сервисы' data={[]} qty={5} />
+                <HomeServicesComponent title='Похожие сервисы' data={currentService.similar_services} qty={5} />
                 <HomeArticlesComponent data={articleState} />
             </div>
         </>}
