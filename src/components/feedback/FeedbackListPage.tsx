@@ -7,6 +7,7 @@ import FeedbackCardComponent from './FeedbackCardComponent';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { debounce } from '../utils';
+import Loading from '../global/Loading';
 
 interface IFeedbackListPageProps {
 }
@@ -137,11 +138,12 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
             </div>
         </div> */}
 
-        <div className='feedback-cards'>
+        {!feedbackState.feedback_is_loading && <div className='feedback-cards'>
             {feedbackState.search_feedbacks.data?.map(i => {
                 return <FeedbackCardComponent comment={i} key={i.id} />
             })}
-        </div>
+        </div>}
+        {feedbackState.feedback_is_loading && <Loading height={400} />}
 
         {numberOfPages.length > 1 && <div className='services-list-pagination'>
             <button className={currentPage === 1 ? 'page-number-button disabled' : 'page-number-button'} onClick={() => { currentPage > 1 && changePage(currentPage - 1) }} disabled={currentPage === 1}>

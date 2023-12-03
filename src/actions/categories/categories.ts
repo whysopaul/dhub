@@ -1,11 +1,22 @@
 import { Dispatch } from "react";
-import { CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, TNewCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "./types";
+import { CATEGORIES_LOADING, CREATE_CATEGORY, CREATE_CATEGORY_RELATIONS, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, TNewCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "./types";
 import axios from "axios";
 import { SERVER_URL } from "../../components/utils";
 
 export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchTypes>) => {
+
+    dispatch({
+        type: CATEGORIES_LOADING,
+        payload: true
+    })
+
     axios.get(SERVER_URL + '/getCategories').then(res => {
         // console.log(res.data)
+
+        dispatch({
+            type: CATEGORIES_LOADING,
+            payload: false
+        })
 
         dispatch({
             type: GET_ALL_CATEGORIES,
@@ -13,6 +24,11 @@ export const getAllCategories = () => (dispatch: Dispatch<categoriesDispatchType
         })
     }).catch(error => {
         console.log(error)
+
+        dispatch({
+            type: CATEGORIES_LOADING,
+            payload: false
+        })
     })
 }
 

@@ -7,6 +7,8 @@ export const UPDATE_CATEGORY = 'UPDATE_CATEGORY'
 
 export const DELETE_CATEGORY = 'DELETE_CATEGORY'
 
+export const CATEGORIES_LOADING = 'CATEGORIES_LOADING'
+
 // export type TMainCategory = {
 //     id: number,
 //     name: string,
@@ -53,4 +55,9 @@ interface IDeleteCategory {
     payload: string
 }
 
-export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations | IUpdateCategory | IDeleteCategory
+interface ICategoriesLoading {
+    type: typeof CATEGORIES_LOADING,
+    payload: boolean
+}
+
+export type categoriesDispatchTypes = IGetCategories | ICreateCategory | ICreateCategoryRelations | IUpdateCategory | IDeleteCategory | ICategoriesLoading

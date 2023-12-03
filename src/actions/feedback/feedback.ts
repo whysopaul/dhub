@@ -92,8 +92,19 @@ export const feedbackDeleteFeedback = (d_token: string, id: number) => (dispatch
 }
 
 export const feedbackGetUserFeedback = (d_token: string) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
+
+    dispatch({
+        type: FEEDBACK_IS_LOADING,
+        payload: true
+    })
+
     axios.get(SERVER_URL + '/getUserFeedback', { params: { d_token } }).then(res => {
         // console.log(res.data)
+
+        dispatch({
+            type: FEEDBACK_IS_LOADING,
+            payload: false
+        })
 
         dispatch({
             type: FEEDBACK_GET_USER_FEEDBACK,
@@ -101,12 +112,28 @@ export const feedbackGetUserFeedback = (d_token: string) => (dispatch: Dispatch<
         })
     }).catch(error => {
         console.log(error)
+
+        dispatch({
+            type: FEEDBACK_IS_LOADING,
+            payload: false
+        })
     })
 }
 
 export const feedbackSearchFeedbacks = (params: { service_name: string }, page: number, number_of_elements: number) => (dispatch: Dispatch<feedbackDispatchTypes>) => {
+
+    dispatch({
+        type: FEEDBACK_IS_LOADING,
+        payload: true
+    })
+
     axios.post(SERVER_URL + '/searchFeedbacks', JSON.stringify({ params, page, number_of_elements })).then(res => {
         // console.log(res.data)
+
+        dispatch({
+            type: FEEDBACK_IS_LOADING,
+            payload: false
+        })
 
         dispatch({
             type: FEEDBACK_SEARCH_FEEDBACKS,
@@ -114,6 +141,11 @@ export const feedbackSearchFeedbacks = (params: { service_name: string }, page: 
         })
     }).catch(error => {
         console.log(error)
+
+        dispatch({
+            type: FEEDBACK_IS_LOADING,
+            payload: false
+        })
     })
 }
 

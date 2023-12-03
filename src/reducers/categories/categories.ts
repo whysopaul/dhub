@@ -1,11 +1,13 @@
-import { CREATE_CATEGORY, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "../../actions/categories/types"
+import { CATEGORIES_LOADING, CREATE_CATEGORY, DELETE_CATEGORY, GET_ALL_CATEGORIES, TCategory, UPDATE_CATEGORY, categoriesDispatchTypes } from "../../actions/categories/types"
 
 interface IDefaultState {
     categories: TCategory[],
+    is_loading: boolean
 }
 
 const defaultState: IDefaultState = {
     categories: [],
+    is_loading: false
 }
 
 export const categoriesReducer = (state: IDefaultState = defaultState, action: categoriesDispatchTypes) => {
@@ -36,6 +38,11 @@ export const categoriesReducer = (state: IDefaultState = defaultState, action: c
             return {
                 ...state,
                 categories: [...state.categories.filter(category => category.id !== parseInt(action.payload))]
+            }
+        case CATEGORIES_LOADING:
+            return {
+                ...state,
+                is_loading: action.payload
             }
         default:
             return state

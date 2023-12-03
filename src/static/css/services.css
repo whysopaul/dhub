@@ -246,6 +246,7 @@
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    gap: 10px;
     margin-bottom: 32px;
 }
 
@@ -259,9 +260,10 @@
 }
 
 .service-title-section>a {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    /* display: flex; */
+    /* align-items: center; */
+    /* gap: 12px; */
+    display: inline;
     text-decoration: none;
 }
 
@@ -285,8 +287,14 @@
     grid-column-end: span 2;
 }
 
+.service-title-section .section-main-title {
+    display: inline;
+    margin-right: 12px;
+}
+
 .service-title-section i {
     color: #386BEE;
+    vertical-align: text-top;
 }
 
 .service-promocode {

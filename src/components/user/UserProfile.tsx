@@ -10,6 +10,7 @@ import '../../static/css/user.css';
 import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 import { URL } from '../utils';
 import { useDispatch } from 'react-redux';
+import Loading from '../global/Loading';
 
 interface IUserProfileProps {
 }
@@ -18,7 +19,7 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
 
     const userState = useSelector((state: RootStore) => state.auth.user)
     const serviceState = useSelector((state: RootStore) => state.services.services)
-    const feedbackState = useSelector((state: RootStore) => state.feedback.feedbacks)
+    const feedbackState = useSelector((state: RootStore) => state.feedback)
 
     const dispatch = useDispatch()
 
@@ -88,12 +89,13 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
                 </div>
             </div>
             {mode === 1 && <>
-                {feedbackState.length > 0 && <div className='feedback-cards'>
-                    {feedbackState.map(i => {
+                {!feedbackState.feedback_is_loading && feedbackState.feedbacks.length > 0 && <div className='feedback-cards'>
+                    {feedbackState.feedbacks.map(i => {
                         return <FeedbackCardComponent comment={i} owner key={i.id} />
                     })}
                 </div>}
-                {feedbackState.length === 0 && <p className='user-profile-no-feedback'>Вы пока не оставили отзывов. Оставьте свой первый отзыв!</p>}
+                {!feedbackState.feedback_is_loading && feedbackState.feedbacks.length === 0 && <p className='user-profile-no-feedback'>Вы пока не оставили отзывов. Оставьте свой первый отзыв!</p>}
+                {feedbackState.feedback_is_loading && <Loading height={400} />}
             </>}
             {mode === 2 && <>
                 <div className='home-services-cards extended'>
