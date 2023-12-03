@@ -19,8 +19,11 @@ import Subscribe from '../../static/images/subscribe.webp';
 import Wave from '../../static/images/wave.svg';
 import Service from '../../static/images/service_banner.webp';
 import { useDispatch } from 'react-redux';
-import { getMainPage } from '../../actions/services/services';
+import { getMainPage, serviceDataUpdate } from '../../actions/services/services';
 import { articlesGetPosts } from '../../actions/articles/articles';
+import axios from 'axios';
+import { SERVER_URL } from '../utils';
+import { TServicesData } from '../../actions/services/types';
 
 interface IHomeProps {
 }
@@ -116,6 +119,27 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
         setTouchPosition(null)
     }
 
+    // const updateServiceDescription = async () => {
+    //     const res = await axios.post(SERVER_URL + '/getSearch', JSON.stringify({ params: { categories_ids: [4398] }, page: 1, number_of_elements: 400 }))
+    //     // console.log(res)
+
+    //     const data: TServicesData[] = res.data.data
+
+    //     data.map(service => {
+    //         var newService: TServicesData = {
+    //             ...service,
+    //             description: {
+    //                 ...service.description,
+    //                 text: service.description.text.split('\n').slice(1).join('\n')
+    //             }
+    //         }
+
+    //         // dispatch(serviceDataUpdate(newService))
+
+    //         console.log(service.id)
+    //     })
+    // }
+
     return <>
 
         {showAddServicePopup && <AddServicePopup onClose={() => setShowAddServicePopup(false)} />}
@@ -133,6 +157,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                     <img src={Welcome} alt='' />
                 </div>
                 <div className='home-welcome-buttons'>
+                    {/* <button style={{ background: 'red', width: 200, height: 100, color: '#ffffff' }} onClick={() => updateServiceDescription()}>hehe</button> */}
                     <button className='blue-shadow-button home-search-button' onClick={() => navigate('/services')}>
                         <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />

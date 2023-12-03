@@ -1,3 +1,5 @@
+import { TServicesData } from "../actions/services/types"
+
 export const SERVER_URL = 'https://api.vtargete.pro/api/digital_hub'
 export const URL = window.location.href.includes('localhost') ? 'http://localhost:8080' : window.location.href.includes('web') ? 'https://digital-hub-3505b.web.app' : 'https://digital-hub-3505b.netlify.app'
 
@@ -17,7 +19,23 @@ export const debounce = (func, delay) => {
 }
 
 export const getImage = (path: string): string => {
-    return 'https://api.vtargete.pro' + path
+    return path // 'https://api.vtargete.pro' + 
+}
+
+export const sliceDescription = (service: TServicesData): TServicesData => {
+    if (service === null) return service
+
+    if (service.id < 4000) return service
+
+    if (!service.description.text.includes('\n')) return service
+
+    return {
+        ...service,
+        description: {
+            ...service.description,
+            text: service.description.text.split('\n').slice(1).join('\n')
+        }
+    }
 }
 
 export const feedbacksLength = (feedbacks_length: number): string => {

@@ -15,7 +15,7 @@ import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
 import ServiceEditPopup from './ServiceEditPopup';
 import { useDispatch } from 'react-redux';
 import { getService } from '../../actions/services/services';
-import { feedbacksLength, getImage } from '../utils';
+import { feedbacksLength, getImage, sliceDescription } from '../utils';
 import { userAddHistory, userShowLoginPopup } from '../../actions/auth/auth';
 import { Helmet } from 'react-helmet-async';
 import ServicePageMockup from './ServicePageMockup';
@@ -54,7 +54,7 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
 
     useEffect(() => {
         if (serviceState.currentService?.id === parseInt(serviceId)) {
-            setCurrentService(serviceState.currentService)
+            setCurrentService(sliceDescription(serviceState.currentService))
         }
     }, [, serviceState.currentService])
 

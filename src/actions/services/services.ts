@@ -246,13 +246,7 @@ export const getService = (service_id: number) => (dispatch: Dispatch<servicesDi
 
         dispatch({
             type: GET_SERVICE,
-            payload: {
-                ...res.data,
-                description: {
-                    ...res.data.description,
-                    text: res.data.id > 4000 ? res.data.description.text.split('\n').slice(1).join('\n') : res.data.description.text
-                }
-            }
+            payload: res.data
         })
     }).catch(error => {
         console.log(error)
@@ -341,7 +335,7 @@ export const serviceDataUpdate = (serviceData: TServicesData) => (dispatch: Disp
             payload: res.data
         })
 
-        window.location.reload()
+        // window.location.reload()
     }).catch(error => {
         console.log(error)
     })
