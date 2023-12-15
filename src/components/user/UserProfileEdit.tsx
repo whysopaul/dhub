@@ -4,7 +4,7 @@ import { RootStore } from '../../store';
 import { Link } from 'react-router-dom';
 import '../../static/css/user.css';
 import { useEffect, useState } from 'react';
-import { URL } from '../utils';
+// import { URL } from '../utils';
 
 interface IUserProfileEditProps {
 }
@@ -13,11 +13,11 @@ const UserProfileEdit: React.FunctionComponent<IUserProfileEditProps> = (props) 
 
     const userState = useSelector((state: RootStore) => state.auth.user)
 
-    useEffect(() => {
-        if (!userState) {
-            window.location.replace(URL)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!userState) {
+    //         window.location.replace(URL)
+    //     }
+    // }, [])
 
     const [firstName, setFirstName] = useState(userState?.name.split(' ')[0])
     const [lastName, setLastName] = useState(userState?.name.split(' ')[1])

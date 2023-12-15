@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Home from './components/home/Home';
 import ServicePage from './components/services/ServicePage';
 import ServicesSearchList from './components/services/ServicesSearchList';
@@ -21,6 +21,8 @@ import { Suspense, lazy } from 'react';
 import Loading from './components/global/Loading';
 import Privacy from './components/legal/Privacy';
 import OfferAgreement from './components/legal/OfferAgreement';
+import { useSelector } from 'react-redux';
+import { RootStore } from './store';
 
 const AdminPanel = lazy(() => import('./components/admin/AdminPanel'));
 
@@ -28,6 +30,9 @@ interface IAppProps {
 }
 
 const App: React.FunctionComponent<IAppProps> = (props) => {
+
+    const userState = useSelector((state: RootStore) => state.auth.user)
+
     return <>
         <Suspense fallback={<Loading height={'100vh'} />}>
             <BrowserRouter>
@@ -48,13 +53,13 @@ const App: React.FunctionComponent<IAppProps> = (props) => {
                         <Route path='/article/:articleId' element={<ArticlePage />} />
                         <Route path='/collections' element={<CollectionsPage />} />
                         <Route path='/collection/:collectionId' element={<CollectionPage />} />
-                        <Route path='/profile' element={<UserProfile />} />
-                        <Route path='/profile/edit' element={<UserProfileEdit />} />
-                        <Route path='/admin' element={<AdminPanel />} />
+                        {userState && <Route path='/profile' element={<UserProfile />} />}
+                        {userState && <Route path='/profile/edit' element={<UserProfileEdit />} />}
+                        {userState && userState.is_admin && <Route path='/admin' element={<AdminPanel />} />}
                     </Route>
                     <Route path='/privacy' element={<Privacy />} />
                     <Route path='/offer' element={<OfferAgreement />} />
-                    <Route path='*' element={<Home />} />
+                    <Route path='*' element={<Navigate to='/' replace />} />
 
                     <Route path='/loginVk' element={<LoginVk />} />
                 </Routes>

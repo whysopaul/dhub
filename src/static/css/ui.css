@@ -52,6 +52,7 @@
 
 .blue-shadow-button.home-search-button {
     padding: 0 32px;
+    text-decoration: none;
 }
 
 .round-item-button {

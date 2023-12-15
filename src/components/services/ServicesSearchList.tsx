@@ -4,16 +4,17 @@ import { RootStore } from '../../store';
 import CategoryTag from '../categories/CategoryTag';
 import ServiceCardComponent from './ServiceCardComponent';
 import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
-import { TServicesData } from '../../actions/services/types';
+// import { TServicesData } from '../../actions/services/types';
 import { TCategory } from '../../actions/categories/types';
 import { useOnClickOutside } from '../utils/HandleClickOutside';
-import { URL, countriesList, debounce } from '../utils';
+import { URL, countriesList, range } from '../utils';
 import { useNavigate, useParams } from 'react-router';
 import { Link, useLocation } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import ServiceCardMockup from './ServiceCardMockup';
 import { useDispatch } from 'react-redux';
 import { getSearch } from '../../actions/services/services';
+import { useDebounce } from '../utils/useDebounce';
 
 interface IServicesSearchListProps {
 }
@@ -30,6 +31,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const rootState = useSelector((state: RootStore) => state)
 
     const [search, setSearch] = useState('')
+    const debouncedSearch = useDebounce(search, 1000)
     const [isFree, setIsFree] = useState<boolean>(null)
     const [hasTrial, setHasTrial] = useState<boolean>(null)
     const [hasPartnership, setHasPartnership] = useState<boolean>(null)
@@ -46,9 +48,9 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const dropdownRef = useRef(null)
     useOnClickOutside(dropdownRef, () => setShowDropdown(false))
 
-    const paymentMethodOne = ['по подписке', 'ежемесячно', 'ежегодно', 'посуточно', 'ежеквартально', 'месяц', 'ежедневно', 'еженедельно', 'поквартально', 'подписка', 'ежечасно', 'покупка баллов']
-    const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов', 'поштучно']
-    const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
+    // const paymentMethodOne = ['по подписке', 'ежемесячно', 'ежегодно', 'посуточно', 'ежеквартально', 'месяц', 'ежедневно', 'еженедельно', 'поквартально', 'подписка', 'ежечасно', 'покупка баллов']
+    // const paymentMethodTwo = ['за действие', 'за время', 'комиссия', 'нефиксированная', 'нефикс', 'за услугу', 'за число кликов', 'поштучно']
+    // const paymentMethodThree = ['разовая', 'покупка лицензии', 'за пакет', 'фиксированный']
 
     const [sortMode, setSortMode] = useState<string>('')
     const [sortType, setSortType] = useState<'new' | 'rating' | 'alphabet'>(null)
@@ -58,15 +60,22 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
 
     useEffect(() => {
         if (isParamsChecked) {
-            dispatch(getSearch({ search_string: search, include_name: searchByName, include_description: searchByText, is_free: isFree, has_trial: hasTrial, has_partnership: hasPartnership, country, categories_ids: selectedCategories, collection_id: collection, sort_type: sortType, sort_direction: sortDirection }, currentPage, numberOfServices))
-        }
-    }, [, isParamsChecked, search, isFree, hasTrial, hasPartnership, searchByName, searchByText, country, selectedCategories, collection, sortType, sortDirection, currentPage])
+            // Debounce (when some param set on the currentPage > 1)
+            const debouncedGetSearch = setTimeout(() => {
+                dispatch(getSearch({ search_string: search, include_name: searchByName, include_description: searchByText, is_free: isFree, has_trial: hasTrial, has_partnership: hasPartnership, country, categories_ids: selectedCategories, collection_id: collection, sort_type: sortType, sort_direction: sortDirection }, currentPage, numberOfServices))
+            }, 100)
 
-    const searchSource = (): TServicesData[] => {
-        if (collection !== -1)
-            return rootState.services.services.filter(s => rootState.services.blocks.filter(b => rootState.services.collections.find(c => c.id === collection).connections.map(b_c => b_c.block).includes(b.id)).flatMap(b => b.service_ids).includes(s.id))
-        return rootState.services.services
-    }
+            return () => {
+                clearTimeout(debouncedGetSearch)
+            }
+        }
+    }, [, isParamsChecked, debouncedSearch, isFree, hasTrial, hasPartnership, searchByName, searchByText, country, selectedCategories, collection, sortType, sortDirection, currentPage])
+
+    // const searchSource = (): TServicesData[] => {
+    //     if (collection !== -1)
+    //         return rootState.services.services.filter(s => rootState.services.blocks.filter(b => rootState.services.collections.find(c => c.id === collection).connections.map(b_c => b_c.block).includes(b.id)).flatMap(b => b.service_ids).includes(s.id))
+    //     return rootState.services.services
+    // }
 
     /* const searchCondition: TServicesData[] = searchSource().map(service => {
         return {
@@ -122,16 +131,16 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             : setSelectedCategories([...selectedCategories, category.id])
     }
 
-    const togglePaymentMethod = (paymentMethod: number) => {
-        paymentMethods.includes(paymentMethod)
-            ? setPaymentMethods(paymentMethods.filter(p_m => p_m !== paymentMethod))
-            : setPaymentMethods([...paymentMethods, paymentMethod])
-    }
+    // const togglePaymentMethod = (paymentMethod: number) => {
+    //     paymentMethods.includes(paymentMethod)
+    //         ? setPaymentMethods(paymentMethods.filter(p_m => p_m !== paymentMethod))
+    //         : setPaymentMethods([...paymentMethods, paymentMethod])
+    // }
 
     // console.log([...new Set(rootState.services.services.map(s => s.description.paymentMethod))])
 
     const [openMobileFuncInputs, setOpenMobileFuncInputs] = useState(false)
-    const [openMobilePaymentInputs, setOpenMobilePaymentInputs] = useState(false)
+    // const [openMobilePaymentInputs, setOpenMobilePaymentInputs] = useState(false)
     const [openMobileCountry, setOpenMobileCountry] = useState(false)
 
     // const searchParamsInputRef = useRef<HTMLInputElement>(null)
@@ -169,12 +178,12 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             urlParams.append('rating', 'top')
         }
 
-        if (searchByName) {
-            urlParams.append('searchbyname', 'true')
+        if (!searchByName) {
+            urlParams.append('searchbyname', 'false')
         }
 
-        if (searchByText) {
-            urlParams.append('searchbytext', 'true')
+        if (!searchByText) {
+            urlParams.append('searchbytext', 'false')
         }
 
         if (country) {
@@ -196,15 +205,6 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const numberOfPages = new Array(Math.ceil(totalCount / numberOfServices)).fill('').map((_, idx) => idx + 1)
     const siblingCount = 1
     const DOTS = '...'
-
-    const range = (start: number, end: number): number[] => {
-        let length = end - start + 1;
-        /*
-            Create an array of certain length and set the elements within it from
-          start value to end value.
-        */
-        return Array.from({ length }, (_, idx) => idx + start);
-    };
 
     const paginationRange = useMemo(() => {
         const totalPageCount = Math.ceil(totalCount / numberOfServices);
@@ -306,10 +306,10 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
             setSortDirection(1)
         }
         if (urlParams.has('searchbyname')) {
-            setSearchByName(true)
+            setSearchByName(null)
         }
         if (urlParams.has('searchbytext')) {
-            setSearchByText(true)
+            setSearchByText(null)
         }
         if (urlParams.has('country')) {
             setCountry(urlParams.get('country'))
@@ -326,18 +326,22 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
     const checkFirstRender = useRef(true)
     const firstRender = checkFirstRender.current
 
-    useLayoutEffect(() => {
-        checkFirstRender.current = false
-        return
-    })
+    // useLayoutEffect(() => {
+    //     checkFirstRender.current = false
+    //     return
+    // })
 
     useEffect(() => {
-        setCurrentPage(1)
+        // setCurrentPage(1)
+
+        if (firstRender) {
+            checkFirstRender.current = false
+        }
 
         if (!firstRender && !window.location.search) {
             navigate('/services')
         }
-    }, [, search, isFree, hasTrial, hasPartnership, paymentMethods, selectedCategories, searchByName, searchByText, country, collection])
+    }, [, debouncedSearch, isFree, hasTrial, hasPartnership, paymentMethods, selectedCategories, searchByName, searchByText, country, collection])
 
     useEffect(() => {
         if (!pageNumber || parseInt(pageNumber) === 1) {
@@ -416,7 +420,7 @@ const ServicesSearchList: React.FunctionComponent<IServicesSearchListProps> = (p
                         <label><input type='checkbox' onChange={() => setSearchByName(searchByName ? null : true)} checked={searchByName} /> названию</label>
                         <label><input type='checkbox' onChange={() => setSearchByText(searchByText ? null : true)} checked={searchByText} /> описанию</label>
                     </div>
-                    <input type='text' placeholder='Поиск' /* value={search} */ onChange={debounce(e => setSearch(e.target.value), 1000)} autoComplete='off' />
+                    <input type='text' placeholder='Поиск' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
                     <i className='fas fa-search color-blue' />
                 </div>
                 <div className='wide-search-container'>

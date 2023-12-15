@@ -8,7 +8,7 @@ import FeedbackCardComponent from '../feedback/FeedbackCardComponent';
 import ServiceCardComponent from '../services/ServiceCardComponent';
 import '../../static/css/user.css';
 import GiveFeedbackPopup from '../feedback/GiveFeedbackPopup';
-import { URL } from '../utils';
+// import { URL } from '../utils';
 import { useDispatch } from 'react-redux';
 import Loading from '../global/Loading';
 
@@ -25,11 +25,11 @@ const UserProfile: React.FunctionComponent<IUserProfileProps> = (props) => {
 
     const navigate = useNavigate()
 
-    useEffect(() => {
-        if (!userState) {
-            window.location.replace(URL)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!userState) {
+    //         window.location.replace(URL)
+    //     }
+    // }, [])
 
     useEffect(() => {
         dispatch(feedbackGetUserFeedback(userState?.d_token))

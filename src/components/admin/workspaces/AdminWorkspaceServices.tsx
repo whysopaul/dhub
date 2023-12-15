@@ -7,7 +7,7 @@ import { useDispatch } from 'react-redux';
 import { deleteService, getSearch, serviceDataUpdate, serviceToggleHiddenStatus } from '../../../actions/services/services';
 import { Link } from 'react-router-dom';
 import { TServicesData } from '../../../actions/services/types';
-import { debounce } from '../../utils';
+import { useDebounce } from '../../utils/useDebounce';
 
 interface IAdminWorkspaceServicesProps {
     onEdit: (_: TServicesData) => void,
@@ -20,6 +20,7 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
     const serviceState = useSelector((state: RootStore) => state.services)
 
     const [search, setSearch] = useState('')
+    const debouncedSearch = useDebounce(search, 1000)
     const [sortMode, setSortMode] = useState<string>('')
     const [sortType, setSortType] = useState<'new' | 'rating' | 'alphabet'>(null)
     const [sortDirection, setSortDirection] = useState<1 | -1>(1)
@@ -29,7 +30,7 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
 
     useEffect(() => {
         dispatch(getSearch({ search_string: search, include_name: true, include_description: null, is_free: null, has_trial: null, has_partnership: null, country: '', categories_ids: [], collection_id: null, sort_type: sortType, sort_direction: sortDirection }, currentPage, numberOfElements))
-    }, [, search, sortType, sortDirection, currentPage, numberOfElements])
+    }, [, debouncedSearch, sortType, sortDirection, currentPage, numberOfElements])
 
     useEffect(() => {
         setCurrentPage(1)
@@ -99,7 +100,7 @@ const AdminWorkspaceServices: React.FunctionComponent<IAdminWorkspaceServicesPro
         <div className='user-admin-panel-table'>
             <div className='user-admin-panel-table-header'>
                 <div className='wide-search-container'>
-                    <input type='text' placeholder='Поиск по названию' /* value={search} */ onChange={debounce(e => setSearch(e.target.value), 1000)} />
+                    <input type='text' placeholder='Поиск по названию' value={search} onChange={e => setSearch(e.target.value)} />
                     <i className='fas fa-search' />
                 </div>
                 <div className='user-admin-panel-search-length'>

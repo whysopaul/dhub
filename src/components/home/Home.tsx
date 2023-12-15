@@ -37,7 +37,7 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
 
     const dispatch = useDispatch()
 
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     useEffect(() => {
         dispatch(getMainPage())
@@ -158,10 +158,10 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 </div>
                 <div className='home-welcome-buttons'>
                     {/* <button style={{ background: 'red', width: 200, height: 100, color: '#ffffff' }} onClick={() => updateServiceDescription()}>hehe</button> */}
-                    <button className='blue-shadow-button home-search-button' onClick={() => navigate('/services')}>
+                    <Link to='/services' className='blue-shadow-button home-search-button'>
                         <span>Найти сервис</span>
                         <i className='fas fa-long-arrow-alt-right' />
-                    </button>
+                    </Link>
                     <button className='round-item-button' onClick={() => setShowAddServicePopup(true)}>
                         <div>
                             <i className='fas fa-plus' />
@@ -208,11 +208,11 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                         </button>
                     </div>
                     <div>
-                        <div className='home-giftbox-image'>
-                            <img src={Giftbox} alt="" />
+                        <div className='home-giftbox-image' style={{ backgroundImage: `url(${Giftbox})` }}>
+                            {/* <img src={Giftbox} alt="" /> */}
                         </div>
-                        <div className='home-taskboard-image'>
-                            <img src={Taskboard} alt="" />
+                        <div className='home-taskboard-image' style={{ backgroundImage: `url(${Taskboard})` }}>
+                            {/* <img src={Taskboard} alt="" /> */}
                         </div>
                     </div>
                 </div>
@@ -224,8 +224,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                             <i className='fas fa-long-arrow-alt-right' />
                         </button>
                     </div>
-                    <div>
-                        <img src={Service} alt="" />
+                    <div className='home-specialist-banner-image' style={{ backgroundImage: `url(${Service})` }}>
+                        {/* <img src={Service} alt="" /> */}
                     </div>
                 </div>
             </div>
@@ -269,8 +269,8 @@ const Home: React.FunctionComponent<IHomeProps> = (props) => {
                 <div className='home-subscription-container'>
                     <h2>Только полезная информация и не чаще чем раз в неделю</h2>
                     {/* <p>Подписывайтесь на нашу рассылку</p> */}
-                    <div>
-                        <img src={Subscribe} alt="" />
+                    <div className='home-subscription-image' style={{ backgroundImage: `url(${Subscribe})` }}>
+                        {/* <img src={Subscribe} alt="" /> */}
                     </div>
                     <div className='home-subscription-buttons'>
                         <button id='vk'><i className='fab fa-vk' /><span>Вконтакте</span></button>

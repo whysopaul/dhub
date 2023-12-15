@@ -65,10 +65,10 @@ const ServicePage: React.FunctionComponent<IServicePageProps> = (props) => {
     }, [])
 
     useEffect(() => {
-        if (serviceState.services.length > 0 && typeof serviceState.services.find(s => s.id === parseInt(serviceId)) === 'undefined') {
-            window.location.replace('/')
+        if (serviceState.services_simple_list.length > 0 && typeof serviceState.services_simple_list.find(s => s.id === parseInt(serviceId)) === 'undefined') {
+            navigate('/', { replace: true })
         }
-    }, [, serviceState.services])
+    }, [, serviceState.services_simple_list])
 
     const [selectedImageSource, setSelectedImageSource] = useState(null)
 

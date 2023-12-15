@@ -6,8 +6,9 @@ import { feedbackSearchFeedbacks } from '../../actions/feedback/feedback';
 import FeedbackCardComponent from './FeedbackCardComponent';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { debounce } from '../utils';
 import Loading from '../global/Loading';
+import { useDebounce } from '../utils/useDebounce';
+import { range } from '../utils';
 
 interface IFeedbackListPageProps {
 }
@@ -19,11 +20,12 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
     const feedbackState = useSelector((state: RootStore) => state.feedback)
 
     const [search, setSearch] = useState('')
+    const debouncedSearch = useDebounce(search, 1000)
     const [currentPage, setCurrentPage] = useState(1)
 
     useEffect(() => {
         dispatch(feedbackSearchFeedbacks({ service_name: search }, currentPage, numberOfFeedbacks))
-    }, [, search, currentPage])
+    }, [, debouncedSearch, currentPage])
 
     const titleRef = useRef(null)
 
@@ -32,15 +34,6 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
     const numberOfPages = new Array(Math.ceil(totalCount / numberOfFeedbacks)).fill('').map((_, idx) => idx + 1)
     const siblingCount = 1
     const DOTS = '...'
-
-    const range = (start: number, end: number): number[] => {
-        let length = end - start + 1;
-        /*
-            Create an array of certain length and set the elements within it from
-          start value to end value.
-        */
-        return Array.from({ length }, (_, idx) => idx + start);
-    };
 
     const paginationRange = useMemo(() => {
         const totalPageCount = Math.ceil(totalCount / numberOfFeedbacks);
@@ -123,7 +116,7 @@ const FeedbackListPage: React.FunctionComponent<IFeedbackListPageProps> = (props
             </div>
         </div>
         <div className='wide-search-container'>
-            <input type='text' placeholder='Введите название сервиса' /* value={search} */ onChange={debounce(e => setSearch(e.target.value), 1000)} autoComplete='off' />
+            <input type='text' placeholder='Введите название сервиса' value={search} onChange={e => setSearch(e.target.value)} autoComplete='off' />
             <i className='fas fa-search color-blue' />
         </div>
         {/* <div className='categories-section'>

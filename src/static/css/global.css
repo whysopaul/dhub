@@ -287,6 +287,17 @@ hr {
     margin-top: 18px;
 }
 
+/* LEGAL */
+
+.legal-container>h1 {
+    margin-bottom: 32px;
+}
+
+.legal-container>p {
+    line-height: 20px;
+    text-align: justify;
+}
+
 /* NAVBAR MOBILE */
 
 .navbar-mobile {

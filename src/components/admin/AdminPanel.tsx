@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useSelector } from 'react-redux';
 import { RootStore } from '../../store';
 import { useEffect, useState } from 'react';
-import { URL } from '../utils';
+// import { URL } from '../utils';
 // import { useDispatch } from 'react-redux';
 // import { createService } from '../../actions/services/services';
 import ServiceEditPopup from '../services/ServiceEditPopup';
@@ -53,11 +53,11 @@ const AdminPanel: React.FunctionComponent<IAdminPanelProps> = (props) => {
     const [editCollection, setEditCollection] = useState<TServicesCollection>(null)
     const [editBlock, setEditBlock] = useState<TServicesBlock>(null)
 
-    useEffect(() => {
-        if (!userState || !userState?.is_admin) {
-            window.location.replace(URL)
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!userState || !userState?.is_admin) {
+    //         window.location.replace(URL)
+    //     }
+    // }, [])
 
     return <>
         {userState?.is_admin && <>

@@ -7,16 +7,25 @@ export const createServiceLink = (name: string): string => {
     return name.split(' ').join('').split('.').join('').toLocaleLowerCase()
 }
 
-export const debounce = (func, delay) => {
-    let timeoutId
-    return (...args) => {
-        clearTimeout(timeoutId)
-        timeoutId = setTimeout(() => {
-            timeoutId = null
-            func(...args)
-        }, delay)
-    }
-}
+// export const debounce = (func, delay) => {
+//     let timeoutId
+//     return (...args) => {
+//         clearTimeout(timeoutId)
+//         timeoutId = setTimeout(() => {
+//             timeoutId = null
+//             func(...args)
+//         }, delay)
+//     }
+// }
+
+export const range = (start: number, end: number): number[] => {
+    let length = end - start + 1;
+    /*
+        Create an array of certain length and set the elements within it from
+      start value to end value.
+    */
+    return Array.from({ length }, (_, idx) => idx + start);
+};
 
 export const getImage = (path: string): string => {
     return path // 'https://api.vtargete.pro' + 

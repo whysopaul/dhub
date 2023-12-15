@@ -264,16 +264,18 @@
     color: #FFFFFF;
 }
 
-.home-giftbox-image>img {
+.home-giftbox-image {
     width: 87px;
     height: 100px;
     filter: drop-shadow(8px 20px 32px rgba(61, 104, 184, 0.4));
     position: absolute;
     top: 72px;
     left: 322px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
-.home-taskboard-image>img {
+.home-taskboard-image {
     width: 155.88px;
     height: 200.37px;
     filter: drop-shadow(8px 20px 32px rgba(61, 104, 184, 0.4));
@@ -282,6 +284,8 @@
     top: 10px;
     /* left: 418px; */
     right: 34px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .home-specialist-banner-container {
@@ -294,13 +298,15 @@
     overflow: hidden;
 }
 
-.home-specialist-banner-container img {
+.home-specialist-banner-image {
     width: 182px;
     height: 260px;
     position: absolute;
     top: 17px;
     right: 76px;
     filter: drop-shadow(8px 72px 24px #0A3066);
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 /* HOME FEEDBACK */
@@ -401,12 +407,14 @@
     margin-bottom: 16px;
 } */
 
-.home-subscription-container img {
+.home-subscription-image {
     width: 304px;
     height: 226px;
     position: absolute;
     top: -20px;
     right: 442px;
+    background-size: contain;
+    background-repeat: no-repeat;
 }
 
 .home-subscription-buttons {
@@ -598,7 +606,7 @@
         line-height: 22px;
     }
 
-    .home-giftbox-image>img {
+    .home-giftbox-image {
         width: 64px;
         height: 74px;
         top: 57px;
@@ -606,7 +614,7 @@
         right: 108px;
     }
 
-    .home-taskboard-image>img {
+    .home-taskboard-image {
         width: 131.28px;
         height: 168.75px;
         top: 14px;
@@ -618,7 +626,7 @@
         padding: 16px;
     }
 
-    .home-specialist-banner-container img {
+    .home-specialist-banner-image {
         width: 132px;
         height: 189px;
         top: 16px;
@@ -669,7 +677,7 @@
         margin-bottom: 10px;
     }
 
-    .home-subscription-container img {
+    .home-subscription-image {
         width: 195px;
         height: 145px;
         top: 15px;
