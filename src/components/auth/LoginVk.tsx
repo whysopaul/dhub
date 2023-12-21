@@ -2,6 +2,7 @@ import * as React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { extractToken } from '../../actions/auth/auth';
+import Loading from '../global/Loading';
 
 interface ILoginVkProps {
 }
@@ -15,7 +16,10 @@ const LoginVk: React.FunctionComponent<ILoginVkProps> = (props) => {
         console.log(url)
         dispatch(extractToken())
     }, [])
-    return <></>;
+
+    return <>
+        <Loading height={'100vh'} />
+    </>;
 };
 
 export default LoginVk;
